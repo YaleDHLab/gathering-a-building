@@ -27,6 +27,16 @@
     margin-left: -92px;
   }
 
+  /*
+  .column:hover {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    margin-left: 0px;
+  }
+  */
+
   .column-0 {
     background-color: red;
   }
@@ -75,6 +85,21 @@
     height: 100%;
   }
 
+  .section-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    margin-left: 0px;
+  }
+
+  .nav-overlay {
+    position: fixed;
+    margin-left: calc(20% - 84px);
+    width: calc(550px - 98px);
+    z-index: 200;
+  }
+
   </style>
 
   <div class="home-container">
@@ -93,7 +118,12 @@
 
 
   <script>
-    $(".column").on("mouseover", function() { console.log(this)});
+    $(".column").click(function() {
+      // mouse enter
+      $(this).toggleClass("section-overlay");
+      $(".text-overlay").toggleClass("nav-overlay");
+    });
+
   </script>
 
 </body>
