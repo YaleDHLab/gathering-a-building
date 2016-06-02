@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+<head>
+
+<script src="/vendor/js/jquery-2.2.2.js"></script>
+
+</head>
+<body>
+
+  <style>
+  html, body { 
+    height: 100%; 
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .home { 
+    height: 100%;
+  }
+
+  .column { 
+    cursor: pointer;
+    float: right; 
+    width: 20%;
+    clear: none;
+    /* to increase size of left-most div, just decrement margin-left */
+    margin-left: -92px;
+  }
+
+  /*
+  .column:hover {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    margin-left: 0px;
+  }
+  */
+
+  .column-0 {
+    background-color: red;
+  }
+
+  .column-0>div {
+    padding-right: 110px;
+  }
+
+  .column-1 {
+    background-color: yellow;
+  }
+
+  .column-2 {
+    background-color: blue;
+  }
+
+  .column-3 {
+    background-color: green;
+  }
+
+  .column-4 {
+    background-color: gray;
+  }
+
+  .column-4>div {
+    padding-left: 110px;
+  }
+
+  .text-overlay {
+    height: 100%;
+    width: 550px;
+    background-color: orange;
+    clear: none;
+    cursor: default;
+  }
+
+  .spacer {
+    width: 6px;
+    margin-right: -6px;
+    height: 100%;
+    background-color: #fff;
+    float: right;
+  }
+
+  .home-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .section-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    margin-left: 0px;
+  }
+
+  .nav-overlay {
+    position: fixed;
+    margin-left: calc(20% - 84px);
+    width: calc(550px - 98px);
+    z-index: 200;
+  }
+
+  </style>
+
+  <div class="home-container">
+    <div class="column column-4 home"></div>
+    <div class="spacer"></div>
+    <div class="column column-3 home"></div>
+    <div class="spacer"></div>
+    <div class="column column-2 home"></div>
+    <div class="spacer"></div>
+    <div class="column column-1 home"></div>
+    <div class="spacer"></div>
+    <div class="column text-overlay home"></div>
+    <div class="spacer"></div>
+    <div class="column column-0 home"></div>
+  </div>
+
+
+  <script>
+    $(".column").click(function() {
+      // mouse enter
+      $(this).toggleClass("section-overlay");
+      $(".text-overlay").toggleClass("nav-overlay");
+    });
+
+  </script>
+
+</body>
+</html>
