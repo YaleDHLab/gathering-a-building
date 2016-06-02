@@ -1,0 +1,67 @@
+html, body, .background-content {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/************************
+* Background div styles *
+************************/
+
+.background-content {
+  background: url(/assets/images/scaffold.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -mox-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+// preload background images to prevent glitches on background swap
+.image-staging-area {
+  width: 0;
+  height: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/**********************
+* Text overlay styles *
+**********************/
+
+.text-overlay-container {
+  position: absolute;
+  height: 100%;
+  width: 370px;
+  left: 150px;
+  background-color: #fff;
+}
+
+.text-overlay {
+  max-height: 100%;
+  overflow: scroll;
+  padding: 30px;
+}
+
+.text-overlay-header {
+  font-size: 1.3em;
+  text-align: center;
+  letter-spacing: .11em;
+}
+
+.text-overlay div {
+  padding-bottom: 10px;
+}
+
+.text-overlay hr {
+  margin-bottom: 20px;
+}
+
+/****************************
+* Background section styles *
+****************************/
+
+.special {
+  background-color: green;
+}
+
