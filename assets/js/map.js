@@ -28,5 +28,15 @@ var initializeMap = function() {
     subdomains: 'abcd',
     maxZoom: 19
   }));
-  
+
+  // add listener for click of a map overlay option
+  $(".map-overlay-1, .map-overlay-2, .map-overlay-3").on("click", function() {
+    selectOverlay($(this));
+  })
+};
+
+
+var selectOverlay = function(selectedOption) {
+  $(".map-overlay-option").removeClass("active");
+  selectedOption.addClass("active");
 };
