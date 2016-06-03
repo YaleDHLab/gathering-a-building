@@ -28,10 +28,10 @@ $(window).ready( function() {
   // function to set new background image
   var changeBackground = function(backgroundOption) {
     if (backgroundOption === "map") { 
-      $("#map").css({"width": "100%", "height": "100%"}); 
+      $("#map").css({"display": "initial"}); 
       $(".background-content").css({"background": "none"});
     } else {
-      $("#map").css({"width": "0", "height": "0"});
+      $("#map").css({"display": "none"});
       $(".background-content").css({
         "background": "url(" + backgrounds[backgroundOption] + ") no-repeat center center fixed", 
         "-webkit-background-size": "cover",
