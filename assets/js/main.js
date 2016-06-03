@@ -5,7 +5,7 @@ $(window).ready( function() {
     "section-1": "assets/images/scaffold.jpg",
     "section-2": "assets/images/sunset.jpg",
     "section-3": "assets/images/angle.jpg",
-    "none": "none"
+    "map": "none"
   };
 
 
@@ -27,7 +27,7 @@ $(window).ready( function() {
 
   // function to set new background image
   var changeBackground = function(backgroundOption) {
-    if (backgroundOption === "none") { 
+    if (backgroundOption === "map") { 
       $("#map").css({"width": "100%", "height": "100%"}); 
       $(".background-content").css({"background": "none"});
     } else {
@@ -66,7 +66,7 @@ $(window).ready( function() {
     }
 
     if (distanceFromTop > 2005 - bodyHeight) {
-      state["background"] != "none" ? changeBackground("none") : {}; 
+      state["background"] != "map" ? changeBackground("map") : {}; 
       state["map"]["initialized"] === 0 ? buildMap() : {};
     } 
    
