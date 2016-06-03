@@ -25,6 +25,12 @@ html, body, .background-content {
   overflow: hidden;
 }
 
+#map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
 /**********************
 * Text overlay styles *
 **********************/
