@@ -152,9 +152,10 @@ html, body, .background-content {
   background: #FFFFFF;
   margin: 13px 0 0 20px;
   padding-right: 5px;
+  cursor: pointer;
 }
 
-.map-overlay-option {
+.map-overlay {
   display: inline-block;
   padding: 2px 9px;
   border-radius: 12px;
@@ -165,7 +166,23 @@ html, body, .background-content {
   margin-left: 5px;
 }
 
-.map-overlay-option.active {
+.map-overlay.active {
   color: #fff;
   background-color: #7CBFDD;
+}
+
+.map-selection-label {
+  float: left;
+  margin-left: 150px;
+  height: 100%;
+  width: 370px;
+  background: #fff;
+}
+
+.map-selection-label-content {
+  display: inline-block;
+  color: #72ADC7;
+  font-weight: 700;
+  font-size: 1.15em;
+  padding: 18px 35px;
 }
