@@ -14,6 +14,7 @@ var initializeMap = function() {
     zoomControl: false
   });
 
+  // position the zoom controls in the top right hand corner
   L.control.zoom({
     position: 'topright',
     zoom: 17,
@@ -21,11 +22,11 @@ var initializeMap = function() {
     minZoom: 12,
   }).addTo(map);
 
+  // use the cartodb basemap
   map.addLayer(new L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
     subdomains: 'abcd',
     maxZoom: 19
   }));
-
-};
   
+};
