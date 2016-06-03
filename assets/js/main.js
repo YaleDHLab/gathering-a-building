@@ -57,15 +57,15 @@ $(window).ready( function() {
     console.log(distanceFromTop); 
 
     // run conditionals to check which section is now in view
-    if (distanceFromTop < 941 - bodyHeight) {
+    if (distanceFromTop < 1050 - bodyHeight) {
       state["background"] != "section-1" ? changeBackground("section-1") : {};
     }
 
-    if (distanceFromTop > 941 - bodyHeight) {       
+    if (distanceFromTop > 1050 - bodyHeight) {       
         state["background"] != "section-2" ? changeBackground("section-2") : {};
     }
 
-    if (distanceFromTop > 1845 - bodyHeight) {
+    if (distanceFromTop > 2005 - bodyHeight) {
       state["background"] != "none" ? changeBackground("none") : {}; 
       state["map"]["initialized"] === 0 ? buildMap() : {};
     } 
