@@ -160,12 +160,12 @@ html, body, .background-content {
   border-radius: 12px;
   font-weight: 700;
   font-size: 1.1em;
-  color: #494949;
+  color: #949494;
   margin-top: 4px;
   margin-left: 5px;
 }
 
-.map-overlay-option:active {
+.map-overlay-option.active {
   color: #fff;
   background-color: #7CBFDD;
 }
