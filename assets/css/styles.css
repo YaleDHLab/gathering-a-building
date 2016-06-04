@@ -5,6 +5,28 @@ html, body, .background-content {
   padding: 0;
 }
 
+/****************
+* Navbar styles *
+****************/
+
+.navigation-container {
+  position: absolute;
+  z-index: 3;
+}
+
+.navigation {
+  margin: 20px;
+  cursor: pointer;
+}
+
+.navigation div {
+  height: 3px;
+  width: 21px;
+  background: #b2b0b0;
+  margin-top: 3px;
+  border-radius: 3px;
+}
+
 /**************************
 * Background image styles *
 **************************/
@@ -127,6 +149,7 @@ html, body, .background-content {
 .map-control-bar-container {
   position: absolute;
   z-index: 2;
+  display: inline-block;
   width: 100%;
   height: 65px;
   bottom: 0;
@@ -139,9 +162,10 @@ html, body, .background-content {
 }
 
 .map-control-bar {
+  display: inline-block;
+  background-color: #F0F0F0;
   width: 100%;
   height: 100%;
-  background-color: #F0F0F0;
 }
 
 .map-overlay-selector {
@@ -172,7 +196,7 @@ html, body, .background-content {
 }
 
 .map-selection-label {
-  float: left;
+  display: inline-block;
   margin-left: 150px;
   height: 100%;
   width: 370px;
