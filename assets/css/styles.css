@@ -13,6 +13,22 @@ html, body, .background-content {
   display: none;
 }
 
+.center-text {
+  text-align: center;
+}
+
+/******************
+* Branding styles *
+******************/
+
+.dh-branding {
+  position: fixed;
+  right: 30px;
+  top: 30px;
+  width: 70px;
+  z-index: 4;
+}
+
 /****************
 * Navbar styles *
 ****************/
@@ -54,6 +70,21 @@ html, body, .background-content {
   font-size: 2.5em;
   margin: 30px 40px;
   cursor: pointer;
+}
+
+/******************************
+* Home scrolling image styles *
+******************************/
+
+.home {
+  height: 100%;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  position: absolute;
+}
+
+.home-image {
+  height: 100%;
 }
 
 /**************************
@@ -150,10 +181,6 @@ html, body, .background-content {
   font-family: Arial;
   font-size: .92em;
   line-height: 1.25em;
-}
-
-.center-text {
-  text-align: center;
 }
 
 
