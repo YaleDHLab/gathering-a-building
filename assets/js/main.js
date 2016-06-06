@@ -1,22 +1,36 @@
 $(window).ready( function() {
 
+  // initialize object with available navigation bar colors
+  var navigationColors = {
+    "light": "#e6e6e6",
+    "dark": "#858585"
+  };
+
   // initialize object with background names and url values
   var backgrounds = {
+    "home": {
+      "image": "none", 
+      "navigation": navigationColors.dark
+    },
     "section-1": {
       "image": "assets/images/scaffold.jpg", 
-      "navigation": "#e6e6e6"
+      "navigation": navigationColors.light
     },
     "section-2": {
       "image": "assets/images/sunset.jpg",
-      "navigation": "#858585"
+      "navigation": navigationColors.dark
     },
     "section-3": {
       "image": "assets/images/angle.jpg",
-      "navigation": "#858585"
+      "navigation": navigationColors.dark
+    },
+    "section-4": {
+      "image": "assets/images/angle.jpg",
+      "navigation": navigationColors.dark
     },
     "map": {
       "image": "none",
-      "navigation": "#858585"
+      "navigation": navigationColors.dark
     }
   };
 
@@ -31,7 +45,7 @@ $(window).ready( function() {
 
   // initialize object in which to track application state
   var state = {
-    "background": "section-1",
+    "background": '',
     "map": {
       "initialized": 0
     }
@@ -39,14 +53,17 @@ $(window).ready( function() {
 
   // function to set new background image, toggle map, and update navigation color
   var changeBackground = function(backgroundOption) {
-    if (backgroundOption === "map") { 
+    if (backgroundOption === "home") { 
+      $(".home").removeClass("hidden");
+      $(".background-content").css({"background": "none"});
+    }
+    else if (backgroundOption === "map") { 
+      $(".home").addClass("hidden");
       $("#map").removeClass("hidden");
       $(".background-content").css({"background": "none"});
-      $(".navigation div").css({
-        "background": backgrounds[backgroundOption].navigation
-      });
-
-    } else {
+    }
+    else {
+      $(".home").addClass("hidden");
       $("#map").addClass("hidden");
       $(".background-content").css({
         "background": "url(" + backgrounds[backgroundOption].image + ") no-repeat center center fixed", 
@@ -55,10 +72,11 @@ $(window).ready( function() {
         "-o-background-size": "cover",
         "background-size": "cover"
       });
-      $(".navigation div").css({
-        "background": backgrounds[backgroundOption].navigation
-      });
     }
+
+    $(".navigation div").css({
+      "background": backgrounds[backgroundOption].navigation
+    });
     
     state["background"] = backgroundOption;
   };
@@ -77,12 +95,15 @@ $(window).ready( function() {
 
     // run conditionals to check which section is now in view
     if (distanceFromTop < 1050 - bodyHeight) {
-      state["background"] != "section-1" ? changeBackground("section-1") : {};
+      state["background"] != "home" ? changeBackground("home") : {};
     }
     if (distanceFromTop > 1050 - bodyHeight && distanceFromTop <= 2005 - bodyHeight) {
+      state["background"] != "section-1" ? changeBackground("section-1") : {};
+    }
+    if (distanceFromTop > 2005 - bodyHeight && distanceFromTop <= 3005 - bodyHeight) {
         state["background"] != "section-2" ? changeBackground("section-2") : {};
     }
-    if (distanceFromTop > 2005 - bodyHeight) {
+    if (distanceFromTop > 3005 - bodyHeight) {
       state["background"] != "map" ? changeBackground("map") : {}; 
       state["map"]["initialized"] === 0 ? buildMap() : {};
     } 
@@ -92,5 +113,8 @@ $(window).ready( function() {
   $(".navigation, .navigation-overlay").on("click", function() {
     $(".navigation-overlay").toggleClass("hidden");
   });
+
+  // initialize the page
+  changeBackground("home");
 
 });
