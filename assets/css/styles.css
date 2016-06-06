@@ -6,6 +6,14 @@ html, body, .background-content {
 }
 
 /****************
+* Helper styles *
+****************/
+
+.hidden {
+  display: none;
+}
+
+/****************
 * Navbar styles *
 ****************/
 
@@ -26,6 +34,18 @@ html, body, .background-content {
   background: #e6e6e6;
   margin-top: 2px;
   border-radius: 3px;
+}
+
+/****************************
+* Navigation overlay styles *
+****************************/
+
+.navigation-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,.6);
+  z-index: 4;
 }
 
 /**************************
@@ -137,7 +157,6 @@ html, body, .background-content {
   width: 100%;
   height: 100%;
   position: absolute;
-  display: none;
 }
 
 .leaflet-container 
