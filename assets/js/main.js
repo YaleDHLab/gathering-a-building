@@ -54,6 +54,7 @@ $(window).ready( function() {
   // function to set new background image, toggle map, and update navigation color
   var changeBackground = function(backgroundOption) {
     if (backgroundOption === "home") { 
+      $(".text-overlay-container").addClass("hidden");
       $(".home").removeClass("hidden");
       $(".background-content").css({"background": "none"});
     }
@@ -79,6 +80,8 @@ $(window).ready( function() {
     });
     
     state["background"] = backgroundOption;
+
+    location.href = "#" + backgroundOption;
   };
 
   // function to establish map as background
