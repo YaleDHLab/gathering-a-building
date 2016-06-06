@@ -48,6 +48,14 @@ html, body, .background-content {
   z-index: 4;
 }
 
+.navigation-overlay .dismiss {
+  color: #fff;
+  float: right;
+  font-size: 2.5em;
+  margin: 30px 40px;
+  cursor: pointer;
+}
+
 /**************************
 * Background image styles *
 **************************/
