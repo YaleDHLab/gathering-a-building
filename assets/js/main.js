@@ -55,16 +55,19 @@ $(window).ready( function() {
   var changeBackground = function(backgroundOption) {
     if (backgroundOption === "home") { 
       $(".text-overlay-container").addClass("hidden");
+      $("body").addClass("sky-background");
       $(".home").removeClass("hidden");
       $(".background-content").css({"background": "none"});
     }
     else if (backgroundOption === "map") { 
       $(".home").addClass("hidden");
+      $("body").removeClass("sky-background");
       $("#map").removeClass("hidden");
       $(".background-content").css({"background": "none"});
     }
     else {
       $(".home").addClass("hidden");
+      $("body").removeClass("sky-background");
       $("#map").addClass("hidden");
       $(".background-content").css({
         "background": "url(" + backgrounds[backgroundOption].image + ") no-repeat center center fixed", 
@@ -114,6 +117,14 @@ $(window).ready( function() {
   $(".navigation, .navigation-overlay").on("click", function() {
     $(".navigation-overlay").toggleClass("hidden");
   });
+
+
+  // home page click listener to send users to main nav
+  $(".home-footer-next").on("click", function() {
+    $(".text-overlay-container").removeClass("hidden");
+    document.getElementById("section-3").scrollIntoView();
+  });
+
 
   // initialize the page
   changeBackground("home");
