@@ -80,8 +80,6 @@ $(window).ready( function() {
     });
     
     state["background"] = backgroundOption;
-
-    location.href = "#" + backgroundOption;
   };
 
   // function to establish map as background
