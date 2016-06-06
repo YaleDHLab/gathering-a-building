@@ -16,7 +16,7 @@ var initializeMap = function() {
 
   // position the zoom controls in the top right hand corner
   L.control.zoom({
-    position: 'topright',
+    position: 'bottomright',
     zoom: 17,
     maxZoom: 20,
     minZoom: 12,
