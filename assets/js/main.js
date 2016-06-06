@@ -2,10 +2,22 @@ $(window).ready( function() {
 
   // initialize object with background names and url values
   var backgrounds = {
-    "section-1": "assets/images/scaffold.jpg",
-    "section-2": "assets/images/sunset.jpg",
-    "section-3": "assets/images/angle.jpg",
-    "map": "none"
+    "section-1": {
+      "image": "assets/images/scaffold.jpg", 
+      "navigation": "#e6e6e6"
+    },
+    "section-2": {
+      "image": "assets/images/sunset.jpg",
+      "navigation": "#858585"
+    },
+    "section-3": {
+      "image": "assets/images/angle.jpg",
+      "navigation": "#858585"
+    },
+    "map": {
+      "image": "none",
+      "navigation": "#858585"
+    }
   };
 
 
@@ -25,19 +37,26 @@ $(window).ready( function() {
     }
   };
 
-  // function to set new background image
+  // function to set new background image, toggle map, and update navigation color
   var changeBackground = function(backgroundOption) {
     if (backgroundOption === "map") { 
       $("#map").css({"display": "initial"}); 
       $(".background-content").css({"background": "none"});
+      $(".navigation div").css({
+        "background": backgrounds[backgroundOption].navigation
+      });
+
     } else {
       $("#map").css({"display": "none"});
       $(".background-content").css({
-        "background": "url(" + backgrounds[backgroundOption] + ") no-repeat center center fixed", 
+        "background": "url(" + backgrounds[backgroundOption].image + ") no-repeat center center fixed", 
         "-webkit-background-size": "cover",
         "-mox-background-size": "cover",
         "-o-background-size": "cover",
         "background-size": "cover"
+      });
+      $(".navigation div").css({
+        "background": backgrounds[backgroundOption].navigation
       });
     }
     
