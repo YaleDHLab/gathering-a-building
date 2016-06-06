@@ -82,10 +82,16 @@ html, body, .background-content {
 
 .home {
   height: 100%;
+  width: 100%;
   max-width: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
   position: absolute;
+}
+
+.home-container {
+  height: 100%;
+  width: 100%;
 }
 
 .home-image {
