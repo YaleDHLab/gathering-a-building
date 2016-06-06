@@ -17,15 +17,19 @@ html, body, .background-content {
   text-align: center;
 }
 
+.sky-background {
+  background: #EBF9F9;
+}
+
 /******************
 * Branding styles *
 ******************/
 
 .dh-branding {
   position: fixed;
-  right: 30px;
-  top: 30px;
-  width: 70px;
+  right: 15px;
+  top: 15px;
+  width: 60px;
   z-index: 4;
 }
 
@@ -39,7 +43,7 @@ html, body, .background-content {
 }
 
 .navigation {
-  margin: 20px;
+  margin: 24px;
   cursor: pointer;
 }
 
@@ -68,7 +72,7 @@ html, body, .background-content {
   color: #fff;
   float: right;
   font-size: 2.5em;
-  margin: 30px 40px;
+  margin: 20px 40px;
   cursor: pointer;
 }
 
@@ -78,6 +82,7 @@ html, body, .background-content {
 
 .home {
   height: 100%;
+  max-width: 100%;
   overflow-x: scroll;
   overflow-y: hidden;
   position: absolute;
@@ -85,6 +90,7 @@ html, body, .background-content {
 
 .home-image {
   height: 100%;
+  margin-top: -61px;
 }
 
 .home-header-container {
@@ -95,8 +101,27 @@ html, body, .background-content {
 }
 
 .home-header {
-  padding-top: 30px;
+  padding-top: 20px;
   padding-bottom: 8px;
+}
+
+/*******************
+* Home page footer *
+*******************/
+
+.down-arrow {
+  display: inline-block;
+}
+
+.home-footer-next {
+  float: right;
+  margin-right: 40px;
+  margin-top: 20px;
+}
+
+.home-footer-next:hover {
+  color: #A7C9D3;
+  cursor: pointer;
 }
 
 /**************************
@@ -130,7 +155,7 @@ html, body, .background-content {
   /* .text-overlay width - .text-overlay padding r&l */
   width: 300px; 
   margin-top: -35px;
-  padding-top: 30px;
+  padding-top: 20px;
 }
 
 .text-overlay-header h1,
@@ -158,7 +183,7 @@ html, body, .background-content {
     rgba(255,255,255,.9),
     rgba(255,255,255,1) );
   position: absolute;
-  top: 65px;
+  top: 55px;
   height: 50px;
   /* .text-overlay width - .text-overlay padding r&l */
   width: 300px;
@@ -262,7 +287,7 @@ html, body, .background-content {
 ****************/
 
 .footer-container {
-  position: absolute;
+  position: fixed;
   z-index: 2;
   display: inline-block;
   width: 100%;
@@ -281,4 +306,14 @@ html, body, .background-content {
   background-color: #F0F0F0;
   width: 100%;
   height: 100%;
+}
+
+.footer-content-container {
+  position: fixed;
+  width: 370px;
+  height: 100%;
+  background: #fff;
+  display: inline-block;
+  left: 150px;
+  font-family: Arial;
 }
