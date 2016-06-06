@@ -34,7 +34,7 @@ html, body, .background-content {
 ****************/
 
 .navigation-container {
-  position: absolute;
+  position: fixed;
   z-index: 3;
 }
 
@@ -72,9 +72,9 @@ html, body, .background-content {
   cursor: pointer;
 }
 
-/******************************
-* Home scrolling image styles *
-******************************/
+/*******************
+* Home page styles *
+*******************/
 
 .home {
   height: 100%;
@@ -85,6 +85,17 @@ html, body, .background-content {
 
 .home-image {
   height: 100%;
+}
+
+.home-header-container {
+  position: fixed;
+  width: 370px;
+  left: 150px;
+  background-color: #fff;
+}
+
+.home-header h1 {
+  padding-top: 10px;
 }
 
 /**************************
@@ -107,9 +118,9 @@ html, body, .background-content {
   overflow: hidden;
 }
 
-/*****************************
-* Text overlay header styles *
-*****************************/
+/*********************
+* Header text styles *
+*********************/
 
 .text-overlay-header {
   position: absolute;
@@ -121,7 +132,8 @@ html, body, .background-content {
   padding-top: 30px;
 }
 
-.text-overlay-header h1 {
+.text-overlay-header h1,
+.home-header h1 {
   font-family: Times;
   font-size: 1.3em;
   text-align: center;
@@ -131,7 +143,7 @@ html, body, .background-content {
   padding-bottom: 10px;
 }
 
-.text-overlay-header hr {
+.text-overlay-header {
   margin: 5px 0 5px 0;
   border: 0;
   height: 0;
@@ -201,7 +213,7 @@ html, body, .background-content {
   margin-bottom: 70px;
 }
 
-.map-control-bar-container {
+.map-footer-container {
   position: absolute;
   z-index: 2;
   display: inline-block;
@@ -216,7 +228,7 @@ html, body, .background-content {
   background-color: #A7C9D3;
 }
 
-.map-control-bar {
+.map-footer {
   display: inline-block;
   background-color: #F0F0F0;
   width: 100%;
