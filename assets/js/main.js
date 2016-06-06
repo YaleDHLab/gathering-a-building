@@ -40,14 +40,14 @@ $(window).ready( function() {
   // function to set new background image, toggle map, and update navigation color
   var changeBackground = function(backgroundOption) {
     if (backgroundOption === "map") { 
-      $("#map").css({"display": "initial"}); 
+      $("#map").removeClass("hidden");
       $(".background-content").css({"background": "none"});
       $(".navigation div").css({
         "background": backgrounds[backgroundOption].navigation
       });
 
     } else {
-      $("#map").css({"display": "none"});
+      $("#map").addClass("hidden");
       $(".background-content").css({
         "background": "url(" + backgrounds[backgroundOption].image + ") no-repeat center center fixed", 
         "-webkit-background-size": "cover",
@@ -69,7 +69,7 @@ $(window).ready( function() {
     state["map"]["initialized"] = 1;
   };
 
-
+  // listener to update background on scroll breakpoints
   $(".text-overlay").on("scroll", function() {
     var distanceFromTop = $(".text-overlay").scrollTop();
     var bodyHeight = $("body").height();
@@ -79,16 +79,18 @@ $(window).ready( function() {
     if (distanceFromTop < 1050 - bodyHeight) {
       state["background"] != "section-1" ? changeBackground("section-1") : {};
     }
-
-    if (distanceFromTop > 1050 - bodyHeight) {       
+    if (distanceFromTop > 1050 - bodyHeight && distanceFromTop <= 2005 - bodyHeight) {
         state["background"] != "section-2" ? changeBackground("section-2") : {};
     }
-
     if (distanceFromTop > 2005 - bodyHeight) {
       state["background"] != "map" ? changeBackground("map") : {}; 
       state["map"]["initialized"] === 0 ? buildMap() : {};
     } 
-   
+  });
+
+  // click listeners to toggle nav
+  $(".navigation, .navigation-overlay").on("click", function() {
+    $(".navigation-overlay").toggleClass("hidden");
   });
 
 });
