@@ -94,8 +94,8 @@ html, body, .background-content {
   background-color: #fff;
 }
 
-.home-header h1 {
-  padding-top: 10px;
+.home-header {
+  padding-top: 30px;
 }
 
 /**************************
@@ -110,7 +110,7 @@ html, body, .background-content {
   background-size: cover;
 }
 
-// preload background images to prevent glitches on background swap
+/* preload background images to prevent glitches on background swap */
 .image-staging-area {
   width: 0;
   height: 0;
@@ -143,7 +143,7 @@ html, body, .background-content {
   padding-bottom: 10px;
 }
 
-.text-overlay-header {
+.text-overlay-header hr {
   margin: 5px 0 5px 0;
   border: 0;
   height: 0;
@@ -213,7 +213,7 @@ html, body, .background-content {
   margin-bottom: 70px;
 }
 
-.map-footer-container {
+.footer-container {
   position: absolute;
   z-index: 2;
   display: inline-block;
@@ -222,13 +222,13 @@ html, body, .background-content {
   bottom: 0;
 }
 
-.map-control-bar-stripe {
+.footer-stripe {
   width: 100%;
   height: 6px;
   background-color: #A7C9D3;
 }
 
-.map-footer {
+.footer {
   display: inline-block;
   background-color: #F0F0F0;
   width: 100%;
