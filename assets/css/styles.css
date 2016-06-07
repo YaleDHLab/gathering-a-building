@@ -130,6 +130,16 @@ html, body, .background-content {
   cursor: pointer;
 }
 
+/*********************
+* Home page overlays *
+*********************/
+
+#overlay-1 {
+  background: #65BD24;
+  position: absolute;
+  opacity: .6;
+}
+
 /**************************
 * Background image styles *
 **************************/
