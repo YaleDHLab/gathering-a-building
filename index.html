@@ -8,6 +8,7 @@
   <script src="vendor/js/leaflet.js"></script>
   <script src="assets/js/map.js"></script>
   <script src="assets/js/main.js"></script>
+  <script src="assets/js/overlay.js"></script>
 <style>
 
 </style>
@@ -40,7 +41,10 @@
       </div>
       <div class="home-container">
         <img src="/assets/images/sample-elevation-yuag-med.jpg" class="home-image">
-        <!--<img src="/assets/images/yuag-exterior.jpg" class="yuag-exterior hidden">-->
+        
+        <!-- Overlay assets -->
+        <img src="/assets/images/yuag-exterior.jpg" class="yuag-exterior hidden">
+        <div id="overlay-1"></div>
       </div>
       <div class="footer-container">
         <div class="footer-stripe"></div>
@@ -54,7 +58,6 @@
         </div>
       </div>
     </div>
-
 
     <!-- Map container -->
     <div id="map" class="hidden">
@@ -72,7 +75,6 @@
         </div>
       </div>
     </div>
-
 
     <!-- Text content -->
     <div class="text-overlay-container">
