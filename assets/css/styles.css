@@ -130,25 +130,6 @@ html, body, .background-content {
   padding-bottom: 8px;
 }
 
-/*******************
-* Home page footer *
-*******************/
-
-.down-arrow {
-  display: inline-block;
-}
-
-.home-footer-next {
-  float: right;
-  margin-right: 40px;
-  margin-top: 20px;
-}
-
-.home-footer-next:hover {
-  color: #A7C9D3;
-  cursor: pointer;
-}
-
 /*********************
 * Home page overlays *
 *********************/
@@ -212,7 +193,7 @@ html, body, .background-content {
   padding-bottom: 10px;
 }
 
-.text-overlay-header hr {
+.overlay-hr {
   margin: 5px 0 5px 0;
   border: 0;
   height: 0;
@@ -263,7 +244,6 @@ html, body, .background-content {
   font-size: .92em;
   line-height: 1.25em;
 }
-
 
 /*********************
 * Map section styles *
@@ -331,20 +311,27 @@ html, body, .background-content {
 
 .footer-container {
   position: fixed;
-  z-index: 2;
   display: inline-block;
   width: 100%;
   height: 65px;
   bottom: 0;
 }
 
-.footer-stripe {
+.full-width-footer-container {
+  z-index: 3;
+}
+
+.partial-width-footer-container {
+  z-index: 2;
+}
+
+.full-width-footer-stripe {
   width: 100%;
   height: 6px;
   background-color: #A7C9D3;
 }
 
-.footer {
+.full-width-footer {
   display: inline-block;
   background-color: #F0F0F0;
   width: 100%;
@@ -359,4 +346,31 @@ html, body, .background-content {
   display: inline-block;
   left: 150px;
   font-family: Arial;
+}
+
+.down-arrow {
+  display: inline-block;
+}
+
+.footer-next {
+  float: right;
+  margin-right: 40px;
+}
+
+.home-footer-next {
+  margin-top: 20px;
+}
+
+.main-footer-next {
+  margin-top: 13px;
+}
+
+.footer-next:hover {
+  color: #A7C9D3;
+  cursor: pointer;
+}
+
+.footer-hr {
+  margin-left: 35px;
+  margin-right: 35px;
 }
