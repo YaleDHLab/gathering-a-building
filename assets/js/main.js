@@ -57,19 +57,19 @@ $(window).ready( function() {
       $(".body-text-overlay-container").addClass("hidden");
       $("body").addClass("sky-background");
       $(".home").removeClass("hidden");
-      $(".background-content").css({"background": "none"});
+      $(".background-image").css({"background": "none"});
     }
     else if (backgroundOption === "map") { 
       $(".home").addClass("hidden");
       $("body").removeClass("sky-background");
       $("#map").removeClass("hidden");
-      $(".background-content").css({"background": "none"});
+      $(".background-image").css({"background": "none"});
     }
     else {
       $(".home").addClass("hidden");
       $("body").removeClass("sky-background");
       $("#map").addClass("hidden");
-      $(".background-content").css({
+      $(".background-image").css({
         "background": "url(" + backgrounds[backgroundOption].image + ") no-repeat center center fixed", 
         "-webkit-background-size": "cover",
         "-mox-background-size": "cover",
