@@ -81,6 +81,20 @@ html, body, .background-content {
   position: absolute;
 }
 
+.navigation-links {
+  padding-top: 90px;
+}
+
+.navigation-link {
+  font-family: Arial;
+  padding-bottom: 25px;
+  letter-spacing: .1em;
+}
+
+.navigation-links-top {
+  padding-bottom: 60px;
+}
+
 /*******************
 * Home page styles *
 *******************/
