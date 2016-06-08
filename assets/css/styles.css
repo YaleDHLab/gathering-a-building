@@ -55,7 +55,7 @@ html, body, .background-image, .page-content {
   height: 4px;
   width: 23px;
   /* background will toggle between 85 and e6 */
-  background: #e6e6e6;
+  background: #858585;
   margin-top: 2px;
   border-radius: 3px;
 }
