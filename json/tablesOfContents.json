@@ -1,0 +1,50 @@
+{
+  "0": {
+    "title": "Building Site History",
+    "articles": 
+      [
+        {
+          "title": "BSH Article 1",
+          "link": "BSH1",
+          "background": "/assets/images/scaffold.jpg"
+        }
+      ]
+    },
+
+  "1": {
+    "title": "Architecture & Urbanism",
+    "articles": 
+      [
+        {
+          "title": "AU Article 1",
+          "link": "AU1",
+          "background": "/assets/images/brick.jpg"
+        }
+      ]
+    },
+
+  "2": {
+    "title": "Material Journeys",
+    "pageTemplate": "/assets/templates/materialJourneys.html",
+    "articles": 
+      [
+        {
+          "title": "MJ Article 1",
+          "link": "MJ1",
+          "background": "/assets/images/scaffold.jpg",
+          "scrollIn": 0,
+          "scrollOut": 1000,
+          "text": "MJ Article 1 text"
+        },
+        {
+          "title": "MJ Article 2",
+          "link": "MJ2",
+          "background": "/assets/images/sunset.jpg",
+          "scrollIn": 1000,
+          "scrollOut": 2000,
+          "text": "MJ Article 1 text"
+        }
+
+      ]
+  }
+}
