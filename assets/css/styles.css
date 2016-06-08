@@ -1,4 +1,4 @@
-html, body, .background-content {
+html, body, .background-image {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -152,7 +152,8 @@ html, body, .background-content {
 * Background image styles *
 **************************/
 
-.background-content {
+.background-image {
+  position: absolute;
   background: url(/assets/images/scaffold.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -mox-background-size: cover;
