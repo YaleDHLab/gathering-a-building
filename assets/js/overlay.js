@@ -38,11 +38,40 @@ var resizeOverlay = function() {
   });
 
   // add listener inside the document load
-  $(".home-overlay-1").on("click", function() {
+  $(".home-overlay").on("click", function() {
     $(this).toggleClass("translucent");
   });
 }
 
-// update the overlay styles on page load and resize
-$(document).ready(resizeOverlay);
-$(window).resize(resizeOverlay);
+var scrollBreakpoints = [
+  {
+    'inpoint': 100,
+    'outpoint': 300,
+    'selector': ".home-overlay-1"
+  },
+  {
+    'inpoint': 300,
+    'outpoint': 600,
+    'selector': ".home-overlay-2"
+  }
+];
+
+var scrollListener = function() {
+
+  // use the horizontal scroll position to determine whether to show/hide elements
+  var offset = $("#home").scrollLeft();
+  for (i=0; i<scrollBreakpoints.length; i++) {
+    if (offset > scrollBreakpoints[i].inpoint && offset < scrollBreakpoints[i].outpoint) {
+      $(scrollBreakpoints[i].selector).removeClass("hidden");
+    } else if (offset < scrollBreakpoints[i].inpoint || offset > scrollBreakpoints[i].outpoint) {
+      $(scrollBreakpoints[i].selector).addClass("hidden");
+    }
+  }
+};
+
+// update the overlay styles on page load, resize, and scroll
+$(document).ready(function() {
+  resizeOverlay();
+  $("#home").on("scroll", scrollListener);
+  $(window).resize(resizeOverlay);
+});
