@@ -115,6 +115,10 @@ $(window).ready( function() {
 
   // click listeners to toggle nav
   $(".navigation, .navigation-overlay").on("click", function() {
+    // hide the navigation dropdown icon on display of overlay
+    $(".navigation").toggleClass("hidden");
+
+    // display the overlay
     $(".navigation-overlay").toggleClass("hidden");
   });
 
