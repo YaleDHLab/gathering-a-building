@@ -1,18 +1,18 @@
 <!doctype html>
-<html data-ng-app="App">
+<html data-ng-app="BuildingApp">
 <head>
   <link rel="stylesheet" href="vendor/css/leaflet.min.css">
   <link rel="stylesheet" href="assets/css/styles.css">
 
   <script src="vendor/js/jquery-2.2.2.js"></script>
   <script src="vendor/js/leaflet.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
   <script src="assets/js/map.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/overlay.js"></script>
   <script src="assets/js/app.js"></script>
 
-  <title data-ng-controller="BrandController">{{brand.title}}</title>
+  <title data-ng-controller="BrandController" data-ng-bind="brand.title"></title>
 </head>
 <body>
 
@@ -25,7 +25,7 @@
           <h1 data-ng-controller="BrandController">{{brand.title}}</h1>
           <hr class="overlay-hr">
         </div>
-        <div class="navigation-links" data-ng-controller="NavigationController">
+        <div class="navigation-links">
           <div class="navigation-links-top">
             <div class="navigation-link">BUILDING SITE HISTORY</div>
             <div class="navigation-link">ARCHITECTURE & URBANISM</div>
@@ -43,7 +43,7 @@
   </div>
 
   <!-- Navigation display button -->
-  <div class="navigation-container" data-ng-controller="NavigationController">
+  <div class="navigation-container">
     <div class="navigation">
       <div></div>
       <div></div>
@@ -52,42 +52,15 @@
   </div>
 
   <!-- Branding overlay -->
-  <img data-ng-controller="BrandController" src="/assets/images/dh-lab-gray.png" class="dh-branding">
+  <img data-ng-controller="BrandController" data-ng-src="{{brand.logo}}" class="dh-branding">
 
   <!-- Full screen background image container -->
   <div class="background-image"></div>
 
-  <!-- Home container -->
-  <div id="home" class="home hidden">
-    <div class="home-header-container">
-      <div class="home-header">
-        <h1 data-ng-controller="BrandController">{{brand.title}}</h1>
-      </div>
-    </div>
-    <div class="home-container">
-      <img src="/assets/images/sample-elevation-yuag-med.jpg" class="home-image">
-      
-      <!-- Overlay assets -->
-      <img src="/assets/images/yuag-exterior.jpg" class="yuag-exterior hidden">
-      <div class="home-overlay home-overlay-1 hidden"></div>
-      <div class="home-overlay home-overlay-2 hidden">
-        <img src="/assets/images/add-icon.png">
-      </div>
-    </div>
-    <div class="footer-container full-width-footer-container">
-      <div class="full-width-footer-stripe"></div>
-      <div class="full-width-footer">
-        <div class="footer-content-container">
-          <div class="home-footer-marker"></div>
-          <div class="footer-next home-footer-next">Next
-            <div class="down-arrow">&darr;</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div class="page-content" data-ng-controller="PageController" data-ng-include="page.url"></div>
 
-  <div class="footer-container partial-width-footer-container">
+  <div data-ng-controller="PageController" 
+      class="footer-container partial-width-footer-container">
     <div class="footer-content-container">
       <hr class="overlay-hr footer-hr">
       <div class="home-footer-marker"></div>
