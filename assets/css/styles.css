@@ -21,6 +21,10 @@ html, body, .background-content {
   background: #EBF9F9;
 }
 
+.translucent {
+  opacity: .6;
+}
+
 /******************
 * Branding styles *
 ******************/
@@ -70,9 +74,8 @@ html, body, .background-content {
 
 .navigation-overlay .dismiss {
   color: #fff;
-  float: right;
   font-size: 2.5em;
-  margin: 20px 40px;
+  margin: 6px 24px;
   cursor: pointer;
 }
 
@@ -134,10 +137,18 @@ html, body, .background-content {
 * Home page overlays *
 *********************/
 
-#overlay-1 {
+.home-overlay-1 {
   background: #65BD24;
   position: absolute;
-  opacity: .6;
+}
+
+.home-overlay-2 {
+  position: absolute;
+  width: 35px;
+}
+
+.home-overlay-2 img {
+  width: 100%;
 }
 
 /**************************
