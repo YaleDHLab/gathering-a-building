@@ -10,6 +10,17 @@ BuildingApp.filter('cleanUrl', function() {
 BuildingApp.controller("NavigationController", [
       "$scope", "$http",
   function($scope, $http) {
+    
+    /***
+    * @params: none
+    *
+    * Hide or show the navigation overlay
+    ***/
+
+    $scope.toggleNavigation = function() {
+      $(".navigation").toggleClass("hidden");
+      $(".navigation-overlay").toggleClass("hidden");
+    };
 
   }
 ]);
