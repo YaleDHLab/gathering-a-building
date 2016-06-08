@@ -12,8 +12,7 @@
   <script src="assets/js/overlay.js"></script>
   <script src="assets/js/app.js"></script>
 
-  <title data-ng-controller="BrandController" 
-      data-ng-bind="brand.title"></title>
+  <title data-ng-controller="BrandController" data-ng-bind="brand.title"></title>
 </head>
 <body>
 
@@ -21,36 +20,22 @@
   <div data-ng-include='"/templates/navigation.html"'></div>
 
   <!-- Navigation display button -->
-  <div class="navigation-container"
-      data-ng-controller="NavigationController"
-      data-ng-click="toggleNavigation()">
-    <div class="navigation">
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  </div>
+  <div data-ng-include='"/templates/navigation-button.html"'></div>
 
   <!-- Branding overlay -->
-  <img data-ng-controller="BrandController" 
-      data-ng-src="{{brand.logo}}" class="dh-branding">
+  <div data-ng-include='"/templates/branding-logo.html"'></div>
 
   <!-- Full screen background image container -->
   <div class="background-image"></div>
 
-  <div class="page-content" data-ng-controller="PageController" 
-      data-ng-include="page.url"></div>
-
-  <div data-ng-controller="PageController" 
-      class="footer-container partial-width-footer-container">
-    <div class="footer-content-container">
-      <hr class="overlay-hr footer-hr">
-      <div class="home-footer-marker"></div>
-      <div class="footer-next main-footer-next">Next
-        <div class="down-arrow">&darr;</div>
-      </div>
-    </div>
+  <!-- Current page content -->
+  <div class="page-content" 
+      data-ng-controller="PageController" 
+      data-ng-include="page.url">
   </div>
+
+  <!-- Footer -->
+  <div data-ng-include='"/templates/footer.html"'></div>
 
   <div class="image-staging-area"></div>
 </body>
