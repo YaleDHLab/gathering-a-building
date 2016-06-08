@@ -54,7 +54,7 @@ $(window).ready( function() {
   // function to set new background image, toggle map, and update navigation color
   var changeBackground = function(backgroundOption) {
     if (backgroundOption === "home") { 
-      $(".text-overlay-container").addClass("hidden");
+      $(".body-text-overlay-container").addClass("hidden");
       $("body").addClass("sky-background");
       $(".home").removeClass("hidden");
       $(".background-content").css({"background": "none"});
@@ -92,8 +92,8 @@ $(window).ready( function() {
   };
 
   // listener to update background on scroll breakpoints
-  $(".text-overlay").on("scroll", function() {
-    var distanceFromTop = $(".text-overlay").scrollTop();
+  $(".body-text-overlay").on("scroll", function() {
+    var distanceFromTop = $(".body-text-overlay").scrollTop();
     var bodyHeight = $("body").height();
     console.log(distanceFromTop); 
 
@@ -125,7 +125,7 @@ $(window).ready( function() {
 
   // home page click listener to send users to main nav
   $(".home-footer-next").on("click", function() {
-    $(".text-overlay-container").removeClass("hidden");
+    $(".body-text-overlay-container").removeClass("hidden");
     document.getElementById("section-3").scrollIntoView();
   });
 
