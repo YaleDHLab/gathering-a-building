@@ -12,38 +12,18 @@
   <script src="assets/js/overlay.js"></script>
   <script src="assets/js/app.js"></script>
 
-  <title data-ng-controller="BrandController" data-ng-bind="brand.title"></title>
+  <title data-ng-controller="BrandController" 
+      data-ng-bind="brand.title"></title>
 </head>
 <body>
 
   <!-- Navigation overlay -->
-  <div class="navigation-overlay hidden">
-    <div class="dismiss">&times;</div>
-    <div class="text-overlay-container">
-      <div class="text-overlay">
-        <div class="text-overlay-header">
-          <h1 data-ng-controller="BrandController">{{brand.title}}</h1>
-          <hr class="overlay-hr">
-        </div>
-        <div class="navigation-links">
-          <div class="navigation-links-top">
-            <div class="navigation-link">BUILDING SITE HISTORY</div>
-            <div class="navigation-link">ARCHITECTURE & URBANISM</div>
-            <div class="navigation-link">MATERIAL JOURNEYS</div>
-            <div class="navigation-link">PEOPLE & PLACE</div>
-          </div>
-          <div class="navigation-links-bottom">
-            <div class="navigation-link">ABOUT THE AUTHOR</div>
-            <div class="navigation-link">DOWNLOADS</div>
-            <div class="navigation-link">LINKS</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <div data-ng-include='"/templates/navigation.html"'></div>
 
   <!-- Navigation display button -->
-  <div class="navigation-container">
+  <div class="navigation-container"
+      data-ng-controller="NavigationController"
+      data-ng-click="toggleNavigation()">
     <div class="navigation">
       <div></div>
       <div></div>
@@ -52,12 +32,14 @@
   </div>
 
   <!-- Branding overlay -->
-  <img data-ng-controller="BrandController" data-ng-src="{{brand.logo}}" class="dh-branding">
+  <img data-ng-controller="BrandController" 
+      data-ng-src="{{brand.logo}}" class="dh-branding">
 
   <!-- Full screen background image container -->
   <div class="background-image"></div>
 
-  <div class="page-content" data-ng-controller="PageController" data-ng-include="page.url"></div>
+  <div class="page-content" data-ng-controller="PageController" 
+      data-ng-include="page.url"></div>
 
   <div data-ng-controller="PageController" 
       class="footer-container partial-width-footer-container">
