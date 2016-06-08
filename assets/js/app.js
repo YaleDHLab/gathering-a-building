@@ -1,11 +1,5 @@
 var BuildingApp = angular.module("BuildingApp", []);
 
-// filter to escape urls
-BuildingApp.filter('cleanUrl', function() {
-  return window.encodeURIComponent;
-});
-
-
 // Navigation Controller to populate navigation
 BuildingApp.controller("NavigationController", [
       "$scope", "$http",
@@ -13,6 +7,7 @@ BuildingApp.controller("NavigationController", [
     
     /***
     * @params: none
+    * @returns: none
     *
     * Hide or show the navigation overlay
     ***/
