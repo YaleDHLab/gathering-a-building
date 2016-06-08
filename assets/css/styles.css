@@ -148,27 +148,6 @@ html, body, .background-image {
   width: 100%;
 }
 
-/**************************
-* Background image styles *
-**************************/
-
-.background-image {
-  position: absolute;
-  background: url(/assets/images/scaffold.jpg) no-repeat center center fixed;
-  -webkit-background-size: cover;
-  -mox-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-/* preload background images to prevent glitches on background swap */
-.image-staging-area {
-  width: 0;
-  height: 0;
-  z-index: -1;
-  overflow: hidden;
-}
-
 /*********************
 * Header text styles *
 *********************/
@@ -245,6 +224,33 @@ html, body, .background-image {
   font-size: .92em;
   line-height: 1.25em;
 }
+
+/**************************
+* Background image styles *
+**************************/
+
+.background-image {
+  position: absolute;
+  background: url(/assets/images/scaffold.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -mox-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* preload background images to prevent glitches on background swap */
+.image-staging-area {
+  width: 0;
+  height: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/***************************
+* Table of contents styles *
+***************************/
+
+
 
 /*********************
 * Map section styles *

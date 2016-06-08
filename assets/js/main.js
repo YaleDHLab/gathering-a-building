@@ -126,7 +126,7 @@ $(window).ready( function() {
   // home page click listener to send users to main nav
   $(".footer-next").on("click", function() {
     $(".body-text-overlay-container").removeClass("hidden");
-    document.getElementById("section-3").scrollIntoView();
+    document.getElementById("section1").scrollIntoView();
   });
 
 
