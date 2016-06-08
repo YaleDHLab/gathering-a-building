@@ -9,13 +9,19 @@ var resizeOverlay = function() {
   var bottom = (windowHeight + 210) * .3035;
 
   console.log(height, width, left);
-  $("#overlay-1").css({
+  $(".home-overlay-1").css({
     "height": height,
     "width": width,
     "left": left,
     "bottom": bottom
   });
+
+  // add listener inside the document load
+  $(".home-overlay-1").on("click", function() {
+    $(this).toggleClass("translucent");
+  });
 }
 
+// update the overlay styles on page load and resize
 $(document).ready(resizeOverlay);
 $(window).resize(resizeOverlay);
