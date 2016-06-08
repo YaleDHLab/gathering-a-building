@@ -77,6 +77,8 @@ html, body, .background-content {
   font-size: 2.5em;
   margin: 6px 24px;
   cursor: pointer;
+  display: inline-block;
+  position: absolute;
 }
 
 /*******************
