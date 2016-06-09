@@ -7,12 +7,14 @@
   <script src="vendor/js/jquery-2.2.2.js"></script>
   <script src="vendor/js/leaflet.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.js"></script>
   <script src="assets/js/map.js"></script>
   <script src="assets/js/main.js"></script>
   <script src="assets/js/overlay.js"></script>
   <script src="assets/js/app.js"></script>
 
-  <title data-ng-controller="BrandController" data-ng-bind="brand.title"></title>
+  <title data-ng-controller="brandController" data-ng-bind="brand.title"></title>
+  <base href="/">
 </head>
 <body>
 
@@ -22,21 +24,16 @@
   <!-- Navigation display button -->
   <div data-ng-include='"/templates/navigation-button.html"'></div>
 
+  <!-- Brand link home -->
+  <div data-ng-include='"/templates/header.html"' class="home-header-container"></div>
+
   <!-- Branding overlay -->
   <div data-ng-include='"/templates/branding-logo.html"'></div>
 
-  <!-- Full screen background image container -->
-  <div class="background-image"></div>
-
-  <!-- Current page content -->
-  <div class="page-content" 
-      data-ng-controller="PageController" 
-      data-ng-include="page.url">
-  </div>
+  <!-- Content for current page from controller --> 
+  <div id="page-content" data-ng-view></div>
 
   <!-- Footer -->
   <div data-ng-include='"/templates/footer.html"'></div>
-
-  <div class="image-staging-area"></div>
 </body>
 </html>
