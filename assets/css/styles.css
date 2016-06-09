@@ -280,7 +280,11 @@ a:hover {
 }
 
 .map-overlay-selector {
+  position: absolute;
+  z-index: 4;
   display: inline-block;
+  bottom: 13px;
+  left: 550px;
   height: 31px;
   border-radius: 20px;
   border: 1px solid #CBCBCB;
@@ -304,22 +308,6 @@ a:hover {
 .map-overlay.active {
   color: #fff;
   background-color: #7CBFDD;
-}
-
-.map-selection-label {
-  display: inline-block;
-  margin-left: 150px;
-  height: 100%;
-  width: 370px;
-  background: #fff;
-}
-
-.map-selection-label-content {
-  display: inline-block;
-  color: #72ADC7;
-  font-weight: 700;
-  font-size: 1.15em;
-  padding: 18px 35px;
 }
 
 /****************
@@ -374,4 +362,12 @@ a:hover {
 .footer-hr {
   margin-left: 35px;
   margin-right: 35px;
+}
+
+.footer-left {
+  display: inline-block;
+  color: #72ADC7;
+  font-weight: 700;
+  font-size: 1.15em;
+  padding: 18px 35px;
 }
