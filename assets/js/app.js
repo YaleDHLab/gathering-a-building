@@ -50,6 +50,21 @@ buildingApp.factory("stateService", [
         {
           "chapter": "",
           "article": ""
+        },
+      
+      "footer":
+        {
+          "left": {
+            "text": "Home",
+            "link": "/#/"
+            },
+
+          "right": {
+            "text": "Next&darr;",
+            "link": "/routes/site-history"
+            },
+
+          "background": 1
         }
     };
 
@@ -73,16 +88,18 @@ buildingApp.factory("stateService", [
 ])
 
 
+
+
 // Navigation Controller to populate navigation
 buildingApp.controller("navigationController", [
       "$scope", "$http", "stateService",
-  function($scope, $http, State) {
+  function($scope, $http, stateService) {
 
     // store self reference
     var self = this;
 
     // subscribe to shared state
-    self.State = State;
+    self.State = stateService;
 
     /***
     * @params: none
@@ -105,7 +122,7 @@ buildingApp.controller("navigationController", [
     ***/
 
     $scope.setState = function(request) {
-      State.set(request);
+      stateService.set(request);
     };
 
   }
@@ -132,13 +149,16 @@ buildingApp.controller("brandController", [
 ]);
 
 
+
+
+
 // Page Controller to control page content
 buildingApp.controller("footerController", [
       "$scope", "$http", "stateService",
-  function($scope, $http, State) {
+  function($scope, $http, stateService) {
 
     // publish state to view
-    $scope.state = State;
+    $scope.state = stateService;
 
     // populate footer fields
     $scope.footer = {
@@ -160,7 +180,7 @@ buildingApp.controller("footerController", [
 // Controller for home view
 buildingApp.controller("homeController", [
       "$scope", "$http", "stateService",
-  function($scope, $http, State) {
+  function($scope, $http, stateService) {
 
     /***
     * @params: Object with the form {k1:{k2:v2, k3:v3}}
@@ -171,20 +191,23 @@ buildingApp.controller("homeController", [
     ***/
 
     $scope.setState = function(request) {
-      State.set(request);
+      stateService.set(request);
     };
 
     // publish state to view
-    $scope.state = State;
+    $scope.state = stateService;
 
   }
 ]);
 
 
+
+
+
 // Controller for site history view
 buildingApp.controller("siteHistoryController", [
       "$scope", "$http", "stateService",
-  function($scope, $http, State) {
+  function($scope, $http, stateService) {
 
     /***
     * @params: Object with the form {k1:{k2:v2, k3:v3}}
@@ -195,11 +218,11 @@ buildingApp.controller("siteHistoryController", [
     ***/
 
     $scope.setState = function(request) {
-      State.set(request);
+      stateService.set(request);
     };
 
     // publish state to view
-    $scope.state = State;
+    $scope.state = stateService;
 
     /***
     * @object: keys are ids for the selected plan
@@ -265,10 +288,13 @@ buildingApp.controller("siteHistoryController", [
 ]);
 
 
+
+
+
 // Controller for site architecture and urbanism view
 buildingApp.controller("architectureAndUrbanismController", [
       "$scope", "$http", "stateService",
-  function($scope, $http, State) {
+  function($scope, $http, stateService) {
 
     /***
     * @params: Object with the form {k1:{k2:v2, k3:v3}}
@@ -279,11 +305,11 @@ buildingApp.controller("architectureAndUrbanismController", [
     ***/
 
     $scope.setState = function(request) {
-      State.set(request);
+      stateService.set(request);
     };
 
     // publish state to view
-    $scope.state = State;
+    $scope.state = stateService;
 
   }
 ]);
@@ -292,7 +318,7 @@ buildingApp.controller("architectureAndUrbanismController", [
 // Controller for material journeys view
 buildingApp.controller("materialJourneysController", [
       "$scope", "$http", "stateService",
-  function($scope, $http, State) {
+  function($scope, $http, stateService) {
 
     /***
     * @params: Object with the form {k1:{k2:v2, k3:v3}}
@@ -303,11 +329,11 @@ buildingApp.controller("materialJourneysController", [
     ***/
 
     $scope.setState = function(request) {
-      State.set(request);
+      stateService.set(request);
     };
 
     // publish state to view
-    $scope.state = State;
+    $scope.state = stateService;
 
   }
 ]);
@@ -316,7 +342,7 @@ buildingApp.controller("materialJourneysController", [
 // Controller for people and place view
 buildingApp.controller("peopleAndPlaceController", [
       "$scope", "$http", "stateService",
-  function($scope, $http, State) {
+  function($scope, $http, stateService) {
 
     /***
     * @params: Object with the form {k1:{k2:v2, k3:v3}}
@@ -327,11 +353,11 @@ buildingApp.controller("peopleAndPlaceController", [
     ***/
 
     $scope.setState = function(request) {
-      State.set(request);
+      stateService.set(request);
     };
 
     // publish state to view
-    $scope.state = State;
+    $scope.state = stateService;
 
   }
 ]);
