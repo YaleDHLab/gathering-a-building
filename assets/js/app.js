@@ -38,49 +38,27 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
 
 
 // Service to identify the current page content
-buildingApp.factory("stateService", [
-      "$http",
-  function($http) {
+buildingApp.factory("footerService", [
+      "$rootScope",
+  function($rootScope) {
     
-    var state = {
-      "page": 
-        {
-          "chapter": "",
-          "article": ""
-        },
-      
-      "footer":
-        {
-          "left": {
-            "text": "Home",
-            "url": "/#/"
-            },
-
-          "right": {
-            "text": "Next&darr;",
-            "url": "/#/"
-            },
-
-          "style": "full"
-        }
+    var footer = {
+      "left": "hey",
+      "right": "oh"
     };
 
-    state.set = function(request) {
-      for (var key1 in request) {
-        
-        // add the key to state if necessary
-        (key1 in Object.keys(state) )? {} : state[key1] = {};
-          
-        // loop over second order keys
-        for (var key2 in request[key1]) {
+    footer.set = function(newFooter) {
+      console.log("request", newFooter);
+      footer = newFooter;
+      $rootScope.$broadcast('footer:updated', newFooter);
+    }
 
-          // set the state property for the key pair
-          state[key1][key2] = request[key1][key2];
-        }
-      }
-    };
+    footer.get = function() {
+      console.log("footer Request gets", footer);
+      return footer;
+    }
 
-    return state;  
+    return footer;    
   }
 ])
 
@@ -89,14 +67,11 @@ buildingApp.factory("stateService", [
 
 // Navigation Controller to populate navigation
 buildingApp.controller("navigationController", [
-      "$scope", "$http", "stateService",
-  function($scope, $http, stateService) {
+      "$scope", "$http",
+  function($scope, $http) {
 
     // store self reference
     var self = this;
-
-    // subscribe to shared state
-    self.State = stateService;
 
     /***
     * @params: none
@@ -110,18 +85,7 @@ buildingApp.controller("navigationController", [
       $(".navigation-overlay").toggleClass("hidden");
     };
 
-    /***
-    * @params: Object with the form {k1:{k2:v2, k3:v3}}
-    *          used to update state in the State service
-    * @returns: none
-    *
-    * Hide or show the navigation overlay
-    ***/
-
-    $scope.setState = function(request) {
-      stateService.set(request);
-    };
-
+  
   }
 ]);
 
@@ -148,12 +112,25 @@ buildingApp.controller("brandController", [
 
 // Footer Controller to manage footer state across views
 buildingApp.controller("footerController", [
-      "$scope", "$http", "stateService",
-  function($scope, $http, stateService) {
+      "$scope", "$http", "footerService",
+  function($scope, $http, footerService) {
 
-    // publish state to view
-    $scope.state = stateService;
+    var doApply = function() {
+      $scope.$apply();
+    }
+    
 
+    $scope.$on('footer:updated', function(event, newFooter) {
+      console.log("update!", newFooter);
+      $scope.chomp = footerService.get();
+      
+      // this works but don't do it.
+      if (!$scope.$$phase) $scope.$apply();
+
+
+    });
+
+    
   }
 ]);
 
@@ -167,23 +144,8 @@ buildingApp.controller("footerController", [
 
 // Controller for home view
 buildingApp.controller("homeController", [
-      "$scope", "$http", "stateService",
-  function($scope, $http, stateService) {
-
-    /***
-    * @params: Object with the form {k1:{k2:v2, k3:v3}}
-    *          used to update state in the State service
-    * @returns: none
-    *
-    * Hide or show the navigation overlay
-    ***/
-
-    $scope.setState = function(request) {
-      stateService.set(request);
-    };
-
-    // publish state to view
-    $scope.state = stateService;
+      "$scope", "$http", 
+  function($scope, $http) {
 
   }
 ]);
@@ -194,8 +156,8 @@ buildingApp.controller("homeController", [
 
 // Controller for site history view
 buildingApp.controller("siteHistoryController", [
-      "$scope", "$http", "stateService",
-  function($scope, $http, stateService) {
+      "$scope", "$http", "footerService",
+  function($scope, $http, footerService) {
 
     /***
     * @params: Object with the form {k1:{k2:v2, k3:v3}}
@@ -205,12 +167,9 @@ buildingApp.controller("siteHistoryController", [
     * Hides or shows the navigation overlay
     ***/
 
-    $scope.setState = function(request) {
-      stateService.set(request);
+    var setFooter = function(request) {
+      footerService.set(request);
     };
-
-    // publish state to view
-    $scope.state = stateService;
 
     /***
     * @object: keys are ids for the selected plan
@@ -239,7 +198,12 @@ buildingApp.controller("siteHistoryController", [
       // use the appropriate label as the map selection label
       var selectedClasses = selectedOption.attr('class');
       var selectedId = selectedClasses.split(" map-overlay-")[1].split(" ")[0];
-      $(".map-selection-label-content").html( mapOverlayLabels[selectedId] );
+      //var request = {"footer": {"left": {"text": mapOverlayLabels[selectedId]}, "style": "full"}};
+
+
+      var request = {"left": "hoyo", "right": mapOverlayLabels[selectedId]};
+      setFooter(request);
+
     };
 
     /***
@@ -316,23 +280,10 @@ buildingApp.controller("siteHistoryController", [
 
 // Controller for site architecture and urbanism view
 buildingApp.controller("architectureAndUrbanismController", [
-      "$scope", "$http", "stateService",
-  function($scope, $http, stateService) {
+      "$scope", "$http",
+  function($scope, $http) {
 
-    /***
-    * @params: Object with the form {k1:{k2:v2, k3:v3}}
-    *          used to update state in the State service
-    * @returns: none
-    *
-    * Hide or show the navigation overlay
-    ***/
-
-    $scope.setState = function(request) {
-      stateService.set(request);
-    };
-
-    // publish state to view
-    $scope.state = stateService;
+    
 
   }
 ]);
@@ -340,23 +291,10 @@ buildingApp.controller("architectureAndUrbanismController", [
 
 // Controller for material journeys view
 buildingApp.controller("materialJourneysController", [
-      "$scope", "$http", "stateService",
-  function($scope, $http, stateService) {
+      "$scope", "$http",
+  function($scope, $http) {
 
-    /***
-    * @params: Object with the form {k1:{k2:v2, k3:v3}}
-    *          used to update state in the State service
-    * @returns: none
-    *
-    * Hide or show the navigation overlay
-    ***/
-
-    $scope.setState = function(request) {
-      stateService.set(request);
-    };
-
-    // publish state to view
-    $scope.state = stateService;
+    
 
   }
 ]);
@@ -364,23 +302,10 @@ buildingApp.controller("materialJourneysController", [
 
 // Controller for people and place view
 buildingApp.controller("peopleAndPlaceController", [
-      "$scope", "$http", "stateService",
-  function($scope, $http, stateService) {
+      "$scope", "$http",
+  function($scope, $http) {
 
-    /***
-    * @params: Object with the form {k1:{k2:v2, k3:v3}}
-    *          used to update state in the State service
-    * @returns: none
-    *
-    * Hide or show the navigation overlay
-    ***/
-
-    $scope.setState = function(request) {
-      stateService.set(request);
-    };
-
-    // publish state to view
-    $scope.state = stateService;
+    
 
   }
 ]);

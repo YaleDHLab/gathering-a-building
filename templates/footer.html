@@ -1,15 +1,17 @@
 <div data-ng-controller="footerController" 
     class="footer-container partial-width-footer-container">
   
-  <!-- full width footer -->
-  <div class="footer-container full-width-footer-container"
-        data-ng-show="state.footer.style == 'full'">
+  <!-- full width footer data-ng-show="state.footer.style == 'full'">  -->
+  <div class="footer-container full-width-footer-container">
     <div class="full-width-footer-stripe"></div>
     <div class="full-width-footer">
       <div class="footer-content-container">
-        <a data-ng-href="{{state.footer.right.url}}">
-          <div class="footer-right"
-                data-ng-bind-html="state.footer.right.text"></div>
+        <a>
+          <div class="footer-right">{{chomp}}</div>
+        </a>
+
+        <a>
+          <div class="footer-left"></div>
         </a>
       </div>
     </div>
@@ -20,7 +22,7 @@
         data-ng-show="state.footer.style == 'partial'">
     <div class="footer-content-container">
       <hr class="overlay-hr footer-hr">
-      <div class="footer-next main-footer-next">{{state.footer.style}}</div>
+      <div class="footer-next main-footer-next"></div>
       </div>
     </div>
   </div>
