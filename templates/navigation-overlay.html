@@ -1,26 +1,43 @@
-<div data-ng-controller="NavigationController"
+<div data-ng-controller="navigationController"
       class="navigation-overlay hidden"
       data-ng-click="toggleNavigation()">
   <div class="dismiss">&times;</div>
   <div class="text-overlay-container">
     <div class="text-overlay">
-      <div class="text-overlay-header">
-        <h1 data-ng-controller="BrandController">{{brand.title}}</h1>
-        <hr class="overlay-hr">
-      </div>
       <div class="navigation-links">
+
         <div class="navigation-links-top">
-          <div class="navigation-link"
-                data-ng-click='setState({"wage": {"mage": "strange"} })'>BUILDING SITE HISTORY</div>
-          <div class="navigation-link">ARCHITECTURE & URBANISM</div>
-          <div class="navigation-link">MATERIAL JOURNEYS</div>
-          <div class="navigation-link">PEOPLE & PLACE</div>
+          <div class="navigation-link">
+            <a href="#/routes/site-history">BUILDING SITE HISTORY</a>
+          </div>
+          
+          <div class="navigation-link">
+            <a href="#/routes/architecture-and-urbanism">ARCHITECTURE & URBANISM</a>
+          </div>
+
+          <div class="navigation-link">
+            <a href="#/routes/material-journeys">MATERIAL JOURNEYS</a>
+          </div>
+
+          <div class="navigation-link">
+            <a href="#/routes/people-and-place">PEOPLE & PLACE</a>
+          </div>
         </div>
+
         <div class="navigation-links-bottom">
-          <div class="navigation-link">ABOUT THE AUTHOR</div>
-          <div class="navigation-link">DOWNLOADS</div>
-          <div class="navigation-link">LINKS</div>
+          <div class="navigation-link">
+            <a href="#/routes/about-the-author">ABOUT THE AUTHOR</a>
+          </div>
+
+          <div class="navigation-link">
+            <a href="#/routes/downloads">DOWNLOADS</a>
+          </div>
+
+          <div class="navigation-link">
+            <a href="#/routes/links">LINKS</a>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
