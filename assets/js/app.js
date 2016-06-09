@@ -148,8 +148,8 @@ buildingApp.controller("brandController", [
 
 // Footer Controller to manage footer state across views
 buildingApp.controller("footerController", [
-      "$scope", "$http", "$sanitize", "stateService",
-  function($scope, $http, $sanitize, stateService) {
+      "$scope", "$http", "stateService",
+  function($scope, $http, stateService) {
 
     // publish state to view
     $scope.state = stateService;
