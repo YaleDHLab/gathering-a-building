@@ -367,7 +367,8 @@ a:hover {
 
 .footer-right {
   float: right;
-  margin-right: 40px;
+  margin: 21px 30px;
+  cursor: pointer;
 }
 
 .footer-hr {
