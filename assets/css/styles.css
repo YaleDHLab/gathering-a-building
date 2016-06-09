@@ -335,11 +335,11 @@ a:hover {
 }
 
 .full-width-footer-container {
-  z-index: 3;
+  z-index: 2;
 }
 
 .partial-width-footer-container {
-  z-index: 2;
+  z-index: 3;
 }
 
 .full-width-footer-stripe {
@@ -365,26 +365,9 @@ a:hover {
   font-family: Arial;
 }
 
-.down-arrow {
-  display: inline-block;
-}
-
-.footer-next {
+.footer-right {
   float: right;
   margin-right: 40px;
-}
-
-.home-footer-next {
-  margin-top: 20px;
-}
-
-.main-footer-next {
-  margin-top: 13px;
-}
-
-.footer-next:hover {
-  color: #A7C9D3;
-  cursor: pointer;
 }
 
 .footer-hr {
