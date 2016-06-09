@@ -1,4 +1,4 @@
-var buildingApp = angular.module("BuildingApp", ["ngRoute"]);
+var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize"]);
 
 
 // Define application routes
@@ -37,9 +37,6 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
 
 
 
-
-
-
 // Service to identify the current page content
 buildingApp.factory("stateService", [
       "$http",
@@ -64,7 +61,7 @@ buildingApp.factory("stateService", [
             "link": "/routes/site-history"
             },
 
-          "background": 1
+          "style": "full"
         }
     };
 
@@ -149,22 +146,13 @@ buildingApp.controller("brandController", [
 ]);
 
 
-
-
-
-// Page Controller to control page content
+// Footer Controller to manage footer state across views
 buildingApp.controller("footerController", [
-      "$scope", "$http", "stateService",
-  function($scope, $http, stateService) {
+      "$scope", "$http", "$sanitize", "stateService",
+  function($scope, $http, $sanitize, stateService) {
 
     // publish state to view
     $scope.state = stateService;
-
-    // populate footer fields
-    $scope.footer = {
-      "right": "Next &uarr;",
-      "left": "Left footer"
-    };
 
   }
 ]);
