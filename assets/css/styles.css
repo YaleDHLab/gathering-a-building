@@ -25,6 +25,15 @@ html, body, .background-image, .page-content {
   opacity: .6;
 }
 
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+a:hover {
+  color: #8D8C8C;
+}
+
 /******************
 * Branding styles *
 ******************/
@@ -123,6 +132,7 @@ html, body, .background-image, .page-content {
   width: 370px;
   left: 150px;
   background-color: #fff;
+  z-index: 10;
 }
 
 .home-header {
