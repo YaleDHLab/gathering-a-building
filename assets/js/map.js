@@ -29,28 +29,4 @@ var initializeMap = function() {
     maxZoom: 19
   }));
 
-  // add listener for click of a map overlay option
-  $(".map-overlay-1, .map-overlay-2, .map-overlay-3").on("click", function() {
-    selectOverlay($(this));
-  });
-
-  // create a click on the first map overlay option
-  $(".map-overlay-1").click();
-};
-
-// create mapping from map object id to label to display
-var mapOverlayLabels = {
-  "1": "Doolittle Plan",
-  "2": "Snider Plan",
-  "3": "Pauley Plan"
-}
-
-var selectOverlay = function(selectedOption) {
-  $(".map-overlay").removeClass("active");
-  selectedOption.addClass("active");
-  
-  // use the appropriate label as the map selection label
-  var selectedClasses = selectedOption.attr('class');
-  var selectedId = selectedClasses.split(" map-overlay-")[1].split(" ")[0];
-  $(".map-selection-label-content").html( mapOverlayLabels[selectedId] );
 };
