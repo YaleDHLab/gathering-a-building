@@ -24,8 +24,18 @@
   <div class="footer-container partial-width-footer-container"
         data-ng-show="footer.style == 'partial'">
     <div class="footer-content-container">
-      <hr class="overlay-hr footer-hr">
-      <div class="footer-next main-footer-next"></div>
+      <hr class="text-column-hr text-column-hr-bottom">
+        <div class="footer-text-container">
+          <a data-ng-href="{{footer.right.url}}">
+            <div class="footer-right"
+                   data-ng-bind-html="footer.right.display"></div>
+          </a>
+
+          <a data-ng-href="{{footer.left.url}}">
+            <div class="footer-left"
+                  data-ng-bind-html="footer.left.display"></div>
+          </a>
+        </div>
       </div>
     </div>
   </div>
