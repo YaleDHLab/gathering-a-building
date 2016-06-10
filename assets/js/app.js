@@ -47,18 +47,24 @@ buildingApp.factory("footerService", [
       "right": "oh"
     };
 
-    footer.set = function(newFooter) {
-      console.log("request", newFooter);
-      footer = newFooter;
-      $rootScope.$broadcast('footer:updated', newFooter);
-    }
+    return {
+      subscribe: function(scope, callback) {
+        var handler = $rootScope.$on('footer:updated', callback);
+        scope.$on("destroy", handler);
+      },
 
-    footer.get = function() {
-      console.log("footer Request gets", footer);
-      return footer;
-    }
+      set: function(newFooter) {
+        console.log("request", newFooter);
+        footer = newFooter;
+        $rootScope.$emit("footer:updated");
+      },
 
-    return footer;    
+
+      get: function() {
+        console.log("sending get response", footer);
+        return footer;
+      }
+    };
   }
 ])
 
@@ -112,18 +118,17 @@ buildingApp.controller("brandController", [
 
 // Footer Controller to manage footer state across views
 buildingApp.controller("footerController", [
-      "$scope", "$http", "footerService",
-  function($scope, $http, footerService) {
+      "$scope", "$http", "$timeout", "footerService",
+  function($scope, $http, $timeout, footerService) {
 
-    $scope.$on('footer:updated', function(event, newFooter) {
-      console.log("update!", newFooter);
-      $scope.chomp = footerService.get();
-      
-      // this works but don't do it.
-      if (!$scope.$$phase) $scope.$apply();
-    });
+    var setFooter = function() {
+      $timeout( function() {
+        $scope.footer = footerService.get();
+      }, 0);
+    }
 
-    
+    footerService.subscribe($scope, setFooter);
+
   }
 ]);
 
