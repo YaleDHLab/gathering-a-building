@@ -39,6 +39,7 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
 }]);
 
 
+
 /***
 * Service that allows controllers to update a factory-maintained
 * footer object, subscribe to changes in that object, and submit 
@@ -73,8 +74,8 @@ buildingApp.factory("footerService", [
 
     /***
     * @params: none
-    * @returns: functions that allow injecting controllers to get footer
-    *           set the footer, or subscribe to changes to footer
+    * @returns: functions that allow injecting controllers to get,
+    *           set, or subscribe to changes to footer
     *
     * Defines the public methods controllers can call to get, set, or 
     * subscribe to changes to the footer object
@@ -100,9 +101,8 @@ buildingApp.factory("footerService", [
       * @returns: none
       * @emits: "footer:updated" event
       *
-      * Replaces the service's footer object with the newFooter
-      * object, and emits an event to subscribers so they can 
-      * reissue a get request for the new footer object
+      * Updates the status of the service's footer object and emits
+      * a signal to notify listeners of the change
       ***/
 
       set: function(newFooter) {
@@ -119,6 +119,82 @@ buildingApp.factory("footerService", [
 
       get: function() {
         return footer;
+      }
+    };
+  }
+])
+
+
+
+
+
+buildingApp.factory("textColumnService", [
+      "$rootScope",
+  function($rootScope) {
+    
+    /***
+    * @object: upDown controls whether text column is down or up
+    *          leftRight controls whether column is wide or narrow
+    *
+    * Defines whether text column is down (present) or up (hidden)
+    * and/or whether text column is narrow (displays image to left of
+    * column) or wide (takes up left half of screen). Note that the
+    * navigation overlay should not be affected by this service, as
+    * it's always narrow width.
+    ***/
+
+    var textColumn = {
+      "upDown": "down",
+      "leftRight": "wide"
+    };
+
+    /***
+    * @params: none
+    * @returns: functions that allow injecting controllers to get,
+    *           set, or subscribe to changes to the textColumn
+    *
+    * Defines the public methods controllers can call to get, set, or 
+    * subscribe to changes to the textColumn object
+    ***/
+
+    return {
+
+      /***
+      * @params: scope object, callback
+      * @returns: none
+      *
+      * Binds a callback function to an event so that when the
+      * textColumn:updated event is emitted, the callback is called
+      ***/
+
+      subscribe: function(scope, callback) {
+        var handler = $rootScope.$on('textColumn:updated', callback);
+        scope.$on("destroy", handler);
+      },
+
+      /***
+      * @params: a textColumn object as defined above
+      * @returns: none
+      * @emits: "textColumn:updated" event
+      *
+      * Updates the status of the service's textColumn object and emits
+      * a signal to notify listeners of the change
+      ***/
+
+      set: function(newTextColumn) {
+        textColumn = newTextColumn;
+        $rootScope.$emit("textColumn:updated");
+      },
+
+      /***
+      * @params: none
+      * @returns: the current service textColumn object
+      *
+      * Sends requesting controllers the current textColumn service object
+      ***/
+
+      get: function() {
+        return textColumn;
       }
     };
   }
@@ -305,7 +381,7 @@ buildingApp.controller("siteHistoryController", [
           "url": ""
         },
         "right": {
-          "display": "",
+          "display": "<i class='fa fa-minus'></i>",
           "url": ""
         },
          "style": "full"
