@@ -38,12 +38,12 @@ a:hover {
 * Branding styles *
 ******************/
 
-.dh-branding {
+.brand-logo {
   position: fixed;
   right: 15px;
   top: 15px;
   width: 60px;
-  z-index: 4;
+  z-index: 9;
 }
 
 /****************
@@ -78,7 +78,7 @@ a:hover {
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,.6);
-  z-index: 4;
+  z-index: 9;
 }
 
 .navigation-overlay .dismiss {
@@ -127,6 +127,10 @@ a:hover {
   margin-top: -61px;
 }
 
+/*********************
+* Home header styles *
+*********************/
+
 .home-header-container {
   position: fixed;
   width: 370px;
@@ -138,6 +142,16 @@ a:hover {
 .home-header {
   padding-top: 20px;
   padding-bottom: 8px;
+}
+
+.home-header h1 {
+  font-family: Times;
+  font-size: 1.37em;
+  text-align: center;
+  letter-spacing: .11em;
+  margin: 0;
+  font-weight: 400;
+  padding-bottom: 10px;
 }
 
 /*********************
@@ -158,37 +172,24 @@ a:hover {
   width: 100%;
 }
 
-/*********************
-* Header text styles *
-*********************/
+/****************************
+* Text column header styles *
+****************************/
 
-.text-overlay-header {
-  position: absolute;
-  z-index: 1;
-  background-color: #fff;
-  /* .text-overlay width - .text-overlay padding r&l */
-  width: 300px; 
-  margin-top: -35px;
-  padding-top: 20px;
-}
-
-.text-overlay-header h1,
-.home-header h1 {
-  font-family: Times;
-  font-size: 1.3em;
-  text-align: center;
-  letter-spacing: .11em;
-  margin: 0;
-  font-weight: 400;
-  padding-bottom: 10px;
-}
-
-.overlay-hr {
-  margin: 5px 0 5px 0;
+.text-column-hr {
   border: 0;
   height: 0;
   border-top: 2px solid rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.text-column-hr-top {
+  position: absolute;
+  z-index: 10;
+  width: 300px;
+  left: 35px;
+  top: 54px;
+  margin: 5px 0 5px 0;
 }
 
 .alpha-fade {
@@ -201,13 +202,14 @@ a:hover {
   height: 50px;
   /* .text-overlay width - .text-overlay padding r&l */
   width: 300px;
+  left: 35px;
 }
 
 /**********************
 * Text overlay styles *
 **********************/
 
-.text-overlay-container {
+.text-column-container {
   position: absolute;
   height: 100%;
   width: 370px;
@@ -215,24 +217,41 @@ a:hover {
   background-color: #fff;
 }
 
-.text-overlay {
+.text-column {
   max-height: 100%;
   overflow: scroll;
   padding: 35px;
-  /* 2 * padding around text-overlay */
+  /* 2 * padding around text-column */
   margin-bottom: -70px;
 }
 
-.text-overlay-content {
+.text-column-content {
   margin-top: 65px;
   margin-bottom: 100px;
 }
 
-.text-overlay-content div {
+.text-column-content div {
   padding-bottom: 18px;
   font-family: Arial;
   font-size: .92em;
   line-height: 1.25em;
+}
+
+/**********************
+* Text section styles *
+**********************/
+
+@font-face {
+  font-family: Mallory;
+  src: url("/assets/fonts/Mallory-Thin.otf") format("opentype");
+}
+
+.section-title {
+  font-size: 2.25em;
+  font-weight: 100;
+  text-transform: uppercase;
+  font-family: "Mallory", Arial;
+  padding: 100px 0px 55px 0px;
 }
 
 /**************************
@@ -272,6 +291,10 @@ a:hover {
 .leaflet-container 
 .leaflet-control-scale {
   margin-bottom: 70px;
+}
+
+.leaflet-bottom.leaflet-right {
+  z-index: 4;
 }
 
 .map-overlay-selector {
@@ -354,15 +377,19 @@ a:hover {
   cursor: pointer;
 }
 
-.footer-hr {
-  margin-left: 35px;
-  margin-right: 35px;
-}
-
 .footer-left {
   display: inline-block;
   color: #72ADC7;
   font-weight: 700;
   font-size: 1.15em;
   padding: 18px 35px;
+}
+
+.text-column-hr-bottom {
+  margin-left: 35px;
+  margin-right: 35px;
+}
+
+.footer-text-container {
+  margin-top: -13px;
 }
