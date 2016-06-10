@@ -1,7 +1,10 @@
 var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize"]);
 
 
-// Define application routes
+/***
+* Routing configuation for the application
+***/
+
 buildingApp.config(["$routeProvider", function($routeProvider) {
       
   // route for the home view
@@ -36,8 +39,12 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
 }]);
 
 
+/***
+* Service that allows controllers to update a factory-maintained
+* footer object, subscribe to changes in that object, and submit 
+* requests for the current state of that object
+***/
 
-// Service to identify the current page content
 buildingApp.factory("footerService", [
       "$rootScope",
   function($rootScope) {
@@ -46,15 +53,22 @@ buildingApp.factory("footerService", [
     * @object: keys describe aspects of the footer
     *          values describe the current state of those aspects
     *
-    * Makes a get request to the footer service to define $scope.footer
-    * for the view, and wraps that call in $timeout in order to avoid
-    * creating a digest cycle if the application is already in a digest
-    * cycle at the tie of request
+    * Display keys indicate the content to be shown in the view, 
+    * url keys indicate the url to which the footer component will
+    * link, and style indicates whether to display a full or partial
+    * width footer
     ***/
 
     var footer = {
-      "left": "hey",
-      "right": "oh"
+      "left": {
+        "display": "Home",
+        "url": "/#/"
+      },
+      "right": {
+        "display": "Next&darr;",
+        "url": "/#/"
+      },
+      "style": "full"
     };
 
     /***
@@ -104,7 +118,6 @@ buildingApp.factory("footerService", [
       ***/
 
       get: function() {
-        console.log("sending get response", footer);
         return footer;
       }
     };
@@ -134,7 +147,6 @@ buildingApp.controller("navigationController", [
       $(".navigation-overlay").toggleClass("hidden");
     };
 
-  
   }
 ]);
 
@@ -181,7 +193,7 @@ buildingApp.controller("footerController", [
     * cycle at the tie of request
     ***/
 
-    var setFooter = function() {
+    var updateFooter = function() {
       $timeout( function() {
         $scope.footer = footerService.get();
       }, 0);
@@ -192,10 +204,10 @@ buildingApp.controller("footerController", [
     * @returns: none
     *
     * Subscribes to the footerService, which will call the callback 
-    * setFooter() when the footerService emits afooter:updated signal
+    * updateFooter() when the footerService emits afooter:updated signal
     ***/
 
-    footerService.subscribe($scope, setFooter);
+    footerService.subscribe($scope, updateFooter);
 
   }
 ]);
@@ -264,10 +276,18 @@ buildingApp.controller("siteHistoryController", [
       // use the appropriate label as the map selection label
       var selectedClasses = selectedOption.attr('class');
       var selectedId = selectedClasses.split(" map-overlay-")[1].split(" ")[0];
-      //var request = {"footer": {"left": {"text": mapOverlayLabels[selectedId]}, "style": "full"}};
+      var request = {
+        "left": {
+          "display": mapOverlayLabels[selectedId],
+          "url": ""
+        },
+        "right": {
+          "display": "",
+          "url": ""
+        },
+         "style": "full"
+       };
 
-
-      var request = {"left": "hoyo", "right": mapOverlayLabels[selectedId]};
       setFooter(request);
 
     };
