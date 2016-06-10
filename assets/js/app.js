@@ -132,9 +132,6 @@ buildingApp.controller("navigationController", [
       "$scope", "$http",
   function($scope, $http) {
 
-    // store self reference
-    var self = this;
-
     /***
     * @params: none
     * @returns: none
@@ -222,8 +219,34 @@ buildingApp.controller("footerController", [
 
 // Controller for home view
 buildingApp.controller("homeController", [
-      "$scope", "$http", 
-  function($scope, $http) {
+      "$scope", "$http", "footerService",
+  function($scope, $http, footerService) {
+
+    /***
+    * @params: Object with the form {k1:{k2:v2, k3:v3}}
+    *          used to update state in the State service
+    * @returns: none
+    *
+    * Hides or shows the navigation overlay
+    ***/
+
+    var setFooter = function(request) {
+      footerService.set(request);
+    };
+
+    var footer = {
+      "left": {
+        "display": "Home",
+        "url": "/#/"
+      },
+      "right": {
+        "display": "Next&darr;",
+        "url": "/#/"
+      },
+      "style": "full"
+    };
+
+    setFooter(footer);
 
   }
 ]);
