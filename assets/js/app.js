@@ -648,9 +648,7 @@ buildingApp.controller("peopleAndPlaceController", [
       "$scope", "$http", "footerService", "textColumnService",
   function($scope, $http, footerService, textColumnService) {
 
-
-
-/***
+    /***
     * @params: footer Object sent to footerService to update footerController
     * @returns: none
     *
