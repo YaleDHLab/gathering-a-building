@@ -42,23 +42,66 @@ buildingApp.factory("footerService", [
       "$rootScope",
   function($rootScope) {
     
+    /***
+    * @object: keys describe aspects of the footer
+    *          values describe the current state of those aspects
+    *
+    * Makes a get request to the footer service to define $scope.footer
+    * for the view, and wraps that call in $timeout in order to avoid
+    * creating a digest cycle if the application is already in a digest
+    * cycle at the tie of request
+    ***/
+
     var footer = {
       "left": "hey",
       "right": "oh"
     };
 
+    /***
+    * @params: none
+    * @returns: functions that allow injecting controllers to get footer
+    *           set the footer, or subscribe to changes to footer
+    *
+    * Defines the public methods controllers can call to get, set, or 
+    * subscribe to changes to the footer object
+    ***/
+
     return {
+
+      /***
+      * @params: scope object, callback
+      * @returns: none
+      *
+      * Binds a callback function to an event so that when the
+      * footer:updated event is emitted, the callback is called
+      ***/
+
       subscribe: function(scope, callback) {
         var handler = $rootScope.$on('footer:updated', callback);
         scope.$on("destroy", handler);
       },
 
+      /***
+      * @params: a footer object as defined above
+      * @returns: none
+      * @emits: "footer:updated" event
+      *
+      * Replaces the service's footer object with the newFooter
+      * object, and emits an event to subscribers so they can 
+      * reissue a get request for the new footer object
+      ***/
+
       set: function(newFooter) {
-        console.log("request", newFooter);
         footer = newFooter;
         $rootScope.$emit("footer:updated");
       },
 
+      /***
+      * @params: none
+      * @returns: the current service footer object
+      *
+      * Sends requesting controllers the current footer service object
+      ***/
 
       get: function() {
         console.log("sending get response", footer);
@@ -105,7 +148,13 @@ buildingApp.controller("brandController", [
       "$scope", "$http",
   function($scope, $http) {
 
-    // populate footer fields
+    /***
+    * @object: keys are aspects of brand identity
+    *          values are details for the current brand
+    *
+    * Establishes brand information to show in the view
+    ***/
+
     $scope.brand = {
       "title": "GATHERING A BUILDING",
       "logo": "/assets/images/dh-lab-gray.png",
@@ -121,11 +170,30 @@ buildingApp.controller("footerController", [
       "$scope", "$http", "$timeout", "footerService",
   function($scope, $http, $timeout, footerService) {
 
+
+    /***
+    * @params: none
+    * @returns: none
+    *
+    * Makes a get request to the footer service to define $scope.footer
+    * for the view, and wraps that call in $timeout in order to avoid
+    * creating a digest cycle if the application is already in a digest
+    * cycle at the tie of request
+    ***/
+
     var setFooter = function() {
       $timeout( function() {
         $scope.footer = footerService.get();
       }, 0);
     }
+
+    /***
+    * @params: $scope object, callback
+    * @returns: none
+    *
+    * Subscribes to the footerService, which will call the callback 
+    * setFooter() when the footerService emits afooter:updated signal
+    ***/
 
     footerService.subscribe($scope, setFooter);
 
