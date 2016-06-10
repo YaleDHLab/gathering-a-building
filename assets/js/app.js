@@ -115,19 +115,12 @@ buildingApp.controller("footerController", [
       "$scope", "$http", "footerService",
   function($scope, $http, footerService) {
 
-    var doApply = function() {
-      $scope.$apply();
-    }
-    
-
     $scope.$on('footer:updated', function(event, newFooter) {
       console.log("update!", newFooter);
       $scope.chomp = footerService.get();
       
       // this works but don't do it.
       if (!$scope.$$phase) $scope.$apply();
-
-
     });
 
     
