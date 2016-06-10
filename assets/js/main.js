@@ -35,14 +35,6 @@ $(window).ready( function() {
   };
 
 
-  // preload all of these images in .image-staging-area
-  var urlsToPreload = '';
-  for (i=0; i< Object.keys(backgrounds).length; i++) {
-    var currentUrl = Object.keys(backgrounds)[i];
-    urlsToPreload += backgrounds[currentUrl];    
-  }  
-
-
   // initialize object in which to track application state
   var state = {
     "background": '',
@@ -113,14 +105,7 @@ $(window).ready( function() {
     } 
   });
 
-  // click listeners to toggle nav
-  $(".navigation, .navigation-overlay").on("click", function() {
-    // hide the navigation dropdown icon on display of overlay
-    $(".navigation").toggleClass("hidden");
-
-    // display the overlay
-    $(".navigation-overlay").toggleClass("hidden");
-  });
+  
 
 
   // home page click listener to send users to main nav

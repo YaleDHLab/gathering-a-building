@@ -1,4 +1,4 @@
-html, body, .background-image {
+html, body, .background-image, .page-content {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -23,6 +23,15 @@ html, body, .background-image {
 
 .translucent {
   opacity: .6;
+}
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+a:hover {
+  color: #8D8C8C;
 }
 
 /******************
@@ -55,7 +64,7 @@ html, body, .background-image {
   height: 4px;
   width: 23px;
   /* background will toggle between 85 and e6 */
-  background: #e6e6e6;
+  background: #858585;
   margin-top: 2px;
   border-radius: 3px;
 }
@@ -123,6 +132,7 @@ html, body, .background-image {
   width: 370px;
   left: 150px;
   background-color: #fff;
+  z-index: 10;
 }
 
 .home-header {
@@ -270,7 +280,11 @@ html, body, .background-image {
 }
 
 .map-overlay-selector {
+  position: absolute;
+  z-index: 4;
   display: inline-block;
+  bottom: 13px;
+  left: 550px;
   height: 31px;
   border-radius: 20px;
   border: 1px solid #CBCBCB;
@@ -296,22 +310,6 @@ html, body, .background-image {
   background-color: #7CBFDD;
 }
 
-.map-selection-label {
-  display: inline-block;
-  margin-left: 150px;
-  height: 100%;
-  width: 370px;
-  background: #fff;
-}
-
-.map-selection-label-content {
-  display: inline-block;
-  color: #72ADC7;
-  font-weight: 700;
-  font-size: 1.15em;
-  padding: 18px 35px;
-}
-
 /****************
 * Footer styles *
 ****************/
@@ -325,11 +323,11 @@ html, body, .background-image {
 }
 
 .full-width-footer-container {
-  z-index: 3;
+  z-index: 2;
 }
 
 .partial-width-footer-container {
-  z-index: 2;
+  z-index: 3;
 }
 
 .full-width-footer-stripe {
@@ -355,29 +353,21 @@ html, body, .background-image {
   font-family: Arial;
 }
 
-.down-arrow {
-  display: inline-block;
-}
-
-.footer-next {
+.footer-right {
   float: right;
-  margin-right: 40px;
-}
-
-.home-footer-next {
-  margin-top: 20px;
-}
-
-.main-footer-next {
-  margin-top: 13px;
-}
-
-.footer-next:hover {
-  color: #A7C9D3;
+  margin: 21px 30px;
   cursor: pointer;
 }
 
 .footer-hr {
   margin-left: 35px;
   margin-right: 35px;
+}
+
+.footer-left {
+  display: inline-block;
+  color: #72ADC7;
+  font-weight: 700;
+  font-size: 1.15em;
+  padding: 18px 35px;
 }
