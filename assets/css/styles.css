@@ -133,8 +133,8 @@ a:hover {
 
 .home-header-container {
   position: fixed;
-  width: 370px;
-  left: 150px;
+  width: 300px;
+  left: 185px;
   background-color: #fff;
   z-index: 10;
 }
