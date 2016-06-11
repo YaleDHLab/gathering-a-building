@@ -192,7 +192,7 @@ a:hover {
   margin: 5px 0 5px 0;
 }
 
-.alpha-fade {
+.alpha-fade-top {
   background: linear-gradient(0deg, 
     rgba(255,255,255,0), 
     rgba(255,255,255,.9),
@@ -205,6 +205,19 @@ a:hover {
   left: 35px;
 }
 
+.alpha-fade-bottom {
+  background: linear-gradient(0deg, 
+    rgba(255,255,255,1), 
+    rgba(255,255,255,.9),
+    rgba(255,255,255,0) );
+  position: absolute;
+  height: 50px;
+  /* .text-overlay width - .text-overlay padding r&l */
+  width: 300px;
+  left: 35px;
+  bottom: 56px;
+}
+
 /**********************
 * Text overlay styles *
 **********************/
@@ -215,7 +228,7 @@ a:hover {
   width: 370px;
   left: 150px;
   background-color: #fff;
-
+  z-index: 1;
 }
 
 .text-column {
