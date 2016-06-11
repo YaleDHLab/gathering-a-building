@@ -371,8 +371,8 @@ buildingApp.controller("textColumnController", [
 
 // Controller for home view
 buildingApp.controller("homeController", [
-      "$scope", "$http", "footerService",
-  function($scope, $http, footerService) {
+      "$scope", "$http", "footerService", "textColumnService",
+  function($scope, $http, footerService, textColumnService) {
 
     /***
     * @params: Object with the form {k1:{k2:v2, k3:v3}}
@@ -400,6 +400,22 @@ buildingApp.controller("homeController", [
 
     setFooter(footer);
 
+
+    /***
+    * @params: textColumn Object used to update the textColumn factory
+    * @returns: none
+    *
+    * Updates the textColumn controller, which populates the text column
+    ***/
+
+    var setTextColumn = function(request) {
+      textColumnService.set(request);
+    };
+
+    var textColumn = {};
+
+    setTextColumn(textColumn);
+
   }
 ]);
 
@@ -425,14 +441,12 @@ buildingApp.controller("siteHistoryController", [
     };
 
 
-
     /***
     * @params: textColumn Object used to update the textColumn factory
     * @returns: none
     *
     * Updates the textColumn controller, which populates the text column
     ***/
-
 
     var setTextColumn = function(request) {
       textColumnService.set(request);
@@ -471,7 +485,7 @@ buildingApp.controller("siteHistoryController", [
       },
 
       "display": "1",
-      "hr": "1"
+      "hr": "0"
 
     };
 
