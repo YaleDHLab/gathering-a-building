@@ -133,8 +133,8 @@ a:hover {
 
 .home-header-container {
   position: fixed;
-  width: 300px;
-  left: 185px;
+  width: 370px;
+  left: 150px;
   background-color: #fff;
   z-index: 10;
 }
@@ -187,7 +187,7 @@ a:hover {
   position: absolute;
   z-index: 10;
   width: 300px;
-  left: 35px;
+  left: 185px;
   top: 54px;
   margin: 5px 0 5px 0;
 }
@@ -367,11 +367,11 @@ a:hover {
 
 .footer-content-container {
   position: fixed;
-  width: 300px;
+  width: 370px;
   height: 100%;
   background: #fff;
   display: inline-block;
-  left: 185px;
+  left: 150px;
   font-family: Arial;
 }
 
@@ -383,12 +383,19 @@ a:hover {
 
 .footer-right {
   float: right;
+  margin-right: 35px;
 }
 
 .footer-left {
   color: #72ADC7;
   font-weight: 700;
   font-size: 1.05em;
+  margin-left: 35px;
+}
+
+.text-column-hr-bottom {
+  margin-left: 35px;
+  margin-right: 35px;
 }
 
 .footer-text-container {
