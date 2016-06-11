@@ -367,11 +367,11 @@ a:hover {
 
 .footer-content-container {
   position: fixed;
-  width: 370px;
+  width: 300px;
   height: 100%;
   background: #fff;
   display: inline-block;
-  left: 150px;
+  left: 185px;
   font-family: Arial;
 }
 
@@ -383,19 +383,12 @@ a:hover {
 
 .footer-right {
   float: right;
-  margin-right: 35px;
 }
 
 .footer-left {
   color: #72ADC7;
   font-weight: 700;
   font-size: 1.05em;
-  margin-left: 35px;
-}
-
-.text-column-hr-bottom {
-  margin-left: 35px;
-  margin-right: 35px;
 }
 
 .footer-text-container {
