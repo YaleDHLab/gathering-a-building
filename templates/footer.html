@@ -1,5 +1,4 @@
-<div data-ng-controller="footerController" 
-    class="footer-container partial-width-footer-container">
+<div class="footer-container partial-width-footer-container">
   
   <!-- full width footer -->
   <div class="footer-container full-width-footer-container"
@@ -7,10 +6,21 @@
     <div class="full-width-footer-stripe"></div>
     <div class="full-width-footer">
       <div class="footer-content-container">
-        <a data-ng-href="{{footer.right.url}}">
+        
+        <!-- Footer right with onclick -->
+        <div data-ng-show="footer.right.onClick === 'toggleTextColumn()'">
           <div class="footer footer-right"
-                 data-ng-bind-html="footer.right.display"></div>
-        </a>
+                 data-ng-bind-html="footer.right.display"
+                 data-ng-click="toggleTextColumn()"></div>
+        </div>
+
+        <!-- Footer right without onclick -->
+        <div data-ng-show="footer.right.onClick != 'toggleTextColumn()'">
+          <a data-ng-href="{{footer.right.url}}">
+            <div class="footer footer-right"
+                   data-ng-bind-html="footer.right.display"></div>
+          </a>
+        </div>
 
         <a data-ng-href="{{footer.left.url}}">
           <div class="footer footer-left"
