@@ -47,19 +47,16 @@ $(window).ready( function() {
   var changeBackground = function(backgroundOption) {
     if (backgroundOption === "home") { 
       $(".body-text-overlay-container").addClass("hidden");
-      $("body").addClass("sky-background");
       $(".home").removeClass("hidden");
       $(".background-image").css({"background": "none"});
     }
     else if (backgroundOption === "map") { 
       $(".home").addClass("hidden");
-      $("body").removeClass("sky-background");
       $("#map").removeClass("hidden");
       $(".background-image").css({"background": "none"});
     }
     else {
       $(".home").addClass("hidden");
-      $("body").removeClass("sky-background");
       $("#map").addClass("hidden");
       $(".background-image").css({
         "background": "url(" + backgrounds[backgroundOption].image + ") no-repeat center center fixed", 
