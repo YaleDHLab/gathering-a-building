@@ -146,7 +146,7 @@ a:hover {
 
 .home-header h1 {
   font-family: Times;
-  font-size: 1.37em;
+  font-size: 1.34em;
   text-align: center;
   letter-spacing: .11em;
   margin: 0;
@@ -215,6 +215,7 @@ a:hover {
   width: 370px;
   left: 150px;
   background-color: #fff;
+
 }
 
 .text-column {
@@ -252,6 +253,8 @@ a:hover {
   text-transform: uppercase;
   font-family: "Mallory", Arial;
   padding: 100px 0px 55px 0px;
+  line-height: 1em;
+  margin: 0;
 }
 
 /**************************
@@ -310,6 +313,7 @@ a:hover {
   margin: 13px 0 0 20px;
   padding-right: 5px;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .map-overlay {
@@ -371,18 +375,22 @@ a:hover {
   font-family: Arial;
 }
 
-.footer-right {
-  float: right;
-  margin: 21px 30px;
+.footer {
+  display: inline-block;
+  margin-top: 21px;
   cursor: pointer;
 }
 
+.footer-right {
+  float: right;
+  margin-right: 35px;
+}
+
 .footer-left {
-  display: inline-block;
   color: #72ADC7;
   font-weight: 700;
-  font-size: 1.15em;
-  padding: 18px 35px;
+  font-size: 1.05em;
+  margin-left: 35px;
 }
 
 .text-column-hr-bottom {
