@@ -219,6 +219,25 @@ buildingApp.factory("textColumnService", [
 
 
 
+/***
+* Directive to dynamically set background images
+***/
+
+buildingApp.directive('backgroundImage', function(){
+  return function(scope, element, attrs){
+    var url = attrs.backgroundImage;
+    element.css({
+      'background': 'url(' + url + ') no-repeat center center fixed',
+      '-webkit-background-size': 'cover',
+      '-mox-background-size': 'cover',
+      '-o-background-size': 'cover',
+      'background-size': 'cover'
+    });
+  };
+});
+
+
+
 
 // Navigation Controller to populate navigation overlay
 buildingApp.controller("navigationController", [
@@ -774,6 +793,13 @@ buildingApp.controller("materialJourneysController", [
     };
 
     setTextColumn(textColumn);
+
+
+    $scope.backgroundImageUrl = "/assets/images/scaffold.jpg";
+
+
+
+
 
   }
 ]);
