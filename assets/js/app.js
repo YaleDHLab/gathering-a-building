@@ -283,6 +283,39 @@ buildingApp.controller("siteHistoryController", [
         maxZoom: 19
       }));
 
+      // specify the coordinates of the overlay's bounding box
+      var upperLeft = L.latLng(41.329785, -72.927220);
+      var lowerLeft = L.latLng(41.304414, -72.945686);
+      var upperRight = L.latLng(41.319186, -72.903268);
+      var lowerRight = L.latLng(41.293816, -72.921718);
+
+      /*
+      upperLeftPixel = map.latLngToLayerPoint(upperLeft);
+      lowerRightPixel = map.latLngToLayerPoint(lowerRight);
+
+      console.log(upperLeftPixel, lowerRightPixel);
+
+      var upperLeftContainer = map.layerPointToContainerPoint(upperLeftPixel);
+      var lowerRightContainer = map.layerPointToContainerPoint(lowerRightPixel);
+
+      console.log(upperLeftContainer, lowerRightContainer);
+      */
+
+      // create a red polyline from an array of LatLng points
+      var polyline = L.polyline([upperLeft, upperRight, lowerRight, lowerLeft, upperLeft], {color: 'red', className: 'bounding-box'}).addTo(map);
+
+      // to zoom to the polyline we just drew
+      //map.fitBounds(polyline.getBounds());
+
+
+      d3.xml("./assets/svg/2000_Cooper_Robertson_G_cutout1.svg",
+        function(svgImage) {
+          var overlayTarget = document.getElementsByClassName("leaflet-overlay-pane")[0];
+          overlayTarget.appendChild(svgImage.documentElement);
+        }
+      );
+
+
     };
 
     /***
