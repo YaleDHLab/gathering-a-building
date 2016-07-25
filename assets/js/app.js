@@ -62,6 +62,38 @@ buildingApp.directive('backgroundImage', function(){
   };
 });
 
+/***
+* Directive to listen for scroll events
+***/
+
+buildingApp.directive('scrollListener', function () {
+  return {
+    restrict: 'AC',
+
+    // give the directive access to the controller function
+    // specified in the html directive, so that when the
+    // user scrolls, the directive can broadcast the new
+    // scroll position to the subscribing controller
+    scope: {
+      setScrollPosition: '='
+    },
+
+    link: function (scope, element, attrs) {
+
+      // elem = element to which the directive is bound
+      var elem = element[0];
+
+      // bind a scroll event listener to the selected element
+      // and broadcast the scroll position to the subscribing
+      // controller function
+      element.bind('scroll', function () {
+        scrollPosition = elem.scrollTop;
+        scope.setScrollPosition(scrollPosition);
+      });
+    }
+  };
+});
+
 
 
 // Navigation Controller to populate navigation overlay
@@ -366,6 +398,15 @@ buildingApp.controller("architectureAndUrbanismController", [
       "hr": "1"
 
     };
+
+    /***
+    * Bind a scroll listener to swap background images dynamically
+    ***/
+
+    $scope.getScrollPosition = function(arg) {
+      console.log(arg);
+    }
+
 
     $scope.textColumn = textColumn;
     $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
