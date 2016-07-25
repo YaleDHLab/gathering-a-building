@@ -5,7 +5,8 @@
         class="text-column-hr text-column-hr-top">
   <div class="text-column-container">
     <div class="alpha-fade-top"></div>
-    <div class="text-column">
+    <div scroll-listener class="text-column" 
+        set-scroll-position="getScrollPosition">
       <div class="text-column-content">
         <div data-ng-repeat="section in textColumn.sections"
           data-ng-attr-id="{{ 'section' + section.id }}"
