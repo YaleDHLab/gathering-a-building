@@ -51,13 +51,13 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
 
 buildingApp.directive('backgroundImage', function(){
   return function(scope, element, attrs){
-    var url = attrs.backgroundImage;
-    element.css({
-      'background': 'url(' + url + ') no-repeat center center fixed',
-      '-webkit-background-size': 'cover',
-      '-mox-background-size': 'cover',
-      '-o-background-size': 'cover',
-      'background-size': 'cover'
+
+    attrs.$observe('backgroundImage', function(value) {
+      console.log(value);
+      element.css({
+          'background-image': 'url(' + value +')',
+          'background-size' : 'cover'
+      });
     });
   };
 });
@@ -404,9 +404,11 @@ buildingApp.controller("architectureAndUrbanismController", [
     ***/
 
     $scope.getScrollPosition = function(arg) {
-      console.log(arg);
+      if (scrollPosition > 1000) {
+        $scope.backgroundImageUrl = textColumn["sections"]["2"]["background"]["1"]["url"];
+        $scope.$apply();
+      }
     }
-
 
     $scope.textColumn = textColumn;
     $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
