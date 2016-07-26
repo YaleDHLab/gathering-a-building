@@ -260,12 +260,21 @@ a:hover {
   src: url("/assets/fonts/Mallory-Thin.otf") format("opentype");
 }
 
+
+.minor-section-spacer {
+  padding-top: 110px;
+}
+
+.major-section-spacer {
+  padding-top: 210px;
+}
+
 .section-title {
   font-size: 2.25em;
   font-weight: 100;
   text-transform: uppercase;
   font-family: "Mallory", Arial;
-  padding: 100px 0px 55px 0px;
+  padding: 0 0 55px 0;
   line-height: 1em;
   margin: 0;
 }
