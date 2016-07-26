@@ -46,21 +46,41 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
 
 
 /***
-* Directive to dynamically set background images
+* Add a run block to update scroll position on request of
+* anchor elements with article query params
+***/
+
+buildingApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
+  $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
+    $location.hash($routeParams.article);
+    $anchorScroll();
+
+    // the query param can be removed from the url as follows:
+    //$location.search('article', null);
+
+  });
+})
+
+
+
+/***
+* Directive to dynamically set background images when 
+* controllers update their backgroundImageUrl scope
+* variables
 ***/
 
 buildingApp.directive('backgroundImage', function(){
   return function(scope, element, attrs){
 
     attrs.$observe('backgroundImage', function(value) {
-      console.log(value);
       element.css({
-          'background-image': 'url(' + value +')',
+          'background': 'url(' + value +') no-repeat center center fixed',
           'background-size' : 'cover'
       });
     });
   };
 });
+
 
 /***
 * Directive to listen for scroll events
@@ -345,8 +365,8 @@ buildingApp.controller("siteHistoryController", [
 
 // Controller for site architecture and urbanism view
 buildingApp.controller("architectureAndUrbanismController", [
-    "$scope", "$http",
-  function($scope, $http) {
+    "$scope", "$http", "$location", "$anchorScroll",
+  function($scope, $http, $location, $anchorScroll) {
 
     var footer = {
       "left": {
@@ -354,8 +374,8 @@ buildingApp.controller("architectureAndUrbanismController", [
         "url": "/#/routes/architecture-and-urbanism"
       },
       "right": {
-        "display": "Next <i class='fa fa-angle-down'></i>",
-        "url": ""
+        "display": 'Next <i class="fa fa-angle-down"></i>',
+        "url": "/#/routes/architecture-and-urbanism?article=2"
       },
        "style": "partial"
     };
@@ -391,6 +411,20 @@ buildingApp.controller("architectureAndUrbanismController", [
               "annotation": "Scholarly annotation of skyline image"
             }
           }
+        },
+
+        "3": {
+          "id": "3",
+          "title": "AU Section 3 Title",
+          "subtitle": "AU Section 3 subtitle is longer than the title",
+          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
+          "background": {
+            "1": {
+              "url": "/assets/images/skyline.jpg",
+              "alt": "Image of skyline",
+              "annotation": "Scholarly annotation of skyline image"
+            }
+          }
         }
       },
 
@@ -404,8 +438,19 @@ buildingApp.controller("architectureAndUrbanismController", [
     ***/
 
     $scope.getScrollPosition = function(arg) {
+      if (scrollPosition < 1000) {
+        $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
+        $scope.$apply();
+      }
+
       if (scrollPosition > 1000) {
         $scope.backgroundImageUrl = textColumn["sections"]["2"]["background"]["1"]["url"];
+        $scope.footer.right.url = "/#/routes/architecture-and-urbanism?article=3"
+        $scope.$apply();
+      }
+
+      if (scrollPosition > 2000) {
+        $scope.backgroundImageUrl = textColumn["sections"]["3"]["background"]["1"]["url"];
         $scope.$apply();
       }
     }
