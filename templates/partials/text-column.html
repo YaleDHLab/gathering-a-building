@@ -18,7 +18,9 @@
               }"
           </div>
           <h2 class="section-title">{{ section.title }}</h2>
-          <div data-ng-repeat="paragraph in section.paragraphs">{{ paragraph }}</div>
+          <div data-ng-repeat="paragraph in section.paragraphs">
+            <div ng-bind-html="paragraph | allowHtml"</div>
+          </div>
         </div>
       </div>
     </div>
