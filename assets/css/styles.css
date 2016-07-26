@@ -5,6 +5,10 @@ html, body, .background-image, .page-content {
   padding: 0;
 }
 
+body {
+  font-size: 1em;
+}
+
 /****************
 * Helper styles *
 ****************/
@@ -247,8 +251,8 @@ a:hover {
 .text-column-content div {
   padding-bottom: 18px;
   font-family: Arial;
-  font-size: .92em;
-  line-height: 1.25em;
+  font-size: .97em;
+  line-height: 1.3em;
 }
 
 /**********************
@@ -259,7 +263,6 @@ a:hover {
   font-family: Mallory;
   src: url("/assets/fonts/Mallory-Thin.otf") format("opentype");
 }
-
 
 .minor-section-spacer {
   padding-top: 40px;
@@ -277,12 +280,12 @@ a:hover {
   padding: 0 0 55px 0;
   line-height: 1em;
   margin: 0;
-  color: #52a6d2;
+  color: #72ADC7;
 }
 
-/***************************
-* Table of Contents styles *
-***************************/
+/*******************************
+* Table of Contents Background *
+*******************************/
 
 .table-of-contents-container {
   width: 100%;
@@ -334,6 +337,22 @@ a:hover {
   height: 100%;
   width: 7px;
   background: white;
+}
+
+
+/*************************
+* Table of contents menu *
+*************************/
+
+.section-subheading {
+  font-size: 1.25em;
+  font-weight: 100;
+  margin: 0;
+  line-height: .5em;
+}
+
+.section-introduction-text {
+  margin-top: 45px;
 }
 
 /**************************

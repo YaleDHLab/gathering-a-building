@@ -402,9 +402,15 @@ buildingApp.controller("architectureAndUrbanismController", [
       "sections": {
         "1": {
           "id": "1",
-          "title": "AU Section 1 Title",
+          "title": "MATERIAL JOURNEYS",
           "subtitle": "AU Section 1 subtitle is longer than the title",
-          "paragraphs": ["<h2>Title 1</h2>","<h2>Title 2</h2>"],
+          "paragraphs": [
+            "<a href='/#/routes/architecture-and-urbanism?article=2'><h2 class='section-subheading'>Concrete</h2></a>",
+            "<a href='/#/routes/architecture-and-urbanism?article=3'><h2 class='section-subheading'>Stone</h2></a>",
+            "<a href='/#/routes/architecture-and-urbanism?article=4'><h2 class='section-subheading'>Brick</h2></a>",
+            "<a href='/#/routes/architecture-and-urbanism'><h2 class='section-subheading'>Glass</h2></a>",
+            "<div class='section-introduction-text'>Egestas hendrerit dignissim non neque urna, a imperdiet pretium congue egestas rhoncus. Porttitor vitae, at donec aliquet. Sollicitudin velit metus nonummy. Hendrerit nullam pulvinar, adipiscing mus, sit nulla justo, odio leo tellus pede risus proin, elementum et. Tellus a eget nec tempus.</div>"
+          ],
           "introImage": "",
           "background": {
             "1": {
@@ -471,22 +477,31 @@ buildingApp.controller("architectureAndUrbanismController", [
     ***/
 
     $scope.getScrollPosition = function(arg) {
-      if (scrollPosition < 1000) {
+      scrollPosition = arg;
+      console.log(arg);
+      if (scrollPosition < 640) {
         $scope.showTableOfContents = 1;
         $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
         $scope.$apply();
       }
 
-      if (scrollPosition > 1000) {
+      if (scrollPosition > 640) {
         $scope.showTableOfContents = 0;
         $scope.backgroundImageUrl = textColumn["sections"]["2"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/architecture-and-urbanism?article=3"
         $scope.$apply();
+
       }
 
-      if (scrollPosition > 2000) {
+      if (scrollPosition > 2620) {
         $scope.backgroundImageUrl = textColumn["sections"]["3"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/architecture-and-urbanism?article=4"
+        $scope.$apply();
+      }
+
+      if (scrollPosition > 4600) {
+        $scope.backgroundImageUrl = textColumn["sections"]["4"]["background"]["1"]["url"];
+        $scope.footer.right.url = "/#/routes/architecture-and-urbanism"
         $scope.$apply();
       }
     }
