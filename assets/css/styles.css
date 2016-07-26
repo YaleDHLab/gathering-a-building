@@ -349,6 +349,7 @@ a:hover {
   font-weight: 100;
   margin: 0;
   line-height: .5em;
+  text-transform: uppercase;
 }
 
 .section-introduction-text {
