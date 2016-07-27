@@ -341,7 +341,6 @@ buildingApp.controller("siteHistoryController", [
 
             // having built up the array, we can map it
             var polyline = L.polyline(latLngArray, {
-                color: 'red',
                 className: 'overlay-bounding-box',
                 weight: 2
               }

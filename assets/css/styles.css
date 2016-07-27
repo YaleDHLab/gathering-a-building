@@ -429,6 +429,15 @@ a:hover {
   background-color: #7CBFDD;
 }
 
+/*********************
+* Map overlay styles *
+*********************/
+
+.overlay-bounding-box {
+  fill: #72ADC7;
+  stroke: #44758b;
+}
+
 /****************
 * Footer styles *
 ****************/
