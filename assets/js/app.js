@@ -306,14 +306,51 @@ buildingApp.controller("siteHistoryController", [
       // if the selectedId == 2, load placeholder geojson
       if (selectedId == 2) {
 
-        d3.json("/json/cooper-robertson.geojson", function(error, json) {
-          if (error) return console.warn(error);
-          L.geoJson(json, {style: style}).addTo(map);
-          console.log("ok", map);
-        });
-      };
+        // request json uploaded by assets/utils/matrix_transform.py
+        d3.json("https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings.json",
+          function(rawJson) {
 
-       $scope.footer = footer;
+          // each member of this array describes a building
+          for (var i=0; i<rawJson.length; i++) {
+
+            var buildingPoints = rawJson[i];
+
+            // initialize an empty array of L.latLng elements
+            var latLngArray = [];
+
+            // each member of this array describes a set of points
+            for (var j=0; j<buildingPoints.length; j++) {
+
+              var buildingPoint = rawJson[i][j];
+
+              // j is an array with index 0 = x position
+              // and index 1 = y position of a projected point
+              var xPosition = buildingPoint[0];
+              var yPosition = buildingPoint[1];
+              var latLngPoint = L.latLng(xPosition, yPosition);
+              latLngArray.push(latLngPoint);
+            }
+
+            // to close the loop, we must add the first point to
+            // the latLngArray again
+            var startingPoint = buildingPoints[0];
+            var xPosition = startingPoint[0];
+            var yPosition = startingPoint[1];
+            var latLngPoint = L.latLng(xPosition, yPosition);
+            latLngArray.push(latLngPoint);
+
+            // having built up the array, we can map it
+            var polyline = L.polyline(latLngArray, {
+                color: 'red',
+                className: 'overlay-bounding-box',
+                weight: 2
+              }
+            ).addTo(map);
+          }
+        });
+      }; // closes if conditional
+
+      $scope.footer = footer;
     };
 
     /***
@@ -340,14 +377,14 @@ buildingApp.controller("siteHistoryController", [
       // create the map object itself
       var map = new L.Map("map", {
         center: centerCoordinates,
-        zoom: 17,
+        zoom: 16,
         zoomControl: false
       });
 
       // position the zoom controls in the bottom right hand corner
       L.control.zoom({
         position: 'bottomright',
-        zoom: 17,
+        zoom: 16,
         maxZoom: 20,
         minZoom: 12,
       }).addTo(map);
