@@ -12,10 +12,10 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
     controller  : 'homeController'
   })
 
-  // route for the site history view
-  $routeProvider.when('/routes/site-history', {
-    templateUrl : '/templates/routes/site-history.html',
-    controller  : 'siteHistoryController'
+  // route for the historical geography view
+  $routeProvider.when('/routes/historical-geography', {
+    templateUrl : '/templates/routes/historical-geography.html',
+    controller  : 'historicalGeographyController'
   })
 
   // route for the architecture and urbanism view
@@ -120,10 +120,7 @@ buildingApp.directive('scrollListener', function () {
 ***/
 
 buildingApp.filter('allowHtml', ['$sce', function($sce){
-  console.log($sce);
-
   return function(val) {
-    console.log(val);
     return $sce.trustAsHtml(val);
   };
 }]);
@@ -208,8 +205,8 @@ buildingApp.controller("homeController", [
 
 
 
-// Controller for site history view
-buildingApp.controller("siteHistoryController", [
+// Controller for historical geography view
+buildingApp.controller("historicalGeographyController", [
       "$scope", "$http",
   function($scope, $http) {
 
@@ -217,16 +214,16 @@ buildingApp.controller("siteHistoryController", [
       "sections": {
         "1": {
           "id": "1",
-          "title": "SH Section 1 Title",
-          "subtitle": "SH Section 1 subtitle is longer than the title",
+          "title": "SECTION ONE",
+          "subtitle": "HG Section 1 subtitle is longer than the title",
           "paragraphs": ["Lorem ipsum dolor sit amet, ne soleat dolorem lobortis nam, no meis civibus aliquando vis. Ut vidit sonet usu, an mel quot paulo mentitum. Eu sea tollit erroribus, vix eu reque fugit labore, an vel repudiare persecuti. Equidem omnesque ut qui, est persius ocurreret et, postulant voluptaria eam ut. Probo fierent ponderum sea ex. In mea eius utamur petentium, suscipit deserunt accommodare duo ut, ne verear omittam vel.", "Mea odio mutat lobortis no, te perpetua facilisis principes ius. Nisl fastidii periculis cu est, ex errem euripidis evertitur nec. Eu debet placerat mediocrem vis, pro vidisse accumsan gloriatur ei. Cu omittam scripserit nec. Nec erroribus reprimique te, modus fabulas ea pro, adhuc omnes offendit no pro.", "Sea ne amet voluptaria intellegam, an eos elitr moderatius complectitur. Ad epicurei oportere imperdiet eam, stet omnes nonumy per at, at fierent appellantur pri. Te modo omnes assentior qui. Elitr labitur accommodare cu mel. Ad wisi dolore nec. Adhuc nullam mel ei, duo augue imperdiet no.", "Vel etiam signiferumque ex, inermis splendide mei ea. Eu pro latine eruditi persecuti, veri iusto temporibus ei his. Pro novum soleat salutandi te, eos agam tation nominavi eu. Iisque oblique quo ea.", "Et minim constituto cum, id pri semper denique scaevola. An mea eruditi indoctum, quo dico quot nominavi in. Ut sea aperiri facilis assueverit, quodsi latine facilis ea qui. Nihil probatus vis at, ut sed atqui legere, usu propriae necessitatibus ea.", "His an detraxit consulatu, no brute pertinacia sit, an eam vivendo aliquando. Sed accusamus elaboraret ut, ei his congue percipitur. Putent epicuri argumentum in mea, eam cu option splendide, mel solum inimicus ad. Ne facilisi gloriatur vel, facer veniam vivendo ius at. In diam aeque iracundia usu, ex nec amet diceret signiferumque. Cu vix erant oblique nostrum, ei est feugiat forensibus, ea sed meis omittantur. Vel tation similique no.", "Habemus civibus eu has, usu ne debet option mentitum, pro ut tota delenit fuisset. Ut sit iriure sapientem, placerat senserit efficiantur id qui, sit malorum iudicabit et. Cu eripuit lucilius mei, eam hinc esse adhuc et, solet diceret mel ex. Duo ei dicam malorum abhorreant, error ignota scripta ea sit. Est cu justo albucius forensibus, ipsum omnium cu qui. Et est enim gloriatur, has alii solum ut.", "Eos laoreet posidonium an, doctus appareat no quo, est quot albucius in. Primis reprehendunt cum ei. Interesset cotidieque interpretaris nam ex, quo soluta putent aliquam cu. Ea pri ornatus detracto. Regione voluptaria at sed, nam adhuc nostrum at.", "Pri modus facete legendos eu, no eum amet aliquam appellantur, vivendo honestatis vix ei. Cum sonet discere neglegentur at, an pro iuvaret vivendo, eos in suscipit percipitur. Sit lucilius persequeris id. Vim et accumsan theophrastus, elitr vulputate eos cu.", "Epicurei mediocrem consequat cu pri. Vocibus repudiare pro ea, vis melius utroque rationibus ne, vim esse feugiat appetere id. Ad elit errem habemus ius, suas ferri adversarium mei te. Tollit menandri percipitur mel at."],
           "background": "NA"
         },
 
         "2": {
           "id": "2",
-          "title": "SH Section 2 Title",
-          "subtitle": "SH Section 2 subtitle is longer than the title",
+          "title": "SECTION TWO",
+          "subtitle": "HG Section 2 subtitle is longer than the title",
           "paragraphs": ["Lorem ipsum dolor sit amet, ne soleat dolorem lobortis nam, no meis civibus aliquando vis. Ut vidit sonet usu, an mel quot paulo mentitum. Eu sea tollit erroribus, vix eu reque fugit labore, an vel repudiare persecuti. Equidem omnesque ut qui, est persius ocurreret et, postulant voluptaria eam ut. Probo fierent ponderum sea ex. In mea eius utamur petentium, suscipit deserunt accommodare duo ut, ne verear omittam vel.", "Mea odio mutat lobortis no, te perpetua facilisis principes ius. Nisl fastidii periculis cu est, ex errem euripidis evertitur nec. Eu debet placerat mediocrem vis, pro vidisse accumsan gloriatur ei. Cu omittam scripserit nec. Nec erroribus reprimique te, modus fabulas ea pro, adhuc omnes offendit no pro.", "Sea ne amet voluptaria intellegam, an eos elitr moderatius complectitur. Ad epicurei oportere imperdiet eam, stet omnes nonumy per at, at fierent appellantur pri. Te modo omnes assentior qui. Elitr labitur accommodare cu mel. Ad wisi dolore nec. Adhuc nullam mel ei, duo augue imperdiet no.", "Vel etiam signiferumque ex, inermis splendide mei ea. Eu pro latine eruditi persecuti, veri iusto temporibus ei his. Pro novum soleat salutandi te, eos agam tation nominavi eu. Iisque oblique quo ea.", "Et minim constituto cum, id pri semper denique scaevola. An mea eruditi indoctum, quo dico quot nominavi in. Ut sea aperiri facilis assueverit, quodsi latine facilis ea qui. Nihil probatus vis at, ut sed atqui legere, usu propriae necessitatibus ea.", "His an detraxit consulatu, no brute pertinacia sit, an eam vivendo aliquando. Sed accusamus elaboraret ut, ei his congue percipitur. Putent epicuri argumentum in mea, eam cu option splendide, mel solum inimicus ad. Ne facilisi gloriatur vel, facer veniam vivendo ius at. In diam aeque iracundia usu, ex nec amet diceret signiferumque. Cu vix erant oblique nostrum, ei est feugiat forensibus, ea sed meis omittantur. Vel tation similique no.", "Habemus civibus eu has, usu ne debet option mentitum, pro ut tota delenit fuisset. Ut sit iriure sapientem, placerat senserit efficiantur id qui, sit malorum iudicabit et. Cu eripuit lucilius mei, eam hinc esse adhuc et, solet diceret mel ex. Duo ei dicam malorum abhorreant, error ignota scripta ea sit. Est cu justo albucius forensibus, ipsum omnium cu qui. Et est enim gloriatur, has alii solum ut.", "Eos laoreet posidonium an, doctus appareat no quo, est quot albucius in. Primis reprehendunt cum ei. Interesset cotidieque interpretaris nam ex, quo soluta putent aliquam cu. Ea pri ornatus detracto. Regione voluptaria at sed, nam adhuc nostrum at.", "Pri modus facete legendos eu, no eum amet aliquam appellantur, vivendo honestatis vix ei. Cum sonet discere neglegentur at, an pro iuvaret vivendo, eos in suscipit percipitur. Sit lucilius persequeris id. Vim et accumsan theophrastus, elitr vulputate eos cu.", "Epicurei mediocrem consequat cu pri. Vocibus repudiare pro ea, vis melius utroque rationibus ne, vim esse feugiat appetere id. Ad elit errem habemus ius, suas ferri adversarium mei te. Tollit menandri percipitur mel at."],
           "background": "NA"
         },
@@ -382,144 +379,6 @@ buildingApp.controller("architectureAndUrbanismController", [
     "$scope", "$http", "$location", "$anchorScroll",
   function($scope, $http, $location, $anchorScroll) {
 
-    // Set initial footer params, and update as page updates
-    var footer = {
-      "left": {
-        "display": "Architecture and Urbanism",
-        "url": "/#/routes/architecture-and-urbanism"
-      },
-      "right": {
-        "display": 'Next <i class="fa fa-angle-down"></i>',
-        "url": "/#/routes/architecture-and-urbanism?article=2"
-      },
-       "style": "partial"
-    };
-
-    $scope.footer = footer;
-
-    var textColumn = {
-
-      "sections": {
-        "1": {
-          "id": "1",
-          "title": "MATERIAL JOURNEYS",
-          "subtitle": "AU Section 1 subtitle is longer than the title",
-          "paragraphs": [
-            "<a href='/#/routes/architecture-and-urbanism?article=2'><h2 class='section-subheading'>CONCRETE</h2></a>",
-            "<a href='/#/routes/architecture-and-urbanism?article=3'><h2 class='section-subheading'>STONE</h2></a>",
-            "<a href='/#/routes/architecture-and-urbanism?article=4'><h2 class='section-subheading'>BRICK</h2></a>",
-            "<a href='/#/routes/architecture-and-urbanism'><h2 class='section-subheading'>GLASS</h2></a>",
-            "<div class='section-introduction-text'>Egestas hendrerit dignissim non neque urna, a imperdiet pretium congue egestas rhoncus. Porttitor vitae, at donec aliquet. Sollicitudin velit metus nonummy. Hendrerit nullam pulvinar, adipiscing mus, sit nulla justo, odio leo tellus pede risus proin, elementum et. Tellus a eget nec tempus.</div>"
-          ],
-          "introImage": "",
-          "background": {
-            "1": {
-              "url": "",
-              "alt": "",
-              "annotation": ""
-            }
-          }
-        },
-
-        "2": {
-          "id": "2",
-          "title": "Concrete",
-          "subtitle": "AU Section 2 subtitle is longer than the title",
-          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
-          "introImage": "/assets/images/stone.jpg",
-          "background": {
-            "1": {
-              "url": "/assets/images/sunset.jpg",
-              "alt": "Image of scaffolding",
-              "annotation": "Scholarly annotation of scaffold image"
-            }
-          }
-        },
-
-        "3": {
-          "id": "3",
-          "title": "Stone",
-          "subtitle": "AU Section 3 subtitle is longer than the title",
-          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
-          "introImage": "/assets/images/brick.jpg",
-          "background": {
-            "1": {
-              "url": "/assets/images/scaffold.jpg",
-              "alt": "Image of skyline",
-              "annotation": "Scholarly annotation of skyline image"
-            }
-          }
-        },
-
-        "4": {
-          "id": "4",
-          "title": "Brick",
-          "subtitle": "AU Section 4 subtitle is longer than the title",
-          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
-          "introImage": "/assets/images/glass.jpg",
-          "background": {
-            "1": {
-              "url": "/assets/images/skyline.jpg",
-              "alt": "Image of skyline",
-              "annotation": "Scholarly annotation of skyline image"
-            }
-          }
-        }
-      },
-
-      "display": "1",
-      "hr": "1"
-
-    };
-
-    /***
-    * Bind a scroll listener to swap background images dynamically
-    ***/
-
-    $scope.getScrollPosition = function(arg) {
-      scrollPosition = arg;
-      console.log(arg);
-      if (scrollPosition < 640) {
-        $scope.showTableOfContents = 1;
-        $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
-        $scope.$apply();
-      }
-
-      if (scrollPosition > 640) {
-        $scope.showTableOfContents = 0;
-        $scope.backgroundImageUrl = textColumn["sections"]["2"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/architecture-and-urbanism?article=3"
-        $scope.$apply();
-
-      }
-
-      if (scrollPosition > 2620) {
-        $scope.backgroundImageUrl = textColumn["sections"]["3"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/architecture-and-urbanism?article=4"
-        $scope.$apply();
-      }
-
-      if (scrollPosition > 4550) {
-        $scope.backgroundImageUrl = textColumn["sections"]["4"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/architecture-and-urbanism"
-        $scope.$apply();
-      }
-    }
-
-    // initialize the application state
-    $scope.textColumn = textColumn;
-    $scope.showTableOfContents = 1;
-    $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
-
-  }
-]);
-
-
-
-// Controller for material journeys view
-buildingApp.controller("materialJourneysController", [
-      "$scope", "$http",
-  function($scope, $http) {
 
     /***
     * @params: footer Object sent to footerService to update footerController
@@ -530,8 +389,8 @@ buildingApp.controller("materialJourneysController", [
 
     var footer = {
       "left": {
-        "display": "Material Journeys",
-        "url": "/#/routes/material-journeys"
+        "display": "Architecture & Urbanism",
+        "url": "/#/routes/architecture-and-urbanism"
       },
       "right": {
         "display": "Next <i class='fa fa-angle-down'></i>",
@@ -554,8 +413,8 @@ buildingApp.controller("materialJourneysController", [
       "sections": {
         "1": {
           "id": "1",
-          "title": "MJ Section 1 Title",
-          "subtitle": "MJ Section 1 subtitle is longer than the title",
+          "title": "Architecture & Urbanism",
+          "subtitle": "AA Section 1 subtitle is longer than the title",
           "paragraphs": ["Lorem ipsum dolor sit amet, at mel purto delectus legendos, tantas labitur civibus id mel, inani timeam atomorum no eam. Tollit habemus commune mel cu. Has at labores ullamcorper, te eam ullum populo nonumes. Hinc tation nonumy qui id, vis congue molestie ut, in dolorum recusabo sea.", "Et est contentiones mediocritatem, paulo equidem similique eos ad. Forensibus persequeris interpretaris ut mea, duo vitae meliore conceptam at. Vix cu dicam legimus, pri facete fabellas ut, an vis libris aperiri partiendo. Duo conceptam argumentum in, ut eam nisl discere eripuit, errem cetero quaerendum at sed. Mea ex quis hinc persius, esse dignissim sea cu, ut eruditi contentiones has.", "Ad tacimates laboramus nec, cum ex mollis dolores. Sale aperiri pertinax quo eu. Mutat aeterno perpetua vel cu, sed accumsan verterem consequuntur ea, an nobis scribentur has. Eu iudicabit voluptatum vix. Eam eu invenire consetetur suscipiantur, summo mundi voluptaria nec eu, an omnis eirmod tincidunt quo. Vide meis an pri. Est ei meis posidonium argumentum.", "Pro te inani homero, ei delenit iudicabit ius. Minim nostro eruditi eam at, nec everti discere ponderum an. Qui illum ipsum ne. Quidam dolorem dolores ex per, ex nec integre patrioque intellegat. An nam munere impetus.", "Periculis hendrerit sententiae id has. Vel eu natum ferri evertitur, vim at augue facilisi. Pri erant civibus id, inermis definitiones cu vis. Tritani verterem cotidieque eos ea. Pri at probatus partiendo efficiendi, minim liber accusamus at vix. Vix ceteros percipit antiopam et, option concludaturque ex per, no eum modo audiam adversarium.", "Modo novum fastidii an quo. Mea ad nisl feugiat voluptaria, per tantas expetenda ad. Cum quem meis integre ne. Ius an duis appetere, tempor atomorum voluptaria sit te. Ea omnes semper explicari duo, eu velit detracto est. In aeque assentior reprimique duo.", "Congue munere his ad, an has detracto deterruisset. An eam dolor laoreet, affert nullam pri in. Vis et saepe feugiat, vim ut labore iracundia. Ut sumo vitae nec, pro ei soluta labores. Vis delenit petentium no, suscipit petentium deterruisset per no.", "Novum mucius te mea, ne natum detraxit sea. Cibo euismod incorrupte et sed, ad mel omittantur interpretaris. Ad erant nihil placerat ius. Has eu mutat persius tractatos, cu nec putant vulputate, fugit theophrastus nam ea. Cibo habemus gloriatur qui et, usu mollis fierent placerat ne, eum senserit abhorreant ut.", "Mei cu eripuit alienum euripidis. Propriae constituto complectitur ad mea, partem propriae scaevola eu nec. Sit cu verear sanctus pericula. Ut usu sint salutandi, posse noster at vis. Errem appetere ex vis, at sed scaevola accusamus inciderint.", "Pri te tota insolens mediocrem, has in illud porro facilisis. An duo laudem ocurreret, has duis detraxit argumentum eu. Ius id quis postea suscipit, est falli scripserit interpretaris ea, in sit deseruisse disputationi. At ridens apeirian sed, eam unum dicunt reformidans te. Illum minimum sit ea, per omnis laudem ea. Per eleifend corrumpit id, liber adversarium ius at, ei pro putant corpora forensibus."],
           "background": {
             "1": {
@@ -568,8 +427,8 @@ buildingApp.controller("materialJourneysController", [
 
         "2": {
           "id": "2",
-          "title": "MJ Section 2 Title",
-          "subtitle": "MJ Section 2 subtitle is longer than the title",
+          "title": "SECTION TWO",
+          "subtitle": "AA Section 2 subtitle is longer than the title",
           "paragraphs": ["Lorem ipsum dolor sit amet, at mel purto delectus legendos, tantas labitur civibus id mel, inani timeam atomorum no eam. Tollit habemus commune mel cu. Has at labores ullamcorper, te eam ullum populo nonumes. Hinc tation nonumy qui id, vis congue molestie ut, in dolorum recusabo sea.", "Et est contentiones mediocritatem, paulo equidem similique eos ad. Forensibus persequeris interpretaris ut mea, duo vitae meliore conceptam at. Vix cu dicam legimus, pri facete fabellas ut, an vis libris aperiri partiendo. Duo conceptam argumentum in, ut eam nisl discere eripuit, errem cetero quaerendum at sed. Mea ex quis hinc persius, esse dignissim sea cu, ut eruditi contentiones has.", "Ad tacimates laboramus nec, cum ex mollis dolores. Sale aperiri pertinax quo eu. Mutat aeterno perpetua vel cu, sed accumsan verterem consequuntur ea, an nobis scribentur has. Eu iudicabit voluptatum vix. Eam eu invenire consetetur suscipiantur, summo mundi voluptaria nec eu, an omnis eirmod tincidunt quo. Vide meis an pri. Est ei meis posidonium argumentum.", "Pro te inani homero, ei delenit iudicabit ius. Minim nostro eruditi eam at, nec everti discere ponderum an. Qui illum ipsum ne. Quidam dolorem dolores ex per, ex nec integre patrioque intellegat. An nam munere impetus.", "Periculis hendrerit sententiae id has. Vel eu natum ferri evertitur, vim at augue facilisi. Pri erant civibus id, inermis definitiones cu vis. Tritani verterem cotidieque eos ea. Pri at probatus partiendo efficiendi, minim liber accusamus at vix. Vix ceteros percipit antiopam et, option concludaturque ex per, no eum modo audiam adversarium.", "Modo novum fastidii an quo. Mea ad nisl feugiat voluptaria, per tantas expetenda ad. Cum quem meis integre ne. Ius an duis appetere, tempor atomorum voluptaria sit te. Ea omnes semper explicari duo, eu velit detracto est. In aeque assentior reprimique duo.", "Congue munere his ad, an has detracto deterruisset. An eam dolor laoreet, affert nullam pri in. Vis et saepe feugiat, vim ut labore iracundia. Ut sumo vitae nec, pro ei soluta labores. Vis delenit petentium no, suscipit petentium deterruisset per no.", "Novum mucius te mea, ne natum detraxit sea. Cibo euismod incorrupte et sed, ad mel omittantur interpretaris. Ad erant nihil placerat ius. Has eu mutat persius tractatos, cu nec putant vulputate, fugit theophrastus nam ea. Cibo habemus gloriatur qui et, usu mollis fierent placerat ne, eum senserit abhorreant ut.", "Mei cu eripuit alienum euripidis. Propriae constituto complectitur ad mea, partem propriae scaevola eu nec. Sit cu verear sanctus pericula. Ut usu sint salutandi, posse noster at vis. Errem appetere ex vis, at sed scaevola accusamus inciderint.", "Pri te tota insolens mediocrem, has in illud porro facilisis. An duo laudem ocurreret, has duis detraxit argumentum eu. Ius id quis postea suscipit, est falli scripserit interpretaris ea, in sit deseruisse disputationi. At ridens apeirian sed, eam unum dicunt reformidans te. Illum minimum sit ea, per omnis laudem ea. Per eleifend corrumpit id, liber adversarium ius at, ei pro putant corpora forensibus."],
           "background": {
             "1": {
@@ -594,36 +453,57 @@ buildingApp.controller("materialJourneysController", [
 
 
 
-// Controller for people and place view
-buildingApp.controller("peopleAndPlaceController", [
+// Controller for material journeys view
+buildingApp.controller("materialJourneysController", [
       "$scope", "$http",
   function($scope, $http) {
 
+    // Set initial footer params, and update as page updates
     var footer = {
       "left": {
-        "display": "People and Place",
-        "url": "/#/routes/people-and-place"
+        "display": "Material Journeys",
+        "url": "/#/routes/material-journeys"
       },
       "right": {
-        "display": "Next <i class='fa fa-angle-down'></i>",
-        "url": ""
+        "display": 'Next <i class="fa fa-angle-down"></i>',
+        "url": "/#/routes/material-journeys?article=1"
       },
        "style": "partial"
-     };
-
-    $scope.footer = footer;
+    };
 
     var textColumn = {
 
       "sections": {
-        "1": {
-          "id": "1",
-          "title": "PP Section 1 Title",
-          "subtitle": "PP Section 1 subtitle is longer than the title",
-          "paragraphs": ["Lorem ipsum dolor sit amet, sed at hinc mediocritatem, et quaeque feugait rationibus vim. Sea eu posse iudico expetendis, mutat luptatum no pri. Nam ex illud comprehensam, cu usu putent quodsi. Sea offendit consequat definitiones ea. Ei mea mollis detracto dissentiet. Idque periculis rationibus vix ne, purto scripta ex mea, corpora fabellas mei in. Vis dicta dolorum repudiandae ad.", "Oratio munere assueverit ea nam. Ne iusto moderatius quo, commune principes honestatis pri id. Qui accusata posidonium vituperatoribus ut, solet nostro philosophia ad mel, sea alia vero vitae in. Eos enim deseruisse ex, esse summo aliquam ad mea.", "Incorrupte contentiones conclusionemque duo ei, sit ut aperiam minimum. Cu sed malorum legimus aliquando. Mel te nihil aperiam mediocritatem, putent liberavisse quo at. Cum an mollis labores corpora, vis ad libris noster laboramus, sed atqui graecis necessitatibus in. Ne agam dolorem commune quo, per euismod quaerendum no, volumus commune mediocritatem eum ea. Mazim iusto in sea.", "Accumsan apeirian sea cu. Sonet discere admodum ne eum, percipit consequat suscipiantur ne est. Nulla iisque eos at. Usu veri civibus fierent ei, id ullum appareat dissentias nec, has ad posse blandit. Odio graecis intellegat ei duo, ius te harum maiestatis, vis doctus consetetur ne. Ad ius suscipit rationibus elaboraret.", "Et veri prima numquam sed, eam te denique imperdiet necessitatibus, nibh melius civibus at quo. In alia mazim harum eam, eu nec reformidans instructior. Eum aeque inimicus eu. Evertitur scribentur ei vix. Epicuri accommodare vis ne.", "Omnis lobortis atomorum vix id, ludus vocent cu mel. No insolens partiendo salutandi vel. Electram dissentiet per et, docendi oportere pericula an ius. At per iriure virtute aliquam. Omnes putent ius et.", "Ex persius assueverit has, ex vivendo delectus vel. Sit at libris postea apeirian. Probo feugiat cum ea, brute iriure maluisset vis no. Nemore fierent suavitate ea pri, clita commune ad sit. Ei est stet munere, ei qui modo quaerendum.", "Sit ad nobis alterum utroque. Adhuc ignota dolores eum at. Veri possim molestiae te duo, partem regione iracundia eos in, ad usu summo ancillae dissentiet. Iudico aliquando id vix, aeque quando persecuti ius te, nam sumo cetero euismod id. Ex graeco antiopam consulatu mea, etiam moderatius id sit.", "Suas summo quo ex. In vim natum novum mollis. Est ei fuisset evertitur. Modus debet quo an, quo ut stet debet consectetuer, dicant salutandi ius an. Ad fugit viderer vim, cum ne eirmod rationibus. Ius purto inciderint cu. An stet regione numquam eam, facer verear invidunt duo ea, qui accumsan gubergren id.", "Mel ex homero legendos delicatissimi, no inani tollit pericula vix, nec ea invidunt deseruisse reprehendunt. Id case accusamus theophrastus est, per id malorum ullamcorper. Veritus convenire est et. At mei noluisse consequat, fastidii deterruisset an mea."],
+        "0": {
+          "id": "0",
+          "title": "MATERIAL JOURNEYS",
+          "subtitle": "MJ TABLE OF CONTENTS",
+          "paragraphs": [
+            "<a href='/#/routes/material-journeys?article=1'><h2 class='section-subheading'>CONCRETE</h2></a>",
+            "<a href='/#/routes/material-journeys?article=2'><h2 class='section-subheading'>STONE</h2></a>",
+            "<a href='/#/routes/material-journeys?article=3'><h2 class='section-subheading'>BRICK</h2></a>",
+            "<a href='/#/routes/material-journeys?article=4'><h2 class='section-subheading'>GLASS</h2></a>",
+            "<div class='section-introduction-text'>Egestas hendrerit dignissim non neque urna, a imperdiet pretium congue egestas rhoncus. Porttitor vitae, at donec aliquet. Sollicitudin velit metus nonummy. Hendrerit nullam pulvinar, adipiscing mus, sit nulla justo, odio leo tellus pede risus proin, elementum et. Tellus a eget nec tempus.</div>"
+          ],
+          "introImage": "",
           "background": {
             "1": {
-              "url": "/assets/images/scaffold.jpg",
+              "url": "",
+              "alt": "",
+              "annotation": ""
+            }
+          }
+        },
+
+        "1": {
+          "id": "1",
+          "title": "Concrete",
+          "subtitle": "MJ Section 1 subtitle is longer than the title",
+          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
+          "introImage": "/assets/images/concrete.jpg",
+          "background": {
+            "1": {
+              "url": "/assets/images/sunset.jpg",
               "alt": "Image of scaffolding",
               "annotation": "Scholarly annotation of scaffold image"
             }
@@ -632,14 +512,45 @@ buildingApp.controller("peopleAndPlaceController", [
 
         "2": {
           "id": "2",
-          "title": "PP Section 2 Title",
-          "subtitle": "PP Section 2 subtitle is longer than the title",
-          "paragraphs": ["Lorem ipsum dolor sit amet, sed at hinc mediocritatem, et quaeque feugait rationibus vim. Sea eu posse iudico expetendis, mutat luptatum no pri. Nam ex illud comprehensam, cu usu putent quodsi. Sea offendit consequat definitiones ea. Ei mea mollis detracto dissentiet. Idque periculis rationibus vix ne, purto scripta ex mea, corpora fabellas mei in. Vis dicta dolorum repudiandae ad.", "Oratio munere assueverit ea nam. Ne iusto moderatius quo, commune principes honestatis pri id. Qui accusata posidonium vituperatoribus ut, solet nostro philosophia ad mel, sea alia vero vitae in. Eos enim deseruisse ex, esse summo aliquam ad mea.", "Incorrupte contentiones conclusionemque duo ei, sit ut aperiam minimum. Cu sed malorum legimus aliquando. Mel te nihil aperiam mediocritatem, putent liberavisse quo at. Cum an mollis labores corpora, vis ad libris noster laboramus, sed atqui graecis necessitatibus in. Ne agam dolorem commune quo, per euismod quaerendum no, volumus commune mediocritatem eum ea. Mazim iusto in sea.", "Accumsan apeirian sea cu. Sonet discere admodum ne eum, percipit consequat suscipiantur ne est. Nulla iisque eos at. Usu veri civibus fierent ei, id ullum appareat dissentias nec, has ad posse blandit. Odio graecis intellegat ei duo, ius te harum maiestatis, vis doctus consetetur ne. Ad ius suscipit rationibus elaboraret.", "Et veri prima numquam sed, eam te denique imperdiet necessitatibus, nibh melius civibus at quo. In alia mazim harum eam, eu nec reformidans instructior. Eum aeque inimicus eu. Evertitur scribentur ei vix. Epicuri accommodare vis ne.", "Omnis lobortis atomorum vix id, ludus vocent cu mel. No insolens partiendo salutandi vel. Electram dissentiet per et, docendi oportere pericula an ius. At per iriure virtute aliquam. Omnes putent ius et.", "Ex persius assueverit has, ex vivendo delectus vel. Sit at libris postea apeirian. Probo feugiat cum ea, brute iriure maluisset vis no. Nemore fierent suavitate ea pri, clita commune ad sit. Ei est stet munere, ei qui modo quaerendum.", "Sit ad nobis alterum utroque. Adhuc ignota dolores eum at. Veri possim molestiae te duo, partem regione iracundia eos in, ad usu summo ancillae dissentiet. Iudico aliquando id vix, aeque quando persecuti ius te, nam sumo cetero euismod id. Ex graeco antiopam consulatu mea, etiam moderatius id sit.", "Suas summo quo ex. In vim natum novum mollis. Est ei fuisset evertitur. Modus debet quo an, quo ut stet debet consectetuer, dicant salutandi ius an. Ad fugit viderer vim, cum ne eirmod rationibus. Ius purto inciderint cu. An stet regione numquam eam, facer verear invidunt duo ea, qui accumsan gubergren id.", "Mel ex homero legendos delicatissimi, no inani tollit pericula vix, nec ea invidunt deseruisse reprehendunt. Id case accusamus theophrastus est, per id malorum ullamcorper. Veritus convenire est et. At mei noluisse consequat, fastidii deterruisset an mea."],         
+          "title": "Stone",
+          "subtitle": "MJ Section 2 subtitle is longer than the title",
+          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
+          "introImage": "/assets/images/stone.jpg",
+          "background": {
+            "1": {
+              "url": "/assets/images/scaffold.jpg",
+              "alt": "Image of scaffold",
+              "annotation": "Scholarly annotation of scaffold image"
+            }
+          }
+        },
+
+        "3": {
+          "id": "3",
+          "title": "Brick",
+          "subtitle": "MJ Section 3 subtitle is longer than the title",
+          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
+          "introImage": "/assets/images/brick.jpg",
           "background": {
             "1": {
               "url": "/assets/images/skyline.jpg",
               "alt": "Image of skyline",
               "annotation": "Scholarly annotation of skyline image"
+            }
+          }
+        },
+
+        "4": {
+          "id": "4",
+          "title": "Glass",
+          "subtitle": "MJ Section 4 subtitle is longer than the title",
+          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
+          "introImage": "/assets/images/glass.jpg",
+          "background": {
+            "1": {
+              "url": "/assets/images/sunset.jpg",
+              "alt": "Image of sunset",
+              "annotation": "Scholarly annotation of sunset image"
             }
           }
         }
@@ -650,8 +561,228 @@ buildingApp.controller("peopleAndPlaceController", [
 
     };
 
-    $scope.textColumn = textColumn;
-    $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
+    /***
+    * Bind a scroll listener to swap background images dynamically
+    ***/
 
+    $scope.getScrollPosition = function(arg) {
+      console.log(arg);
+      scrollPosition = arg;
+      if (scrollPosition < 640) {
+        $scope.showTableOfContents = 1;
+        $scope.backgroundImageUrl = textColumn["sections"]["0"]["background"]["1"]["url"];
+        $scope.$apply();
+      }
+
+      if (scrollPosition > 640) {
+        $scope.showTableOfContents = 0;
+        $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
+        $scope.footer.right.url = "/#/routes/material-journeys?article=3"
+        $scope.$apply();
+
+      }
+
+      if (scrollPosition > 2620) {
+        $scope.backgroundImageUrl = textColumn["sections"]["2"]["background"]["1"]["url"];
+        $scope.footer.right.url = "/#/routes/material-journeys?article=4"
+        $scope.$apply();
+      }
+
+      if (scrollPosition > 4750) {
+        $scope.backgroundImageUrl = textColumn["sections"]["3"]["background"]["1"]["url"];
+        $scope.footer.right.url = "/#/routes/material-journeys?article=5"
+        $scope.$apply();
+      }
+
+      if (scrollPosition > 6670) {
+        $scope.backgroundImageUrl = textColumn["sections"]["4"]["background"]["1"]["url"];
+        $scope.footer.right.url = "/#/routes/material-journeys"
+        $scope.$apply();
+      }
+    }
+
+    // initialize the application state
+    $scope.footer = footer;
+    $scope.textColumn = textColumn;
+    $scope.showTableOfContents = 1;
+    $scope.backgroundImageUrl = textColumn["sections"]["0"]["background"]["1"]["url"];
+
+  }
+]);
+
+
+// Controller for people and place view
+buildingApp.controller("peopleAndPlaceController", [
+      "$scope", "$http",
+  function($scope, $http) {
+
+    var footer = {
+      "left": {
+        "display": "People & Place",
+        "url": "/#/routes/people-and-place"
+      },
+      "right": {
+        "display": "Next <i class='fa fa-angle-down'></i>",
+        "url": "/#/routes/people-and-place?article=1"
+      },
+       "style": "partial"
+     };
+
+    $scope.footer = footer;
+
+    var textColumn = {
+
+      "sections": {
+        "0": {
+          "id": "0",
+          "title": "PEOPLE & PLACE",
+          "subtitle": "AU Section 1 subtitle is longer than the title",
+          "paragraphs": [
+            "<a href='/#/routes/people-and-place?article=1'><h2 class='section-subheading'>SECTION ONE</h2></a>",
+            "<a href='/#/routes/people-and-place?article=2'><h2 class='section-subheading'>SECTION TWO</h2></a>",
+            "<a href='/#/routes/people-and-place?article=3'><h2 class='section-subheading'>SECTION THREE</h2></a>",
+            "<a href='/#/routes/people-and-place?article=4'><h2 class='section-subheading'>SECTION FOUR</h2></a>",
+            "<a href='/#/routes/people-and-place?article=5'><h2 class='section-subheading'>SECTION FIVE</h2></a>",
+            "<div class='section-introduction-text'>Egestas hendrerit dignissim non neque urna, a imperdiet pretium congue egestas rhoncus. Porttitor vitae, at donec aliquet. Sollicitudin velit metus nonummy.</div>"
+          ],
+          "topRightHtml": '<div class="fill-container" style="background: url(/assets/images/cardboard_colleges.jpg) no-repeat center center; background-size: cover;"></div>',
+          "bottomLeftHtml": '<div class="fill-container" style="background: url(/assets/images/mapbox_base.png) no-repeat center center; background-size: cover;"></div>',
+          "bottomRightHtml": '<div class="fill-container"><div class="caption-container"><div class="caption caption-top">Top: Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his.</div><div class="caption caption-left">Left: Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his.</div></div></div>'
+        },
+
+        "1": {
+          "id": "1",
+          "title": "SECTION ONE",
+          "subtitle": "PP Section 1 subtitle is longer than the title",
+          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
+          "introImage": "/assets/images/stone.jpg",
+          "background": {
+            "1": {
+              "url": "/assets/images/sunset.jpg",
+              "alt": "Image of scaffolding",
+              "annotation": "Scholarly annotation of scaffold image"
+            }
+          }
+        },
+
+        "2": {
+          "id": "2",
+          "title": "SECTION TWO",
+          "subtitle": "PP Section 2 subtitle is longer than the title",
+          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
+          "introImage": "/assets/images/brick.jpg",
+          "background": {
+            "1": {
+              "url": "/assets/images/scaffold.jpg",
+              "alt": "Image of skyline",
+              "annotation": "Scholarly annotation of skyline image"
+            }
+          }
+        },
+
+        "3": {
+          "id": "3",
+          "title": "SECTION THREE",
+          "subtitle": "PP Section 3 subtitle is longer than the title",
+          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
+          "introImage": "/assets/images/glass.jpg",
+          "background": {
+            "1": {
+              "url": "/assets/images/skyline.jpg",
+              "alt": "Image of skyline",
+              "annotation": "Scholarly annotation of skyline image"
+            }
+          }
+        },
+
+        "4": {
+          "id": "4",
+          "title": "SECTION FOUR",
+          "subtitle": "PP Section 4 subtitle is longer than the title",
+          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
+          "introImage": "/assets/images/glass.jpg",
+          "background": {
+            "1": {
+              "url": "/assets/images/sunset.jpg",
+              "alt": "Image of sunset",
+              "annotation": "Scholarly annotation of sunset image"
+            }
+          }
+        },
+
+        "5": {
+          "id": "5",
+          "title": "SECTION FIVE",
+          "subtitle": "PP Section 5 subtitle is longer than the title",
+          "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
+          "introImage": "/assets/images/glass.jpg",
+          "background": {
+            "1": {
+              "url": "/assets/images/scaffold.jpg",
+              "alt": "Image of scaffold",
+              "annotation": "Scholarly annotation of scaffold image"
+            }
+          }
+        }
+      },
+
+      "display": "1",
+      "hr": "1"
+
+    };
+
+    /***
+    * Scroll listener
+    ***/
+
+    $scope.getScrollPosition = function(arg) {
+      scrollPosition = arg;
+      console.log(arg);
+
+      if (scrollPosition < 640) {
+        $scope.showTableOfContents = 1;
+        $scope.footer.right.url = "/#/routes/people-and-place?article=1"
+        $scope.$apply();
+      }
+
+      if (scrollPosition > 640) {
+        $scope.showTableOfContents = 0;
+        $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
+        $scope.footer.right.url = "/#/routes/people-and-place?article=2"
+        $scope.$apply();
+
+      }
+
+      if (scrollPosition > 2620) {
+        $scope.backgroundImageUrl = textColumn["sections"]["2"]["background"]["1"]["url"];
+        $scope.footer.right.url = "/#/routes/people-and-place?article=3"
+        $scope.$apply();
+      }
+
+      if (scrollPosition > 4750) {
+        $scope.backgroundImageUrl = textColumn["sections"]["3"]["background"]["1"]["url"];
+        $scope.footer.right.url = "/#/routes/people-and-place?article=4"
+        $scope.$apply();
+      }
+
+      if (scrollPosition > 6800) {
+        $scope.backgroundImageUrl = textColumn["sections"]["4"]["background"]["1"]["url"];
+        $scope.footer.right.url = "/#/routes/people-and-place?article=5"
+        $scope.$apply();
+      }
+
+      if (scrollPosition > 8840) {
+        $scope.backgroundImageUrl = textColumn["sections"]["5"]["background"]["1"]["url"];
+        $scope.footer.right.url = "/#/routes/people-and-place"
+        $scope.$apply();
+      }
+    }
+
+    // initialize the application state
+    $scope.textColumn = textColumn;
+    $scope.showTableOfContents = 1;
+    $scope.topRightHtml = textColumn["sections"]["0"]["topRightHtml"];
+    $scope.bottomLeftHtml = textColumn["sections"]["0"]["bottomLeftHtml"];
+    $scope.bottomRightHtml = textColumn["sections"]["0"]["bottomRightHtml"];
   }
 ]);
