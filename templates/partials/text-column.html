@@ -13,13 +13,13 @@
           class="section">
           <div data-ng-attr-id="{{ section.id }}"
               data-ng-class="{
-                'minor-section-spacer' : section.id == 1,
-                'major-section-spacer' : section.id != 1
+                'minor-section-spacer' : section.id == 0,
+                'major-section-spacer' : section.id != 0
               }"
           </div>
           <h2 class="section-title">{{ section.title }}</h2>
           <div data-ng-repeat="paragraph in section.paragraphs">
-            <div ng-bind-html="paragraph | allowHtml"</div>
+            <div ng-bind-html="paragraph | allowHtml"></div>
           </div>
         </div>
       </div>
