@@ -1,4 +1,4 @@
-var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize"]);
+var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize", "rzModule"]);
 
 /***
 * Routing configuation for the application
@@ -210,6 +210,10 @@ buildingApp.controller("historicalGeographyController", [
       "$scope", "$http",
   function($scope, $http) {
 
+    /***
+    * Text column data
+    ***/
+
     var textColumn = {
       "sections": {
         "1": {
@@ -236,6 +240,10 @@ buildingApp.controller("historicalGeographyController", [
 
     $scope.textColumn = textColumn;
 
+    /***
+    * Text column controls
+    ***/
+
     var showTextColumn = function() {
       $scope.textColumn.display = "1";
       $scope.footer.right.display = "<i class='fa fa-chevron-circle-up'></i>";
@@ -250,20 +258,121 @@ buildingApp.controller("historicalGeographyController", [
       $scope.textColumn.display === "1"? hideTextColumn() : showTextColumn();
     }
 
+    /*****************
+    * Image overlays *
+    *****************/
+
+    // add a function that displays the tiles at the specified url
+    var addImageOverlay = function(map, imageTileUrl) {
+
+      var imageOverlay = L.tileLayer(imageTileUrl, {
+        attribution: "",
+        opacity: .6,
+        // set max zoom to prevent requests for tiles that don't exist
+        maxZoom: 17,
+        tms: true,
+        // also set bounds to prevent 404's from appearing when
+        // the client requests image tiles from relevant zoom levels
+        // if those tiles don't exist
+        bounds: [
+          L.latLng(20,-45),
+          L.latLng(70, 90)
+        ]
+      }).addTo(map);
+
+      // add a class to the image tile layer for dynamic css styling
+      $(imageOverlay.getContainer()).addClass('imageOverlay');
+
+    };
+
+    /******************
+    * Vector overlays *
+    ******************/
+
+    var addVectorOverlay = function(map, vectorJsonUrl) {
+
+      // request json uploaded by assets/utils/matrix_transform.py
+      d3.json(vectorJsonUrl, function(rawJson) {
+
+        // once the new json arrives, fade the old buildings out
+        $(".overlay-bounding-box").addClass("fade-out");
+
+        // each member of this array describes a building
+        for (var i=0; i<rawJson.length; i++) {
+
+          var buildingPoints = rawJson[i];
+
+          // initialize an empty array of L.latLng elements
+          var latLngArray = [];
+
+          // each member of this array describes a set of points
+          for (var j=0; j<buildingPoints.length; j++) {
+
+            var buildingPoint = rawJson[i][j];
+
+            // j is an array with index 0 = x position
+            // and index 1 = y position of a projected point
+            var xPosition = buildingPoint[0];
+            var yPosition = buildingPoint[1];
+            var latLngPoint = L.latLng(xPosition, yPosition);
+            latLngArray.push(latLngPoint);
+          }
+
+          // to close the loop, we must add the first point to
+          // the latLngArray again
+          var startingPoint = buildingPoints[0];
+          var xPosition = startingPoint[0];
+          var yPosition = startingPoint[1];
+          var latLngPoint = L.latLng(xPosition, yPosition);
+          latLngArray.push(latLngPoint);
+
+          // having built up the array, we can map it
+          var polyline = L.polyline(latLngArray, {
+              className: 'overlay-bounding-box animated fade-in',
+              weight: 2
+            }
+          ).addTo(map);
+        }
+      });
+    }
+
+
     /***
+    *
+    * Overlay data
+    *
     * @object: keys are ids for the selected plan
     *          values are labels for the selected plan
     *
     * Defines the available map overlays
     ***/
 
-    var mapOverlayLabels = {
-      "1": "Doolittle Plan",
-      "2": "Snider Plan",
-      "3": "Pauley Plan"
+    var mapOverlays = {
+      "1": {
+        "year": 1824,
+        "label": "Doolittle Plan",
+        "imageOverlayUrl": "https://s3.amazonaws.com/eeb-map/carl-radefeld-1843-tiles/{z}/{x}/{y}.png",
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_top.json"
+      },
+      "2": {
+        "year": 1851,
+        "label": "Snider Plan",
+        "imageOverlayUrl": "https://s3.amazonaws.com/gathering-a-building/15691373/{z}/{x}/{y}.png",
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_mid.json"
+      },
+      "3": {
+        "year": 1868,
+        "label": "Pauley Plan",
+        "imageOverlayUrl": "https://s3.amazonaws.com/gathering-a-building/15691378/{z}/{x}/{y}.png",
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_all.json"
+      }
     }
 
+
     /***
+    *
+    * Vector overlay controls
+    *
     * @params: Integer that is present in Object.keys(mapOverlayLabels)
     * @returns: none
     *  
@@ -271,13 +380,15 @@ buildingApp.controller("historicalGeographyController", [
     ***/
 
     $scope.selectOverlay = function(selectedId) {
+
+      // indicate in the selection box which id is currently selected
       $(".map-overlay").removeClass("active");
       $(".map-overlay-" + selectedId).addClass("active");
       
+      // update the footer state to show the selected overlay id text
       var footer = {
         "left": {
-          "display": mapOverlayLabels[selectedId],
-          "url": "/#/"
+          "display": mapOverlays[selectedId]["label"]
         },
         "right": {
           "display": "<i class='fa fa-chevron-circle-up'></i>",
@@ -290,73 +401,28 @@ buildingApp.controller("historicalGeographyController", [
       // define a function to set the style of a polyfile overlay
       function style(feature) {
         return {
-            fillColor: '#064a95',
-            weight: 2,
-            opacity: 1,
-            color: 'black',
-            dashArray: '3',
-            fillOpacity: 1,
-            className: 'geojson-overlay'
+          fillColor: '#064a95',
+          weight: 2,
+          opacity: 1,
+          color: 'black',
+          dashArray: '3',
+          fillOpacity: 1,
+          className: 'geojson-overlay'
         };
       }
 
-      // if the selectedId == 2, load placeholder geojson
-      if (selectedId == 2) {
+      // add the image tile overlay
+      addImageOverlay(map, mapOverlays[selectedId]["imageOverlayUrl"]);
 
-        // request json uploaded by assets/utils/matrix_transform.py
-        d3.json("https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings.json",
-          function(rawJson) {
+      // add the vector overlay, which will remove the old vector overlay
+      addVectorOverlay(map, mapOverlays[selectedId]["vectorOverlayUrl"]);
 
-          // each member of this array describes a building
-          for (var i=0; i<rawJson.length; i++) {
-
-            var buildingPoints = rawJson[i];
-
-            // initialize an empty array of L.latLng elements
-            var latLngArray = [];
-
-            // each member of this array describes a set of points
-            for (var j=0; j<buildingPoints.length; j++) {
-
-              var buildingPoint = rawJson[i][j];
-
-              // j is an array with index 0 = x position
-              // and index 1 = y position of a projected point
-              var xPosition = buildingPoint[0];
-              var yPosition = buildingPoint[1];
-              var latLngPoint = L.latLng(xPosition, yPosition);
-              latLngArray.push(latLngPoint);
-            }
-
-            // to close the loop, we must add the first point to
-            // the latLngArray again
-            var startingPoint = buildingPoints[0];
-            var xPosition = startingPoint[0];
-            var yPosition = startingPoint[1];
-            var latLngPoint = L.latLng(xPosition, yPosition);
-            latLngArray.push(latLngPoint);
-
-            // having built up the array, we can map it
-            var polyline = L.polyline(latLngArray, {
-                className: 'overlay-bounding-box',
-                weight: 2
-              }
-            ).addTo(map);
-          }
-        });
-      }; // closes if conditional
+      // add an opacity slider
+      $scope.opacitySlider = 100;
 
       $scope.footer = footer;
     };
 
-    /***
-    * @params: none
-    * @returns: none
-    *  
-    * Sets the first map overlay option as the currently displayed overlay
-    ***/
-
-    $scope.selectOverlay(1);
 
     /***
     * @params: none
@@ -400,10 +466,11 @@ buildingApp.controller("historicalGeographyController", [
     * @params: none
     * @returns: none
     *  
-    * Initializes map overlay
+    * Initializes map overlay and selects the first overlay option
     ***/
 
     var map = initializeMap();
+    $scope.selectOverlay(1);
 
   }
 ]);
