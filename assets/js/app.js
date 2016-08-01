@@ -266,17 +266,18 @@ buildingApp.controller("historicalGeographyController", [
     var addImageOverlay = function(map, imageTileUrl) {
 
       var imageOverlay = L.tileLayer(imageTileUrl, {
-        attribution: "",
+        attribution: "This is an attribution",
         opacity: .6,
         // set max zoom to prevent requests for tiles that don't exist
-        maxZoom: 17,
+        maxZoom: 20,
         tms: true,
         // also set bounds to prevent 404's from appearing when
         // the client requests image tiles from relevant zoom levels
-        // if those tiles don't exist
+        // if those tiles don't exist. Bounds retrieved from
+        // gdalinfo {{geotiff.tif}}
         bounds: [
-          L.latLng(20,-45),
-          L.latLng(70, 90)
+          L.latLng(41.3183532,-72.9385611),
+          L.latLng(41.2950316, -72.8997637)
         ]
       }).addTo(map);
 
@@ -336,6 +337,12 @@ buildingApp.controller("historicalGeographyController", [
       });
     }
 
+    // Click listener to toggle vector overlay
+    $("span.vector-overlay-toggle-button").click(function() {
+      $("span.vector-overlay-toggle-button").toggleClass("active");
+      $(".overlay-bounding-box").toggleClass("hidden");
+    });
+
 
     /***
     *
@@ -351,7 +358,7 @@ buildingApp.controller("historicalGeographyController", [
       "1": {
         "year": 1824,
         "label": "Doolittle Plan",
-        "imageOverlayUrl": "https://s3.amazonaws.com/eeb-map/carl-radefeld-1843-tiles/{z}/{x}/{y}.png",
+        "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691352/{z}/{x}/{y}.png",
         "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_top.json"
       },
       "2": {
@@ -417,8 +424,21 @@ buildingApp.controller("historicalGeographyController", [
       // add the vector overlay, which will remove the old vector overlay
       addVectorOverlay(map, mapOverlays[selectedId]["vectorOverlayUrl"]);
 
-      // add an opacity slider
-      $scope.opacitySlider = 100;
+      // add an opacity slider with floot, ceiling, and initial value
+      $scope.opacitySlider = {
+        value: 70,
+        options: {
+          floor: 0,
+          ceil: 100
+        }
+      };
+
+      // add an event listener for the slider
+      $scope.$on("slideEnded", function() {
+        var currentOpacity = $scope.opacitySlider.value;
+        var opacityPercent = currentOpacity / $scope.opacitySlider.options.ceil;
+        $(".imageOverlay").css("opacity", opacityPercent);
+      });
 
       $scope.footer = footer;
     };
@@ -439,7 +459,7 @@ buildingApp.controller("historicalGeographyController", [
       // create the map object itself
       var map = new L.Map("map", {
         center: centerCoordinates,
-        zoom: 16,
+        zoom: 17,
         zoomControl: false
       });
 
@@ -670,6 +690,7 @@ buildingApp.controller("materialJourneysController", [
 
     $scope.getScrollPosition = function(arg) {
       console.log(arg);
+
       scrollPosition = arg;
       if (scrollPosition < 640) {
         $scope.showTableOfContents = 1;
