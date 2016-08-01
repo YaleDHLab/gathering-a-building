@@ -590,3 +590,112 @@ a:hover {
 .footer-text-container {
   margin-top: -13px;
 }
+
+
+/***************
+* Mobile Views *
+***************/
+
+/* Tablet and larger mobiles */
+@media (max-width: 800px) {
+
+  /***
+  * Nav
+  ***/
+
+  .home-header-container {
+    width: 100%;
+    left: 0;
+    position: fixed;
+  }
+
+  .alpha-fade-top {
+    top: 0px;
+  }
+
+  .home-header h1 {
+    font-size: 1.2em;
+  }
+
+  .brand-logo {
+    position: fixed;
+    width: 40px;
+    z-index: 10;
+  }
+
+  .navigation-container {
+    z-index: 11;
+  }
+
+  .navigation {
+    margin: 22px 16px;
+  }
+
+  .navigation-overlay .dismiss {
+    margin: 4px 14px;
+    color: #000;
+  }
+
+  /***
+  * Text column
+  ***/
+
+  .text-column-hr-top,
+  .alpha-fade-bottom {
+    display: none;
+  }
+
+  .text-column-container {
+    position: fixed;
+    width: 100%;
+    top: 50%;
+    left: 0;
+  }
+
+  .major-section-spacer,
+  .minor-section-spacer {
+    padding-top: 0px;
+  }
+
+  .section-title {
+    padding: 0 0 20px 0;
+  }
+
+  .text-column-content {
+    margin-top: 15px;
+    margin-bottom: 30px;
+  }
+
+  .text-column-content div {
+    padding-bottom: 8px;
+  }
+
+
+  /***
+  * Footer
+  ***/
+
+  .footer-container {
+    display: none;
+  }
+
+
+}
+
+/* Smaller mobiles */
+@media (max-width: 400px) {
+
+  /***
+  * Nav
+  ***/
+
+  .brand-logo {
+    display: none;
+  }
+
+
+
+
+
+}
+
