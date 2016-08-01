@@ -265,6 +265,9 @@ buildingApp.controller("historicalGeographyController", [
     // add a function that displays the tiles at the specified url
     var addImageOverlay = function(map, imageTileUrl) {
 
+      // remove the old imageOverlay layer
+      $(".imageOverlay").remove();
+
       var imageOverlay = L.tileLayer(imageTileUrl, {
         attribution: "This is an attribution",
         opacity: .6,
@@ -364,13 +367,13 @@ buildingApp.controller("historicalGeographyController", [
       "2": {
         "year": 1851,
         "label": "Snider Plan",
-        "imageOverlayUrl": "https://s3.amazonaws.com/gathering-a-building/15691373/{z}/{x}/{y}.png",
+        "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691373/{z}/{x}/{y}.png",
         "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_mid.json"
       },
       "3": {
         "year": 1868,
         "label": "Pauley Plan",
-        "imageOverlayUrl": "https://s3.amazonaws.com/gathering-a-building/15691378/{z}/{x}/{y}.png",
+        "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691378/{z}/{x}/{y}.png",
         "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_all.json"
       }
     }
