@@ -555,6 +555,25 @@ a:hover {
   transition: opacity 1s linear;
 }
 
+.vector-overlay-toggle {
+  position: absolute;
+  right: 10px;
+  bottom: 159px;
+}
+
+span.vector-overlay-toggle-button {
+  display: inline-block;
+  color: #5a5a5a;
+  background: #fff;
+  padding: 4px;
+  border-radius: 4px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.65);
+}
+
+span.vector-overlay-toggle-button.active {
+  color: #7CBFDD;
+}
+
 /*********************
 * Map opacity slider *
 *********************/
