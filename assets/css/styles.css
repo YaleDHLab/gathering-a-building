@@ -620,6 +620,11 @@ span.rz-pointer:focus {
   background: #969595;
 }
 
+.opacity-slider-container .rzslider .rz-bar {
+  height: 6px;
+  border-radius: 5px;
+}
+
 /****************
 * Footer styles *
 ****************/
