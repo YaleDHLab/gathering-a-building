@@ -381,7 +381,7 @@ buildingApp.controller("historicalGeographyController", [
     * Defines the available map overlays
     ***/
 
-    var mapOverlays = {
+    $scope.mapOverlays = {
       "1": {
         "year": 1824,
         "label": "Doolittle Plan",
@@ -425,7 +425,7 @@ buildingApp.controller("historicalGeographyController", [
       // update the footer state to show the selected overlay id text
       var footer = {
         "left": {
-          "display": mapOverlays[selectedId]["label"]
+          "display": $scope.mapOverlays[selectedId]["label"]
         },
         "right": {
           "display": "<i class='fa fa-chevron-circle-up'></i>",
@@ -449,10 +449,10 @@ buildingApp.controller("historicalGeographyController", [
       }
 
       // add the image tile overlay
-      addImageOverlay(map, mapOverlays[selectedId]["imageOverlayUrl"]);
+      addImageOverlay(map, $scope.mapOverlays[selectedId]["imageOverlayUrl"]);
 
       // add the vector overlay, which will remove the old vector overlay
-      addVectorOverlay(map, mapOverlays[selectedId]["vectorOverlayUrl"]);
+      addVectorOverlay(map, $scope.mapOverlays[selectedId]["vectorOverlayUrl"]);
 
       // add an opacity slider with floot, ceiling, and initial value
       $scope.opacitySlider = {
