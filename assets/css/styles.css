@@ -264,6 +264,7 @@ a:hover {
 * Text overlay styles *
 **********************/
 
+.navigation-overlay-column,
 .text-column-container {
   position: absolute;
   height: 100%;
@@ -279,15 +280,15 @@ a:hover {
 }
 
 .text-column-content {
-  margin-top: 65px;
+  margin: 65px 0;
   padding: 35px;
+  font-family: Arial;
+  line-height: 1.35em;
 }
 
-.text-column-content div {
+.section-paragraph {
   padding-bottom: 18px;
-  font-family: Arial;
-  font-size: .97em;
-  line-height: 1.35em;
+  font-size: .96em;
 }
 
 /**********************
@@ -312,7 +313,7 @@ a:hover {
   font-weight: 100;
   text-transform: uppercase;
   font-family: "Mallory", Arial;
-  padding: 0 0 75px 0;
+  padding: 0 0 45px 0;
   line-height: 1em;
   margin: 0;
   color: #72ADC7;
@@ -402,12 +403,8 @@ a:hover {
 }
 
 .wide-table-of-contents-bottom {
-  overflow: hidden;
-}
-
-.wide-table-of-contents-bottom {
   width: 100%;
-  height: 100%;
+  height: 40%;
 }
 
 .wide-table-of-contents-bottom-left {
@@ -422,8 +419,7 @@ a:hover {
   display: inline-block;
   height: 100%;
   width: 50%;
-  min-width: 200px;
-  float: left;
+  max-height: 100%;
   background: #fff;
 }
 
@@ -431,11 +427,14 @@ a:hover {
 * Wide table of contents right panel styles *
 ********************************************/
 
+/* TODO: give this container some love */
 .caption-container {
-  display: inline-block;
-  position: relative;
-  margin-top: 50%;
-  transform: translateY(-50%);
+  height: 100%;
+  width: 100%;
+  margin: 40px;
+  max-width: 76%;
+  max-height: 82%;
+  overflow: scroll;
 }
 
 .caption {
@@ -443,7 +442,6 @@ a:hover {
   font-family: Arial;
   font-size: .87em;
   line-height: 1.35em;
-  padding: 15px;
 }
 
 
@@ -452,16 +450,18 @@ a:hover {
 *************************/
 
 .section-subheading {
-  font-size: 1.25em;
+  font-size: 1.1em;
   font-weight: 100;
   margin: 0;
   line-height: 1em;
   text-transform: uppercase;
   margin-top: -8px;
+  padding-bottom: 10px;
 }
 
 .section-introduction-text {
   margin-top: 15px;
+  font-size: .95em;
 }
 
 /**************************
@@ -555,14 +555,19 @@ a:hover {
 .vector-overlay-toggle {
   position: absolute;
   right: 10px;
-  bottom: 159px;
+  bottom: 157px;
+  z-index: 4;
+}
+
+.vector-overlay-toggle .fa {
+  font-size: 14px;
 }
 
 span.vector-overlay-toggle-button {
   display: inline-block;
   color: #a2a2a2;
   background: #fff;
-  padding: 4px;
+  padding: 5px;
   border-radius: 4px;
   box-shadow: 0 1px 5px rgba(0,0,0,.65);
   cursor: pointer;
@@ -735,6 +740,11 @@ span.rz-pointer:focus {
     z-index: 11;
   }
 
+  .navigation-overlay-column {
+    left: 0;
+    width: 100%;
+  }
+
   .navigation {
     margin: 22px 16px;
   }
@@ -742,6 +752,10 @@ span.rz-pointer:focus {
   .navigation-overlay .dismiss {
     margin: 4px 14px;
     color: #000;
+  }
+
+  .navigation-overlay .text-column-content {
+    text-align: center;
   }
 
   /***
@@ -798,7 +812,7 @@ span.rz-pointer:focus {
 
   .major-section-spacer,
   .minor-section-spacer {
-    padding-top: 0px;
+    padding-top: 40px;
   }
 
   .section-title {
@@ -810,13 +824,17 @@ span.rz-pointer:focus {
     margin-bottom: 0;
   }
 
-  .text-column-content div {
+  .section-paragraph {
     padding-bottom: 8px;
   }
 
   /***
   * Map
   ***/
+
+  .map-overlay-selector {
+    display: none;
+  }
 
   #map {
     width: 100%;
@@ -825,6 +843,26 @@ span.rz-pointer:focus {
 
   .leaflet-control-attribution {
     display: none;
+  }
+
+  .opacity-slider-wrapper {
+    position: fixed;
+    left: 69%;
+    top: 50%;
+    z-index: 2;
+  }
+
+  .vector-overlay-toggle {
+    bottom: 72px;
+  }
+
+  .leaflet-touch .vector-overlay-toggle {
+    bottom: 80px;
+    right: 12px;
+  }
+
+  .leaflet-touch span.vector-overlay-toggle-button {
+    padding: 7px;
   }
 
 
