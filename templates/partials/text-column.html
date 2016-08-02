@@ -19,7 +19,7 @@
           </div>
           <h2 class="section-title">{{ section.title }}</h2>
           <div data-ng-repeat="paragraph in section.paragraphs">
-            <div ng-bind-html="paragraph | allowHtml"></div>
+            <div ng-bind-html="paragraph | allowHtml" class="section-paragraph"></div>
           </div>
         </div>
       </div>
