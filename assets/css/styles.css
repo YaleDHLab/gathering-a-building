@@ -38,6 +38,39 @@ a:hover {
   color: #8D8C8C;
 }
 
+.animated {
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation-name: fade-in;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation-name: fade-out;
+}
+
 /******************
 * Branding styles *
 ******************/
@@ -270,7 +303,7 @@ a:hover {
 }
 
 .minor-section-spacer {
-  padding-top: 40px;
+  padding-top: 110px;
 }
 
 .major-section-spacer {
@@ -484,7 +517,7 @@ a:hover {
   position: absolute;
   z-index: 4;
   display: inline-block;
-  bottom: 13px;
+  bottom: 14px;
   left: 550px;
   height: 31px;
   border-radius: 20px;
@@ -519,6 +552,77 @@ a:hover {
 .overlay-bounding-box {
   fill: #72ADC7;
   stroke: #44758b;
+  transition: opacity 1s linear;
+}
+
+.vector-overlay-toggle {
+  position: absolute;
+  right: 10px;
+  bottom: 159px;
+}
+
+span.vector-overlay-toggle-button {
+  display: inline-block;
+  color: #a2a2a2;
+  background: #fff;
+  padding: 4px;
+  border-radius: 4px;
+  box-shadow: 0 1px 5px rgba(0,0,0,.65);
+  cursor: pointer;
+}
+
+span.vector-overlay-toggle-button:hover,
+span.vector-overlay-toggle-button.active:hover {
+  color: #7CBFDD;
+}
+
+span.vector-overlay-toggle-button.active {
+  color: #5d5d5d;
+}
+
+/*********************
+* Map opacity slider *
+*********************/
+
+.opacity-slider-wrapper {
+  position: absolute;
+  bottom: 13px;
+  width: 110px;
+  left: 780px;
+  z-index: 4;
+}
+
+/* remove min and max labels */
+.opacity-slider-container span.rz-bubble,
+.opacity-slider-container span.rz-pointer:after {
+  display: none;
+}
+
+span.rz-pointer:focus {
+  outline: none;
+}
+
+.opacity-slider-container .rzslider .rz-pointer {
+  top: -6px;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border: 1px solid darkgray;
+  z-index: 5;
+}
+
+.opacity-slider-container span.rz-bar.rz-selection {
+  visibility: visible;
+  background: #7CBFDD;
+}
+
+.opacity-slider-container span.rz-bar {
+  background: #969595;
+}
+
+.opacity-slider-container .rzslider .rz-bar {
+  height: 6px;
+  border-radius: 5px;
 }
 
 /****************
