@@ -319,11 +319,18 @@ buildingApp.controller("historicalGeographyController", [
 
     var addVectorOverlay = function(map, vectorJsonUrl) {
 
+      // Revove any extant building vector overlays from the map.
+      // To do so, get a reference to the vectors. Then fade them out.
+      // One second after that function completes, remove the objects
+      // from the DOM.
+      var overlayBoundingBox = $(".overlay-bounding-box");
+      overlayBoundingBox.addClass("fade-out");
+      setTimeout(function(){
+        overlayBoundingBox.remove(); },
+      1000);
+
       // request json uploaded by assets/utils/matrix_transform.py
       d3.json(vectorJsonUrl, function(rawJson) {
-
-        // once the new json arrives, fade the old buildings out
-        $(".overlay-bounding-box").addClass("fade-out");
 
         // each member of this array describes a building
         for (var i=0; i<rawJson.length; i++) {
@@ -365,11 +372,10 @@ buildingApp.controller("historicalGeographyController", [
     }
 
     // Click listener to toggle vector overlay
-    $("span.vector-overlay-toggle-button").click(function() {
-      $("span.vector-overlay-toggle-button").toggleClass("active");
+    $scope.toggleVectorOverlay = function() {
+      $(".vector-overlay-toggle-button").toggleClass("active");
       $(".overlay-bounding-box").toggleClass("hidden");
-    });
-
+    };
 
     /***
     *
