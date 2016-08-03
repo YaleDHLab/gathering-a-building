@@ -768,21 +768,20 @@ span.rz-pointer:focus {
     top: 50%;
     height: 40px;
     width: 100%;
-    background: red;
     z-index: 2;
+    box-shadow: 0 1px 4px rgba(0,0,0,.65);
   }
 
   .mobile-controls-left-container {
     width: 69%;
     height: 100%;
-    background: blue;
+    border-right: 1px solid #c5c2c2;
   }
 
   .mobile-controls-right-container {
     float: right;
     height: 100%;
     width: 31%;
-    background: green;
     position: absolute;
     right: 0;
     top: 0;
@@ -836,6 +835,10 @@ span.rz-pointer:focus {
     display: none;
   }
 
+  #map .opacity-slider-wrapper {
+    display: none;
+  }
+
   #map {
     width: 100%;
     height: 50%;
@@ -863,6 +866,11 @@ span.rz-pointer:focus {
 
   .leaflet-touch span.vector-overlay-toggle-button {
     padding: 7px;
+  }
+
+  .mobile-controls .opacity-slider-container {
+    margin-top: -17px;
+    padding: 0 10px;
   }
 
 
