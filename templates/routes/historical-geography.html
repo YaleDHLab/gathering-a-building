@@ -10,22 +10,20 @@
   </div>
 
   <div class="opacity-slider-wrapper">
-    <div class="opacity-slider-container">
-      <rzslider rz-slider-model="opacitySlider.value"
-          rz-slider-options="opacitySlider.options"></rzslider>
-    </div>
+    <div data-ng-include='"/templates/partials/historical-geography/opacity-slider.html"'></div>
   </div>
 
   <!-- Button to toggle vector overlay -->
-  <div data-ng-include='"/templates/partials/vector-overlay-button.html"'></div>
+  <div data-ng-include='"/templates/partials/historical-geography/vector-overlay-button.html"'></div>
 
 </div>
 
 <!-- Text column overlay -->
-<div data-ng-include='"/templates/partials/text-column.html"'></div>
+<div data-ng-include='"/templates/partials/layout/text-column.html"'></div>
 
 <!-- Mobile mid-page navigation controls -->
-<div data-ng-include='"/templates/partials/mobile-mid-page-controls.html"'></div>
+<div class="mobile-controls" 
+      data-ng-include='"/templates/partials/layout/mobile-mid-page-controls.html"'></div>
 
 <!-- Footer -->
-<div data-ng-include='"/templates/partials/footer.html"'></div>
+<div data-ng-include='"/templates/partials/layout/footer.html"'></div>
