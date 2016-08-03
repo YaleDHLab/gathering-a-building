@@ -253,13 +253,13 @@ buildingApp.controller("historicalGeographyController", [
     $scope.getScrollPosition = function(arg) {
       if (arg < 2000) {
         if ($scope.selectedOverlay != 1) {
-          $scope.selectOverlay(1);
+          $scope.selectOverlay(0);
         }
       };
 
       if (arg > 2000) {
         if ($scope.selectedOverlay != 2) {
-          $scope.selectOverlay(2);
+          $scope.selectOverlay(1);
         }
       }
     };
@@ -290,8 +290,9 @@ buildingApp.controller("historicalGeographyController", [
       $scope.overlayOptions = [];
       var overlayKeys = Object.keys($scope.mapOverlays);
       for (var i=0; i<overlayKeys.length; i++) {
+
         // the display option should contain the content of
-        // year - label keys
+        // year - label keys.
         var year = $scope.mapOverlays[i].year;
         var label = $scope.mapOverlays[i].label;
         var overlayLabel = year + " - " + label;
@@ -350,7 +351,7 @@ buildingApp.controller("historicalGeographyController", [
     var addVectorOverlay = function(map, vectorJsonUrl) {
 
       // Revove any extant building vector overlays from the map.
-      // To do so, get a reference to the vectors. Then fade them out.
+      // To do so, get a reference to the vectors, then fade them out.
       // One second after that function completes, remove the objects
       // from the DOM.
       var overlayBoundingBox = $(".overlay-bounding-box");
@@ -373,7 +374,7 @@ buildingApp.controller("historicalGeographyController", [
 
             // having built up the array, we can map it
             var polyline = new L.GeoJSON(buildingJson, {
-                className: 'overlay-bounding-box animated fade-in',
+                className: 'buildingId-' + rawJson.rows[i].cartodb_id + ' overlay-bounding-box animated fade-in',
                 weight: 2,
                 fillOpacity: .85
               }
@@ -401,19 +402,19 @@ buildingApp.controller("historicalGeographyController", [
     ***/
 
     $scope.mapOverlays = {
-      "1": {
+      "0": {
         "year": 1824,
         "label": "Doolittle Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691352/{z}/{x}/{y}.png",
         "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings.json"
       },
-      "2": {
+      "1": {
         "year": 1851,
         "label": "Snider Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691373/{z}/{x}/{y}.png",
         "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings.json"
       },
-      "3": {
+      "2": {
         "year": 1868,
         "label": "Pauley Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691378/{z}/{x}/{y}.png",
@@ -524,7 +525,8 @@ buildingApp.controller("historicalGeographyController", [
     ***/
 
     var map = initializeMap();
-    $scope.selectOverlay(1);
+    buildSelectDropdown();
+    $scope.selectOverlay(0);
 
   }
 ]);
