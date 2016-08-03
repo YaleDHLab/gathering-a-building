@@ -217,10 +217,11 @@ buildingApp.controller("historicalGeographyController", [
       "$scope", "$http",
   function($scope, $http) {
 
-    /***
-    * Text column data
-    ***/
+    /**************
+    * Text Column *
+    **************/
 
+    // define the text column data
     var textColumn = {
       "sections": {
         "0": {
@@ -246,10 +247,6 @@ buildingApp.controller("historicalGeographyController", [
     };
 
     $scope.textColumn = textColumn;
-
-    /***
-    * Text column controls
-    ***/
 
     // Add a function to change map overlay on scroll events. NB:
     // only call the selection function if the background is changing
@@ -280,6 +277,20 @@ buildingApp.controller("historicalGeographyController", [
 
     $scope.toggleTextColumn = function() {
       $scope.textColumn.display === "1"? hideTextColumn() : showTextColumn();
+    }
+
+    /******************
+    * Mobile controls *
+    ******************/
+
+    // define the partials to be used within the left and right
+    // regions of the mid-page mobile controls
+
+    $scope.mobile = {
+      "mobileControlsLeft": '',
+      "mobileControlsLeftClass": '',
+      "mobileControlsRight": "/templates/partials/historical-geography/opacity-slider.html",
+      "mobileControlsRightClass": ''
     }
 
     /*****************
@@ -408,10 +419,9 @@ buildingApp.controller("historicalGeographyController", [
       }
     }
 
-
     /***
     *
-    * Vector overlay controls
+    * Vector overlay selection function
     *
     * @params: Integer that is present in Object.keys(mapOverlayLabels)
     * @returns: none
@@ -441,19 +451,6 @@ buildingApp.controller("historicalGeographyController", [
          "style": "full"
       };
 
-      // define a function to set the style of a polyfile overlay
-      function style(feature) {
-        return {
-          fillColor: '#064a95',
-          weight: 2,
-          opacity: 1,
-          color: 'black',
-          dashArray: '3',
-          fillOpacity: 1,
-          className: 'geojson-overlay'
-        };
-      }
-
       // add the image tile overlay
       addImageOverlay(map, $scope.mapOverlays[selectedId]["imageOverlayUrl"]);
 
@@ -478,7 +475,6 @@ buildingApp.controller("historicalGeographyController", [
 
       $scope.footer = footer;
     };
-
 
     /***
     * @params: none
