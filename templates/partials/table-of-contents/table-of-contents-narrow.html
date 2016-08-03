@@ -1,0 +1,17 @@
+<div data-ng-if="showTableOfContents == 1"
+    class="table-of-contents-container">
+  <div class="table-of-contents-left">
+    <div class="table-of-contents-left-panel">
+    </div>
+  </div>
+  <div class="table-of-contents-right">
+    <div data-ng-repeat="section in textColumn.sections" 
+        data-ng-if="section.id != 0"
+        class="table-of-contents-right-panel">
+      <div data-background-image="{{section.introImage}}"
+          class="intro-image">
+        <div class="white-bar" data-ng-if="section.id > 1"></div>
+      </div>
+    </div>
+  </div>
+</div>
