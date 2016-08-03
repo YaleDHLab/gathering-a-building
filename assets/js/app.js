@@ -283,15 +283,34 @@ buildingApp.controller("historicalGeographyController", [
     * Mobile controls *
     ******************/
 
+    // build the dropdown
+    var buildSelectDropdown = function() {
+
+      // the dropdown options are articulated in $scope.mapOverlays
+      $scope.overlayOptions = [];
+      var overlayKeys = Object.keys($scope.mapOverlays);
+      for (var i=0; i<overlayKeys.length; i++) {
+        // the display option should contain the content of
+        // year - label keys
+        var year = $scope.mapOverlays[i].year;
+        var label = $scope.mapOverlays[i].label;
+        var overlayLabel = year + " - " + label;
+
+        $scope.overlayOptions.push({
+          "label": overlayLabel,
+          "value": i
+        });
+      };
+    };
+
     // define the partials to be used within the left and right
     // regions of the mid-page mobile controls
-
     $scope.mobile = {
-      "mobileControlsLeft": '',
-      "mobileControlsLeftClass": '',
+      "mobileControlsLeft": "/templates/partials/historical-geography/overlay-select-dropdown.html",
+      "mobileControlsLeftClass": "",
       "mobileControlsRight": "/templates/partials/historical-geography/opacity-slider.html",
-      "mobileControlsRightClass": ''
-    }
+      "mobileControlsRightClass": ""
+    };
 
     /*****************
     * Image overlays *
@@ -340,44 +359,27 @@ buildingApp.controller("historicalGeographyController", [
         overlayBoundingBox.remove(); },
       1000);
 
-      // request json uploaded by assets/utils/matrix_transform.py
+      // request json that describes building boundaries
       d3.json(vectorJsonUrl, function(rawJson) {
 
         // each member of this array describes a building
-        for (var i=0; i<rawJson.length; i++) {
+        for (var i=0; i<rawJson.rows.length; i++) {
 
-          var buildingPoints = rawJson[i];
+          var buildingGeom = rawJson.rows[i].the_building_geom;
+          var buildingJson = JSON.parse(buildingGeom);
 
-          // initialize an empty array of L.latLng elements
-          var latLngArray = [];
+          // some elements don't articulate a building geom
+          if (buildingJson) {
 
-          // each member of this array describes a set of points
-          for (var j=0; j<buildingPoints.length; j++) {
-
-            var buildingPoint = rawJson[i][j];
-
-            // j is an array with index 0 = x position
-            // and index 1 = y position of a projected point
-            var xPosition = buildingPoint[0];
-            var yPosition = buildingPoint[1];
-            var latLngPoint = L.latLng(xPosition, yPosition);
-            latLngArray.push(latLngPoint);
+            // having built up the array, we can map it
+            var polyline = new L.GeoJSON(buildingJson, {
+                className: 'overlay-bounding-box animated fade-in',
+                weight: 2,
+                fillOpacity: .85
+              }
+            ).addTo(map);
           }
 
-          // to close the loop, we must add the first point to
-          // the latLngArray again
-          var startingPoint = buildingPoints[0];
-          var xPosition = startingPoint[0];
-          var yPosition = startingPoint[1];
-          var latLngPoint = L.latLng(xPosition, yPosition);
-          latLngArray.push(latLngPoint);
-
-          // having built up the array, we can map it
-          var polyline = L.polyline(latLngArray, {
-              className: 'overlay-bounding-box animated fade-in',
-              weight: 2
-            }
-          ).addTo(map);
         }
       });
     }
@@ -403,19 +405,19 @@ buildingApp.controller("historicalGeographyController", [
         "year": 1824,
         "label": "Doolittle Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691352/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_top.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings.json"
       },
       "2": {
         "year": 1851,
         "label": "Snider Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691373/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_mid.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings.json"
       },
       "3": {
         "year": 1868,
         "label": "Pauley Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691378/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_all.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings.json"
       }
     }
 
