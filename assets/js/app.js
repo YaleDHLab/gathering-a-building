@@ -375,17 +375,16 @@ buildingApp.controller("historicalGeographyController", [
       d3.json(vectorJsonUrl, function(rawJson) {
 
         // each member of this array describes a building
-        for (var i=0; i<rawJson.rows.length; i++) {
+        for (var i=0; i<rawJson.length; i++) {
 
-          var buildingGeom = rawJson.rows[i].the_building_geom;
-          var buildingJson = JSON.parse(buildingGeom);
+          var buildingJson = rawJson[i];
 
           // some elements don't articulate a building geom
           if (buildingJson) {
 
             // having built up the array, we can map it
             var polyline = new L.GeoJSON(buildingJson, {
-                className: 'buildingId-' + rawJson.rows[i].cartodb_id + ' overlay-bounding-box animated fade-in',
+                className: 'overlay-bounding-box animated fade-in',
                 weight: 2,
                 fillOpacity: .85
               }
@@ -417,19 +416,19 @@ buildingApp.controller("historicalGeographyController", [
         "year": 1824,
         "label": "Doolittle Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691352/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_1912.json"
       },
       "1": {
         "year": 1851,
         "label": "Snider Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691373/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_1970.json"
       },
       "2": {
         "year": 1868,
         "label": "Pauley Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691378/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_2000.json"
       }
     }
 
