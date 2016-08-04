@@ -812,7 +812,7 @@ span.rz-pointer:focus {
   .major-section-spacer,
   .minor-section-spacer {
     padding-top: 10px;
-    padding-bottom: 40px;
+    padding-bottom: 30px;
   }
 
   .section-title {
@@ -883,10 +883,10 @@ span.rz-pointer:focus {
   .overlay-selector-container select {
     background: transparent;
     border: none;
-    font-size: 14px;
     height: 40px;
     width: 120%;
     color: #72ADC7;
+    font-size: 14px;
     font-weight: 800;
   }
 
@@ -904,17 +904,27 @@ span.rz-pointer:focus {
 /* Smaller mobiles */
 @media (max-width: 400px) {
 
-  /***
-  * Nav
-  ***/
-
   .brand-logo {
     display: none;
   }
-
-
-
-
-
 }
 
+@media (max-width: 375px) {
+  .home-header h1 {
+    font-size: .95em;
+  }
+
+  .navigation {
+    margin: 19px 16px;
+  }
+}
+
+@media (max-width: 330px) {
+  .home-header h1 {
+    font-size: .85em;
+  }
+
+  .navigation {
+    margin: 19px 16px;
+  }
+}
