@@ -8,10 +8,12 @@
     <div data-ng-repeat="section in textColumn.sections" 
         data-ng-if="section.id != 0"
         class="table-of-contents-right-panel">
-      <div data-background-image="{{section.introImage}}"
-          class="intro-image">
-        <div class="white-bar" data-ng-if="section.id > 1"></div>
-      </div>
+      <a data-ng-href="/#/routes/{{section.controller}}?article={{section.id}}">
+        <div data-background-image="{{section.introImage}}"
+            class="intro-image">
+          <div class="white-bar" data-ng-if="section.id > 1"></div>
+        </div>
+      </a>
     </div>
   </div>
 </div>
