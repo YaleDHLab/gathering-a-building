@@ -252,13 +252,13 @@ buildingApp.controller("historicalGeographyController", [
     // only call the selection function if the background is changing
     $scope.getScrollPosition = function(arg) {
       if (arg < 2000) {
-        if ($scope.selectedOverlay != 1) {
+        if ($scope.selectedOverlay != 0) {
           $scope.selectOverlay(0);
         }
       };
 
       if (arg > 2000) {
-        if ($scope.selectedOverlay != 2) {
+        if ($scope.selectedOverlay != 1) {
           $scope.selectOverlay(1);
         }
       }
@@ -283,11 +283,11 @@ buildingApp.controller("historicalGeographyController", [
     * Mobile controls *
     ******************/
 
-    // build the dropdown
-    var buildSelectDropdown = function() {
+    // build the dropdown for toggling map options in mobile views
+    $scope.buildOverlayOptions = function() {
 
       // the dropdown options are articulated in $scope.mapOverlays
-      $scope.overlayOptions = [];
+      overlayOptions = [];
       var overlayKeys = Object.keys($scope.mapOverlays);
       for (var i=0; i<overlayKeys.length; i++) {
 
@@ -297,12 +297,22 @@ buildingApp.controller("historicalGeographyController", [
         var label = $scope.mapOverlays[i].label;
         var overlayLabel = year + " - " + label;
 
-        $scope.overlayOptions.push({
+        overlayOptions.push({
           "label": overlayLabel,
-          "value": i
+          "id": i
         });
       };
+
+      $scope.overlayOptions = overlayOptions;
     };
+
+
+    // add a client side listener to change image overlay on
+    // change of the select box
+    $scope.setOverlayOption = function(overlayOption) {
+      $scope.selectOverlay(overlayOption.id);
+    };
+
 
     // define the partials to be used within the left and right
     // regions of the mid-page mobile controls
@@ -343,6 +353,7 @@ buildingApp.controller("historicalGeographyController", [
       $(imageOverlay.getContainer()).addClass('imageOverlay');
 
     };
+
 
     /******************
     * Vector overlays *
@@ -525,7 +536,7 @@ buildingApp.controller("historicalGeographyController", [
     ***/
 
     var map = initializeMap();
-    buildSelectDropdown();
+    $scope.buildOverlayOptions();
     $scope.selectOverlay(0);
 
   }
@@ -916,13 +927,13 @@ buildingApp.controller("peopleAndPlaceController", [
       scrollPosition = arg;
       console.log(arg);
 
-      if (scrollPosition < 640) {
+      if (scrollPosition < 610) {
         $scope.showTableOfContents = 1;
         $scope.footer.right.url = "/#/routes/people-and-place?article=1"
         $scope.$apply();
       }
 
-      if (scrollPosition > 640) {
+      if (scrollPosition > 610) {
         $scope.showTableOfContents = 0;
         $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/people-and-place?article=2"

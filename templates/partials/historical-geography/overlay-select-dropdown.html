@@ -1,6 +1,8 @@
 <div class="overlay-selector-container">
-  <select>
-    <option data-ng-repeat="option in overlayOptions" 
-        value="{{option.value}}">{{option.label}}</option>
+  <select
+    data-ng-options="overlayOption as overlayOption.label for overlayOption in overlayOptions"
+    data-ng-model="overlayOption"
+    data-ng-change="setOverlayOption(overlayOption)"
+    data-ng-init="overlayOption=overlayOptions[0]">
   </select>
 </div>
