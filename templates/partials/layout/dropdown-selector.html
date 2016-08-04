@@ -1,0 +1,8 @@
+<div class="dropdown-selector-container">
+  <select
+    data-ng-options="dropdownOption as dropdownOption.label for dropdownOption in dropdownOptions"
+    data-ng-model="dropdownOption"
+    data-ng-change="setDropdownOption(dropdownOption)"
+    data-ng-init="dropdownOption=dropdownOptions[0]">
+  </select>
+</div>
