@@ -336,6 +336,7 @@ a:hover {
   height: 100%;
   background: url(/assets/images/concrete.jpg) no-repeat center center fixed;
   float: left;
+  display: block;
 }
 
 .table-of-contents-right {
@@ -573,13 +574,8 @@ span.vector-overlay-toggle-button {
   cursor: pointer;
 }
 
-span.vector-overlay-toggle-button:hover,
-span.vector-overlay-toggle-button.active:hover {
-  color: #7CBFDD;
-}
-
 span.vector-overlay-toggle-button.active {
-  color: #5d5d5d;
+  color: #7CBFDD;
 }
 
 /*********************
@@ -759,6 +755,14 @@ span.rz-pointer:focus {
   }
 
   /***
+  * Full screen image
+  ***/
+
+  .full-screen-image {
+    height: 50%;
+  }
+
+  /***
   * Mid page mobile controls
   ***/
 
@@ -816,7 +820,7 @@ span.rz-pointer:focus {
   }
 
   .section-title {
-    padding: 0 0 20px 0;
+    padding: 0 0 30px 0;
   }
 
   .text-column-content {
@@ -829,7 +833,7 @@ span.rz-pointer:focus {
   }
 
   /***
-  * Map
+  * Historical Geographies
   ***/
 
   .map-overlay-selector,
@@ -869,7 +873,7 @@ span.rz-pointer:focus {
   }
 
   /***
-  * Dropdown selector
+  * Historical Geographies: dropdown selector
   ***/
 
   .overlay-selector-container {
@@ -881,6 +885,48 @@ span.rz-pointer:focus {
   }
 
   .overlay-selector-container select {
+    background: transparent;
+    border: none;
+    height: 40px;
+    width: 120%;
+    color: #72ADC7;
+    font-size: 14px;
+    font-weight: 800;
+  }
+
+  /***
+  * Material Journeys
+  ***/
+
+  .table-of-contents-left {
+    display: none;
+  }
+
+  .section-subheading {
+    padding-bottom: 14px;
+  }
+
+  .section-introduction-text {
+    margin-top: 5px;
+  }
+
+  /***
+  * Full width select dropdown
+  ***/
+
+  .mobile-controls-container .full-width-mobile-dropdown {
+    width: 100%;
+  }
+
+  .dropdown-selector-container {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background: url(/assets/images/caret.png) no-repeat 97% 6px;
+    background-size: auto 75%;
+  }
+
+  .dropdown-selector-container select {
     background: transparent;
     border: none;
     height: 40px;
