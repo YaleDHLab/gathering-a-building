@@ -98,20 +98,42 @@ buildingApp.directive('scrollListener', function () {
       setScrollPosition: '='
     },
 
+    // bind a scroll event listener to the selected element
+    // and broadcast the scroll position to the subscribing
+    // controller function
     link: function (scope, element, attrs) {
-
-      // elem = element to which the directive is bound
-      var elem = element[0];
-
-      // bind a scroll event listener to the selected element
-      // and broadcast the scroll position to the subscribing
-      // controller function
       element.bind('scroll', function () {
-        scrollPosition = elem.scrollTop;
+        scrollPosition = element[0].scrollTop;
         scope.setScrollPosition(scrollPosition);
       });
     }
   };
+});
+
+
+// directive to scroll to the href within the current a tag
+buildingApp.directive('scrollToId', function() {
+  return {
+    restrict: 'A',
+    link: function(scope, element, attrs) {
+
+      // to give a div a pointer to another div, just
+      // add data-bullseye="3", which will point to #3
+      var idToScroll = attrs.bullseye;
+
+      element.on('click', function(event) {
+        event.preventDefault();
+        var $target;
+        if (idToScroll) {
+          $target = $(idToScroll);
+        } else {
+          $target = element;
+        }
+        $(".text-column").animate({scrollTop: $target.offset().top}, "fast");
+        return false;
+      });
+    }
+  }
 });
 
 
@@ -222,7 +244,7 @@ buildingApp.controller("historicalGeographyController", [
     **************/
 
     // define the text column data
-    var textColumn = {
+    $scope.textColumn = {
       "sections": {
         "0": {
           "id": "0",
@@ -245,8 +267,6 @@ buildingApp.controller("historicalGeographyController", [
       "hr": "1"
 
     };
-
-    $scope.textColumn = textColumn;
 
     // Add a function to change map overlay on scroll events. NB:
     // only call the selection function if the background is changing
@@ -287,9 +307,8 @@ buildingApp.controller("historicalGeographyController", [
     $scope.buildOverlayOptions = function() {
 
       // the dropdown options are articulated in $scope.mapOverlays
-      overlayOptions = [];
-      var overlayKeys = Object.keys($scope.mapOverlays);
-      for (var i=0; i<overlayKeys.length; i++) {
+      $scope.overlayOptions = [];
+      for (var i=0; i<Object.keys($scope.mapOverlays).length; i++) {
 
         // the display option should contain the content of
         // year - label keys.
@@ -297,13 +316,11 @@ buildingApp.controller("historicalGeographyController", [
         var label = $scope.mapOverlays[i].label;
         var overlayLabel = year + " - " + label;
 
-        overlayOptions.push({
+        $scope.overlayOptions.push({
           "label": overlayLabel,
           "id": i
         });
       };
-
-      $scope.overlayOptions = overlayOptions;
     };
 
 
@@ -361,28 +378,25 @@ buildingApp.controller("historicalGeographyController", [
 
     var addVectorOverlay = function(map, vectorJsonUrl) {
 
-      // Revove any extant building vector overlays from the map.
-      // To do so, get a reference to the vectors, then fade them out.
-      // One second after that function completes, remove the objects
-      // from the DOM.
-      var overlayBoundingBox = $(".overlay-bounding-box");
-      overlayBoundingBox.addClass("fade-out");
-      setTimeout(function(){
-        overlayBoundingBox.remove(); },
-      1000);
-
       // request json that describes building boundaries
       d3.json(vectorJsonUrl, function(rawJson) {
 
+        // Revove any extant building vector overlays from the map.
+        // To do so, get a reference to the vectors, then fade them out.
+        // One second after that function completes, remove the objects
+        // from the DOM.
+        var overlayBoundingBox = $(".overlay-bounding-box");
+        overlayBoundingBox.addClass("fade-out");
+        setTimeout(function(){
+          overlayBoundingBox.remove(); },
+        1000);
+
         // each member of this array describes a building
         for (var i=0; i<rawJson.length; i++) {
-
           var buildingJson = rawJson[i];
-
-          // some elements don't articulate a building geom
           if (buildingJson) {
 
-            // having built up the array, we can map it
+            // add the building to the map
             var polyline = new L.GeoJSON(buildingJson, {
                 className: 'overlay-bounding-box animated fade-in',
                 weight: 2,
@@ -452,7 +466,7 @@ buildingApp.controller("historicalGeographyController", [
       $(".map-overlay-" + selectedId).addClass("active");
       
       // update the footer state to show the selected overlay id text
-      var footer = {
+      $scope.footer = {
         "left": {
           "display": $scope.mapOverlays[selectedId]["label"]
         },
@@ -486,7 +500,6 @@ buildingApp.controller("historicalGeographyController", [
         $(".imageOverlay").css("opacity", opacityPercent);
       });
 
-      $scope.footer = footer;
     };
 
     /***
@@ -548,7 +561,6 @@ buildingApp.controller("architectureAndUrbanismController", [
     "$scope", "$http", "$location", "$anchorScroll",
   function($scope, $http, $location, $anchorScroll) {
 
-
     /***
     * @params: footer Object sent to footerService to update footerController
     * @returns: none
@@ -556,7 +568,7 @@ buildingApp.controller("architectureAndUrbanismController", [
     * Updates the content in the footer
     ***/
 
-    var footer = {
+    $scope.footer = {
       "left": {
         "display": "Architecture & Urbanism",
         "url": "/#/routes/architecture-and-urbanism"
@@ -568,7 +580,35 @@ buildingApp.controller("architectureAndUrbanismController", [
        "style": "partial"
     };
 
-    $scope.footer = footer;
+
+    /***
+    * Mobile controls
+    ***/
+
+    // build the options for the footer dropdown
+    $scope.buildDropdownOptions = function() {
+      $scope.dropdownOptions = [];
+      for (var i=0; i<Object.keys($scope.textColumn.sections).length; i++) {
+        $scope.dropdownOptions.push({
+          "label": $scope.textColumn.sections[i].title,
+          "id": $scope.textColumn.sections[i].id
+        });
+      };
+    };
+
+    // add a function to call when user changes the dropdown
+    $scope.setDropdownOption = function(dropdownOption) {
+      console.log(dropdownOption);
+    };
+
+    // define the configuration of the mobile mid page controls
+    $scope.mobile = {
+      "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
+      "mobileControlsLeftClass": "full-width-mobile-dropdown",
+      "mobileControlsRight": "",
+      "mobileControlsRightClass": "hidden"
+    };
+
 
     /***
     * @params: textColumn Object used to update the textColumn factory
@@ -577,12 +617,11 @@ buildingApp.controller("architectureAndUrbanismController", [
     * Updates the textColumn controller, which populates the text column
     ***/
 
-    var textColumn = {
-
+    $scope.textColumn = {
       "sections": {
         "0": {
           "id": "0",
-          "title": "Architecture & Urbanism",
+          "title": "Architecture & Urbanism 1",
           "subtitle": "AA Section 1 subtitle is longer than the title",
           "paragraphs": ["Lorem ipsum dolor sit amet, at mel purto delectus legendos, tantas labitur civibus id mel, inani timeam atomorum no eam. Tollit habemus commune mel cu. Has at labores ullamcorper, te eam ullum populo nonumes. Hinc tation nonumy qui id, vis congue molestie ut, in dolorum recusabo sea.", "Et est contentiones mediocritatem, paulo equidem similique eos ad. Forensibus persequeris interpretaris ut mea, duo vitae meliore conceptam at. Vix cu dicam legimus, pri facete fabellas ut, an vis libris aperiri partiendo. Duo conceptam argumentum in, ut eam nisl discere eripuit, errem cetero quaerendum at sed. Mea ex quis hinc persius, esse dignissim sea cu, ut eruditi contentiones has.", "Ad tacimates laboramus nec, cum ex mollis dolores. Sale aperiri pertinax quo eu. Mutat aeterno perpetua vel cu, sed accumsan verterem consequuntur ea, an nobis scribentur has. Eu iudicabit voluptatum vix. Eam eu invenire consetetur suscipiantur, summo mundi voluptaria nec eu, an omnis eirmod tincidunt quo. Vide meis an pri. Est ei meis posidonium argumentum.", "Pro te inani homero, ei delenit iudicabit ius. Minim nostro eruditi eam at, nec everti discere ponderum an. Qui illum ipsum ne. Quidam dolorem dolores ex per, ex nec integre patrioque intellegat. An nam munere impetus.", "Periculis hendrerit sententiae id has. Vel eu natum ferri evertitur, vim at augue facilisi. Pri erant civibus id, inermis definitiones cu vis. Tritani verterem cotidieque eos ea. Pri at probatus partiendo efficiendi, minim liber accusamus at vix. Vix ceteros percipit antiopam et, option concludaturque ex per, no eum modo audiam adversarium.", "Modo novum fastidii an quo. Mea ad nisl feugiat voluptaria, per tantas expetenda ad. Cum quem meis integre ne. Ius an duis appetere, tempor atomorum voluptaria sit te. Ea omnes semper explicari duo, eu velit detracto est. In aeque assentior reprimique duo.", "Congue munere his ad, an has detracto deterruisset. An eam dolor laoreet, affert nullam pri in. Vis et saepe feugiat, vim ut labore iracundia. Ut sumo vitae nec, pro ei soluta labores. Vis delenit petentium no, suscipit petentium deterruisset per no.", "Novum mucius te mea, ne natum detraxit sea. Cibo euismod incorrupte et sed, ad mel omittantur interpretaris. Ad erant nihil placerat ius. Has eu mutat persius tractatos, cu nec putant vulputate, fugit theophrastus nam ea. Cibo habemus gloriatur qui et, usu mollis fierent placerat ne, eum senserit abhorreant ut.", "Mei cu eripuit alienum euripidis. Propriae constituto complectitur ad mea, partem propriae scaevola eu nec. Sit cu verear sanctus pericula. Ut usu sint salutandi, posse noster at vis. Errem appetere ex vis, at sed scaevola accusamus inciderint.", "Pri te tota insolens mediocrem, has in illud porro facilisis. An duo laudem ocurreret, has duis detraxit argumentum eu. Ius id quis postea suscipit, est falli scripserit interpretaris ea, in sit deseruisse disputationi. At ridens apeirian sed, eam unum dicunt reformidans te. Illum minimum sit ea, per omnis laudem ea. Per eleifend corrumpit id, liber adversarium ius at, ei pro putant corpora forensibus."],
           "background": {
@@ -596,8 +635,8 @@ buildingApp.controller("architectureAndUrbanismController", [
 
         "1": {
           "id": "1",
-          "title": "SECTION TWO",
-          "subtitle": "AA Section 2 subtitle is longer than the title",
+          "title": "Architecture & Urbanism 2",
+          "subtitle": "AA Section 1 subtitle is longer than the title",
           "paragraphs": ["Lorem ipsum dolor sit amet, at mel purto delectus legendos, tantas labitur civibus id mel, inani timeam atomorum no eam. Tollit habemus commune mel cu. Has at labores ullamcorper, te eam ullum populo nonumes. Hinc tation nonumy qui id, vis congue molestie ut, in dolorum recusabo sea.", "Et est contentiones mediocritatem, paulo equidem similique eos ad. Forensibus persequeris interpretaris ut mea, duo vitae meliore conceptam at. Vix cu dicam legimus, pri facete fabellas ut, an vis libris aperiri partiendo. Duo conceptam argumentum in, ut eam nisl discere eripuit, errem cetero quaerendum at sed. Mea ex quis hinc persius, esse dignissim sea cu, ut eruditi contentiones has.", "Ad tacimates laboramus nec, cum ex mollis dolores. Sale aperiri pertinax quo eu. Mutat aeterno perpetua vel cu, sed accumsan verterem consequuntur ea, an nobis scribentur has. Eu iudicabit voluptatum vix. Eam eu invenire consetetur suscipiantur, summo mundi voluptaria nec eu, an omnis eirmod tincidunt quo. Vide meis an pri. Est ei meis posidonium argumentum.", "Pro te inani homero, ei delenit iudicabit ius. Minim nostro eruditi eam at, nec everti discere ponderum an. Qui illum ipsum ne. Quidam dolorem dolores ex per, ex nec integre patrioque intellegat. An nam munere impetus.", "Periculis hendrerit sententiae id has. Vel eu natum ferri evertitur, vim at augue facilisi. Pri erant civibus id, inermis definitiones cu vis. Tritani verterem cotidieque eos ea. Pri at probatus partiendo efficiendi, minim liber accusamus at vix. Vix ceteros percipit antiopam et, option concludaturque ex per, no eum modo audiam adversarium.", "Modo novum fastidii an quo. Mea ad nisl feugiat voluptaria, per tantas expetenda ad. Cum quem meis integre ne. Ius an duis appetere, tempor atomorum voluptaria sit te. Ea omnes semper explicari duo, eu velit detracto est. In aeque assentior reprimique duo.", "Congue munere his ad, an has detracto deterruisset. An eam dolor laoreet, affert nullam pri in. Vis et saepe feugiat, vim ut labore iracundia. Ut sumo vitae nec, pro ei soluta labores. Vis delenit petentium no, suscipit petentium deterruisset per no.", "Novum mucius te mea, ne natum detraxit sea. Cibo euismod incorrupte et sed, ad mel omittantur interpretaris. Ad erant nihil placerat ius. Has eu mutat persius tractatos, cu nec putant vulputate, fugit theophrastus nam ea. Cibo habemus gloriatur qui et, usu mollis fierent placerat ne, eum senserit abhorreant ut.", "Mei cu eripuit alienum euripidis. Propriae constituto complectitur ad mea, partem propriae scaevola eu nec. Sit cu verear sanctus pericula. Ut usu sint salutandi, posse noster at vis. Errem appetere ex vis, at sed scaevola accusamus inciderint.", "Pri te tota insolens mediocrem, has in illud porro facilisis. An duo laudem ocurreret, has duis detraxit argumentum eu. Ius id quis postea suscipit, est falli scripserit interpretaris ea, in sit deseruisse disputationi. At ridens apeirian sed, eam unum dicunt reformidans te. Illum minimum sit ea, per omnis laudem ea. Per eleifend corrumpit id, liber adversarium ius at, ei pro putant corpora forensibus."],
           "background": {
             "1": {
@@ -617,21 +656,21 @@ buildingApp.controller("architectureAndUrbanismController", [
     // Add a scroll listener to update background dynamically
     $scope.getScrollPosition = function(arg) {
       if (arg<2022) {
-        $scope.backgroundImageUrl = textColumn["sections"]["0"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["0"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/architecture-and-urbanism?article=1";
         $scope.$apply();
       };
 
       if (arg>2022) {
-        $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/architecture-and-urbanism";
         $scope.$apply();
       };
     };
 
-
-    $scope.textColumn = textColumn;
-    $scope.backgroundImageUrl = textColumn["sections"]["0"]["background"]["1"]["url"];
+    // initialize the application state
+    $scope.backgroundImageUrl = $scope.textColumn["sections"]["0"]["background"]["1"]["url"];
+    $scope.buildDropdownOptions();
 
   }
 ]);
@@ -644,7 +683,7 @@ buildingApp.controller("materialJourneysController", [
   function($scope, $http) {
 
     // Set initial footer params, and update as page updates
-    var footer = {
+    $scope.footer = {
       "left": {
         "display": "Material Journeys",
         "url": "/#/routes/material-journeys"
@@ -656,11 +695,45 @@ buildingApp.controller("materialJourneysController", [
        "style": "partial"
     };
 
-    var textColumn = {
 
+    /***
+    * Mobile controls
+    ***/
+
+    // build the options for the footer dropdown
+    $scope.buildDropdownOptions = function() {
+      $scope.dropdownOptions = [];
+      for (var i=0; i<Object.keys($scope.textColumn.sections).length; i++) {
+        $scope.dropdownOptions.push({
+          "label": $scope.textColumn.sections[i].title,
+          "id": $scope.textColumn.sections[i].id
+        });
+      };
+    };
+
+    // add a function to call when user changes the dropdown
+    $scope.setDropdownOption = function(dropdownOption) {
+      console.log(dropdownOption);
+    };
+
+    // define the configuration of the mobile mid page controls
+    $scope.mobile = {
+      "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
+      "mobileControlsLeftClass": "full-width-mobile-dropdown",
+      "mobileControlsRight": "",
+      "mobileControlsRightClass": "hidden"
+    };
+
+
+    /***
+    * Text columnn
+    ***/
+
+    $scope.textColumn = {
       "sections": {
         "0": {
           "id": "0",
+          "controller": "material-journeys",
           "title": "MATERIAL JOURNEYS",
           "subtitle": "MJ TABLE OF CONTENTS",
           "paragraphs": [
@@ -682,6 +755,7 @@ buildingApp.controller("materialJourneysController", [
 
         "1": {
           "id": "1",
+          "controller": "material-journeys",
           "title": "Concrete",
           "subtitle": "MJ Section 1 subtitle is longer than the title",
           "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
@@ -697,6 +771,7 @@ buildingApp.controller("materialJourneysController", [
 
         "2": {
           "id": "2",
+          "controller": "material-journeys",
           "title": "Stone",
           "subtitle": "MJ Section 2 subtitle is longer than the title",
           "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
@@ -712,6 +787,7 @@ buildingApp.controller("materialJourneysController", [
 
         "3": {
           "id": "3",
+          "controller": "material-journeys",
           "title": "Brick",
           "subtitle": "MJ Section 3 subtitle is longer than the title",
           "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
@@ -727,6 +803,7 @@ buildingApp.controller("materialJourneysController", [
 
         "4": {
           "id": "4",
+          "controller": "material-journeys",
           "title": "Glass",
           "subtitle": "MJ Section 4 subtitle is longer than the title",
           "paragraphs": ["Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his. Probo explicari te ius. Id vix expetenda conceptam democritum, et vocent propriae pro. Cu scaevola instructior duo, his dicunt phaedrum ad, at dicat veritus constituam sea. Nobis possit scaevola sit ex, stet eloquentiam ne pri.", "Debitis mediocritatem cu pro, te pro recusabo abhorreant. Hinc perpetua per ad, mea ei munere causae commune. Vide placerat democritum ne pri, modus docendi te pro, illud dicant eos no. Quod platonem ad pri, pri ne virtute invidunt deterruisset. Ut iusto forensibus reprehendunt vis.", "Graece theophrastus ut vel, vim gloriatur intellegam cotidieque ne. Quo delenit perfecto et, dicat labores ne qui, pro id dicam aperiam disputando. Mucius intellegam te nam. Eum et augue tantas, ad tale delenit mea. An natum platonem elaboraret eam, quando forensibus pro ex. Id eam mutat mediocrem maiestatis. Mea mazim quando indoctum ea, liber integre principes quo at, pri ad accusamus consectetuer.", "Eos ex epicurei persequeris appellantur, ea alii velit augue cum. An dolor sententiae vis, ne modo aperiam imperdiet cum. Ex cum amet adversarium interpretaris, nisl utinam ea has. Minim vidisse eam no, ut eos dolor ridens, eum te moderatius efficiantur ullamcorper.", "Ne mea tempor theophrastus, eam in mandamus euripidis intellegebat. Usu laoreet lobortis efficiantur no, agam nemore evertitur eu vel, ex duo tincidunt democritum. Munere labore ei pro, impetus sensibus in vis. Vel ut habeo voluptaria, per eu quem erat facete, cu eam dolor eligendi perpetua. Dolor assentior maiestatis ne eam.", "No per rebum impetus sadipscing, tollit euismod an eum. Usu oportere partiendo no, in sed brute fastidii philosophia. Ut pri bonorum probatus. Te nostro repudiandae nam, ex eum porro atqui.", "At eos omnes decore quidam. Dolore mollis eripuit eum ex, minim mediocritatem vim te. Eruditi pertinax te cum, ancillae maluisset cum ei. Ut mei maiorum dissentias, veri virtute habemus cu has. Sed eu scribentur instructior, eos ei agam latine complectitur.", "Wisi debet clita vim ea. Magna habeo mucius vix no, ad pri recusabo expetendis. Ei est etiam aliquid. Mea brute mnesarchum et, ne dolores appareat interpretaris vel.", "Legere omittam appetere in mel. An eum quaeque referrentur. At vim quod modus scripta. Pro ne facer eruditi, partem efficiendi te sed, et praesent interesset ius. Porro dolores et vel, dico antiopam id duo.", "Nam saepe adolescens reprehendunt ea, homero timeam nostrum eos et. Cu eum reque evertitur, ius eu nonumy delectus voluptatibus. Mei no diceret percipit voluptatum, aeque omnes id has. Ad possit democritum eum, copiosae perfecto tacimates has no, natum mundi congue te mea. Ut doming utamur eos."],
@@ -750,49 +827,47 @@ buildingApp.controller("materialJourneysController", [
     * Bind a scroll listener to swap background images dynamically
     ***/
 
-    $scope.getScrollPosition = function(arg) {
-      console.log(arg);
+    $scope.getScrollPosition = function(scrollPosition) {
+      console.log(scrollPosition);
 
-      scrollPosition = arg;
       if (scrollPosition < 640) {
         $scope.showTableOfContents = 1;
-        $scope.backgroundImageUrl = textColumn["sections"]["0"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["0"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/material-journeys?article=2"
         $scope.$apply();
       }
 
       if (scrollPosition > 640) {
         $scope.showTableOfContents = 0;
-        $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/material-journeys?article=3"
         $scope.$apply();
 
       }
 
       if (scrollPosition > 2620) {
-        $scope.backgroundImageUrl = textColumn["sections"]["2"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["2"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/material-journeys?article=4"
         $scope.$apply();
       }
 
       if (scrollPosition > 4750) {
-        $scope.backgroundImageUrl = textColumn["sections"]["3"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["3"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/material-journeys?article=5"
         $scope.$apply();
       }
 
       if (scrollPosition > 6670) {
-        $scope.backgroundImageUrl = textColumn["sections"]["4"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["4"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/material-journeys"
         $scope.$apply();
       }
     }
 
     // initialize the application state
-    $scope.footer = footer;
-    $scope.textColumn = textColumn;
     $scope.showTableOfContents = 1;
-    $scope.backgroundImageUrl = textColumn["sections"]["0"]["background"]["1"]["url"];
+    $scope.backgroundImageUrl = $scope.textColumn["sections"]["0"]["background"]["1"]["url"];
+    $scope.buildDropdownOptions();
 
   }
 ]);
@@ -803,7 +878,11 @@ buildingApp.controller("peopleAndPlaceController", [
       "$scope", "$http",
   function($scope, $http) {
 
-    var footer = {
+    /***
+    * Footer
+    ***/
+
+    $scope.footer = {
       "left": {
         "display": "People & Place",
         "url": "/#/routes/people-and-place"
@@ -815,10 +894,40 @@ buildingApp.controller("peopleAndPlaceController", [
        "style": "partial"
      };
 
-    $scope.footer = footer;
 
-    var textColumn = {
+    /***
+    * Mobile controls
+    ***/
 
+    // build the options for the footer dropdown
+    $scope.buildDropdownOptions = function() {
+      $scope.dropdownOptions = [];
+      for (var i=0; i<Object.keys($scope.textColumn.sections).length; i++) {
+        $scope.dropdownOptions.push({
+          "label": $scope.textColumn.sections[i].title,
+          "id": $scope.textColumn.sections[i].id
+        });
+      };
+    };
+
+    // add a function to call when user changes the dropdown
+    $scope.setDropdownOption = function(dropdownOption) {
+      console.log(dropdownOption);
+    };
+
+    // define the configuration of the mobile mid page controls
+    $scope.mobile = {
+      "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
+      "mobileControlsLeftClass": "full-width-mobile-dropdown",
+      "mobileControlsRight": "",
+      "mobileControlsRightClass": "hidden"
+    };
+
+    /***
+    * Text column
+    ***/
+
+    $scope.textColumn = {
       "sections": {
         "0": {
           "id": "0",
@@ -922,9 +1031,8 @@ buildingApp.controller("peopleAndPlaceController", [
     * Scroll listener
     ***/
 
-    $scope.getScrollPosition = function(arg) {
-      scrollPosition = arg;
-      console.log(arg);
+    $scope.getScrollPosition = function(scrollPosition) {
+      console.log(scrollPosition);
 
       if (scrollPosition < 610) {
         $scope.showTableOfContents = 1;
@@ -934,42 +1042,44 @@ buildingApp.controller("peopleAndPlaceController", [
 
       if (scrollPosition > 610) {
         $scope.showTableOfContents = 0;
-        $scope.backgroundImageUrl = textColumn["sections"]["1"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/people-and-place?article=2"
         $scope.$apply();
 
       }
 
       if (scrollPosition > 2620) {
-        $scope.backgroundImageUrl = textColumn["sections"]["2"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["2"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/people-and-place?article=3"
         $scope.$apply();
       }
 
       if (scrollPosition > 4750) {
-        $scope.backgroundImageUrl = textColumn["sections"]["3"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["3"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/people-and-place?article=4"
         $scope.$apply();
       }
 
       if (scrollPosition > 6800) {
-        $scope.backgroundImageUrl = textColumn["sections"]["4"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["4"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/people-and-place?article=5"
         $scope.$apply();
       }
 
       if (scrollPosition > 8840) {
-        $scope.backgroundImageUrl = textColumn["sections"]["5"]["background"]["1"]["url"];
+        $scope.backgroundImageUrl = $scope.textColumn["sections"]["5"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/people-and-place"
         $scope.$apply();
       }
     }
 
     // initialize the application state
-    $scope.textColumn = textColumn;
     $scope.showTableOfContents = 1;
-    $scope.topRightHtml = textColumn["sections"]["0"]["topRightHtml"];
-    $scope.bottomLeftHtml = textColumn["sections"]["0"]["bottomLeftHtml"];
-    $scope.bottomRightHtml = textColumn["sections"]["0"]["bottomRightHtml"];
+    $scope.buildDropdownOptions();
+    $scope.tableOfContents = {
+      "topRightHtml": $scope.textColumn["sections"]["0"]["topRightHtml"],
+      "bottomLeftHtml": $scope.textColumn["sections"]["0"]["bottomLeftHtml"],
+      "bottomRightHtml": $scope.textColumn["sections"]["0"]["bottomRightHtml"]
+    };
   }
 ]);
