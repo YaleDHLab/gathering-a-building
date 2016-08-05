@@ -52,6 +52,7 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
 
 buildingApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
   $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
+    console.log("route changed");
     $location.hash($routeParams.article);
     $anchorScroll();
   });
@@ -552,8 +553,8 @@ buildingApp.controller("historicalGeographyController", [
 
 // Controller for site architecture and urbanism view
 buildingApp.controller("architectureAndUrbanismController", [
-    "$scope", "$http", "$location", "$anchorScroll",
-  function($scope, $http, $location, $anchorScroll) {
+    "$scope", "$http", "$location", "$anchorScroll", "$rootScope",
+  function($scope, $http, $location, $anchorScroll, $rootScope) {
 
     /***
     * @params: footer Object sent to footerService to update footerController
@@ -582,33 +583,36 @@ buildingApp.controller("architectureAndUrbanismController", [
     // build the options for the footer dropdown
     $scope.buildDropdownOptions = function() {
       $scope.dropdownOptions = [];
+
       for (var i=0; i<Object.keys($scope.textColumn.sections).length; i++) {
         $scope.dropdownOptions.push({
           label: $scope.textColumn.sections[i].title,
           id: $scope.textColumn.sections[i].id
         }); 
+
       };
-      $scope.dropdownOptions.selected = $scope.dropdownOptions[0];
+      $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
+      //$scope.dropdownOptions.selectedOption = $rootScope.selectedOption;
+      //$scope.dropdownOptions.selected = $scope.dropdownOptions[0];
     };
 
-    // if the user selected the 0th article, scroll to top,
-    // else scroll to the requested id
     $scope.setDropdownOption = function() {
-      console.log("select scope before href change", angular.element(".dropdown-selector-container select").scope().selected);
-      var selectedId = $scope.selected.id;
+      localStorage.setItem('selectedOption',JSON.stringify($scope.dropdownOptions.selected));
+      var selectedId = $scope.dropdownOptions.selected.id;
+      console.log(selectedId);
+      //$rootScope.selectedOption = $scope.dropdownOptions.selected;
       if (selectedId > 0) {
-        $location.search('article',selectedId)
+        $location.search('article',selectedId);
         $location.hash(selectedId);
         $anchorScroll();
+        console.log($scope);
       } else {
         // erase the article and hash params from the url
         $location.search('article',null);
         $location.hash(null);
         $anchorScroll();
-        angular.element(".dropdown-selector-container select").scope().selected;
+        console.log($scope);
       }
-      console.log("scope after href change", angular.element(".dropdown-selector-container select").scope().selected);
-      console.log("try running `angular.element('.dropdown-selector-container select').scope().selected` in the console")
     };
 
     // define the configuration of the mobile mid page controls
