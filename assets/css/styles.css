@@ -72,6 +72,20 @@ a:hover {
 }
 
 /******************
+* Hide scrollbars *
+******************/
+
+/* webkit */
+.menu::-webkit-scrollbar {
+  display: none;
+}
+
+/* ie */
+html {
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+/******************
 * Branding styles *
 ******************/
 
@@ -93,7 +107,9 @@ a:hover {
 }
 
 .navigation {
-  margin: 24px;
+  position: fixed;
+  top: 20px;
+  left: 15px;
   cursor: pointer;
 }
 
@@ -111,7 +127,7 @@ a:hover {
 ****************************/
 
 .navigation-overlay {
-  position: absolute;
+  position: fixed;
   width: 100%;
   height: 100%;
   background: rgba(0,0,0,.6);
@@ -184,7 +200,7 @@ a:hover {
 
 .home-header {
   padding-top: 20px;
-  padding-bottom: 8px;
+  padding-bottom: 20px;
   text-align: center;
 }
 
@@ -271,7 +287,7 @@ a:hover {
 
 .navigation-overlay-column,
 .text-column-container {
-  position: absolute;
+  position: fixed;
   height: 100%;
   width: 370px;
   left: 150px;
@@ -314,7 +330,7 @@ a:hover {
 }
 
 .section-title {
-  font-size: 2.6em;
+  font-size: 2.4em;
   font-weight: 100;
   text-transform: uppercase;
   font-family: "Mallory", Arial;
@@ -487,7 +503,7 @@ a:hover {
 .full-screen-image {
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   z-index: 0;
 }
 
@@ -566,6 +582,11 @@ a:hover {
   z-index: 4;
 }
 
+.leaflet-touch .vector-overlay-toggle {
+  right: 13px;
+  bottom: 166px;
+}
+
 .vector-overlay-toggle .fa {
   font-size: 14px;
 }
@@ -578,6 +599,10 @@ span.vector-overlay-toggle-button {
   border-radius: 4px;
   box-shadow: 0 1px 5px rgba(0,0,0,.65);
   cursor: pointer;
+}
+
+.leaflet-touch span.vector-overlay-toggle-button {
+  padding: 7px;
 }
 
 span.vector-overlay-toggle-button.active {
@@ -726,6 +751,7 @@ span.rz-pointer:focus {
     top: 40px;
     width: 100%;
     left: 0;
+    height: 25px;
   }
 
   .home-header h1 {
@@ -747,10 +773,6 @@ span.rz-pointer:focus {
     width: 100%;
   }
 
-  .navigation {
-    margin: 22px 18px;
-  }
-
   .navigation-overlay .dismiss {
     margin: 4px 14px;
     color: #000;
@@ -758,6 +780,14 @@ span.rz-pointer:focus {
 
   .navigation-overlay .text-column-content {
     text-align: center;
+  }
+
+  .navigation-links {
+    padding-top: 50px;
+  }
+
+  .navigation-links-top {
+    padding-bottom: 50px;
   }
 
   /***
@@ -775,7 +805,7 @@ span.rz-pointer:focus {
 
   .mobile-controls-container {
     display: block;
-    position: absolute;
+    position: fixed;
     top: 50%;
     height: 40px;
     width: 100%;
@@ -916,6 +946,8 @@ span.rz-pointer:focus {
 
   .table-of-contents-right {
     height: 50%;
+    width: 100%;
+    position: fixed;
   }
 
   .section-subheading {
@@ -985,18 +1017,10 @@ span.rz-pointer:focus {
   .home-header h1 {
     font-size: .95em;
   }
-
-  .navigation {
-    margin: 19px 16px;
-  }
 }
 
 @media (max-width: 330px) {
   .home-header h1 {
     font-size: .85em;
-  }
-
-  .navigation {
-    margin: 19px 16px;
   }
 }
