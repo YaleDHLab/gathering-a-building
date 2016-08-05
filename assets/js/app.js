@@ -595,7 +595,7 @@ buildingApp.controller("architectureAndUrbanismController", [
     };
 
     $scope.setDropdownOption = function() {
-      localStorage.setItem('selectedOption',JSON.stringify($scope.dropdownOptions.selected));
+      localStorage.setItem('selectedOption', JSON.stringify($scope.dropdownOptions.selected));
       var selectedId = $scope.dropdownOptions.selected.id;
 
       //$rootScope.selectedOption = $scope.dropdownOptions.selected;
@@ -725,7 +725,7 @@ buildingApp.controller("materialJourneysController", [
     };
 
     $scope.setDropdownOption = function() {
-      localStorage.setItem('selectedOption',JSON.stringify($scope.dropdownOptions.selected));
+      localStorage.setItem('selectedOption', JSON.stringify($scope.dropdownOptions.selected));
       var selectedId = $scope.dropdownOptions.selected.id;
 
       //$rootScope.selectedOption = $scope.dropdownOptions.selected;
@@ -924,10 +924,6 @@ buildingApp.controller("peopleAndPlaceController", [
     * Mobile controls
     ***/
 
-    /***
-    * Mobile controls
-    ***/
-
     // build the options for the footer dropdown
     $scope.buildDropdownOptions = function() {
       $scope.dropdownOptions = [];
@@ -943,7 +939,7 @@ buildingApp.controller("peopleAndPlaceController", [
     };
 
     $scope.setDropdownOption = function() {
-      localStorage.setItem('selectedOption',JSON.stringify($scope.dropdownOptions.selected));
+      localStorage.setItem('selectedOption', JSON.stringify($scope.dropdownOptions.selected));
       var selectedId = $scope.dropdownOptions.selected.id;
 
       //$rootScope.selectedOption = $scope.dropdownOptions.selected;
