@@ -54,10 +54,6 @@ buildingApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
   $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
     $location.hash($routeParams.article);
     $anchorScroll();
-
-    // the query param can be removed from the url as follows:
-    //$location.search('article', null);
-
   });
 })
 
@@ -71,7 +67,6 @@ buildingApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
 
 buildingApp.directive('backgroundImage', function(){
   return function(scope, element, attrs){
-
     attrs.$observe('backgroundImage', function(value) {
       element.css({
           'background': 'url(' + value +') no-repeat center center fixed',
@@ -120,7 +115,6 @@ buildingApp.directive('scrollToId', function() {
       // to give a div a pointer to another div, just
       // add data-bullseye="3", which will point to #3
       var idToScroll = attrs.bullseye;
-
       element.on('click', function(event) {
         event.preventDefault();
         var $target;
@@ -596,9 +590,19 @@ buildingApp.controller("architectureAndUrbanismController", [
       };
     };
 
-    // add a function to call when user changes the dropdown
+    // if the user selected the 0th article, scroll to top,
+    // else scroll to the requested id
     $scope.setDropdownOption = function(dropdownOption) {
-      console.log(dropdownOption);
+      if (dropdownOption.id > 0) {
+        $location.search('article',dropdownOption.id)
+        $location.hash(dropdownOption.id);
+        $anchorScroll();
+      } else {
+        // erase the article and hash params from the url
+        $location.search('article',null);
+        $location.hash(null);
+        $anchorScroll();
+      }
     };
 
     // define the configuration of the mobile mid page controls
@@ -679,8 +683,8 @@ buildingApp.controller("architectureAndUrbanismController", [
 
 // Controller for material journeys view
 buildingApp.controller("materialJourneysController", [
-      "$scope", "$http",
-  function($scope, $http) {
+      "$scope", "$http", "$location", "$anchorScroll",
+  function($scope, $http, $location, $anchorScroll) {
 
     // Set initial footer params, and update as page updates
     $scope.footer = {
@@ -711,9 +715,19 @@ buildingApp.controller("materialJourneysController", [
       };
     };
 
-    // add a function to call when user changes the dropdown
+    // if the user selected the 0th article, scroll to top,
+    // else scroll to the requested id
     $scope.setDropdownOption = function(dropdownOption) {
-      console.log(dropdownOption);
+      if (dropdownOption.id > 0) {
+        $location.search('article',dropdownOption.id)
+        $location.hash(dropdownOption.id);
+        $anchorScroll();
+      } else {
+        // erase the article and hash params from the url
+        $location.search('article',null);
+        $location.hash(null);
+        $anchorScroll();
+      }
     };
 
     // define the configuration of the mobile mid page controls
@@ -875,8 +889,8 @@ buildingApp.controller("materialJourneysController", [
 
 // Controller for people and place view
 buildingApp.controller("peopleAndPlaceController", [
-      "$scope", "$http",
-  function($scope, $http) {
+      "$scope", "$http", "$location", "$anchorScroll",
+  function($scope, $http, $location, $anchorScroll) {
 
     /***
     * Footer
@@ -910,9 +924,19 @@ buildingApp.controller("peopleAndPlaceController", [
       };
     };
 
-    // add a function to call when user changes the dropdown
+    // if the user selected the 0th article, scroll to top,
+    // else scroll to the requested id
     $scope.setDropdownOption = function(dropdownOption) {
-      console.log(dropdownOption);
+      if (dropdownOption.id > 0) {
+        $location.search('article',dropdownOption.id)
+        $location.hash(dropdownOption.id);
+        $anchorScroll();
+      } else {
+        // erase the article and hash params from the url
+        $location.search('article',null);
+        $location.hash(null);
+        $anchorScroll();
+      }
     };
 
     // define the configuration of the mobile mid page controls
