@@ -17,7 +17,10 @@
                 'major-section-spacer' : section.id != 0
               }"
           </div>
-          <h2 class="section-title">{{ section.title }}</h2>
+          <h2 data-ng-class="{
+            'section-title first-section-title' : section.id == 0,
+            'section-title' : section.id != 0
+          }">{{ section.title }}</h2>
           <div data-ng-repeat="paragraph in section.paragraphs">
             <div data-ng-bind-html="paragraph | allowHtml" class="section-paragraph"></div>
           </div>
