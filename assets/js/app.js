@@ -584,25 +584,33 @@ buildingApp.controller("architectureAndUrbanismController", [
       $scope.dropdownOptions = [];
       for (var i=0; i<Object.keys($scope.textColumn.sections).length; i++) {
         $scope.dropdownOptions.push({
-          "label": $scope.textColumn.sections[i].title,
-          "id": $scope.textColumn.sections[i].id
-        });
+          label: $scope.textColumn.sections[i].title,
+          id: $scope.textColumn.sections[i].id
+        }); 
       };
+      $scope.dropdownOptions.selected = $scope.dropdownOptions[0];
     };
 
     // if the user selected the 0th article, scroll to top,
     // else scroll to the requested id
-    $scope.setDropdownOption = function(dropdownOption) {
-      if (dropdownOption.id > 0) {
-        $location.search('article',dropdownOption.id)
-        $location.hash(dropdownOption.id);
+    $scope.setDropdownOption = function() {
+      /*
+      console.log("select scope before href change", angular.element(".dropdown-selector-container select").scope().selected);
+      var selectedId = $scope.selected.id;
+      if (selectedId > 0) {
+        $location.search('article',selectedId)
+        $location.hash(selectedId);
         $anchorScroll();
       } else {
         // erase the article and hash params from the url
         $location.search('article',null);
         $location.hash(null);
         $anchorScroll();
+        angular.element(".dropdown-selector-container select").scope().selected;
       }
+      console.log("scope after href change", angular.element(".dropdown-selector-container select").scope().selected);
+      console.log("try running `angular.element('.dropdown-selector-container select').scope().selected` in the console")
+      */
     };
 
     // define the configuration of the mobile mid page controls
