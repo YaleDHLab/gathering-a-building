@@ -594,7 +594,6 @@ buildingApp.controller("architectureAndUrbanismController", [
     // if the user selected the 0th article, scroll to top,
     // else scroll to the requested id
     $scope.setDropdownOption = function() {
-      /*
       console.log("select scope before href change", angular.element(".dropdown-selector-container select").scope().selected);
       var selectedId = $scope.selected.id;
       if (selectedId > 0) {
@@ -610,7 +609,6 @@ buildingApp.controller("architectureAndUrbanismController", [
       }
       console.log("scope after href change", angular.element(".dropdown-selector-container select").scope().selected);
       console.log("try running `angular.element('.dropdown-selector-container select').scope().selected` in the console")
-      */
     };
 
     // define the configuration of the mobile mid page controls
