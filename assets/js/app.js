@@ -588,30 +588,26 @@ buildingApp.controller("architectureAndUrbanismController", [
         $scope.dropdownOptions.push({
           label: $scope.textColumn.sections[i].title,
           id: $scope.textColumn.sections[i].id
-        }); 
+        });
 
       };
       $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
-      //$scope.dropdownOptions.selectedOption = $rootScope.selectedOption;
-      //$scope.dropdownOptions.selected = $scope.dropdownOptions[0];
     };
 
     $scope.setDropdownOption = function() {
       localStorage.setItem('selectedOption',JSON.stringify($scope.dropdownOptions.selected));
       var selectedId = $scope.dropdownOptions.selected.id;
-      console.log(selectedId);
+
       //$rootScope.selectedOption = $scope.dropdownOptions.selected;
       if (selectedId > 0) {
         $location.search('article',selectedId);
         $location.hash(selectedId);
         $anchorScroll();
-        console.log($scope);
       } else {
         // erase the article and hash params from the url
         $location.search('article',null);
         $location.hash(null);
         $anchorScroll();
-        console.log($scope);
       }
     };
 
@@ -717,20 +713,25 @@ buildingApp.controller("materialJourneysController", [
     // build the options for the footer dropdown
     $scope.buildDropdownOptions = function() {
       $scope.dropdownOptions = [];
+
       for (var i=0; i<Object.keys($scope.textColumn.sections).length; i++) {
         $scope.dropdownOptions.push({
-          "label": $scope.textColumn.sections[i].title,
-          "id": $scope.textColumn.sections[i].id
+          label: $scope.textColumn.sections[i].title,
+          id: $scope.textColumn.sections[i].id
         });
+
       };
+      $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
     };
 
-    // if the user selected the 0th article, scroll to top,
-    // else scroll to the requested id
-    $scope.setDropdownOption = function(dropdownOption) {
-      if (dropdownOption.id > 0) {
-        $location.search('article',dropdownOption.id)
-        $location.hash(dropdownOption.id);
+    $scope.setDropdownOption = function() {
+      localStorage.setItem('selectedOption',JSON.stringify($scope.dropdownOptions.selected));
+      var selectedId = $scope.dropdownOptions.selected.id;
+
+      //$rootScope.selectedOption = $scope.dropdownOptions.selected;
+      if (selectedId > 0) {
+        $location.search('article',selectedId);
+        $location.hash(selectedId);
         $anchorScroll();
       } else {
         // erase the article and hash params from the url
@@ -923,23 +924,32 @@ buildingApp.controller("peopleAndPlaceController", [
     * Mobile controls
     ***/
 
+    /***
+    * Mobile controls
+    ***/
+
     // build the options for the footer dropdown
     $scope.buildDropdownOptions = function() {
       $scope.dropdownOptions = [];
+
       for (var i=0; i<Object.keys($scope.textColumn.sections).length; i++) {
         $scope.dropdownOptions.push({
-          "label": $scope.textColumn.sections[i].title,
-          "id": $scope.textColumn.sections[i].id
+          label: $scope.textColumn.sections[i].title,
+          id: $scope.textColumn.sections[i].id
         });
+
       };
+      $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
     };
 
-    // if the user selected the 0th article, scroll to top,
-    // else scroll to the requested id
-    $scope.setDropdownOption = function(dropdownOption) {
-      if (dropdownOption.id > 0) {
-        $location.search('article',dropdownOption.id)
-        $location.hash(dropdownOption.id);
+    $scope.setDropdownOption = function() {
+      localStorage.setItem('selectedOption',JSON.stringify($scope.dropdownOptions.selected));
+      var selectedId = $scope.dropdownOptions.selected.id;
+
+      //$rootScope.selectedOption = $scope.dropdownOptions.selected;
+      if (selectedId > 0) {
+        $location.search('article',selectedId);
+        $location.hash(selectedId);
         $anchorScroll();
       } else {
         // erase the article and hash params from the url
