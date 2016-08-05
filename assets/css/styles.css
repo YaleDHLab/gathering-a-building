@@ -175,6 +175,7 @@ a:hover {
 
 .home-header-container {
   position: fixed;
+  height: 60px;
   width: 370px;
   left: 150px;
   background-color: #fff;
@@ -758,8 +759,9 @@ span.rz-pointer:focus {
   * Full screen image
   ***/
 
-  .full-screen-image {
+  #page-content .full-screen-image {
     height: 50%;
+    background-attachment: initial !important;
   }
 
   /***
@@ -816,10 +818,15 @@ span.rz-pointer:focus {
   .major-section-spacer,
   .minor-section-spacer {
     padding-top: 10px;
-    padding-bottom: 30px;
+    padding-bottom: 10px;
   }
 
   .section-title {
+    padding: 30px 0 12px 0;
+  }
+
+  /* give special styling to the first section title */
+  .text-column-content .first-section-title {
     padding: 0 0 30px 0;
   }
 
@@ -908,6 +915,14 @@ span.rz-pointer:focus {
 
   .section-introduction-text {
     margin-top: 5px;
+  }
+
+  /***
+  * People and Place
+  ***/
+
+  .wide-table-of-contents-left {
+    display: none;
   }
 
   /***
