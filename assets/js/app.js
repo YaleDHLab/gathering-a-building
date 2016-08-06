@@ -138,6 +138,33 @@ buildingApp.directive('scrollToId', function() {
 
 
 /***
+* Directive to support scroll by href in mobile select
+***/
+
+buildingApp.directive('hashChangeSelect',['$location',function($location){
+  return {
+    restrict : 'E',
+    templateUrl : '/templates/partials/layout/hash-change-select.html',
+    scope : {
+      options : "=",
+      value :  "=",
+    },
+    link : function(scope) {
+      return true;
+    },
+    controller : function($scope) {
+      console.log("controller scope", $scope);
+      $scope._value = angular.copy($scope.value);
+      $scope._onOptionSelected = function(){
+        $location.search('article',$scope._value.id);
+        $location.hash($scope._value.id);
+      }
+    }
+  };
+}]);
+
+
+/***
 * Filter to allow one to dangerouslySetInnerHtml
 ***/
 
@@ -599,14 +626,6 @@ buildingApp.controller("architectureAndUrbanismController", [
       $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
     };
 
-    $scope.setDropdownOption = function() {
-      localStorage.setItem('selectedOption', JSON.stringify($scope.dropdownOptions.selected));
-      var selectedId = $scope.dropdownOptions.selected.id;
-      $location.search('article',selectedId);
-      $location.hash(selectedId);
-      $anchorScroll();
-    };
-
     // define the configuration of the mobile mid page controls
     $scope.mobile = {
       "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
@@ -718,14 +737,6 @@ buildingApp.controller("materialJourneysController", [
 
       };
       $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
-    };
-
-    $scope.setDropdownOption = function() {
-      localStorage.setItem('selectedOption', JSON.stringify($scope.dropdownOptions.selected));
-      var selectedId = $scope.dropdownOptions.selected.id;
-      $location.search('article',selectedId);
-      $location.hash(selectedId);
-      $anchorScroll();
     };
 
     // define the configuration of the mobile mid page controls
@@ -923,14 +934,6 @@ buildingApp.controller("peopleAndPlaceController", [
 
       };
       $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
-    };
-
-    $scope.setDropdownOption = function() {
-      localStorage.setItem('selectedOption', JSON.stringify($scope.dropdownOptions.selected));
-      var selectedId = $scope.dropdownOptions.selected.id;
-      $location.search('article',selectedId);
-      $location.hash(selectedId);
-      $anchorScroll();
     };
 
     // define the configuration of the mobile mid page controls
