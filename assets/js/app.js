@@ -57,9 +57,10 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
 
 buildingApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
   $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
-    console.log("route changed");
-    $location.hash($routeParams.article);
-    $anchorScroll();
+
+    // on route change, remove the hash from the url
+    $location.hash(null);
+
   });
 })
 
@@ -856,27 +857,27 @@ buildingApp.controller("materialJourneysController", [
       if (scrollPosition < 640) {
         $scope.showTableOfContents = 1;
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["0"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=2#2"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=1#1"
         $scope.$apply();
       }
 
       if (scrollPosition > 640) {
         $scope.showTableOfContents = 0;
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=3#3"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=2#2"
         $scope.$apply();
 
       }
 
       if (scrollPosition > 2620) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["2"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=4#4"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=3#3"
         $scope.$apply();
       }
 
       if (scrollPosition > 4750) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["3"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=5#5"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=4#4"
         $scope.$apply();
       }
 
@@ -1075,19 +1076,19 @@ buildingApp.controller("peopleAndPlaceController", [
         $scope.$apply();
       }
 
-      if (scrollPosition > 4750) {
+      if (scrollPosition > 4670) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["3"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/people-and-place?article=4#4"
         $scope.$apply();
       }
 
-      if (scrollPosition > 6800) {
+      if (scrollPosition > 6730) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["4"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/people-and-place?article=5#5"
         $scope.$apply();
       }
 
-      if (scrollPosition > 8840) {
+      if (scrollPosition > 8735) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["5"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/people-and-place?article=0#0"
         $scope.$apply();
