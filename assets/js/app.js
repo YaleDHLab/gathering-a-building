@@ -105,7 +105,22 @@ buildingApp.directive('scrollListener', function () {
     // controller function
     link: function (scope, element, attrs) {
       element.bind('scroll', function () {
+
+        // pass the scroll position to the subscriber's setScrollPosition method
         scrollPosition = element[0].scrollTop;
+
+        // if the scroll position > 0, fade in articles after the 1st
+        // then permanently set their opacity to 1, else fade them out
+        if (scrollPosition > 0) {
+          // set timeout so that fade in completes before we absolutely set opacity
+          $(".major-section-spacer *").removeClass("fade-out-article");
+          $(".major-section-spacer *").addClass("fade-in-article");
+        } else {
+          // set timeout so that fade out completes before we absolutely set opacity
+          $(".major-section-spacer *").removeClass("fade-in-article");
+          $(".major-section-spacer *").addClass("fade-out-article");
+        }
+
         scope.setScrollPosition(scrollPosition);
       });
     }
@@ -154,7 +169,8 @@ buildingApp.directive('hashChangeSelect',['$location',function($location){
       return true;
     },
     controller : function($scope) {
-      console.log("controller scope", $scope);
+      /* $scope is controller scope; fetch the value object's id and set
+      it in the url hash */
       $scope._value = angular.copy($scope.value);
       $scope._onOptionSelected = function(){
         $location.search('article',$scope._value.id);
@@ -193,7 +209,6 @@ buildingApp.controller("navigationController", [
       $(".navigation").toggleClass("hidden");
       $(".navigation-overlay").toggleClass("hidden");
     };
-
   }
 ]);
 
