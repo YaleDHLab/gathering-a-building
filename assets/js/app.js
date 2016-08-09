@@ -8,32 +8,37 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
       
   // route for the home view
   $routeProvider.when('/', {
-    templateUrl : '/templates/routes/home.html',
-    controller  : 'homeController'
+    templateUrl    : '/templates/routes/home.html',
+    controller     : 'homeController',
+    reloadOnSearch : false
   })
 
   // route for the historical geography view
   $routeProvider.when('/routes/historical-geography', {
-    templateUrl : '/templates/routes/historical-geography.html',
-    controller  : 'historicalGeographyController'
+    templateUrl    : '/templates/routes/historical-geography.html',
+    controller     : 'historicalGeographyController',
+    reloadOnSearch : false
   })
 
   // route for the architecture and urbanism view
   $routeProvider.when('/routes/architecture-and-urbanism', {
     templateUrl : '/templates/routes/architecture-and-urbanism.html',
-    controller  : 'architectureAndUrbanismController'
+    controller  : 'architectureAndUrbanismController',
+    reloadOnSearch : false
   })
 
   // route for the material journeys view
   $routeProvider.when('/routes/material-journeys', {
     templateUrl : '/templates/routes/material-journeys.html',
-    controller  : 'materialJourneysController'
+    controller  : 'materialJourneysController',
+    reloadOnSearch : false
   })
 
   // route for the about page
   $routeProvider.when('/routes/people-and-place', {
     templateUrl : '/templates/routes/people-and-place.html',
-    controller  : 'peopleAndPlaceController'
+    controller  : 'peopleAndPlaceController',
+    reloadOnSearch : false
   })
 
   // route for all other requests
@@ -52,9 +57,10 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
 
 buildingApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
   $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
-    console.log("route changed");
-    $location.hash($routeParams.article);
-    $anchorScroll();
+
+    // on route change, remove the hash from the url
+    $location.hash(null);
+
   });
 })
 
@@ -130,6 +136,33 @@ buildingApp.directive('scrollToId', function() {
     }
   }
 });
+
+
+/***
+* Directive to support scroll by href in mobile select
+***/
+
+buildingApp.directive('hashChangeSelect',['$location',function($location){
+  return {
+    restrict : 'E',
+    templateUrl : '/templates/partials/layout/hash-change-select.html',
+    scope : {
+      options : "=",
+      value :  "=",
+    },
+    link : function(scope) {
+      return true;
+    },
+    controller : function($scope) {
+      console.log("controller scope", $scope);
+      $scope._value = angular.copy($scope.value);
+      $scope._onOptionSelected = function(){
+        $location.search('article',$scope._value.id);
+        $location.hash($scope._value.id);
+      }
+    }
+  };
+}]);
 
 
 /***
@@ -566,11 +599,11 @@ buildingApp.controller("architectureAndUrbanismController", [
     $scope.footer = {
       "left": {
         "display": "Architecture & Urbanism",
-        "url": "/#/routes/architecture-and-urbanism"
+        "url": "/#/routes/architecture-and-urbanism?article=0#0"
       },
       "right": {
         "display": "Next <i class='fa fa-angle-down'></i>",
-        "url": "/#/routes/architecture-and-urbanism?article=1"
+        "url": "/#/routes/architecture-and-urbanism?article=1#1"
       },
        "style": "partial"
     };
@@ -592,23 +625,6 @@ buildingApp.controller("architectureAndUrbanismController", [
 
       };
       $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
-    };
-
-    $scope.setDropdownOption = function() {
-      localStorage.setItem('selectedOption', JSON.stringify($scope.dropdownOptions.selected));
-      var selectedId = $scope.dropdownOptions.selected.id;
-
-      //$rootScope.selectedOption = $scope.dropdownOptions.selected;
-      if (selectedId > 0) {
-        $location.search('article',selectedId);
-        $location.hash(selectedId);
-        $anchorScroll();
-      } else {
-        // erase the article and hash params from the url
-        $location.search('article',null);
-        $location.hash(null);
-        $anchorScroll();
-      }
     };
 
     // define the configuration of the mobile mid page controls
@@ -667,13 +683,13 @@ buildingApp.controller("architectureAndUrbanismController", [
     $scope.getScrollPosition = function(arg) {
       if (arg<2022) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["0"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/architecture-and-urbanism?article=1";
+        $scope.footer.right.url = "/#/routes/architecture-and-urbanism?article=1#1";
         $scope.$apply();
       };
 
       if (arg>2022) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/architecture-and-urbanism";
+        $scope.footer.right.url = "/#/routes/architecture-and-urbanism?article=0#0";
         $scope.$apply();
       };
     };
@@ -696,11 +712,11 @@ buildingApp.controller("materialJourneysController", [
     $scope.footer = {
       "left": {
         "display": "Material Journeys",
-        "url": "/#/routes/material-journeys"
+        "url": "/#/routes/material-journeys?article=0#0"
       },
       "right": {
         "display": 'Next <i class="fa fa-angle-down"></i>',
-        "url": "/#/routes/material-journeys?article=1"
+        "url": "/#/routes/material-journeys?article=1#1"
       },
        "style": "partial"
     };
@@ -724,23 +740,6 @@ buildingApp.controller("materialJourneysController", [
       $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
     };
 
-    $scope.setDropdownOption = function() {
-      localStorage.setItem('selectedOption', JSON.stringify($scope.dropdownOptions.selected));
-      var selectedId = $scope.dropdownOptions.selected.id;
-
-      //$rootScope.selectedOption = $scope.dropdownOptions.selected;
-      if (selectedId > 0) {
-        $location.search('article',selectedId);
-        $location.hash(selectedId);
-        $anchorScroll();
-      } else {
-        // erase the article and hash params from the url
-        $location.search('article',null);
-        $location.hash(null);
-        $anchorScroll();
-      }
-    };
-
     // define the configuration of the mobile mid page controls
     $scope.mobile = {
       "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
@@ -762,10 +761,10 @@ buildingApp.controller("materialJourneysController", [
           "title": "MATERIAL JOURNEYS",
           "subtitle": "MJ TABLE OF CONTENTS",
           "paragraphs": [
-            "<a href='/#/routes/material-journeys?article=1'><h2 class='section-subheading'>CONCRETE</h2></a>",
-            "<a href='/#/routes/material-journeys?article=2'><h2 class='section-subheading'>STONE</h2></a>",
-            "<a href='/#/routes/material-journeys?article=3'><h2 class='section-subheading'>BRICK</h2></a>",
-            "<a href='/#/routes/material-journeys?article=4'><h2 class='section-subheading'>GLASS</h2></a>",
+            "<a href='/#/routes/material-journeys?article=1#1'><h2 class='section-subheading'>CONCRETE</h2></a>",
+            "<a href='/#/routes/material-journeys?article=2#2'><h2 class='section-subheading'>STONE</h2></a>",
+            "<a href='/#/routes/material-journeys?article=3#3'><h2 class='section-subheading'>BRICK</h2></a>",
+            "<a href='/#/routes/material-journeys?article=4#4'><h2 class='section-subheading'>GLASS</h2></a>",
             "<div class='section-introduction-text'>Egestas hendrerit dignissim non neque urna, a imperdiet pretium congue egestas rhoncus. Porttitor vitae, at donec aliquet. Sollicitudin velit metus nonummy. Hendrerit nullam pulvinar, adipiscing mus, sit nulla justo, odio leo tellus pede risus proin, elementum et. Tellus a eget nec tempus.</div>"
           ],
           "introImage": "",
@@ -858,33 +857,33 @@ buildingApp.controller("materialJourneysController", [
       if (scrollPosition < 640) {
         $scope.showTableOfContents = 1;
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["0"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=2"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=1#1"
         $scope.$apply();
       }
 
       if (scrollPosition > 640) {
         $scope.showTableOfContents = 0;
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=3"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=2#2"
         $scope.$apply();
 
       }
 
       if (scrollPosition > 2620) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["2"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=4"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=3#3"
         $scope.$apply();
       }
 
       if (scrollPosition > 4750) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["3"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=5"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=4#4"
         $scope.$apply();
       }
 
       if (scrollPosition > 6670) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["4"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=0#0"
         $scope.$apply();
       }
     }
@@ -910,11 +909,11 @@ buildingApp.controller("peopleAndPlaceController", [
     $scope.footer = {
       "left": {
         "display": "People & Place",
-        "url": "/#/routes/people-and-place"
+        "url": "/#/routes/people-and-place?article=0#0"
       },
       "right": {
         "display": "Next <i class='fa fa-angle-down'></i>",
-        "url": "/#/routes/people-and-place?article=1"
+        "url": "/#/routes/people-and-place?article=1#1"
       },
        "style": "partial"
      };
@@ -938,23 +937,6 @@ buildingApp.controller("peopleAndPlaceController", [
       $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
     };
 
-    $scope.setDropdownOption = function() {
-      localStorage.setItem('selectedOption', JSON.stringify($scope.dropdownOptions.selected));
-      var selectedId = $scope.dropdownOptions.selected.id;
-
-      //$rootScope.selectedOption = $scope.dropdownOptions.selected;
-      if (selectedId > 0) {
-        $location.search('article',selectedId);
-        $location.hash(selectedId);
-        $anchorScroll();
-      } else {
-        // erase the article and hash params from the url
-        $location.search('article',null);
-        $location.hash(null);
-        $anchorScroll();
-      }
-    };
-
     // define the configuration of the mobile mid page controls
     $scope.mobile = {
       "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
@@ -974,11 +956,11 @@ buildingApp.controller("peopleAndPlaceController", [
           "title": "PEOPLE & PLACE",
           "subtitle": "AU Section 1 subtitle is longer than the title",
           "paragraphs": [
-            "<a href='/#/routes/people-and-place?article=1'><h2 class='section-subheading'>SECTION ONE</h2></a>",
-            "<a href='/#/routes/people-and-place?article=2'><h2 class='section-subheading'>SECTION TWO</h2></a>",
-            "<a href='/#/routes/people-and-place?article=3'><h2 class='section-subheading'>SECTION THREE</h2></a>",
-            "<a href='/#/routes/people-and-place?article=4'><h2 class='section-subheading'>SECTION FOUR</h2></a>",
-            "<a href='/#/routes/people-and-place?article=5'><h2 class='section-subheading'>SECTION FIVE</h2></a>",
+            "<a href='/#/routes/people-and-place?article=1#1'><h2 class='section-subheading'>SECTION ONE</h2></a>",
+            "<a href='/#/routes/people-and-place?article=2#2'><h2 class='section-subheading'>SECTION TWO</h2></a>",
+            "<a href='/#/routes/people-and-place?article=3#3'><h2 class='section-subheading'>SECTION THREE</h2></a>",
+            "<a href='/#/routes/people-and-place?article=4#4'><h2 class='section-subheading'>SECTION FOUR</h2></a>",
+            "<a href='/#/routes/people-and-place?article=5#5'><h2 class='section-subheading'>SECTION FIVE</h2></a>",
             "<div class='section-introduction-text'>Egestas hendrerit dignissim non neque urna, a imperdiet pretium congue egestas rhoncus. Porttitor vitae, at donec aliquet. Sollicitudin velit metus nonummy.</div>"
           ],
           "topRightHtml": '<div class="fill-container" style="background: url(/assets/images/cardboard_colleges.jpg) no-repeat center center; background-size: cover;"></div>',
@@ -1076,39 +1058,39 @@ buildingApp.controller("peopleAndPlaceController", [
 
       if (scrollPosition < 610) {
         $scope.showTableOfContents = 1;
-        $scope.footer.right.url = "/#/routes/people-and-place?article=1"
+        $scope.footer.right.url = "/#/routes/people-and-place?article=1#1"
         $scope.$apply();
       }
 
       if (scrollPosition > 610) {
         $scope.showTableOfContents = 0;
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/people-and-place?article=2"
+        $scope.footer.right.url = "/#/routes/people-and-place?article=2#2"
         $scope.$apply();
 
       }
 
       if (scrollPosition > 2620) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["2"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/people-and-place?article=3"
+        $scope.footer.right.url = "/#/routes/people-and-place?article=3#3"
         $scope.$apply();
       }
 
-      if (scrollPosition > 4750) {
+      if (scrollPosition > 4670) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["3"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/people-and-place?article=4"
+        $scope.footer.right.url = "/#/routes/people-and-place?article=4#4"
         $scope.$apply();
       }
 
-      if (scrollPosition > 6800) {
+      if (scrollPosition > 6730) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["4"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/people-and-place?article=5"
+        $scope.footer.right.url = "/#/routes/people-and-place?article=5#5"
         $scope.$apply();
       }
 
-      if (scrollPosition > 8840) {
+      if (scrollPosition > 8735) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["5"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/people-and-place"
+        $scope.footer.right.url = "/#/routes/people-and-place?article=0#0"
         $scope.$apply();
       }
     }

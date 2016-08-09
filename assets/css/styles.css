@@ -109,7 +109,7 @@ html {
 .navigation {
   position: fixed;
   top: 20px;
-  left: 15px;
+  left: 20px;
   cursor: pointer;
 }
 
@@ -144,7 +144,7 @@ html {
 }
 
 .navigation-links {
-  padding-top: 90px;
+  padding-top: 110px;
 }
 
 .navigation-link {
@@ -301,8 +301,9 @@ html {
 }
 
 .text-column-content {
-  margin: 65px 0;
+  margin: 0 0 65px 0;
   padding: 35px;
+  padding-top: 0;
   font-family: Arial;
   line-height: 1.35em;
 }
@@ -321,10 +322,7 @@ html {
   src: url("/assets/fonts/Mallory-Thin.otf") format("opentype");
 }
 
-.minor-section-spacer {
-  padding-top: 110px;
-}
-
+.minor-section-spacer,
 .major-section-spacer {
   padding-top: 210px;
 }
@@ -783,7 +781,7 @@ span.rz-pointer:focus {
   }
 
   .navigation-links {
-    padding-top: 50px;
+    padding-top: 90px;
   }
 
   .navigation-links-top {
@@ -846,7 +844,7 @@ span.rz-pointer:focus {
   }
 
   .text-column {
-    margin-top: 40px;
+    margin-top: 0px;
     margin-bottom: 30px;
   }
 
@@ -862,7 +860,7 @@ span.rz-pointer:focus {
 
   /* give special styling to the first section title */
   .text-column-content .first-section-title {
-    padding: 0 0 20px 0;
+    padding: 50px 0 20px 0;
   }
 
   .text-column-content {
@@ -984,7 +982,7 @@ span.rz-pointer:focus {
   }
 
   .dropdown-selector-container select {
-    background: transparent;
+    background: #fff;
     border: none;
     height: 40px;
     width: 120%;

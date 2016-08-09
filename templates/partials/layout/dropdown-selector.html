@@ -1,7 +1,6 @@
 <div class="dropdown-selector-container">
-  <select
-    data-ng-model="dropdownOptions.selected"
-    data-ng-options="o.label for o in dropdownOptions track by o.id"
-    data-ng-change="setDropdownOption()">
-  </select>
+  <hash-change-select
+    options="dropdownOptions"
+    value="selectedOption">
+  </hash-change-select>
 </div>
