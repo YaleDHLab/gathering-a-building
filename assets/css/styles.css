@@ -88,7 +88,7 @@ a:hover {
 ******************/
 
 /* webkit */
-.menu::-webkit-scrollbar {
+.text-column::-webkit-scrollbar {
   display: none;
 }
 
@@ -337,6 +337,43 @@ html {
 .minor-section-spacer,
 .major-section-spacer {
   padding-top: 210px;
+}
+
+/* make articles after the 1st invisible on page load */
+.major-section-spacer * {
+  opacity: 0;
+}
+
+.fade-in-article {
+  animation: fade-in-article 1.5s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+.fade-out-article {
+  animation: fade-out-article 1.5s;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in-article {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out-article {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
 .section-title {
