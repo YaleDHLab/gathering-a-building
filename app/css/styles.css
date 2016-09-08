@@ -34,7 +34,8 @@ a {
   color: #000;
 }
 
-a:hover {
+a:hover,
+a.active {
   color: #8D8C8C;
 }
 
@@ -407,6 +408,11 @@ html {
   float: left;
   opacity: .8;
   cursor: pointer;
+}
+
+/* active class is added by hoverEvents angular directive */
+.table-of-contents-right-panel.active {
+  opacity: 1;
 }
 
 .table-of-contents-right-panel img {

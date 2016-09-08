@@ -13,7 +13,9 @@ var angularjsSlider = require('angularjs-slider');
 var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize", "rzModule"]);
 
 /***
+*
 * Routing configuation for the application
+*
 ***/
 
 buildingApp.config(["$routeProvider", function($routeProvider) {
@@ -63,8 +65,10 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
 
 
 /***
+*
 * Add a run block to update scroll position on request of
 * anchor elements with article query params
+*
 ***/
 
 buildingApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
@@ -79,9 +83,11 @@ buildingApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
 
 
 /***
+*
 * Directive to dynamically set background images when 
 * controllers update their backgroundImageUrl scope
 * variables
+*
 ***/
 
 buildingApp.directive('backgroundImage', function(){
@@ -97,7 +103,9 @@ buildingApp.directive('backgroundImage', function(){
 
 
 /***
+*
 * Directive to listen for scroll events
+*
 ***/
 
 buildingApp.directive('scrollListener', function () {
@@ -140,7 +148,12 @@ buildingApp.directive('scrollListener', function () {
 });
 
 
-// directive to scroll to the href within the current a tag
+/***
+*
+* Directive to scroll to the href within the current a tag
+*
+***/
+
 buildingApp.directive('scrollToId', function() {
   return {
     restrict: 'A',
@@ -166,7 +179,9 @@ buildingApp.directive('scrollToId', function() {
 
 
 /***
+*
 * Directive to support scroll by href in mobile select
+*
 ***/
 
 buildingApp.directive('hashChangeSelect',['$location',function($location){
@@ -193,8 +208,83 @@ buildingApp.directive('hashChangeSelect',['$location',function($location){
 }]);
 
 
+
 /***
+*
+* Directive to run code after template content and ng-repeat
+* events have completed. In this case, we use the directive to
+* add hover states for material journeys pictures/text.
+* See: http://stackoverflow.com/questions/12304291
+*
+***/
+
+buildingApp.directive('hoverEvents', function() {
+  return {
+    link: function($scope, element, attrs) {
+
+      // Trigger when number of children changes,
+      // including by directives like ng-repeat
+      var watch = $scope.$watch(function() {
+        return element.children().length;
+      }, function() {
+
+        // Wait for templates to render
+        $scope.$evalAsync(function() {
+
+          // Once control passes to this step,
+          // all templates have loaded and ng-repeats
+          // have concluded.
+
+          // Define functions such that hovering on text
+          // highlights the images, and vice versa
+          var textInfluencesImage = function(elem, index) {
+            elem.addEventListener("mouseover", function() {
+              var associatedImage = chapterSectionImages[index];
+              associatedImage.className += " active";
+            });
+
+            elem.addEventListener("mouseout", function() {
+              var associatedImage = chapterSectionImages[index];
+              associatedImage.className = defaultImageClass;
+            });
+          };
+
+          var imageInfluencesText = function(elem, index) {
+            elem.addEventListener("mouseover", function() {
+              var associatedText = chapterSectionTitles[index];
+              associatedText.className += " active";
+            });
+
+            elem.addEventListener("mouseout", function() {
+              var associatedText = chapterSectionTitles[index];
+              associatedText.className = defaultTextClass;
+            });
+          };
+
+          // select all of the section subheadings and images
+          var chapterSectionTitles = document.querySelectorAll(".text-column-material-journeys a");
+          var chapterSectionImages = document.querySelectorAll(".table-of-contents-right-panel");
+
+          // store the classes applied to chapter section subheadings and images
+          var defaultTextClass = chapterSectionTitles[0].className;
+          var defaultImageClass = chapterSectionImages[0].className;
+
+          // make hovers on text influence images
+          chapterSectionTitles.forEach(textInfluencesImage);
+
+          // make hovers on images influence text
+          chapterSectionImages.forEach(imageInfluencesText);
+
+        });
+      });
+    },
+  };
+});
+
+/***
+*
 * Filter to allow one to dangerouslySetInnerHtml
+*
 ***/
 
 buildingApp.filter('allowHtml', ['$sce', function($sce){
@@ -300,6 +390,9 @@ buildingApp.controller("historicalGeographyController", [
 
     // define the text column data
     $scope.textColumn = {
+      "title": "historical-geography",
+      "display": "1",
+      "hr": "1",
       "sections": {
         "0": {
           "id": "0",
@@ -316,11 +409,7 @@ buildingApp.controller("historicalGeographyController", [
           "paragraphs": ["Lorem ipsum dolor sit amet, ne soleat dolorem lobortis nam, no meis civibus aliquando vis. Ut vidit sonet usu, an mel quot paulo mentitum. Eu sea tollit erroribus, vix eu reque fugit labore, an vel repudiare persecuti. Equidem omnesque ut qui, est persius ocurreret et, postulant voluptaria eam ut. Probo fierent ponderum sea ex. In mea eius utamur petentium, suscipit deserunt accommodare duo ut, ne verear omittam vel.", "Mea odio mutat lobortis no, te perpetua facilisis principes ius. Nisl fastidii periculis cu est, ex errem euripidis evertitur nec. Eu debet placerat mediocrem vis, pro vidisse accumsan gloriatur ei. Cu omittam scripserit nec. Nec erroribus reprimique te, modus fabulas ea pro, adhuc omnes offendit no pro.", "Sea ne amet voluptaria intellegam, an eos elitr moderatius complectitur. Ad epicurei oportere imperdiet eam, stet omnes nonumy per at, at fierent appellantur pri. Te modo omnes assentior qui. Elitr labitur accommodare cu mel. Ad wisi dolore nec. Adhuc nullam mel ei, duo augue imperdiet no.", "Vel etiam signiferumque ex, inermis splendide mei ea. Eu pro latine eruditi persecuti, veri iusto temporibus ei his. Pro novum soleat salutandi te, eos agam tation nominavi eu. Iisque oblique quo ea.", "Et minim constituto cum, id pri semper denique scaevola. An mea eruditi indoctum, quo dico quot nominavi in. Ut sea aperiri facilis assueverit, quodsi latine facilis ea qui. Nihil probatus vis at, ut sed atqui legere, usu propriae necessitatibus ea.", "His an detraxit consulatu, no brute pertinacia sit, an eam vivendo aliquando. Sed accusamus elaboraret ut, ei his congue percipitur. Putent epicuri argumentum in mea, eam cu option splendide, mel solum inimicus ad. Ne facilisi gloriatur vel, facer veniam vivendo ius at. In diam aeque iracundia usu, ex nec amet diceret signiferumque. Cu vix erant oblique nostrum, ei est feugiat forensibus, ea sed meis omittantur. Vel tation similique no.", "Habemus civibus eu has, usu ne debet option mentitum, pro ut tota delenit fuisset. Ut sit iriure sapientem, placerat senserit efficiantur id qui, sit malorum iudicabit et. Cu eripuit lucilius mei, eam hinc esse adhuc et, solet diceret mel ex. Duo ei dicam malorum abhorreant, error ignota scripta ea sit. Est cu justo albucius forensibus, ipsum omnium cu qui. Et est enim gloriatur, has alii solum ut.", "Eos laoreet posidonium an, doctus appareat no quo, est quot albucius in. Primis reprehendunt cum ei. Interesset cotidieque interpretaris nam ex, quo soluta putent aliquam cu. Ea pri ornatus detracto. Regione voluptaria at sed, nam adhuc nostrum at.", "Pri modus facete legendos eu, no eum amet aliquam appellantur, vivendo honestatis vix ei. Cum sonet discere neglegentur at, an pro iuvaret vivendo, eos in suscipit percipitur. Sit lucilius persequeris id. Vim et accumsan theophrastus, elitr vulputate eos cu.", "Epicurei mediocrem consequat cu pri. Vocibus repudiare pro ea, vis melius utroque rationibus ne, vim esse feugiat appetere id. Ad elit errem habemus ius, suas ferri adversarium mei te. Tollit menandri percipitur mel at."],
           "background": "NA"
         },
-      },
-
-      "display": "1",
-      "hr": "1"
-
+      }
     };
 
     // Add a function to change map overlay on scroll events. NB:
@@ -649,7 +738,9 @@ buildingApp.controller("architectureAndUrbanismController", [
 
 
     /***
+    *
     * Mobile controls
+    *
     ***/
 
     // build the options for the footer dropdown
@@ -683,6 +774,9 @@ buildingApp.controller("architectureAndUrbanismController", [
     ***/
 
     $scope.textColumn = {
+      "title": "architecture-and-urbanism",
+      "display": "1",
+      "hr": "1",
       "sections": {
         "0": {
           "id": "0",
@@ -711,11 +805,7 @@ buildingApp.controller("architectureAndUrbanismController", [
             }
           }
         }
-      },
-
-      "display": "1",
-      "hr": "1"
-
+      }
     };
 
     // Add a scroll listener to update background dynamically
@@ -793,6 +883,9 @@ buildingApp.controller("materialJourneysController", [
     ***/
 
     $scope.textColumn = {
+      "title": "material-journeys",
+      "display": "1",
+      "hr": "1",
       "sections": {
         "0": {
           "id": "0",
@@ -879,11 +972,7 @@ buildingApp.controller("materialJourneysController", [
             }
           }
         }
-      },
-
-      "display": "1",
-      "hr": "1"
-
+      }
     };
 
     /***
@@ -942,7 +1031,9 @@ buildingApp.controller("peopleAndPlaceController", [
   function($scope, $http, $location, $anchorScroll) {
 
     /***
+    *
     * Footer
+    *
     ***/
 
     $scope.footer = {
@@ -985,10 +1076,15 @@ buildingApp.controller("peopleAndPlaceController", [
     };
 
     /***
+    *
     * Text column
+    *
     ***/
 
     $scope.textColumn = {
+      "title": "people-and-place",
+      "display": "1",
+      "hr": "1",
       "sections": {
         "0": {
           "id": "0",
@@ -1081,11 +1177,7 @@ buildingApp.controller("peopleAndPlaceController", [
             }
           }
         }
-      },
-
-      "display": "1",
-      "hr": "1"
-
+      }
     };
 
     /***
