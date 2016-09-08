@@ -1,7 +1,11 @@
-import json, os
+import json, os, sys, glob
 import numpy as np
 
 """
+Usage:
+
+python matrix-transform.py ../svg/svg-polygons/{svg-with-polygons.svg}
+
 This script calculates a transform matrix X such that 
 one can project points in one 2d coordinate system
 into another 2d coordinate system. Because the solution uses
@@ -33,6 +37,18 @@ If the output of gdalinfo contains
 
 the geotif's bounding box coordinates can be extracted by running:
 ./extract-geotiff-bounding-box-coordinates.py {{filename.tif}}.
+
+Additionally, within the current repo, all svgs in ../svg/svg-paths
+and ../svg/svg-polygons were created within one single viewBox:
+
+  viewBox="0 0 2399 2631"
+
+This viewbox information was not retained in the actual SVG's due
+to the way the design team exported the SVG's, but these are the
+SVG coordinates that must be used to properly project the svg
+file in ../svg/svg-polygons (the viewbox identified above was properly
+exported when the development team exported the artboard svg file
+from Illustrator).
 
 Those coordinates are used in the file below, in which:
 
@@ -69,7 +85,6 @@ the output coordinate space. These resultant vectors look like this:
 
 This vector may be interpreted as x0, x1, x2 where the projected 
 x position is x0/x2 and the projected y position is x1/x2. 
-
 """
 
 x0 = 0
@@ -165,60 +180,69 @@ for point in [point0, point1, point2, point3]:
 
 # SVG with Bezier paths was transformed into SVG with only polygon
 # elements by using https://github.com/betravis/shape-tools/tree/master/path-to-polygon
+# Read this SVG element into memory as the first argument to the current script
+# (Or use the glob path below to read all svg polygons into memeory one by one)
+polygon_svgs_to_process = glob.glob("../svg/svg-polygons/*.svg")
+for path_to_polygon_svg in polygon_svgs_to_process:
 
-path_to_polygon_svg = "../svg/1835-disappeared-as-polygon.svg"
+  with open(path_to_polygon_svg, "r") as f:
+    f = f.read()
 
-with open(path_to_polygon_svg, "r") as f:
-  f = f.read()
+    # create empty array in which to store projected polygon_elements
+    projected_polygon_arrays = []
 
-  # create empty array in which to store projected polygon_elements
-  projected_polygon_arrays = []
+    polygon_segments = f.split('points=" ')[1:]
 
-  polygon_segments = f.split('points=" ')[1:]
+    # for each polygon segment, generate a new array of points
+    for polygon_index, polygon_segment in enumerate(polygon_segments):
+      print "processing polygon", path_to_polygon_svg, polygon_index
+      polygon_array = []
 
-  # for each polygon segment, generate a new array of points
-  for polygon_segment in polygon_segments:
-    polygon_array = []
+      clean_polygon_segment = polygon_segment.split(">")[0].replace('"','')
+      point_list = clean_polygon_segment.split()
 
-    clean_polygon_segment = polygon_segment.split(">")[0].replace('"','')
-    point_list = clean_polygon_segment.split()
-    for point in point_list:
+      for point in point_list:
 
-      split_point = point.split(",")
-      point_x = float(split_point[0])
-      point_y = float(split_point[1])
-      point_z = 1
+        split_point = point.split(",")
+        point_x = float(split_point[0])
+        point_y = float(split_point[1])
+        point_z = 1
 
-      point_array = np.array([[point_x], [point_y], [point_z]])
+        point_array = np.array([[point_x], [point_y], [point_z]])
 
-      projected_point_array = np.dot(shaped_x_matrix, point_array)
+        projected_point_array = np.dot(shaped_x_matrix, point_array)
 
-      # TODO: Make projection a function, make SVG partition a function
-      # Read in json with bounding boxes for two objects and use as 
-      # coordinates
-      pp0 = projected_point_array[0][0]
-      pp1 = projected_point_array[1][0]
-      pp2 = projected_point_array[2][0]
+        # TODO: Make projection a function, make SVG partition a function
+        # Read in json with bounding boxes for two objects and use as 
+        # coordinates
+        pp0 = projected_point_array[0][0]
+        pp1 = projected_point_array[1][0]
+        pp2 = projected_point_array[2][0]
 
-      projected_x_position = pp0 / pp2
-      projected_y_position = pp1 / pp2
+        projected_x_position = pp0 / pp2
+        projected_y_position = pp1 / pp2
 
-      # the leaflet client expects the y dimension before x dimension
-      polygon_array.append([projected_y_position, projected_x_position])
+        # the leaflet client expects the y dimension before x dimension
+        polygon_array.append([projected_y_position, projected_x_position])
 
-    # after iterating through all points for this polygon, add the projected
-    # point array to the larger list. NB: Use the geojson format used within the
-    # campus buildings files:
-    building_dict = {
-      "type": "MultiPolygon",
-      "coordinates": [[polygon_array]]
-    }
+      # after iterating through all points for this polygon, add the projected
+      # point array to the larger list. NB: Use the geojson format used within the
+      # campus buildings files:
+      building_dict = {
+        "type": "MultiPolygon",
+        "coordinates": [[polygon_array]]
+      }
 
-    projected_polygon_arrays.append(building_dict)
+      projected_polygon_arrays.append(building_dict)
 
-# write the sum total list of polygon arrays to disk
-with open("../json/projected_buildings.json", "w") as json_out:
-  json.dump(projected_polygon_arrays, json_out)
+  # create a filename for the geojson to be written
+  output_name = "projected_buildings_"
+  output_name += os.path.basename(path_to_polygon_svg).split("-")[0]
+  output_name += ".json"
 
-# upload the produced file to S3
-os.popen("aws s3 cp ../json/projected_buildings.json s3://gathering-a-building --acl public-read")
+  # write the sum total list of polygon arrays to disk
+  with open("../json/" + output_name, "w") as json_out:
+    json.dump(projected_polygon_arrays, json_out)
+
+  # upload the produced file to S3
+  os.popen("aws s3 cp ../json/" + output_name + " s3://gathering-a-building --acl public-read")
