@@ -1,0 +1,29 @@
+<!-- Map container -->
+<div id="map">
+  <div class="map-overlay-selector">
+    <div class="map-overlay map-overlay-0"
+          data-ng-click="selectOverlay(0)">1824</div>
+    <div class="map-overlay map-overlay-1"
+          data-ng-click="selectOverlay(1)">1851</div>
+    <div class="map-overlay map-overlay-2"
+          data-ng-click="selectOverlay(2)">1868</div>
+  </div>
+
+  <div class="opacity-slider-wrapper">
+    <div data-ng-include='"/templates/partials/historical-geography/opacity-slider.html"'></div>
+  </div>
+
+  <!-- Button to toggle vector overlay -->
+  <div data-ng-include='"/templates/partials/historical-geography/vector-overlay-button.html"'></div>
+
+</div>
+
+<!-- Text column overlay -->
+<div data-ng-include='"/templates/partials/layout/text-column.html"'></div>
+
+<!-- Mobile mid-page navigation controls -->
+<div class="mobile-controls" 
+      data-ng-include='"/templates/partials/layout/mobile-mid-page-controls.html"'></div>
+
+<!-- Footer -->
+<div data-ng-include='"/templates/partials/layout/footer.html"'></div>
