@@ -406,7 +406,7 @@ buildingApp.controller("historicalGeographyController", [
       $(".imageOverlay").remove();
 
       var imageOverlay = L.tileLayer(imageTileUrl, {
-        attribution: "This is an attribution",
+        attribution: '<a href="http://web.library.yale.edu/dhlab">DHLab@Yale</a>',
         opacity: .6,
         // set max zoom to prevent requests for tiles that don't exist
         maxZoom: 20,
@@ -485,31 +485,31 @@ buildingApp.controller("historicalGeographyController", [
         "year": 1753,
         "label": "Wadsworth Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1748_Wadsworth_Plan-NewHaven_1806-Kensett-engr_Beinecke_15675071-GEO1/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_1753.json"
       },
       "1": {
         "year": 1802,
         "label": "Plan of New Haven",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1802_Plan-New-Haven_Biencke_105622451_GEO1/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_1835.json"
       },
       "2": {
         "year": 1824,
         "label": "Doolittle Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1824_Doolittle_Plan-of-New-Haven_Beinecke_156750741/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_1835.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_1850.json"
       },
       "3": {
         "year": 1849,
         "label": "Buckingham Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1849_Buckingham_NH_156913731_Geo4/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_1850.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_1894.json"
       },
       "4": {
         "year": 1874,
         "label": "Benham Plan",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1874_Benham_15691396_Geo2/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_1870.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_1912.json"
       }
     }
 
@@ -598,7 +598,7 @@ buildingApp.controller("historicalGeographyController", [
 
       // use the cartodb basemap
       map.addLayer(new L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>',
+        attribution: '<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         subdomains: 'abcd',
         maxZoom: 19
       }));
