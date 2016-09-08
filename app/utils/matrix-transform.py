@@ -166,7 +166,7 @@ for point in [point0, point1, point2, point3]:
 # SVG with Bezier paths was transformed into SVG with only polygon
 # elements by using https://github.com/betravis/shape-tools/tree/master/path-to-polygon
 
-path_to_polygon_svg = "../../../exported-building-path-as-polygon.svg"
+path_to_polygon_svg = "../svg/1835-disappeared-as-polygon.svg"
 
 with open(path_to_polygon_svg, "r") as f:
   f = f.read()
