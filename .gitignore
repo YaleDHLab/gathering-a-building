@@ -1,6 +1,6 @@
 .DS_Store
+build/*
 /assets/fonts
 node_modules
-build/bundle.js
 /assets/utils/yale_map_image_tiles/
 /assets/utils/*.png
