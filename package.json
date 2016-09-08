@@ -1,0 +1,45 @@
+{
+  "name": "gathering-a-building",
+  "version": "1.0.0",
+  "description": "A research site on Yale's architectural history",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YaleDHLab/gathering-a-building.git"
+  },
+  "keywords": [
+    "architecture",
+    "digital-humanities",
+    "yale"
+  ],
+  "author": "DHLab@Yale",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YaleDHLab/gathering-a-building/issues"
+  },
+  "homepage": "https://github.com/YaleDHLab/gathering-a-building#readme",
+  "devDependencies": {
+    "angular": "^1.5.8",
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "css-loader": "^0.25.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.1",
+    "webpack-merge": "^0.14.1"
+  },
+  "dependencies": {
+    "angular-route": "^1.5.8",
+    "angular-sanitize": "^1.5.8",
+    "angularjs-slider": "^5.5.0",
+    "d3": "^4.2.2",
+    "jquery": "^2.2.2",
+    "leaflet": "^0.7.7"
+  }
+}
