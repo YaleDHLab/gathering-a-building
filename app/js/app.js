@@ -1,3 +1,15 @@
+// library assets
+var $ = require('jquery');
+var d3 = require('d3');
+var L = require('leaflet');
+
+// angular assets
+var angular = require('angular');
+var angularRoute = require('angular-route');
+var angularSanitize = require('angular-sanitize');
+var angularjsSlider = require('angularjs-slider');
+
+// main application
 var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize", "rzModule"]);
 
 /***
@@ -107,7 +119,7 @@ buildingApp.directive('scrollListener', function () {
       element.bind('scroll', function () {
 
         // pass the scroll position to the subscriber's setScrollPosition method
-        scrollPosition = element[0].scrollTop;
+        var scrollPosition = element[0].scrollTop;
 
         // if the scroll position > 0, fade in articles after the 1st
         // then permanently set their opacity to 1, else fade them out
@@ -470,22 +482,34 @@ buildingApp.controller("historicalGeographyController", [
 
     $scope.mapOverlays = {
       "0": {
-        "year": 1824,
-        "label": "Doolittle Plan",
-        "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691352/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_1912.json"
+        "year": 1753,
+        "label": "Wadsworth Plan",
+        "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1748_Wadsworth_Plan-NewHaven_1806-Kensett-engr_Beinecke_15675071-GEO1/{z}/{x}/{y}.png",
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings.json"
       },
       "1": {
-        "year": 1851,
-        "label": "Snider Plan",
-        "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691373/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_1970.json"
+        "year": 1802,
+        "label": "Plan of New Haven",
+        "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1802_Plan-New-Haven_Biencke_105622451_GEO1/{z}/{x}/{y}.png",
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings.json"
       },
       "2": {
-        "year": 1868,
-        "label": "Pauley Plan",
-        "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/15691378/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_2000.json"
+        "year": 1824,
+        "label": "Doolittle Plan",
+        "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1824_Doolittle_Plan-of-New-Haven_Beinecke_156750741/{z}/{x}/{y}.png",
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_1835.json"
+      },
+      "3": {
+        "year": 1849,
+        "label": "Buckingham Plan",
+        "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1849_Buckingham_NH_156913731_Geo4/{z}/{x}/{y}.png",
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_1850.json"
+      },
+      "4": {
+        "year": 1874,
+        "label": "Benham Plan",
+        "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1874_Benham_15691396_Geo2/{z}/{x}/{y}.png",
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_1870.json"
       }
     }
 
@@ -555,7 +579,7 @@ buildingApp.controller("historicalGeographyController", [
     var initializeMap = function() {
 
       // specify the coordinates on which to center the map initially
-      centerCoordinates = new L.LatLng(41.307, -72.928);
+      var centerCoordinates = new L.LatLng(41.307, -72.928);
 
       // create the map object itself
       var map = new L.Map("map", {
