@@ -491,7 +491,7 @@ buildingApp.controller("historicalGeographyController", [
         "year": 1802,
         "label": "Plan of New Haven",
         "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1802_Plan-New-Haven_Biencke_105622451_GEO1/{z}/{x}/{y}.png",
-        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/campus_buildings_1802.json"
+        "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings.json"
       },
       "2": {
         "year": 1824,
