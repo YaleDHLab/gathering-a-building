@@ -1,6 +1,7 @@
-var path    = require('path');
+var path = require('path');
 var webpack = require('webpack');
-var merge   = require('webpack-merge');
+var merge = require('webpack-merge');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var TARGET = process.env.npm_lifecycle_event;
 
@@ -19,7 +20,7 @@ var common = {
   // Identify the assets webpack should bundle
   // n.b. '' refers to files without extension
   resolve: {
-    extensions: ['', '.js', '.css'],
+    extensions: ['', '.js', '.css']
   },
 
   // Identify the output directory where built assets will go
@@ -33,7 +34,7 @@ var common = {
     loaders: [
       { 
         test: /\.css$/, 
-        loader: "style-loader!css-loader" 
+        loader: 'style-loader!css-loader'
       },
       {
         test: /\.js$/,
@@ -42,6 +43,14 @@ var common = {
         query: {
           presets: ['es2015']
         }
+      },
+      {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+        loader: "url-loader?limit=10000&mimetype=application/font-woff" 
+      },
+      {
+        test: /\.(ttf|eot|svg|jpe?g|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+        loader: "file-loader" 
       }
     ]
   },
@@ -110,7 +119,9 @@ if(TARGET === 'build' || !TARGET) {
         compress: {
           warnings: false
         }
-      })
+      }),
+
+      new ExtractTextPlugin("style.css", {allChunks: false})
     ]
   });
 }
