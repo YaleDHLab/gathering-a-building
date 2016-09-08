@@ -24,7 +24,17 @@ of the coordinate space into which the above-mentioned points
 should be projected. In the example below, these coordinates describe a 
 geographic region bound by lat, long coordinates. (The bounding
 box coordinates of a geotiff may be extracted through GDAL with
-the command `gdalinfo {{filename.geotiff}}`:
+the command `gdalinfo {{filename.geotiff}}`.
+
+If the output of gdalinfo contains
+
+  Coordinate System is:
+    PROJCS
+
+the geotif's bounding box coordinates can be extracted by running:
+./extract-geotiff-bounding-box-coordinates.py {{filename.tif}}.
+
+Those coordinates are used in the file below, in which:
 
 u0, v0 denote the x,y coordinates of the top-left hand corner position
 u1, v1 denote the x,y coordinates of the bottom-left hand corner position
@@ -64,23 +74,23 @@ x position is x0/x2 and the projected y position is x1/x2.
 
 x0 = 0
 x1 = 0
-x2 = 3032
-x3 = 3032
+x2 = 2399
+x3 = 2399
 
 y0 = 0
-y1 = 2341
+y1 = 2631
 y2 = 0
-y3 = 2341
+y3 = 2631
 
-u0 = 41.3300605
-u1 = 41.2938225
-u2 = 41.3300605
-u3 = 41.2938225
+u0 = 41.33119695416847
+u1 = 41.295045350730256
+u2 = 41.33119695416847
+u3 = 41.295045350730256
 
-v0 = -72.9482779
-v1 = -72.9482779
-v2 = -72.9013434
-v3 = -72.9013434
+v0 = -72.94547677842436
+v1 = -72.94547677842436
+v2 = -72.90159020007059
+v3 = -72.90159020007059
 
 matrixa = np.array([  [x0, y0, 1, 0, 0, 0, -1 * u0 * x0, -1 * u0 * y0],
                       [0, 0, 0, x0, y0, 1, -1 * v0 * x0, -1 * v0 * y0],
@@ -156,7 +166,7 @@ for point in [point0, point1, point2, point3]:
 # SVG with Bezier paths was transformed into SVG with only polygon
 # elements by using https://github.com/betravis/shape-tools/tree/master/path-to-polygon
 
-path_to_polygon_svg = "../svg/duhaime_processed_2000.svg"
+path_to_polygon_svg = "../../../exported-building-path-as-polygon.svg"
 
 with open(path_to_polygon_svg, "r") as f:
   f = f.read()
@@ -193,15 +203,22 @@ with open(path_to_polygon_svg, "r") as f:
       projected_x_position = pp0 / pp2
       projected_y_position = pp1 / pp2
 
-      polygon_array.append([projected_x_position, projected_y_position])
+      # the leaflet client expects the y dimension before x dimension
+      polygon_array.append([projected_y_position, projected_x_position])
 
     # after iterating through all points for this polygon, add the projected
-    # point array to the larger list
-    projected_polygon_arrays.append(polygon_array)
+    # point array to the larger list. NB: Use the geojson format used within the
+    # campus buildings files:
+    building_dict = {
+      "type": "MultiPolygon",
+      "coordinates": [[polygon_array]]
+    }
+
+    projected_polygon_arrays.append(building_dict)
 
 # write the sum total list of polygon arrays to disk
 with open("../json/projected_buildings.json", "w") as json_out:
   json.dump(projected_polygon_arrays, json_out)
 
 # upload the produced file to S3
-os.popen("aws s3 cp ../../json/projected_buildings.json s3://gathering-a-building --acl public-read")
+os.popen("aws s3 cp ../json/projected_buildings.json s3://gathering-a-building --acl public-read")
