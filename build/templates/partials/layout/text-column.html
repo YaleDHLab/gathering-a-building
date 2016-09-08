@@ -3,9 +3,9 @@
       data-ng-cloak>
   <hr data-ng-show="textColumn.hr == '1'"
         class="text-column-hr text-column-hr-top">
-  <div class="text-column-container">
+  <div class="{{ 'text-column-container ' + 'text-column-' + textColumn.title }}">
     <div class="alpha-fade-top"></div>
-    <div scroll-listener class="text-column" 
+    <div scroll-listener hover-events class="text-column"
         set-scroll-position="getScrollPosition">
       <div class="text-column-content">
         <div data-ng-repeat="section in textColumn.sections"
