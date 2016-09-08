@@ -1,11 +1,18 @@
 var $ = require('jquery');
 var d3 = require('d3');
 var L = require('leaflet');
+require('font-awesome-webpack');
+require('leaflet/dist/leaflet.css');
+require('angularjs-slider/dist/rzslider.css');
 
+// angular assets
 var angular = require('angular');
 var angularRoute = require('angular-route');
 var angularSanitize = require('angular-sanitize');
 var angularjsSlider = require('angularjs-slider');
+
+// app styles
+require('./css/styles.css');
 
 // main application
 var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize", "rzModule"]);
