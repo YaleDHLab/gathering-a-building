@@ -12,6 +12,8 @@ var PATHS = {
 
 var common = {
 
+  debug: true,
+
   // Identify the path to the file that bootstraps the application
   entry: {
     app: PATHS.app
@@ -32,11 +34,13 @@ var common = {
   // Use babel to load es6
   module: {
     loaders: [
-      { 
+      {
+        // css parser
         test: /\.css$/, 
-        loader: 'style-loader!css-loader'
+        loader: 'style-loader!css-loader!autoprefixer-loader'
       },
       {
+        // javascript parser
         test: /\.js$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
@@ -45,12 +49,29 @@ var common = {
         }
       },
       {
+        // font parser
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
         loader: "url-loader?limit=10000&mimetype=application/font-woff" 
       },
       {
-        test: /\.(ttf|eot|svg|jpe?g|png)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
+        // catchall asset parser
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
         loader: "file-loader" 
+      },
+      {
+        // base64 encode images less than 10kb to reduce requests
+        test: /\.(png|jpg|gif)$/,
+        loader: "url-loader?limit=10000&name=assets/images/img-[hash:6].[ext]"
+      },
+      {
+        // large image parser
+        test: /\.(png|jpg|gif)$/,
+        loader: "file-loader?name=assets/images/img-[hash:6].[ext]"
+      },
+      {
+        // html parser
+        test: /\.html$/,
+        loader: "html-loader"
       }
     ]
   },
