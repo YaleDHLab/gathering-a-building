@@ -56,12 +56,12 @@ var common = {
       {
         // font parser
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
-        loader: "url-loader?limit=10000&mimetype=application/font-woff" 
+        loader: "url-loader?limit=10000&mimetype=application/font-woff&name=[path][name].[ext]"
       },
       {
-        // catchall asset parser
+        // catchall file loader
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file-loader" 
+        loader: "file-loader?name=[path][name].[ext]"
       },
       {
         // base64 encode images less than 10kb to reduce requests
@@ -109,7 +109,13 @@ if(TARGET === 'start' || !TARGET) {
       // 0.0.0.0 is available to all network devices
       // unlike default
       host: process.env.HOST,
-      port: process.env.PORT
+      port: process.env.PORT || 8000,
+
+      // add CORS support
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": "true"
+      }
     },
     plugins: [
 
