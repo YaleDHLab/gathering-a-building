@@ -120,7 +120,7 @@ if(TARGET === 'start' || !TARGET) {
     plugins: [
 
       // Use hot module replacement
-      new webpack.HotModuleReplacementPlugin(),
+      new webpack.HotModuleReplacementPlugin()
 
     ]
   });
