@@ -5,9 +5,9 @@ var L = require('leaflet');
 
 // angular assets
 var angular = require('angular');
-var angularRoute = require('angular-route');
-var angularSanitize = require('angular-sanitize');
-var angularjsSlider = require('angularjs-slider');
+var ngRoute = require('angular-route');
+var ngSanitize = require('angular-sanitize');
+var rzModule = require('angularjs-slider');
 
 // main application
 var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize", "rzModule"]);
@@ -18,7 +18,9 @@ var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize", "rzMod
 *
 ***/
 
-buildingApp.config(["$routeProvider", function($routeProvider) {
+buildingApp.config([
+    "$routeProvider",
+  function($routeProvider) {
       
   // route for the home view
   $routeProvider.when('/', {
@@ -71,14 +73,16 @@ buildingApp.config(["$routeProvider", function($routeProvider) {
 *
 ***/
 
-buildingApp.run(function($rootScope, $location, $anchorScroll, $routeParams) {
-  $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
+buildingApp.run([
+    "$rootScope", "$location", "$anchorScroll", "$routeParams",
+  function($rootScope, $location, $anchorScroll, $routeParams) {
+    $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
 
-    // on route change, remove the hash from the url
-    $location.hash(null);
+      // on route change, remove the hash from the url
+      $location.hash(null);
 
   });
-})
+}])
 
 
 
@@ -184,7 +188,9 @@ buildingApp.directive('scrollToId', function() {
 *
 ***/
 
-buildingApp.directive('hashChangeSelect',['$location',function($location){
+buildingApp.directive('hashChangeSelect',[
+    '$location',
+  function($location){
   return {
     restrict : 'E',
     templateUrl : '/templates/partials/layout/hash-change-select.html',
@@ -265,16 +271,18 @@ buildingApp.directive('hoverEvents', function() {
           var chapterSectionTitles = document.querySelectorAll(".text-column-material-journeys a");
           var chapterSectionImages = document.querySelectorAll(".table-of-contents-right-panel");
 
-          // store the classes applied to chapter section subheadings and images
-          var defaultTextClass = chapterSectionTitles[0].className;
-          var defaultImageClass = chapterSectionImages[0].className;
+          if (chapterSectionTitles.length > 0 && chapterSectionImages.length > 0) {
 
-          // make hovers on text influence images
-          chapterSectionTitles.forEach(textInfluencesImage);
+            // store the classes applied to chapter section subheadings and images
+            var defaultTextClass = chapterSectionTitles[0].className;
+            var defaultImageClass = chapterSectionImages[0].className;
 
-          // make hovers on images influence text
-          chapterSectionImages.forEach(imageInfluencesText);
+            // make hovers on text influence images
+            chapterSectionTitles.forEach(textInfluencesImage);
 
+            // make hovers on images influence text
+            chapterSectionImages.forEach(imageInfluencesText);
+          };
         });
       });
     },
@@ -287,7 +295,9 @@ buildingApp.directive('hoverEvents', function() {
 *
 ***/
 
-buildingApp.filter('allowHtml', ['$sce', function($sce){
+buildingApp.filter('allowHtml', [
+    '$sce',
+  function($sce){
   return function(val) {
     return $sce.trustAsHtml(val);
   };
