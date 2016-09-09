@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack",
+    "deploy": "npm run build && aws s3 cp ../gathering-a-building/build s3://gathering-a-building-bundle --recursive --acl public-read"
   },
   "repository": {
     "type": "git",
@@ -34,6 +35,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "html-loader": "^0.4.3",
+    "less": "^2.7.1",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
