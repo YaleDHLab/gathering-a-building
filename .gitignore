@@ -1,4 +1,5 @@
 .DS_Store
+geotiffs/*
 build/*
 build/assets/fonts
 node_modules
