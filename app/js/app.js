@@ -9,6 +9,12 @@ var ngRoute = require('angular-route');
 var ngSanitize = require('angular-sanitize');
 var rzModule = require('angularjs-slider');
 
+// navisworks assets
+require('../vendor/css/navisworks.style.min');
+require('../vendor/css/navisworks-a360');
+require('../vendor/js/three');
+var autodeskCredentials = require('./lib/autodesk.js');
+
 // main application
 var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize", "rzModule"]);
 
@@ -26,6 +32,13 @@ buildingApp.config([
   $routeProvider.when('/', {
     templateUrl    : '/templates/routes/home.html',
     controller     : 'homeController',
+    reloadOnSearch : false
+  })
+
+  // route for the building model view
+  $routeProvider.when('/routes/building-model', {
+    templateUrl    : '/templates/routes/building-model.html',
+    controller     : 'buildingModelController',
     reloadOnSearch : false
   })
 
@@ -291,6 +304,48 @@ buildingApp.directive('hoverEvents', function() {
 
 /***
 *
+* Directive to load building model data on page load
+*
+***/
+
+buildingApp.directive('loadBuilding', function() {
+  return {
+    link: function($scope, element, attrs) {
+
+      // Trigger when number of children changes,
+      // including by directives like ng-repeat
+      var watch = $scope.$watch(function() {
+        return element.children().length;
+      }, function() {
+
+        // Wait for templates to render
+        $scope.$evalAsync(function() {
+
+          // load the building data
+          var viewerApp;
+          var options = {
+            env: 'AutodeskProduction',
+            accessToken: function(onGetAccessToken) {
+              var accessToken = autodesk.accessToken;
+              var expireTimeSeconds = 60 * 30;
+              onGetAccessToken(accessToken, expireTimeSeconds);
+            }
+          };
+          var documentId = autodeskCredentials.urn;
+          Autodesk.Viewing.Initializer(options, function onInitialized(){
+            viewerApp = new Autodesk.A360ViewingApplication('building-model');
+            viewerApp.registerViewer(viewerApp.k3D, Autodesk.Viewing.Private.GuiViewer3D);
+            viewerApp.loadDocumentWithItemAndObject(documentId);
+          });
+
+        });
+      });
+    },
+  };
+});
+
+/***
+*
 * Filter to allow one to dangerouslySetInnerHtml
 *
 ***/
@@ -366,6 +421,30 @@ buildingApp.controller("brandController", [
 
 // Controller for home view
 buildingApp.controller("homeController", [
+      "$scope", "$http",
+  function($scope, $http) {
+
+    var footer = {
+      "left": {
+        "display": "Home",
+        "url": "/#/"
+      },
+      "right": {
+        "display": "Next <i class='fa fa-angle-down'></i>",
+        "url": "/#/"
+      },
+      "style": "full"
+    };
+
+    $scope.footer = footer;
+    $scope.textColumn = {};
+
+  }
+]);
+
+
+// Controller for building model
+buildingApp.controller("buildingModelController", [
       "$scope", "$http",
   function($scope, $http) {
 
