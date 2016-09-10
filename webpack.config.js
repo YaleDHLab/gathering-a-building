@@ -22,12 +22,7 @@ var common = {
   // Identify the assets webpack should bundle
   // n.b. '' refers to files without extension
   resolve: {
-    extensions: ['', '.js', '.css'],
-    alias: {
-      'ngRoute': 'angular-route',
-      'ngSanitizer': 'angular-sanitizer',
-      'rzModule': 'angularjs-slider'
-    }
+    extensions: ['', '.js', '.css']
   },
 
   // Identify the output directory where built assets will go
@@ -130,14 +125,12 @@ if(TARGET === 'build' || !TARGET) {
         'process.env.NODE_ENV': '"production"'
       }),
 
-      /*
       // Minify bundled js
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false
         }
       }),
-      */
 
       // Optimize the build order
       new webpack.optimize.OccurrenceOrderPlugin(),
