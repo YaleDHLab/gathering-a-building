@@ -109,13 +109,7 @@ if(TARGET === 'start' || !TARGET) {
       // 0.0.0.0 is available to all network devices
       // unlike default
       host: process.env.HOST,
-      port: process.env.PORT || 8000,
-
-      // add CORS support
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Credentials": "true"
-      }
+      port: process.env.PORT || 8000
     },
     plugins: [
 
