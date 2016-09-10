@@ -2,6 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var merge = require('webpack-merge');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var CompressionPlugin = require('compression-webpack-plugin');
 
 var TARGET = process.env.npm_lifecycle_event;
 
@@ -22,7 +23,12 @@ var common = {
   // Identify the assets webpack should bundle
   // n.b. '' refers to files without extension
   resolve: {
-    extensions: ['', '.js', '.css']
+    extensions: ['', '.js', '.css'],
+    alias: {
+      'ngRoute': 'angular-route',
+      'ngSanitizer': 'angular-sanitizer',
+      'rzModule': 'angularjs-slider'
+    }
   },
 
   // Identify the output directory where built assets will go
@@ -45,7 +51,8 @@ var common = {
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
         query: {
-          presets: ['es2015']
+          presets: ['es2015'],
+          compact: true
         }
       },
       {
@@ -135,7 +142,16 @@ if(TARGET === 'build' || !TARGET) {
       // Optimize the build order
       new webpack.optimize.OccurrenceOrderPlugin(),
 
-      new ExtractTextPlugin("style.css", {allChunks: false})
+      new ExtractTextPlugin("style.css", {allChunks: false}),
+
+      new CompressionPlugin({
+        asset: "[path][query]",
+        algorithm: "gzip",
+        test: /\.js$/,
+        threshold: 10240,
+        minRatio: 0.8
+      })
+
     ]
   });
 }
