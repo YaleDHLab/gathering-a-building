@@ -27,7 +27,7 @@ var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize", "rzMod
 buildingApp.config([
     "$routeProvider",
   function($routeProvider) {
-      
+
   // route for the home view
   $routeProvider.when('/', {
     templateUrl    : '/templates/routes/home.html',
@@ -87,8 +87,9 @@ buildingApp.config([
 ***/
 
 buildingApp.run([
-    "$rootScope", "$location", "$anchorScroll", "$routeParams",
-  function($rootScope, $location, $anchorScroll, $routeParams) {
+    "$rootScope", "$location", "$routeParams",
+  function($rootScope, $location, $routeParams) {
+
     $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
 
       // on route change, remove the hash from the url
@@ -204,6 +205,8 @@ buildingApp.directive('scrollToId', function() {
 buildingApp.directive('hashChangeSelect',[
     '$location',
   function($location){
+    "ngInject";
+
   return {
     restrict : 'E',
     templateUrl : '/templates/partials/layout/hash-change-select.html',
@@ -214,7 +217,7 @@ buildingApp.directive('hashChangeSelect',[
     link : function(scope) {
       return true;
     },
-    controller : function($scope) {
+    controller : ["$scope", function($scope) {
       /* $scope is controller scope; fetch the value object's id and set
       it in the url hash */
       $scope._value = angular.copy($scope.value);
@@ -222,7 +225,7 @@ buildingApp.directive('hashChangeSelect',[
         $location.search('article',$scope._value.id);
         $location.hash($scope._value.id);
       }
-    }
+    }]
   };
 }]);
 
@@ -799,8 +802,8 @@ buildingApp.controller("historicalGeographyController", [
 
 // Controller for site architecture and urbanism view
 buildingApp.controller("architectureAndUrbanismController", [
-    "$scope", "$http", "$location", "$anchorScroll", "$rootScope",
-  function($scope, $http, $location, $anchorScroll, $rootScope) {
+    "$scope", "$http", "$rootScope",
+  function($scope, $http, $rootScope) {
 
     /***
     * @params: footer Object sent to footerService to update footerController
@@ -919,8 +922,8 @@ buildingApp.controller("architectureAndUrbanismController", [
 
 // Controller for material journeys view
 buildingApp.controller("materialJourneysController", [
-      "$scope", "$http", "$location", "$anchorScroll",
-  function($scope, $http, $location, $anchorScroll) {
+      "$scope", "$http",
+  function($scope, $http) {
 
     // Set initial footer params, and update as page updates
     $scope.footer = {
@@ -1112,8 +1115,8 @@ buildingApp.controller("materialJourneysController", [
 
 // Controller for people and place view
 buildingApp.controller("peopleAndPlaceController", [
-      "$scope", "$http", "$location", "$anchorScroll",
-  function($scope, $http, $location, $anchorScroll) {
+      "$scope", "$http",
+  function($scope, $http) {
 
     /***
     *
