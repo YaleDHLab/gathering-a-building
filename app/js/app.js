@@ -325,11 +325,7 @@ buildingApp.directive('loadBuilding', function() {
           var viewerApp;
           var options = {
             env: 'AutodeskProduction',
-            accessToken: function(onGetAccessToken) {
-              var accessToken = autodesk.accessToken;
-              var expireTimeSeconds = 60 * 30;
-              onGetAccessToken(accessToken, expireTimeSeconds);
-            }
+            accessToken: autodeskCredentials.accessToken
           };
           var documentId = autodeskCredentials.urn;
           Autodesk.Viewing.Initializer(options, function onInitialized(){
