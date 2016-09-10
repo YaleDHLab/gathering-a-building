@@ -200,6 +200,12 @@ html {
   filter: grayscale(100%);
 }
 
+.adsk-button-arrow>.adsk-button-icon:before {
+  content: '\E2\2013\B4';
+  padding: 0 5px;
+  display: none;
+}
+
 /*********************
 * Home header styles *
 *********************/
