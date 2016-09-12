@@ -11,7 +11,7 @@
     "upload-geotiffs": "aws s3 cp geotiffs s3://gathering-a-building --recursive --acl public-read --exclude .DS_Store",
     "deploy-unzipped": "aws s3 cp ../gathering-a-building/build s3://gathering-a-building-bundle --recursive --acl public-read --exclude bundle.js",
     "deploy-gzipped": "aws s3 cp ../gathering-a-building/build/bundle.js s3://gathering-a-building-bundle --content-encoding 'gzip' --acl public-read",
-    "request-autodesk-token": "node app/js/lib/request-autodesk-token.js"
+    "authorize": "node app/js/lib/request-autodesk-token.js"
   },
   "repository": {
     "type": "git",
