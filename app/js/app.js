@@ -12,7 +12,7 @@ var rzModule = require('angularjs-slider');
 // navisworks assets
 require('../vendor/css/navisworks.style.min');
 require('../vendor/css/navisworks-a360');
-require('../vendor/js/three');
+require('../vendor/js/three.min');
 var autodeskCredentials = require('./lib/autodesk.js');
 
 // main application
