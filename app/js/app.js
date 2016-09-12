@@ -13,14 +13,21 @@ var rzModule = require('angularjs-slider');
 require('../vendor/css/navisworks.style.min');
 require('../vendor/css/navisworks-a360');
 require('../vendor/js/three.min');
-var autodeskCredentials = require('./lib/autodesk.js');
+var autodeskCredentials = require('./lib/autodesk');
 
-// directives
+// application directives
 require('./directives/scroll-listener');
+require('./directives/background-image');
+require('./directives/scroll-to-id');
+require('./directives/hash-change-select');
+require('./directives/hover-events');
+require('./directives/load-building');
 
 // main application
 var buildingApp = angular.module("BuildingApp",
-  ["ngRoute", "ngSanitize", "rzModule", "ScrollListener"]
+  ["ngRoute", "ngSanitize", "rzModule", 
+  "ScrollListener", "BackgroundImage", "ScrollToId", 
+  "HashChangeSelect", "HoverEvents", "LoadBuilding"]
 );
 
 /***
@@ -101,203 +108,6 @@ buildingApp.run([
   });
 }])
 
-
-
-/***
-*
-* Directive to dynamically set background images when 
-* controllers update their backgroundImageUrl scope
-* variables
-*
-***/
-
-buildingApp.directive('backgroundImage', function(){
-  return function(scope, element, attrs){
-    attrs.$observe('backgroundImage', function(value) {
-      element.css({
-          'background': 'url(' + value +') no-repeat center center fixed',
-          'background-size' : 'cover'
-      });
-    });
-  };
-});
-
-/***
-*
-* Directive to scroll to the href within the current a tag
-*
-***/
-
-buildingApp.directive('scrollToId', function() {
-  return {
-    restrict: 'A',
-    link: function(scope, element, attrs) {
-
-      // to give a div a pointer to another div, just
-      // add data-bullseye="3", which will point to #3
-      var idToScroll = attrs.bullseye;
-      element.on('click', function(event) {
-        event.preventDefault();
-        var $target;
-        if (idToScroll) {
-          $target = $(idToScroll);
-        } else {
-          $target = element;
-        }
-        $(".text-column").animate({scrollTop: $target.offset().top}, "fast");
-        return false;
-      });
-    }
-  }
-});
-
-
-/***
-*
-* Directive to support scroll by href in mobile select
-*
-***/
-
-buildingApp.directive('hashChangeSelect',[
-    '$location',
-  function($location){
-    "ngInject";
-
-  return {
-    restrict : 'E',
-    templateUrl : '/templates/partials/layout/hash-change-select.html',
-    scope : {
-      options : "=",
-      value :  "=",
-    },
-    link : function(scope) {
-      return true;
-    },
-    controller : ["$scope", function($scope) {
-      /* $scope is controller scope; fetch the value object's id and set
-      it in the url hash */
-      $scope._value = angular.copy($scope.value);
-      $scope._onOptionSelected = function(){
-        $location.search('article',$scope._value.id);
-        $location.hash($scope._value.id);
-      }
-    }]
-  };
-}]);
-
-
-
-/***
-*
-* Directive to run code after template content and ng-repeat
-* events have completed. In this case, we use the directive to
-* add hover states for material journeys pictures/text.
-* See: http://stackoverflow.com/questions/12304291
-*
-***/
-
-buildingApp.directive('hoverEvents', function() {
-  return {
-    link: function($scope, element, attrs) {
-
-      // Trigger when number of children changes,
-      // including by directives like ng-repeat
-      var watch = $scope.$watch(function() {
-        return element.children().length;
-      }, function() {
-
-        // Wait for templates to render
-        $scope.$evalAsync(function() {
-
-          // Once control passes to this step,
-          // all templates have loaded and ng-repeats
-          // have concluded.
-
-          // Define functions such that hovering on text
-          // highlights the images, and vice versa
-          var textInfluencesImage = function(elem, index) {
-            elem.addEventListener("mouseover", function() {
-              var associatedImage = chapterSectionImages[index];
-              associatedImage.className += " active";
-            });
-
-            elem.addEventListener("mouseout", function() {
-              var associatedImage = chapterSectionImages[index];
-              associatedImage.className = defaultImageClass;
-            });
-          };
-
-          var imageInfluencesText = function(elem, index) {
-            elem.addEventListener("mouseover", function() {
-              var associatedText = chapterSectionTitles[index];
-              associatedText.className += " active";
-            });
-
-            elem.addEventListener("mouseout", function() {
-              var associatedText = chapterSectionTitles[index];
-              associatedText.className = defaultTextClass;
-            });
-          };
-
-          // select all of the section subheadings and images
-          var chapterSectionTitles = document.querySelectorAll(".text-column-material-journeys a");
-          var chapterSectionImages = document.querySelectorAll(".table-of-contents-right-panel");
-
-          if (chapterSectionTitles.length > 0 && chapterSectionImages.length > 0) {
-
-            // store the classes applied to chapter section subheadings and images
-            var defaultTextClass = chapterSectionTitles[0].className;
-            var defaultImageClass = chapterSectionImages[0].className;
-
-            // make hovers on text influence images
-            chapterSectionTitles.forEach(textInfluencesImage);
-
-            // make hovers on images influence text
-            chapterSectionImages.forEach(imageInfluencesText);
-          };
-        });
-      });
-    },
-  };
-});
-
-/***
-*
-* Directive to load building model data on page load
-*
-***/
-
-buildingApp.directive('loadBuilding', function() {
-  return {
-    link: function($scope, element, attrs) {
-
-      // Trigger when number of children changes,
-      // including by directives like ng-repeat
-      var watch = $scope.$watch(function() {
-        return element.children().length;
-      }, function() {
-
-        // Wait for templates to render
-        $scope.$evalAsync(function() {
-
-          // load the building data
-          var viewerApp;
-          var options = {
-            env: 'AutodeskProduction',
-            accessToken: autodeskCredentials.accessToken
-          };
-          var documentId = autodeskCredentials.urn;
-          Autodesk.Viewing.Initializer(options, function onInitialized(){
-            viewerApp = new Autodesk.A360ViewingApplication('building-model');
-            viewerApp.registerViewer(viewerApp.k3D, Autodesk.Viewing.Private.GuiViewer3D);
-            viewerApp.loadDocumentWithItemAndObject(documentId);
-          });
-
-        });
-      });
-    },
-  };
-});
 
 /***
 *
