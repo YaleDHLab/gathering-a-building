@@ -1,6 +1,8 @@
 .DS_Store
-build/*
+geotiffs/*
+build/bundle.js
 build/assets/fonts
 node_modules
 app/utils/yale_map_image_tiles/
 app/utils/*.png
+app/js/lib/autodesk.js

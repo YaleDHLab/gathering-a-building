@@ -22,12 +22,7 @@ var common = {
   // Identify the assets webpack should bundle
   // n.b. '' refers to files without extension
   resolve: {
-    extensions: ['', '.js', '.css'],
-    alias: {
-      'ngRoute': 'angular-route',
-      'ngSanitizer': 'angular-sanitizer',
-      'rzModule': 'angularjs-slider'
-    }
+    extensions: ['', '.js', '.css']
   },
 
   // Identify the output directory where built assets will go
@@ -56,12 +51,12 @@ var common = {
       {
         // font parser
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
-        loader: "url-loader?limit=10000&mimetype=application/font-woff" 
+        loader: "url-loader?limit=10000&mimetype=application/font-woff&name=[path][name].[ext]"
       },
       {
-        // catchall asset parser
+        // catchall file loader
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: "file-loader" 
+        loader: "file-loader?name=[path][name].[ext]"
       },
       {
         // base64 encode images less than 10kb to reduce requests
@@ -109,12 +104,12 @@ if(TARGET === 'start' || !TARGET) {
       // 0.0.0.0 is available to all network devices
       // unlike default
       host: process.env.HOST,
-      port: process.env.PORT
+      port: process.env.PORT || 8000
     },
     plugins: [
 
       // Use hot module replacement
-      new webpack.HotModuleReplacementPlugin(),
+      new webpack.HotModuleReplacementPlugin()
 
     ]
   });
@@ -130,14 +125,12 @@ if(TARGET === 'build' || !TARGET) {
         'process.env.NODE_ENV': '"production"'
       }),
 
-      /*
       // Minify bundled js
       new webpack.optimize.UglifyJsPlugin({
         compress: {
           warnings: false
         }
       }),
-      */
 
       // Optimize the build order
       new webpack.optimize.OccurrenceOrderPlugin(),

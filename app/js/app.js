@@ -9,6 +9,12 @@ var ngRoute = require('angular-route');
 var ngSanitize = require('angular-sanitize');
 var rzModule = require('angularjs-slider');
 
+// navisworks assets
+require('../vendor/css/navisworks.style.min');
+require('../vendor/css/navisworks-a360');
+require('../vendor/js/three');
+var autodeskCredentials = require('./lib/autodesk.js');
+
 // main application
 var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize", "rzModule"]);
 
@@ -21,11 +27,18 @@ var buildingApp = angular.module("BuildingApp", ["ngRoute", "ngSanitize", "rzMod
 buildingApp.config([
     "$routeProvider",
   function($routeProvider) {
-      
+
   // route for the home view
   $routeProvider.when('/', {
     templateUrl    : '/templates/routes/home.html',
     controller     : 'homeController',
+    reloadOnSearch : false
+  })
+
+  // route for the building model view
+  $routeProvider.when('/routes/building-model', {
+    templateUrl    : '/templates/routes/building-model.html',
+    controller     : 'buildingModelController',
     reloadOnSearch : false
   })
 
@@ -74,8 +87,9 @@ buildingApp.config([
 ***/
 
 buildingApp.run([
-    "$rootScope", "$location", "$anchorScroll", "$routeParams",
-  function($rootScope, $location, $anchorScroll, $routeParams) {
+    "$rootScope", "$location", "$routeParams",
+  function($rootScope, $location, $routeParams) {
+
     $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
 
       // on route change, remove the hash from the url
@@ -191,6 +205,8 @@ buildingApp.directive('scrollToId', function() {
 buildingApp.directive('hashChangeSelect',[
     '$location',
   function($location){
+    "ngInject";
+
   return {
     restrict : 'E',
     templateUrl : '/templates/partials/layout/hash-change-select.html',
@@ -201,7 +217,7 @@ buildingApp.directive('hashChangeSelect',[
     link : function(scope) {
       return true;
     },
-    controller : function($scope) {
+    controller : ["$scope", function($scope) {
       /* $scope is controller scope; fetch the value object's id and set
       it in the url hash */
       $scope._value = angular.copy($scope.value);
@@ -209,7 +225,7 @@ buildingApp.directive('hashChangeSelect',[
         $location.search('article',$scope._value.id);
         $location.hash($scope._value.id);
       }
-    }
+    }]
   };
 }]);
 
@@ -283,6 +299,44 @@ buildingApp.directive('hoverEvents', function() {
             // make hovers on images influence text
             chapterSectionImages.forEach(imageInfluencesText);
           };
+        });
+      });
+    },
+  };
+});
+
+/***
+*
+* Directive to load building model data on page load
+*
+***/
+
+buildingApp.directive('loadBuilding', function() {
+  return {
+    link: function($scope, element, attrs) {
+
+      // Trigger when number of children changes,
+      // including by directives like ng-repeat
+      var watch = $scope.$watch(function() {
+        return element.children().length;
+      }, function() {
+
+        // Wait for templates to render
+        $scope.$evalAsync(function() {
+
+          // load the building data
+          var viewerApp;
+          var options = {
+            env: 'AutodeskProduction',
+            accessToken: autodeskCredentials.accessToken
+          };
+          var documentId = autodeskCredentials.urn;
+          Autodesk.Viewing.Initializer(options, function onInitialized(){
+            viewerApp = new Autodesk.A360ViewingApplication('building-model');
+            viewerApp.registerViewer(viewerApp.k3D, Autodesk.Viewing.Private.GuiViewer3D);
+            viewerApp.loadDocumentWithItemAndObject(documentId);
+          });
+
         });
       });
     },
@@ -366,6 +420,30 @@ buildingApp.controller("brandController", [
 
 // Controller for home view
 buildingApp.controller("homeController", [
+      "$scope", "$http",
+  function($scope, $http) {
+
+    var footer = {
+      "left": {
+        "display": "Home",
+        "url": "/#/"
+      },
+      "right": {
+        "display": "Next <i class='fa fa-angle-down'></i>",
+        "url": "/#/"
+      },
+      "style": "full"
+    };
+
+    $scope.footer = footer;
+    $scope.textColumn = {};
+
+  }
+]);
+
+
+// Controller for building model
+buildingApp.controller("buildingModelController", [
       "$scope", "$http",
   function($scope, $http) {
 
@@ -724,8 +802,8 @@ buildingApp.controller("historicalGeographyController", [
 
 // Controller for site architecture and urbanism view
 buildingApp.controller("architectureAndUrbanismController", [
-    "$scope", "$http", "$location", "$anchorScroll", "$rootScope",
-  function($scope, $http, $location, $anchorScroll, $rootScope) {
+    "$scope", "$http", "$rootScope",
+  function($scope, $http, $rootScope) {
 
     /***
     * @params: footer Object sent to footerService to update footerController
@@ -844,8 +922,8 @@ buildingApp.controller("architectureAndUrbanismController", [
 
 // Controller for material journeys view
 buildingApp.controller("materialJourneysController", [
-      "$scope", "$http", "$location", "$anchorScroll",
-  function($scope, $http, $location, $anchorScroll) {
+      "$scope", "$http",
+  function($scope, $http) {
 
     // Set initial footer params, and update as page updates
     $scope.footer = {
@@ -1037,8 +1115,8 @@ buildingApp.controller("materialJourneysController", [
 
 // Controller for people and place view
 buildingApp.controller("peopleAndPlaceController", [
-      "$scope", "$http", "$location", "$anchorScroll",
-  function($scope, $http, $location, $anchorScroll) {
+      "$scope", "$http",
+  function($scope, $http) {
 
     /***
     *
