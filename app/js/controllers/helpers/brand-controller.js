@@ -1,4 +1,5 @@
 var angular = require('angular');
+var $ = require('jquery');
 
 angular.module('BrandController', [])
   .controller("brandController", [
