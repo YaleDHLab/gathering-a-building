@@ -8,18 +8,20 @@
 ***/
 
 var angular = require('angular');
-angular.module('TemplateLoaded', [])
 
-.directive('templateLoaded', function( $parse ) {
+angular.module('TemplateLoaded', [])
+  .directive('templateLoaded', [
+      "$parse",
+    function($parse) {
   return {
     restrict: 'A',
-    link: function( $scope, elem, attrs ) {    
+    link: function($scope, elem, attrs) {
       elem.ready(function(){
         $scope.$apply(function(){
-            var func = $parse(attrs.templateLoaded);
-            func($scope);
+          var func = $parse(attrs.templateLoaded);
+          func($scope);
         })
       })
     }
   }
-})
+}])
