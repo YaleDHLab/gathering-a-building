@@ -4,7 +4,7 @@
     <img data-ng-click="hideModal()"
       src="/assets/images/Yale_Residential_Colleges_Arch-Animation_GAB_short-168-minified.png"
       class="home-image"
-      data-template-loaded="positionOverlays()">
+      data-template-loaded="positionIcons()">
     
     <!-- Image overlays -->
     <div class="building-overlay-marker building-overlay-marker-0">
@@ -12,8 +12,9 @@
         data-ng-click="toggleModal(0)"></div>
     </div>
 
-    <div class="home-overlay home-overlay-1 hidden">
-      <img src="/assets/images/add-icon.png">
+    <div class="building-overlay-marker building-overlay-marker-1">
+      <div data-ng-include='"/templates/partials/home/building-overlay-icon.html"'
+        data-ng-click="toggleModal(1)"></div>
     </div>
 
     <div data-ng-include='"/templates/partials/home/building-overlay-modal.html"'

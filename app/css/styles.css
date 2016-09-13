@@ -270,8 +270,16 @@ html {
   background: #fff;
 }
 
-.building-overlay-modal img {
+.building-overlay-modal .building-overlay-image-container {
+  width: 185px;
+  height: 100%;
   float: left;
+  overflow: hidden;
+}
+
+.building-overlay-modal img {
+  height: 100%;
+  min-width: 100%;
 }
 
 .building-modal-text {

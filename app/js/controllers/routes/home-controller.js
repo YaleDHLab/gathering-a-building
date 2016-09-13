@@ -31,13 +31,21 @@ angular.module('HomeController', [])
     {
       id: 0,
       xOffset: 0.492,
-      yOffset: 0.26
+      yOffset: 0.26,
+      url: "/#/routes/material-journeys?article=3#3",
+      title: "Material Journeys &raquo;",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pharetra metus sapien, et euismod mauris diam, tempus mauris rhoncus nec. (20 words)",
+      image: "/assets/images/chimneys.png"
     },
     {
       id: 1,
-      xOffset: 0.72,
-      yOffset: 0.26
-    }
+      xOffset: 0.292,
+      yOffset: 0.76,
+      url: "/#/routes/material-journeys?article=3#3",
+      title: "Concrete!!! &raquo;",
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pharetra metus sapien, et euismod mauris diam, tempus mauris rhoncus nec. (20 words)",
+      image: "/assets/images/concrete.jpg"
+    },
   ];
 
   /***
@@ -58,7 +66,7 @@ angular.module('HomeController', [])
   *
   ***/
 
-  $scope.positionOverlays = function() {
+  $scope.positionIcons = function() {
     var overlays = document.querySelectorAll('.building-overlay-marker');
 
     // obtain data needed for positioning
@@ -85,13 +93,16 @@ angular.module('HomeController', [])
 
   /***
   *
-  * Function called when users click icon overlays
+  * Funtion to reposition modal
   *
   ***/
 
-  $scope.toggleModal = function(overlayId) {
-    var overlayOffsets = overlayData[overlayId];
+  var positionModal = function(initializeModal) {
+    var overlayId = $scope.overlayId;
+    var overlayJson = overlayData[overlayId];
     var overlayPosition = {};
+
+    $scope.overlayData = overlayJson;
 
     // set the desired distance between modal icon and modal
     // and length of modal
@@ -115,8 +126,8 @@ angular.module('HomeController', [])
     ***/
 
     // determine x axis position
-    if (overlayOffsets.xOffset > .333) {
-      if (overlayOffsets.xOffset > .666) {
+    if (overlayJson.xOffset > .333) {
+      if (overlayJson.xOffset > .666) {
         overlayPosition.xRegion = 'right';
       } else {
         overlayPosition.xRegion = 'mid';
@@ -126,8 +137,8 @@ angular.module('HomeController', [])
     };
 
     // determine y axis position
-    if (overlayOffsets.yOffset > .333) {
-      if (overlayOffsets.yOffset > .666) {
+    if (overlayJson.yOffset > .333) {
+      if (overlayJson.yOffset > .666) {
         overlayPosition.yRegion = 'bottom';
       } else {
         overlayPosition.yRegion = 'mid';
@@ -165,14 +176,49 @@ angular.module('HomeController', [])
       overlayPosition.y = iconTop + modalPadding;
     }
 
-    // display the modal by removing the hidden class from its container
-    var container = document.querySelector('.building-modal-overlay-container');
-    container.className = 'building-modal-overlay-container';
-
     // position the modal
     var modal = document.querySelector(".building-overlay-modal");
     modal.style.left = overlayPosition.x + "px";
     modal.style.top = overlayPosition.y + "px";
+
+    // after positioning the modal, display it if it needs displaying
+    if (initializeModal == 1) {
+      // display the modal by removing the hidden class from its container
+      var container = document.querySelector('.building-modal-overlay-container');
+      container.className = 'building-modal-overlay-container';
+    }
+  }
+
+  /***
+  *
+  * Public function for repositioning elements
+  *
+  ***/
+
+  $scope.positionOverlays = function() {
+    $scope.positionIcons();
+    positionModal(0);
+  };
+
+  /***
+  *
+  * Function called when users click icon overlays
+  *
+  ***/
+
+  $scope.selectedOverlay = '';
+
+  $scope.toggleModal = function(overlayId) {
+
+    // store the selected overlay in the global scope
+    $scope.overlayId = overlayId;
+
+    // pass the modal data
+    var overlayJson = overlayData[overlayId];
+    $scope.overlayData = overlayJson;
+
+    // load the modal
+    positionModal(1);
   }
 
   /***

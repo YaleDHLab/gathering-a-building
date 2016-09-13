@@ -1,8 +1,11 @@
 <div class="building-overlay-modal">
-  <img src="/assets/images/chimneys.png" />
+  <div class="building-overlay-image-container">
+    <img data-ng-src="{{overlayData.image}}" />
+  </div>
   <div class="building-modal-text">
-    <a href="/#/routes/material-journeys?article=3#3">Material Journeys &raquo;</a>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pharetra metus sapien, et euismod mauris diam, tempus mauris rhoncus nec. (20 words)</p>
+    <a data-ng-href="{{overlayData.url}}"
+        data-ng-bind-html="overlayData.title | allowHtml"></a>
+    <p>{{overlayData.text}}</p>
   </div>
   <div class="clear-both"/>
 </div>
