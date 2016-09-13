@@ -42,7 +42,7 @@ angular.module('HomeController', [])
       xOffset: 0.292,
       yOffset: 0.76,
       url: "/#/routes/material-journeys?article=3#3",
-      title: "Concrete!!! &raquo;",
+      title: "Concrete Foundation &raquo;",
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pharetra metus sapien, et euismod mauris diam, tempus mauris rhoncus nec. (20 words)",
       image: "/assets/images/concrete.jpg"
     },
@@ -191,13 +191,18 @@ angular.module('HomeController', [])
 
   /***
   *
-  * Public function for repositioning elements
+  * Public function for repositioning icon and modal overlays
   *
   ***/
 
   $scope.positionOverlays = function() {
     $scope.positionIcons();
-    positionModal(0);
+
+    // only reposition the modal overlay if it exists
+    var overlayContainer = document.querySelector('.building-modal-overlay-container');
+    if (overlayContainer.className.includes("hidden") == false) {
+      positionModal(0);
+    }
   };
 
   /***
