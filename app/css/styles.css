@@ -17,6 +17,10 @@ body {
   display: none;
 }
 
+.visible {
+  display: inline-block;
+}
+
 .center-text {
   text-align: center;
 }
@@ -241,6 +245,26 @@ html {
 /*********************
 * Home page overlays *
 *********************/
+
+.building-overlay-marker {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  z-index: 1000;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.building-overlay-marker:hover svg .cls-2 {
+  fill: #4eb3e4;
+}
+
+.building-overlay-modal {
+  width: 468px;
+  height: 200px;
+  position: absolute;
+  background: #fff;
+}
 
 .home-overlay-1 {
   background: #65BD24;
