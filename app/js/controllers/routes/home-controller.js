@@ -27,6 +27,8 @@ angular.module('HomeController', [])
   *
   ***/
 
+  $scope.selectedOverlay = '';
+
   var overlayData = [
     {
       id: 0,
@@ -67,6 +69,8 @@ angular.module('HomeController', [])
   ***/
 
   $scope.positionIcons = function() {
+    console.log("positioning icons");
+
     var overlays = document.querySelectorAll('.building-overlay-marker');
 
     // obtain data needed for positioning
@@ -106,9 +110,10 @@ angular.module('HomeController', [])
 
     // set the desired distance between modal icon and modal
     // and length of modal
-    var modalPadding = 50;
+    var modalPadding = 22;
     var modalLength = 468;
     var modalHeight = 200;
+    var iconHeight = 40;
 
     // store the icon the user just clicked
     var overlayIcon = document.querySelector('.building-overlay-marker-' + overlayId);
@@ -126,8 +131,8 @@ angular.module('HomeController', [])
     ***/
 
     // determine x axis position
-    if (overlayJson.xOffset > .333) {
-      if (overlayJson.xOffset > .666) {
+    if (overlayJson.xOffset > .25) {
+      if (overlayJson.xOffset > .75) {
         overlayPosition.xRegion = 'right';
       } else {
         overlayPosition.xRegion = 'mid';
@@ -173,7 +178,7 @@ angular.module('HomeController', [])
       overlayPosition.y = iconTop - (modalHeight/2);
     }
     if (overlayPosition.yRegion == 'top') {
-      overlayPosition.y = iconTop + modalPadding;
+      overlayPosition.y = iconTop + iconHeight + modalPadding - 5;
     }
 
     // position the modal
@@ -186,6 +191,33 @@ angular.module('HomeController', [])
       // display the modal by removing the hidden class from its container
       var container = document.querySelector('.building-modal-overlay-container');
       container.className = 'building-modal-overlay-container';
+    }
+  }
+
+  /***
+  *
+  * Private function that scrolls the selected modal into full view
+  * if necessary
+  *
+  ***/
+
+  var scrollToModal = function() {
+    var windowWidth = window.innerWidth;
+    var xScroll = document.querySelector("#home").scrollLeft;
+    var modal = document.querySelector('.building-overlay-modal');
+    var xModal = parseInt(modal.style.left, 10);
+    var modalWidth = modal.clientWidth;
+
+    // if the modal doesn't fit entirely on the screen,
+    // scroll such that it will (and display some padding right)
+    var padding = 75;
+
+    var sightDistance = windowWidth + xScroll;
+    var modalDistance = xModal + modalWidth + padding;
+
+    var distanceToScroll = modalDistance - sightDistance;
+    if (distanceToScroll > 0) {
+      document.getElementById('home').scrollLeft = xScroll + distanceToScroll;
     }
   }
 
@@ -211,19 +243,16 @@ angular.module('HomeController', [])
   *
   ***/
 
-  $scope.selectedOverlay = '';
-
   $scope.toggleModal = function(overlayId) {
 
-    // store the selected overlay in the global scope
+    // store the selected overlay in the global scope,
+    // pass the overlay data to the template, and initialize
+    // the modal
     $scope.overlayId = overlayId;
-
-    // pass the modal data
     var overlayJson = overlayData[overlayId];
     $scope.overlayData = overlayJson;
-
-    // load the modal
     positionModal(1);
+    scrollToModal();
   }
 
   /***
