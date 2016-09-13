@@ -254,7 +254,7 @@ html {
   position: absolute;
   height: 40px;
   width: 40px;
-  z-index: 1000;
+  z-index: 3;
   opacity: 1;
   cursor: pointer;
 }
