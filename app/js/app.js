@@ -28,6 +28,7 @@ require('./directives/scroll-to-id');
 require('./directives/hash-change-select');
 require('./directives/hover-events');
 require('./directives/load-building');
+require('./directives/template-loaded');
 
 // filters
 require('./filters/allow-html');
@@ -59,6 +60,7 @@ var buildingApp = angular.module("BuildingApp",
     "LoadBuilding",
     "ScrollListener",
     "ScrollToId",
+    "TemplateLoaded",
 
     // filters
     "AllowHtml"

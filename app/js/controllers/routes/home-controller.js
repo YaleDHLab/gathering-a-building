@@ -50,7 +50,6 @@ angular.module('HomeController', [])
   var findMousePosition = function(evt) {
     var x = (evt.pageX - $('body').offset().left) + $(window).scrollLeft();
     var y = (evt.pageY - $('body').offset().top) + $(window).scrollTop();
-    console.log(window.innerHeight, x, y);
   }
 
   /***
@@ -59,26 +58,28 @@ angular.module('HomeController', [])
   *
   ***/
 
-  var positionOverlays = function() {
+  $scope.positionOverlays = function() {
     var overlays = document.querySelectorAll('.building-overlay-marker');
 
     // obtain data needed for positioning
     var image = document.querySelector('.home-image');
-    var imageHeight = image.clientHeight;
-    var imageWidth = image.clientWidth;
+    if (image !== null) {
+      var imageHeight = image.clientHeight;
+      var imageWidth = image.clientWidth;
 
-    var overlayIcon = document.querySelector('.building-overlay-marker');
-    var iconWidth = overlayIcon.clientWidth;
+      var overlayIcon = document.querySelector('.building-overlay-marker');
+      var iconWidth = overlayIcon.clientWidth;
 
-    for (var i=0; i<overlays.length; i++) {
-      var overlay = overlays[i];
-      var overlayOffsets = overlayData[i];
+      for (var i=0; i<overlays.length; i++) {
+        var overlay = overlays[i];
+        var overlayOffsets = overlayData[i];
 
-      var xOffset = (overlayOffsets.xOffset * imageWidth) - (iconWidth/2);
-      var yOffset = (overlayOffsets.yOffset * imageHeight) - (iconWidth/2);
+        var xOffset = (overlayOffsets.xOffset * imageWidth) - (iconWidth/2);
+        var yOffset = (overlayOffsets.yOffset * imageHeight) - (iconWidth/2);
 
-      overlay.style.left = String(xOffset) + "px";
-      overlay.style.top = String(yOffset) + "px";
+        overlay.style.left = String(xOffset) + "px";
+        overlay.style.top = String(yOffset) + "px";
+      };
     };
   };
 
@@ -191,9 +192,7 @@ angular.module('HomeController', [])
   *
   ***/
 
-  document.onmousemove = positionOverlays;
-  window.onload = positionOverlays;
-  window.onresize = positionOverlays;
+  window.onresize = $scope.positionOverlays;
 
   }
 ]);

@@ -29,6 +29,10 @@ body {
   background: #EBF9F9;
 }
 
+.clear-both {
+  clear: both;
+}
+
 .translucent {
   opacity: .6;
 }
@@ -264,6 +268,28 @@ html {
   height: 200px;
   position: absolute;
   background: #fff;
+}
+
+.building-overlay-modal img {
+  float: left;
+}
+
+.building-modal-text {
+  margin: 30px;
+  margin-left: 210px;
+  font-family: Acumin Pro;
+}
+
+.building-modal-text a {
+  color: #39c;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+.building-modal-text p {
+  line-height: 1.4em;
+  font-size: .9em;
+  margin-top: 17px;
 }
 
 .home-overlay-1 {
