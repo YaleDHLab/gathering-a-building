@@ -1,0 +1,11 @@
+<div class="building-overlay-modal">
+  <div class="building-overlay-image-container">
+    <img data-ng-src="{{overlayData.image}}" />
+  </div>
+  <div class="building-modal-text">
+    <a data-ng-href="{{overlayData.url}}"
+        data-ng-bind-html="overlayData.title | allowHtml"></a>
+    <p>{{overlayData.text}}</p>
+  </div>
+  <div class="clear-both"/>
+</div>

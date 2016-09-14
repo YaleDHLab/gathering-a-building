@@ -5,6 +5,7 @@
 ***/
 
 var angular = require('angular');
+var $ = require('jquery');
 
 angular.module('ScrollToId', [])
   .directive('scrollToId', function () {

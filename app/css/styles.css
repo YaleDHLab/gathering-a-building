@@ -17,12 +17,20 @@ body {
   display: none;
 }
 
+.visible {
+  display: inline-block;
+}
+
 .center-text {
   text-align: center;
 }
 
 .sky-background {
   background: #EBF9F9;
+}
+
+.clear-both {
+  clear: both;
 }
 
 .translucent {
@@ -241,6 +249,56 @@ html {
 /*********************
 * Home page overlays *
 *********************/
+
+.building-overlay-marker {
+  position: absolute;
+  height: 40px;
+  width: 40px;
+  z-index: 3;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.building-overlay-marker:hover svg .cls-2 {
+  fill: #4eb3e4;
+}
+
+.building-overlay-modal {
+  width: 468px;
+  height: 200px;
+  position: absolute;
+  background: #fff;
+}
+
+.building-overlay-modal .building-overlay-image-container {
+  width: 185px;
+  height: 100%;
+  float: left;
+  overflow: hidden;
+}
+
+.building-overlay-modal img {
+  height: 100%;
+  min-width: 100%;
+}
+
+.building-modal-text {
+  margin: 30px;
+  margin-left: 210px;
+  font-family: Acumin Pro;
+}
+
+.building-modal-text a {
+  color: #39c;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+.building-modal-text p {
+  line-height: 1.4em;
+  font-size: .9em;
+  margin-top: 17px;
+}
 
 .home-overlay-1 {
   background: #65BD24;
