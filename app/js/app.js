@@ -31,6 +31,7 @@ require('./directives/scroll-to-id');
 require('./directives/hash-change-select');
 require('./directives/hover-events');
 require('./directives/load-building');
+require('./directives/resize');
 require('./directives/template-loaded');
 
 // filters
@@ -63,6 +64,7 @@ var buildingApp = angular.module("BuildingApp",
     "LoadBuilding",
     "ScrollListener",
     "ScrollToId",
+    "Resize",
     "TemplateLoaded",
 
     // filters
@@ -162,36 +164,49 @@ buildingApp.run([
       element = document.getElementById(elementId);
       if (element != undefined && element != null) {
         $anchorScroll();
+
+        // if the landing page map removed opacity from the body,
+        // restore that opacity
+        document.querySelector('.body').style.opacity = 1;
+
+      // element was undefined or null; return that empty value
       } else {
         return element;
       }
     };
 
-    whilst(
+    if (elementId) {
+      whilst(
 
-      // The first function passed to whilst runs a
-      // search for the curently requested href
-      // and returns a boolean. If that boolean is true,
-      // the next function below [i.e. function(callback)]
-      // will be called
-      function () {
-        element = findElement(elementId);
-        return (element === undefined || element === null);
-      },
+        // The first function passed to whilst runs a
+        // search for the curently requested href
+        // and returns a boolean. If that boolean is true,
+        // the next function below [i.e. function(callback)]
+        // will be called
+        function () {
+          element = findElement(elementId);
+          return (element === undefined || element === null);
+        },
 
-      // Callback function to be called when the first function
-      // passed to whilst returns true. Uses a timeout to continually
-      // poll the DOM until the requested ID is available
-      function (callback) {
-        $timeout(function() {
-          findElement(elementId);
-        }, 100);
-      },
+        // Callback function to be called when the first function
+        // passed to whilst returns true. Uses a timeout to continually
+        // poll the DOM until the requested ID is available
+        function (callback) {
+          $timeout(function() {
+            findElement(elementId);
+          }, 333);
+        },
 
-      function (error, success) {
-        if (error) { console.log("error in findElement callback!", error); }
-      }
-    );
+        function (error, success) {
+          if (error) { console.log("error in findElement callback!", error); }
+        }
+      );
+
+    // otherwise the user didn't requst an id
+    } else {
+      // Restore body opacity
+      document.querySelector('.body').style.opacity = 1;
+    }
 
   });
 }])

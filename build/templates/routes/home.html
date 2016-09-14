@@ -1,5 +1,5 @@
 <!-- Home container -->
-<div id="home" class="home">
+<div id="home" class="home" ng-style="resizeWithOffset(0)" resize notifier="windowResize(params)" >
   <div class="home-container">
     <img data-ng-click="hideModal()"
       src="/assets/images/Yale_Residential_Colleges_Arch-Animation_GAB_short-168-minified.png"
@@ -17,8 +17,7 @@
         data-ng-click="toggleModal(1)"></div>
     </div>
 
-    <div data-ng-include='"/templates/partials/home/building-overlay-modal.html"'
-      class="building-modal-overlay-container hidden"></div>
+    <div data-ng-include='"/templates/partials/home/building-overlay-modal.html"'></div>
 
   </div>
 </div>

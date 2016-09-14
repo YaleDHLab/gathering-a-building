@@ -3,8 +3,8 @@ var angular = require('angular');
 
 angular.module('HomeController', [])
   .controller("homeController", [
-      "$scope", "$http",
-  function($scope, $http) {
+      "$scope", "$http", "$location", "$timeout",
+  function($scope, $http, $location, $timeout) {
 
     var footer = {
       "left": {
@@ -89,6 +89,7 @@ angular.module('HomeController', [])
 
         overlay.style.left = String(xOffset) + "px";
         overlay.style.top = String(yOffset) + "px";
+        overlay.style.opacity = 1;
       };
     };
   };
@@ -186,9 +187,9 @@ angular.module('HomeController', [])
 
     // after positioning the modal, display it if it needs displaying
     if (initializeModal == 1) {
-      // display the modal by removing the hidden class from its container
-      var container = document.querySelector('.building-modal-overlay-container');
-      container.className = 'building-modal-overlay-container';
+      // display the modal by adding opacity
+      var container = document.querySelector('.building-overlay-modal');
+      container.style.opacity = 1;
     }
   }
 
@@ -210,12 +211,24 @@ angular.module('HomeController', [])
     // scroll such that it will (and display some padding right)
     var padding = 75;
 
+    // first check to see if we must scroll right
     var sightDistance = windowWidth + xScroll;
     var modalDistance = xModal + modalWidth + padding;
 
-    var distanceToScroll = modalDistance - sightDistance;
-    if (distanceToScroll > 0) {
-      document.getElementById('home').scrollLeft = xScroll + distanceToScroll;
+    // calculate the amount we should scroll right
+    var scrollRight = modalDistance - sightDistance;
+    var scrollLeft = xScroll - (xModal + padding);
+
+    // use jQuery animation to create smooth scroll
+    if (scrollRight > 0) {
+      $("#home").animate({scrollLeft: xScroll + scrollRight}, 700, "swing");
+      return;
+    }
+
+    // check to see if we must scroll left
+    if (scrollLeft > 0) {
+      $("#home").animate({scrollLeft: scrollLeft}, 700, "swing");
+      return;
     }
   }
 
@@ -251,16 +264,6 @@ angular.module('HomeController', [])
 
   /***
   *
-  * Private function for initializing the modal
-  *
-  ***/
-
-  var initializeModal = function() {
-
-  }
-
-  /***
-  *
   * Public function for repositioning icon and modal overlays
   *
   ***/
@@ -269,8 +272,8 @@ angular.module('HomeController', [])
     $scope.positionIcons();
 
     // only reposition the modal overlay if it exists
-    var overlayContainer = document.querySelector('.building-modal-overlay-container');
-    if (overlayContainer !== null && overlayContainer.className.includes("hidden") == false) {
+    var overlay = document.querySelector('.building-overlay-modal');
+    if (overlay !== null && overlay.style.opacity == 1) {
       positionModal(0);
     }
   };
@@ -300,8 +303,26 @@ angular.module('HomeController', [])
   ***/
 
   $scope.hideModal = function() {
-    var container = document.querySelector(".building-modal-overlay-container");
-    container.className += " hidden";
+    var modal = document.querySelector(".building-overlay-modal");
+    modal.style.opacity = 0;
+  }
+
+  /***
+  *
+  * Callback for requests to deeplink into application pages
+  *
+  * Takes as input a route from one of the overlayData.url elements,
+  * fades body opacity to white, then sends the user to the requested route
+  *
+  ***/
+
+  $scope.deeplink = function(requestedRoute) {
+    var body = document.querySelector('.body');
+    body.style.opacity = 0;
+    $timeout(function() {
+      $location.path("routes/material-journeys").hash("3");
+    }, 1000);
+    console.log("deeplinking", body, requestedRoute);
   }
 
   /***
@@ -310,7 +331,9 @@ angular.module('HomeController', [])
   *
   ***/
 
-  window.onresize = $scope.positionOverlays;
-
+  $scope.windowResize = function(params) {
+    $scope.positionOverlays();
   }
-]);
+
+
+}]);
