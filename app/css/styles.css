@@ -7,6 +7,10 @@ html, body, .background-image, .page-content {
 
 body {
   font-size: 1em;
+  opacity: 1;
+  transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -webkit-transition: opacity 1s ease-in-out;
 }
 
 /****************
@@ -19,6 +23,14 @@ body {
 
 .visible {
   display: inline-block;
+}
+
+.clear {
+  opacity: 0;
+}
+
+.opaque {
+  opacity: 1;
 }
 
 .center-text {
@@ -255,8 +267,11 @@ html {
   height: 40px;
   width: 40px;
   z-index: 3;
-  opacity: 1;
+  opacity: 0;
   cursor: pointer;
+  transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -webkit-transition: opacity 1s ease-in-out;
 }
 
 .building-overlay-marker:hover svg .cls-2 {
@@ -264,8 +279,12 @@ html {
 }
 
 .building-overlay-modal {
+  opacity: 0;
   width: 468px;
   height: 200px;
+  transition: opacity .3s ease-in-out;
+  -moz-transition: opacity .3s ease-in-out;
+  -webkit-transition: opacity .3s ease-in-out;
   position: absolute;
   background: #fff;
 }
@@ -292,6 +311,11 @@ html {
   color: #39c;
   text-decoration: none;
   font-size: 1.2em;
+  cursor: pointer;
+}
+
+.building-modal-text a:hover {
+  color: #4eb3e4;
 }
 
 .building-modal-text p {
