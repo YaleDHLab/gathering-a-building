@@ -35,6 +35,8 @@ angular.module('HomeController', [])
       xOffset: 0.492,
       yOffset: 0.26,
       url: "/#/routes/material-journeys#3",
+      path: "routes/material-journeys",
+      hash: "3",
       title: "Material Journeys &raquo;",
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pharetra metus sapien, et euismod mauris diam, tempus mauris rhoncus nec. (20 words)",
       image: "/assets/images/chimneys.png"
@@ -44,6 +46,8 @@ angular.module('HomeController', [])
       xOffset: 0.30,
       yOffset: 0.78,
       url: "/#/routes/material-journeys#1",
+      path: "routes/material-journeys",
+      hash: "1",
       title: "Concrete Copula &raquo;",
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pharetra metus sapien, et euismod mauris diam, tempus mauris rhoncus nec. (20 words)",
       image: "/assets/images/concrete.jpg"
@@ -316,13 +320,13 @@ angular.module('HomeController', [])
   *
   ***/
 
-  $scope.deeplink = function(requestedRoute) {
+  $scope.deeplink = function(path, hash) {
+    console.log(path, hash);
     var body = document.querySelector('.body');
     body.style.opacity = 0;
     $timeout(function() {
-      $location.path("routes/material-journeys").hash("3");
+      $location.path(path).hash(hash);
     }, 1000);
-    console.log("deeplinking", body, requestedRoute);
   }
 
   /***

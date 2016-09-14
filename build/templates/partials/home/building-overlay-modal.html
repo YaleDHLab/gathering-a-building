@@ -3,7 +3,7 @@
     <img data-ng-src="{{overlayData.image}}" />
   </div>
   <div class="building-modal-text">
-    <a data-ng-click="deeplink(overlayData.url)"
+    <a data-ng-click="deeplink(overlayData.path, overlayData.hash)"
        data-ng-bind-html="overlayData.title | allowHtml"></a>
     <p>{{overlayData.text}}</p>
   </div>
