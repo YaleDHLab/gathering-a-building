@@ -18,8 +18,8 @@ angular.module('HomeController', [])
       "style": "full"
     };
 
-    $scope.footer = footer;
-    $scope.textColumn = {};
+  $scope.footer = footer;
+  $scope.textColumn = {};
 
   /***
   *
@@ -69,14 +69,11 @@ angular.module('HomeController', [])
   ***/
 
   $scope.positionIcons = function() {
-    console.log("positioning icons");
-
     var overlays = document.querySelectorAll('.building-overlay-marker');
 
     // obtain data needed for positioning
     var image = document.querySelector('.home-image');
     if (image !== null) {
-      console.log("image not null", image.clientHeight, image.clientWidth);
       var imageHeight = image.clientHeight;
       var imageWidth = image.clientWidth;
 
