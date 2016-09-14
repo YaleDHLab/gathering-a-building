@@ -9,15 +9,14 @@ angular.module('MaterialJourneysController', [])
     $scope.footer = {
       "left": {
         "display": "Material Journeys",
-        "url": "/#/routes/material-journeys?article=0#0"
+        "url": "/#/routes/material-journeys#0"
       },
       "right": {
         "display": 'Next <i class="fa fa-angle-down"></i>',
-        "url": "/#/routes/material-journeys?article=1#1"
+        "url": "/#/routes/material-journeys#1"
       },
-       "style": "partial"
+      "style": "partial"
     };
-
 
     /***
     * Mobile controls
@@ -32,9 +31,7 @@ angular.module('MaterialJourneysController', [])
           label: $scope.textColumn.sections[i].title,
           id: $scope.textColumn.sections[i].id
         });
-
       };
-      $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
     };
 
     // define the configuration of the mobile mid page controls
@@ -44,7 +41,6 @@ angular.module('MaterialJourneysController', [])
       "mobileControlsRight": "",
       "mobileControlsRightClass": "hidden"
     };
-
 
     /***
     * Text columnn
@@ -61,10 +57,10 @@ angular.module('MaterialJourneysController', [])
           "title": "MATERIAL JOURNEYS",
           "subtitle": "MJ TABLE OF CONTENTS",
           "paragraphs": [
-            "<a href='/#/routes/material-journeys?article=1#1'><h2 class='section-subheading'>CONCRETE</h2></a>",
-            "<a href='/#/routes/material-journeys?article=2#2'><h2 class='section-subheading'>STONE</h2></a>",
-            "<a href='/#/routes/material-journeys?article=3#3'><h2 class='section-subheading'>BRICK</h2></a>",
-            "<a href='/#/routes/material-journeys?article=4#4'><h2 class='section-subheading'>GLASS</h2></a>",
+            "<a href='/#/routes/material-journeys#1'><h2 class='section-subheading'>CONCRETE</h2></a>",
+            "<a href='/#/routes/material-journeys#2'><h2 class='section-subheading'>STONE</h2></a>",
+            "<a href='/#/routes/material-journeys#3'><h2 class='section-subheading'>BRICK</h2></a>",
+            "<a href='/#/routes/material-journeys#4'><h2 class='section-subheading'>GLASS</h2></a>",
             "<div class='section-introduction-text'>Egestas hendrerit dignissim non neque urna, a imperdiet pretium congue egestas rhoncus. Porttitor vitae, at donec aliquet. Sollicitudin velit metus nonummy. Hendrerit nullam pulvinar, adipiscing mus, sit nulla justo, odio leo tellus pede risus proin, elementum et. Tellus a eget nec tempus.</div>"
           ],
           "introImage": "",
@@ -153,33 +149,32 @@ angular.module('MaterialJourneysController', [])
       if (scrollPosition < 640) {
         $scope.showTableOfContents = 1;
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["0"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=1#1"
+        $scope.footer.right.url = "/#/routes/material-journeys#1";
         $scope.$apply();
       }
 
       if (scrollPosition > 640) {
         $scope.showTableOfContents = 0;
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=2#2"
+        $scope.footer.right.url = "/#/routes/material-journeys#2";
         $scope.$apply();
-
       }
 
       if (scrollPosition > 2620) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["2"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=3#3"
+        $scope.footer.right.url = "/#/routes/material-journeys#3";
         $scope.$apply();
       }
 
       if (scrollPosition > 4750) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["3"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=4#4"
+        $scope.footer.right.url = "/#/routes/material-journeys#4";
         $scope.$apply();
       }
 
       if (scrollPosition > 6670) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["4"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=0#0"
+        $scope.footer.right.url = "/#/routes/material-journeys#0";
         $scope.$apply();
       }
     }

@@ -1,3 +1,6 @@
+// async assets
+import whilst from 'async/whilst';
+
 // angular assets
 require('angular');
 require('angular-route');
@@ -128,19 +131,67 @@ buildingApp.config([
 
 /***
 *
-* Add a run block to update scroll position on request of
-* anchor elements with article query params
+* Update scroll position using href (or anchor) in url
 *
 ***/
 
 buildingApp.run([
-    "$rootScope", "$location", "$routeParams",
-  function($rootScope, $location, $routeParams) {
-
+    "$rootScope", "$location", "$routeParams", "$anchorScroll", "$timeout",
+  function($rootScope, $location, $routeParams, $anchorScroll, $timeout) {
     $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
 
-      // on route change, remove the hash from the url
-      $location.hash(null);
+    /***
+    *
+    * Function to asynchronously and repeatedly test whether
+    * an element with id = $location.hash() exists in the DOM.
+    * This is required because on route change, if a user has
+    * requested to deeplink to an article on a page, we need
+    * that article (designated by an id = $location.hash()) to
+    * exist in the DOM before we can scroll to it.
+    *
+    ***/
+
+    var element = undefined;
+    var elementId = $location.hash();
+
+    // If the requested id is loaded on the requested route,
+    // scroll to it. Else return the element itself, which will
+    // trigger the whilst() loop below to try and find the
+    // element again (after a defined timeout)
+    var findElement = function(elementId) {
+      element = document.getElementById(elementId);
+      if (element != undefined && element != null) {
+        $anchorScroll();
+      } else {
+        return element;
+      }
+    };
+
+    whilst(
+
+      // The first function passed to whilst runs a
+      // search for the curently requested href
+      // and returns a boolean. If that boolean is true,
+      // the next function below [i.e. function(callback)]
+      // will be called
+      function () {
+        element = findElement(elementId);
+        return (element === undefined || element === null);
+      },
+
+      // Callback function to be called when the first function
+      // passed to whilst returns true. Uses a timeout to continually
+      // poll the DOM until the requested ID is available
+      function (callback) {
+        $timeout(function() {
+          findElement(elementId);
+        }, 100);
+      },
+
+      function (error, success) {
+        if (error) { console.log("error in findElement callback!", error); }
+      }
+    );
 
   });
 }])

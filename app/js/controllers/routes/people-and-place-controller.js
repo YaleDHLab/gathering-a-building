@@ -14,14 +14,14 @@ angular.module('PeopleAndPlaceController', [])
     $scope.footer = {
       "left": {
         "display": "People & Place",
-        "url": "/#/routes/people-and-place?article=0#0"
+        "url": "/#/routes/people-and-place#0"
       },
       "right": {
         "display": "Next <i class='fa fa-angle-down'></i>",
-        "url": "/#/routes/people-and-place?article=1#1"
+        "url": "/#/routes/people-and-place#1"
       },
-       "style": "partial"
-     };
+      "style": "partial"
+    };
 
 
     /***
@@ -37,9 +37,7 @@ angular.module('PeopleAndPlaceController', [])
           label: $scope.textColumn.sections[i].title,
           id: $scope.textColumn.sections[i].id
         });
-
       };
-      $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
     };
 
     // define the configuration of the mobile mid page controls
@@ -66,11 +64,11 @@ angular.module('PeopleAndPlaceController', [])
           "title": "PEOPLE & PLACE",
           "subtitle": "AU Section 1 subtitle is longer than the title",
           "paragraphs": [
-            "<a href='/#/routes/people-and-place?article=1#1'><h2 class='section-subheading'>SECTION ONE</h2></a>",
-            "<a href='/#/routes/people-and-place?article=2#2'><h2 class='section-subheading'>SECTION TWO</h2></a>",
-            "<a href='/#/routes/people-and-place?article=3#3'><h2 class='section-subheading'>SECTION THREE</h2></a>",
-            "<a href='/#/routes/people-and-place?article=4#4'><h2 class='section-subheading'>SECTION FOUR</h2></a>",
-            "<a href='/#/routes/people-and-place?article=5#5'><h2 class='section-subheading'>SECTION FIVE</h2></a>",
+            "<a href='/#/routes/people-and-place#1'><h2 class='section-subheading'>SECTION ONE</h2></a>",
+            "<a href='/#/routes/people-and-place#2'><h2 class='section-subheading'>SECTION TWO</h2></a>",
+            "<a href='/#/routes/people-and-place#3'><h2 class='section-subheading'>SECTION THREE</h2></a>",
+            "<a href='/#/routes/people-and-place#4'><h2 class='section-subheading'>SECTION FOUR</h2></a>",
+            "<a href='/#/routes/people-and-place?#5'><h2 class='section-subheading'>SECTION FIVE</h2></a>",
             "<div class='section-introduction-text'>Egestas hendrerit dignissim non neque urna, a imperdiet pretium congue egestas rhoncus. Porttitor vitae, at donec aliquet. Sollicitudin velit metus nonummy.</div>"
           ],
           "topRightHtml": '<div class="fill-container" style="background: url(/assets/images/cardboard_colleges.jpg) no-repeat center center; background-size: cover;"></div>',
@@ -164,39 +162,39 @@ angular.module('PeopleAndPlaceController', [])
 
       if (scrollPosition < 610) {
         $scope.showTableOfContents = 1;
-        $scope.footer.right.url = "/#/routes/people-and-place?article=1#1"
+        $scope.footer.right.url = "/#/routes/people-and-place#1"
         $scope.$apply();
       }
 
       if (scrollPosition > 610) {
         $scope.showTableOfContents = 0;
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/people-and-place?article=2#2"
+        $scope.footer.right.url = "/#/routes/people-and-place#2"
         $scope.$apply();
 
       }
 
       if (scrollPosition > 2620) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["2"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/people-and-place?article=3#3"
+        $scope.footer.right.url = "/#/routes/people-and-place#3"
         $scope.$apply();
       }
 
       if (scrollPosition > 4670) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["3"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/people-and-place?article=4#4"
+        $scope.footer.right.url = "/#/routes/people-and-place#4"
         $scope.$apply();
       }
 
       if (scrollPosition > 6730) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["4"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/people-and-place?article=5#5"
+        $scope.footer.right.url = "/#/routes/people-and-place#5"
         $scope.$apply();
       }
 
       if (scrollPosition > 8735) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["5"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/people-and-place?article=0#0"
+        $scope.footer.right.url = "/#/routes/people-and-place#0"
         $scope.$apply();
       }
     }
