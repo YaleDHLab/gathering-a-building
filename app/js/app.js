@@ -136,11 +136,7 @@ buildingApp.config([
 buildingApp.run([
     "$rootScope", "$location", "$routeParams",
   function($rootScope, $location, $routeParams) {
-
-    $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
-
-      // on route change, remove the hash from the url
-      $location.hash(null);
-
+  $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
+    // listen to route changes
   });
 }])
