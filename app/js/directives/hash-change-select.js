@@ -27,8 +27,6 @@ angular.module('HashChangeSelect', [])
       it in the url hash */
       $scope._value = angular.copy($scope.value);
       $scope.onOptionSelected = function(){
-        console.log($scope, $scope.$parent.$parent.$parent);
-        $location.search('article',$scope._value.id);
         $location.hash($scope._value.id);
       }
     }]

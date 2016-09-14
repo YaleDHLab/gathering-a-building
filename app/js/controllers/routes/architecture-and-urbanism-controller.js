@@ -15,11 +15,11 @@ angular.module('ArchitectureAndUrbanismController', [])
     $scope.footer = {
       "left": {
         "display": "Architecture & Urbanism",
-        "url": "/#/routes/architecture-and-urbanism?article=0#0"
+        "url": "/#/routes/architecture-and-urbanism#0"
       },
       "right": {
         "display": "Next <i class='fa fa-angle-down'></i>",
-        "url": "/#/routes/architecture-and-urbanism?article=1#1"
+        "url": "/#/routes/architecture-and-urbanism#1"
       },
        "style": "partial"
     };
@@ -98,13 +98,13 @@ angular.module('ArchitectureAndUrbanismController', [])
     $scope.getScrollPosition = function(arg) {
       if (arg<2022) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["0"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/architecture-and-urbanism?article=1#1";
+        $scope.footer.right.url = "/#/routes/architecture-and-urbanism#1";
         $scope.$apply();
       };
 
       if (arg>2022) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/architecture-and-urbanism?article=0#0";
+        $scope.footer.right.url = "/#/routes/architecture-and-urbanism#0";
         $scope.$apply();
       };
     };

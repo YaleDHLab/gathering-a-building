@@ -34,17 +34,17 @@ angular.module('HomeController', [])
       id: 0,
       xOffset: 0.492,
       yOffset: 0.26,
-      url: "/#/routes/material-journeys?article=3#3",
+      url: "/#/routes/material-journeys#3",
       title: "Material Journeys &raquo;",
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pharetra metus sapien, et euismod mauris diam, tempus mauris rhoncus nec. (20 words)",
       image: "/assets/images/chimneys.png"
     },
     {
       id: 1,
-      xOffset: 0.292,
-      yOffset: 0.76,
-      url: "/#/routes/material-journeys?article=3#3",
-      title: "Concrete Foundation &raquo;",
+      xOffset: 0.30,
+      yOffset: 0.78,
+      url: "/#/routes/material-journeys#1",
+      title: "Concrete Copula &raquo;",
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla pharetra metus sapien, et euismod mauris diam, tempus mauris rhoncus nec. (20 words)",
       image: "/assets/images/concrete.jpg"
     },
@@ -64,7 +64,7 @@ angular.module('HomeController', [])
 
   /***
   *
-  * Function used to position overlay icons
+  * Public function used to position overlay icons
   *
   ***/
 
@@ -221,14 +221,42 @@ angular.module('HomeController', [])
 
   /***
   *
+  * Private function to determine whether an image is loaded
+  *
+  ***/
+
+  var imageLoaded = function(img) {
+    return img.complete && img.naturalHeight != 0;
+  }
+
+  /***
+  *
   * Public function for initializing the overlays after
   * the home image is loaded
   *
   ***/
 
   $scope.initializeOverlays = function() {
+    // If the image is already loaded, position the overlays,
+    // else add an onload event that will position the overlays
+    // once the image is loaded
     var image = document.querySelector(".home-image");
-    image.addEventListener('load', $scope.positionOverlays, false);
+
+    if (imageLoaded(image)) {
+      $scope.positionOverlays();
+    } else {
+      image.addEventListener('load', $scope.positionOverlays, false);
+    }
+  }
+
+  /***
+  *
+  * Private function for initializing the modal
+  *
+  ***/
+
+  var initializeModal = function() {
+
   }
 
   /***
@@ -242,7 +270,7 @@ angular.module('HomeController', [])
 
     // only reposition the modal overlay if it exists
     var overlayContainer = document.querySelector('.building-modal-overlay-container');
-    if (overlayContainer.className.includes("hidden") == false) {
+    if (overlayContainer !== null && overlayContainer.className.includes("hidden") == false) {
       positionModal(0);
     }
   };
