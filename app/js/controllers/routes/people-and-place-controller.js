@@ -20,8 +20,8 @@ angular.module('PeopleAndPlaceController', [])
         "display": "Next <i class='fa fa-angle-down'></i>",
         "url": "/#/routes/people-and-place?article=1#1"
       },
-       "style": "partial"
-     };
+      "style": "partial"
+    };
 
 
     /***
@@ -37,9 +37,7 @@ angular.module('PeopleAndPlaceController', [])
           label: $scope.textColumn.sections[i].title,
           id: $scope.textColumn.sections[i].id
         });
-
       };
-      $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
     };
 
     // define the configuration of the mobile mid page controls

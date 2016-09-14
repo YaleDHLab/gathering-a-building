@@ -40,9 +40,7 @@ angular.module('ArchitectureAndUrbanismController', [])
           label: $scope.textColumn.sections[i].title,
           id: $scope.textColumn.sections[i].id
         });
-
       };
-      $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
     };
 
     // define the configuration of the mobile mid page controls

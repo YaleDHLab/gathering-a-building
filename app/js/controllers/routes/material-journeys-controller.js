@@ -15,9 +15,8 @@ angular.module('MaterialJourneysController', [])
         "display": 'Next <i class="fa fa-angle-down"></i>',
         "url": "/#/routes/material-journeys?article=1#1"
       },
-       "style": "partial"
+      "style": "partial"
     };
-
 
     /***
     * Mobile controls
@@ -32,9 +31,7 @@ angular.module('MaterialJourneysController', [])
           label: $scope.textColumn.sections[i].title,
           id: $scope.textColumn.sections[i].id
         });
-
       };
-      $scope.dropdownOptions.selected = JSON.parse(localStorage.getItem('selectedOption'));
     };
 
     // define the configuration of the mobile mid page controls
@@ -44,7 +41,6 @@ angular.module('MaterialJourneysController', [])
       "mobileControlsRight": "",
       "mobileControlsRightClass": "hidden"
     };
-
 
     /***
     * Text columnn
@@ -153,33 +149,32 @@ angular.module('MaterialJourneysController', [])
       if (scrollPosition < 640) {
         $scope.showTableOfContents = 1;
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["0"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=1#1"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=1#1";
         $scope.$apply();
       }
 
       if (scrollPosition > 640) {
         $scope.showTableOfContents = 0;
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=2#2"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=2#2";
         $scope.$apply();
-
       }
 
       if (scrollPosition > 2620) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["2"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=3#3"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=3#3";
         $scope.$apply();
       }
 
       if (scrollPosition > 4750) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["3"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=4#4"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=4#4";
         $scope.$apply();
       }
 
       if (scrollPosition > 6670) {
         $scope.backgroundImageUrl = $scope.textColumn["sections"]["4"]["background"]["1"]["url"];
-        $scope.footer.right.url = "/#/routes/material-journeys?article=0#0"
+        $scope.footer.right.url = "/#/routes/material-journeys?article=0#0";
         $scope.$apply();
       }
     }

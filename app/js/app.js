@@ -137,6 +137,8 @@ buildingApp.run([
     "$rootScope", "$location", "$routeParams",
   function($rootScope, $location, $routeParams) {
   $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
-    // listen to route changes
+    console.log(newRoute, oldRoute);
+    // remove location hash
+    $location.hash(null);
   });
 }])
