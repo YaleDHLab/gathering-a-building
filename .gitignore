@@ -6,3 +6,4 @@ node_modules
 app/utils/yale_map_image_tiles/
 app/utils/*.png
 app/js/lib/autodesk.js
+app/js/lib/request-autodesk-token.js
