@@ -76,6 +76,7 @@ angular.module('HomeController', [])
     // obtain data needed for positioning
     var image = document.querySelector('.home-image');
     if (image !== null) {
+      console.log("image not null", image.clientHeight, image.clientWidth);
       var imageHeight = image.clientHeight;
       var imageWidth = image.clientWidth;
 
@@ -219,6 +220,18 @@ angular.module('HomeController', [])
     if (distanceToScroll > 0) {
       document.getElementById('home').scrollLeft = xScroll + distanceToScroll;
     }
+  }
+
+  /***
+  *
+  * Public function for initializing the overlays after
+  * the home image is loaded
+  *
+  ***/
+
+  $scope.initializeOverlays = function() {
+    var image = document.querySelector(".home-image");
+    image.addEventListener('load', $scope.positionOverlays, false);
   }
 
   /***
