@@ -14,17 +14,27 @@ angular.module('ScrollListener', [])
   return {
     restrict: 'AC',
 
-    // give the directive access to the controller function
-    // specified in the html directive, so that when the
-    // user scrolls, the directive can broadcast the new
-    // scroll position to the subscribing controller
+    /***
+    *
+    * Give the directive access to the controller function
+    * specified in the html directive, so that when the
+    * user scrolls, the directive can broadcast the new
+    * scroll position to the subscribing controller
+    *
+    ***/
+
     scope: {
       setScrollPosition: '='
     },
 
-    // bind a scroll event listener to the selected element
-    // and broadcast the scroll position to the subscribing
-    // controller function
+    /***
+    *
+    * Bind a scroll event listener to the selected element
+    * and broadcast the scroll position to the subscribing
+    * controller function
+    *
+    ***/
+
     link: function (scope, element, attrs) {
       element.bind('scroll', function () {
 
