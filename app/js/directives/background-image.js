@@ -57,8 +57,9 @@ angular.module('BackgroundImage', [])
 
       // add an onload event to the hidden-full-screen-image
       var target = document.querySelector('.image-onload-target');
-      target.addEventListener('load', imageLoadedCallback(value));
-
+      if (target) {
+        target.addEventListener('load', imageLoadedCallback(value));
+      }
     });
   };
 }]);
