@@ -32,9 +32,8 @@ angular.module('BackgroundImage', [])
         fadeOut();
         target.removeEventListener('load', imageLoadedCallback);
         $timeout(function() {
-          console.log()
           fadeIn(value);
-        }, 700);
+        }, 800);
       }
 
       /***
