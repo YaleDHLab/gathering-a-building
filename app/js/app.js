@@ -22,13 +22,13 @@ require('./controllers/helpers/navigation-controller');
 require('./controllers/helpers/brand-controller');
 
 // directives
-require('./directives/scroll-listener');
 require('./directives/background-image');
-require('./directives/scroll-to-id');
 require('./directives/hash-change-select');
 require('./directives/hover-events');
 require('./directives/load-building');
 require('./directives/resize');
+require('./directives/scroll-listener');
+require('./directives/scroll-to-id');
 require('./directives/template-loaded');
 
 // filters

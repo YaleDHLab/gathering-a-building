@@ -140,41 +140,60 @@ angular.module('MaterialJourneysController', [])
     };
 
     /***
+    *
+    * Updates background image if necessary and adds associated animation
+    *
+    ***/
+
+    var updateBackground = function(imageUrl) {
+      if ($scope.backgroundImageUrl) {
+        if (imageUrl != $scope.backgroundImageUrl) {
+          $scope.backgroundImageUrl = imageUrl;
+        }
+      } else {
+        $scope.backgroundImageUrl = imageUrl;
+      }
+    }
+
+    /***
+    *
     * Bind a scroll listener to swap background images dynamically
+    *
     ***/
 
     $scope.getScrollPosition = function(scrollPosition) {
-      console.log(scrollPosition);
-
       if (scrollPosition < 640) {
         $scope.showTableOfContents = 1;
-        $scope.backgroundImageUrl = $scope.textColumn["sections"]["0"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/material-journeys#1";
+        updateBackground($scope.textColumn["sections"]["0"]["background"]["1"]["url"]);
         $scope.$apply();
       }
 
-      if (scrollPosition > 640) {
+      if (scrollPosition > 640 && scrollPosition <= 2620) {
         $scope.showTableOfContents = 0;
-        $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
         $scope.footer.right.url = "/#/routes/material-journeys#2";
+        updateBackground($scope.textColumn["sections"]["1"]["background"]["1"]["url"]);
         $scope.$apply();
       }
 
-      if (scrollPosition > 2620) {
-        $scope.backgroundImageUrl = $scope.textColumn["sections"]["2"]["background"]["1"]["url"];
+      if (scrollPosition > 2620 && scrollPosition <= 4750) {
+        $scope.showTableOfContents = 0;
         $scope.footer.right.url = "/#/routes/material-journeys#3";
+        updateBackground($scope.textColumn["sections"]["2"]["background"]["1"]["url"]);
         $scope.$apply();
       }
 
-      if (scrollPosition > 4750) {
-        $scope.backgroundImageUrl = $scope.textColumn["sections"]["3"]["background"]["1"]["url"];
+      if (scrollPosition > 4750 && scrollPosition <= 6670) {
+        $scope.showTableOfContents = 0;
         $scope.footer.right.url = "/#/routes/material-journeys#4";
+        updateBackground($scope.textColumn["sections"]["3"]["background"]["1"]["url"]);
         $scope.$apply();
       }
 
       if (scrollPosition > 6670) {
-        $scope.backgroundImageUrl = $scope.textColumn["sections"]["4"]["background"]["1"]["url"];
+        $scope.showTableOfContents = 0;
         $scope.footer.right.url = "/#/routes/material-journeys#0";
+        updateBackground($scope.textColumn["sections"]["4"]["background"]["1"]["url"]);
         $scope.$apply();
       }
     }
