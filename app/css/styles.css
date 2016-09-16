@@ -284,6 +284,9 @@ html {
   height: 200px;
   position: absolute;
   background: #fff;
+  transition: opacity 0.5s ease-in-out;
+  -moz-transition: opacity 0.5s ease-in-out;
+  -webkit-transition: opacity 0.5s ease-in-out;
 }
 
 .building-overlay-modal .building-overlay-image-container {
@@ -411,6 +414,29 @@ html {
 .section-paragraph {
   padding-bottom: 18px;
   font-size: .96em;
+}
+
+.home-link {
+  background: url("/assets/images/yale_residential_colleges_arch_small.png") no-repeat center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 110px;
+  border-radius: 5px;
+}
+
+.home-link-button {
+  display: inline-block;
+  background: #3399CC;
+  padding: 14px;
+  position: relative;
+  left: 30px;
+  top: 30px;
+  line-height: .8em;
+  color: #fff;
+  border-radius: 5px;
+  border: 1px solid #fff;
 }
 
 /**********************

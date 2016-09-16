@@ -221,7 +221,7 @@ angular.module('HomeController', [])
 
     // calculate the amount we should scroll right
     var scrollRight = modalDistance - sightDistance;
-    var scrollLeft = xScroll - (xModal + padding);
+    var scrollLeft = xScroll - xModal + padding;
 
     // use jQuery animation to create smooth scroll
     if (scrollRight > 0) {
@@ -230,8 +230,8 @@ angular.module('HomeController', [])
     }
 
     // check to see if we must scroll left
-    if (scrollLeft > 0) {
-      $("#home").animate({scrollLeft: scrollLeft}, 700, "swing");
+    if (xScroll > xModal) {
+      $("#home").animate({scrollLeft: xScroll - scrollLeft}, 700, "swing");
       return;
     }
   }

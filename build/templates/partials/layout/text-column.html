@@ -25,6 +25,11 @@
             <div data-ng-bind-html="paragraph | allowHtml" class="section-paragraph"></div>
           </div>
         </div>
+        <div data-ng-if="section.linksHome === '1'" class="home-link">
+          <a href="/#/">
+            <div class="home-link-button">Go Back &rarr;</div>
+          </a>
+        </div>
       </div>
     </div>
     <div class="alpha-fade-bottom"></div>
