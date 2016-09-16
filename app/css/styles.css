@@ -8,14 +8,17 @@ html, body, .background-image, .page-content {
 body {
   font-size: 1em;
   opacity: 1;
-  transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -webkit-transition: opacity 1s ease-in-out;
 }
 
 /****************
 * Helper styles *
 ****************/
+
+.dynamic-opacity {
+  transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -webkit-transition: opacity 1s ease-in-out;
+}
 
 .hidden {
   display: none;
@@ -269,9 +272,6 @@ html {
   z-index: 3;
   opacity: 0;
   cursor: pointer;
-  transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -webkit-transition: opacity 1s ease-in-out;
 }
 
 .building-overlay-marker:hover svg .cls-2 {
@@ -282,9 +282,6 @@ html {
   opacity: 0;
   width: 468px;
   height: 200px;
-  transition: opacity .3s ease-in-out;
-  -moz-transition: opacity .3s ease-in-out;
-  -webkit-transition: opacity .3s ease-in-out;
   position: absolute;
   background: #fff;
 }
@@ -488,6 +485,7 @@ html {
   height: 100%;
   position: absolute;
   z-index: 1;
+  opacity: 1;
 }
 
 .table-of-contents-left {
@@ -648,6 +646,7 @@ html {
   height: 100%;
   position: fixed;
   z-index: 0;
+  opacity: 1;
 }
 
 .fill-container {

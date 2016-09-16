@@ -154,46 +154,81 @@ angular.module('PeopleAndPlaceController', [])
     };
 
     /***
+    *
+    * Updates background image if necessary and adds associated animation
+    *
+    ***/
+
+    var updateBackground = function(imageUrl) {
+      if ($scope.backgroundImageUrl) {
+        if (imageUrl != $scope.backgroundImageUrl) {
+          $scope.backgroundImageUrl = imageUrl;
+        }
+      } else {
+        $scope.backgroundImageUrl = imageUrl;
+      }
+    }
+
+    /***
+    *
+    * Fades the table of contents into / out of view
+    *
+    ***/
+
+    var showTableOfContents = function(v) {
+      var target = document.querySelector('.table-of-contents-container');
+
+      // if the target exists, update its opacity
+      // else the target doesn't exist in the DOM; add it
+      if (target) {
+        target.style.opacity = v;
+      } else {
+        $scope.showTableOfContents = 1;
+      }
+    }
+
+    /***
     * Scroll listener
     ***/
 
     $scope.getScrollPosition = function(scrollPosition) {
-      console.log(scrollPosition);
-
       if (scrollPosition < 610) {
-        $scope.showTableOfContents = 1;
+        showTableOfContents(1);
         $scope.footer.right.url = "/#/routes/people-and-place#1"
         $scope.$apply();
       }
 
-      if (scrollPosition > 610) {
-        $scope.showTableOfContents = 0;
-        $scope.backgroundImageUrl = $scope.textColumn["sections"]["1"]["background"]["1"]["url"];
+      if (scrollPosition > 610 && scrollPosition <= 2620) {
+        showTableOfContents(0);
+        updateBackground($scope.textColumn["sections"]["1"]["background"]["1"]["url"]);
         $scope.footer.right.url = "/#/routes/people-and-place#2"
         $scope.$apply();
-
       }
 
-      if (scrollPosition > 2620) {
-        $scope.backgroundImageUrl = $scope.textColumn["sections"]["2"]["background"]["1"]["url"];
+      if (scrollPosition > 2620 && scrollPosition <= 4670) {
+        showTableOfContents(0);
+        updateBackground($scope.textColumn["sections"]["2"]["background"]["1"]["url"]);
         $scope.footer.right.url = "/#/routes/people-and-place#3"
         $scope.$apply();
       }
 
-      if (scrollPosition > 4670) {
-        $scope.backgroundImageUrl = $scope.textColumn["sections"]["3"]["background"]["1"]["url"];
+      if (scrollPosition > 4670 && scrollPosition <= 6730) {
+        showTableOfContents(0);
+        updateBackground($scope.textColumn["sections"]["3"]["background"]["1"]["url"]);
         $scope.footer.right.url = "/#/routes/people-and-place#4"
         $scope.$apply();
       }
 
-      if (scrollPosition > 6730) {
-        $scope.backgroundImageUrl = $scope.textColumn["sections"]["4"]["background"]["1"]["url"];
+      if (scrollPosition > 6730 && scrollPosition <= 8735) {
+        showTableOfContents(0);
+        updateBackground($scope.textColumn["sections"]["4"]["background"]["1"]["url"]);
         $scope.footer.right.url = "/#/routes/people-and-place#5"
         $scope.$apply();
       }
 
       if (scrollPosition > 8735) {
-        $scope.backgroundImageUrl = $scope.textColumn["sections"]["5"]["background"]["1"]["url"];
+        showTableOfContents(0);
+        updateBackground($scope.textColumn["sections"]["5"]["background"]["1"]["url"]);
         $scope.footer.right.url = "/#/routes/people-and-place#0"
         $scope.$apply();
       }
