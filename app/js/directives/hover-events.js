@@ -32,24 +32,32 @@ angular.module('HoverEvents', [])
           var textInfluencesImage = function(elem, index) {
             elem.addEventListener("mouseover", function() {
               var associatedImage = chapterSectionImages[index];
-              associatedImage.className += " active";
+              if (associatedImage) {
+                associatedImage.className += " active";
+              }
             });
 
             elem.addEventListener("mouseout", function() {
               var associatedImage = chapterSectionImages[index];
-              associatedImage.className = defaultImageClass;
+              if (associatedImage) {
+                associatedImage.className = defaultImageClass;
+              }
             });
           };
 
           var imageInfluencesText = function(elem, index) {
             elem.addEventListener("mouseover", function() {
               var associatedText = chapterSectionTitles[index];
-              associatedText.className += " active";
+              if (associatedText) {
+                associatedText.className += " active";
+              }
             });
 
             elem.addEventListener("mouseout", function() {
               var associatedText = chapterSectionTitles[index];
-              associatedText.className = defaultTextClass;
+              if (associatedText) {
+                associatedText.className = defaultTextClass;
+              }
             });
           };
 
