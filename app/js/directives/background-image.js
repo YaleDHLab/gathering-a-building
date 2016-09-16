@@ -5,7 +5,7 @@
 * variables
 *
 * Template: <div data-background-image="{{backgroundImageUrl}}" />
-*   AND     <img data-background-image="{{backgroundImageUrl}}" class="hidden" />
+*   AND     <img data-background-image="{{backgroundImageUrl}}" class="image-onload-target hidden" />
 *
 ***/
 
@@ -20,18 +20,20 @@ angular.module('BackgroundImage', [])
 
       /***
       *
-      * Define a callback to trigger once the image loads
+      * Define a callback to trigger once the image loads.
+      * The value provided to this callback = the value
+      * passed to attrs.$observe() above
       *
       ***/
 
-      var imageLoadedCallback = function() {
+      var imageLoadedCallback = function(value) {
         // once the image load event triggers, remove the event
         // listener to ensure the event is called only once
-        target.removeEventListener('load', imageLoadedCallback);
         fadeOut();
-
+        target.removeEventListener('load', imageLoadedCallback);
         $timeout(function() {
-          fadeIn();
+          console.log()
+          fadeIn(value);
         }, 700);
       }
 
@@ -46,7 +48,7 @@ angular.module('BackgroundImage', [])
         element.css({'opacity': '0'})
       };
 
-      var fadeIn = function() {
+      var fadeIn = function(value) {
         element.css({
           'background': 'url(' + value +') no-repeat center center fixed',
           'background-size' : 'cover',
@@ -55,8 +57,8 @@ angular.module('BackgroundImage', [])
       };
 
       // add an onload event to the hidden-full-screen-image
-      var target = document.querySelector('.hidden-full-screen-image');
-      target.addEventListener('load', imageLoadedCallback);
+      var target = document.querySelector('.image-onload-target');
+      target.addEventListener('load', imageLoadedCallback(value));
 
     });
   };
