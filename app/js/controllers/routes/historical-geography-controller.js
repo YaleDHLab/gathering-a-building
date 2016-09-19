@@ -1,16 +1,20 @@
-var angular = require('angular');
-var $ = require('jquery');
-var d3 = require('d3');
-var L = require('leaflet');
+var angular          = require('angular');
+var $                = require('jquery');
+var d3               = require('d3');
+var L                = require('leaflet');
+var controllerHelper = require('../helpers/controller-helper');
+var mapHelper        = require('../helpers/map-helper')
 
 angular.module('HistoricalGeographyController', [])
   .controller("historicalGeographyController", [
-      "$scope", "$http",
-  function($scope, $http) {
+      "$scope", "$http", "$timeout",
+  function($scope, $http, $timeout) {
 
-    /**************
-    * Text Column *
-    **************/
+    /***
+    *
+    * Define the data to be passed to the view on user interaction with the page
+    *
+    ***/
 
     $scope.textColumn = {
       "title": "historical-geography",
@@ -35,167 +39,12 @@ angular.module('HistoricalGeographyController', [])
       }
     };
 
-    /***
-    *
-    * Add a function to change map overlay on scroll events. NB:
-    * only call the selection function if the background is changing
-    *
-    ***/
-
-    $scope.getScrollPosition = function(arg) {
-      if (arg < 2000) {
-        if ($scope.selectedOverlay != 0) {
-          $scope.selectOverlay(0);
-        }
-      };
-
-      if (arg > 2000) {
-        if ($scope.selectedOverlay != 1) {
-          $scope.selectOverlay(1);
-        }
-      }
-    };
-
-    // Add events to hide and show the text column
-    var showTextColumn = function() {
-      $scope.textColumn.display = "1";
-      $scope.footer.right.display = "<i class='fa fa-chevron-circle-up'></i>";
-    };
-
-    var hideTextColumn = function() {
-      $scope.textColumn.display = "0";
-      $scope.footer.right.display = "<i class='fa fa-chevron-circle-down'></i>";
-    };
-
-    $scope.toggleTextColumn = function() {
-      $scope.textColumn.display === "1"? hideTextColumn() : showTextColumn();
-    }
-
-    /******************
-    * Mobile controls *
-    ******************/
-
-    // build the dropdown for toggling map options in mobile views
-    $scope.buildOverlayOptions = function() {
-
-      // the dropdown options are articulated in $scope.mapOverlays
-      $scope.overlayOptions = [];
-      for (var i=0; i<Object.keys($scope.mapOverlays).length; i++) {
-
-        // the display option should contain the content of
-        // year - label keys.
-        var year = $scope.mapOverlays[i].year;
-        var label = $scope.mapOverlays[i].label;
-        var overlayLabel = year + " - " + label;
-
-        $scope.overlayOptions.push({
-          "label": overlayLabel,
-          "id": i
-        });
-      };
-    };
-
-
-    // add a client side listener to change image overlay on
-    // change of the select box
-    $scope.setOverlayOption = function(overlayOption) {
-      $scope.selectOverlay(overlayOption.id);
-    };
-
-
-    // define the partials to be used within the left and right
-    // regions of the mid-page mobile controls
     $scope.mobile = {
       "mobileControlsLeft": "/templates/partials/historical-geography/overlay-select-dropdown.html",
       "mobileControlsLeftClass": "",
       "mobileControlsRight": "/templates/partials/historical-geography/opacity-slider.html",
       "mobileControlsRightClass": ""
     };
-
-    /*****************
-    * Image overlays *
-    *****************/
-
-    // add a function that displays the tiles at the specified url
-    var addImageOverlay = function(map, imageTileUrl) {
-
-      // remove the old imageOverlay layer
-      $(".imageOverlay").remove();
-
-      var imageOverlay = L.tileLayer(imageTileUrl, {
-        attribution: '<a href="http://web.library.yale.edu/dhlab">DHLab@Yale</a>',
-        opacity: .6,
-        // set max zoom to prevent requests for tiles that don't exist
-        maxZoom: 20,
-        tms: true,
-        // also set bounds to prevent 404's from appearing when
-        // the client requests image tiles from relevant zoom levels
-        // if those tiles don't exist. Bounds retrieved from
-        // gdalinfo {{geotiff.tif}}
-        bounds: [
-          L.latLng(41.3183532,-72.9385611),
-          L.latLng(41.2950316, -72.8997637)
-        ]
-      }).addTo(map);
-
-      // add a class to the image tile layer for dynamic css styling
-      $(imageOverlay.getContainer()).addClass('imageOverlay');
-
-    };
-
-
-    /******************
-    * Vector overlays *
-    ******************/
-
-    var addVectorOverlay = function(map, vectorJsonUrl) {
-
-      // request json that describes building boundaries
-      d3.json(vectorJsonUrl, function(rawJson) {
-
-        // Revove any extant building vector overlays from the map.
-        // To do so, get a reference to the vectors, then fade them out.
-        // One second after that function completes, remove the objects
-        // from the DOM.
-        var overlayBoundingBox = $(".overlay-bounding-box");
-        overlayBoundingBox.addClass("fade-out");
-        setTimeout(function(){
-          overlayBoundingBox.remove(); },
-        1000);
-
-        // each member of this array describes a building
-        for (var i=0; i<rawJson.length; i++) {
-          var buildingJson = rawJson[i];
-          if (buildingJson) {
-
-            // add the building to the map
-            var polyline = new L.GeoJSON(buildingJson, {
-                className: 'overlay-bounding-box animated fade-in',
-                weight: 2,
-                fillOpacity: .85
-              }
-            ).addTo(map);
-          }
-
-        }
-      });
-    }
-
-    // Click listener to toggle vector overlay
-    $scope.toggleVectorOverlay = function() {
-      $(".vector-overlay-toggle-button").toggleClass("active");
-      $(".overlay-bounding-box").toggleClass("hidden");
-    };
-
-    /***
-    *
-    * Overlay data
-    *
-    * @object: keys are ids for the selected plan
-    *          values are labels for the selected plan
-    *
-    * Defines the available map overlays
-    ***/
 
     $scope.mapOverlays = {
       "0": {
@@ -232,17 +81,45 @@ angular.module('HistoricalGeographyController', [])
 
     /***
     *
-    * Vector overlay selection function
+    * Click listener that shows/hides the text column
     *
-    * @params: Integer that is present in Object.keys(mapOverlayLabels)
-    * @returns: none
-    *  
-    * Updates the map to display the selected map overlay
+    ***/
+
+    $scope.toggleTextColumn = function() {
+      $scope.textColumn.display === "1"?
+        controllerHelper.hideTextColumn($scope) :
+        controllerHelper.showTextColumn($scope);
+    }
+
+    /***
+    *
+    * Click listener that selects the overlay image/vector data
+    * to display
+    *
+    ***/
+
+    $scope.setOverlayOption = function(overlayOption) {
+      $scope.selectOverlay(overlayOption.id);
+    };
+
+    /***
+    *
+    * Click listener that toggles the vector overlay
+    *
+    ***/
+
+    $scope.toggleVectorOverlay = function() {
+      $(".vector-overlay-toggle-button").toggleClass("active");
+      $(".overlay-bounding-box").toggleClass("hidden");
+    };
+
+    /***
+    *
+    * Updates the map to display the user-selected map overlay
+    *
     ***/
 
     $scope.selectOverlay = function(selectedId) {
-
-      // store the selected overlay in a scope object
       $scope.selectedOverlay = selectedId;
 
       // indicate in the selection box which id is currently selected
@@ -262,11 +139,9 @@ angular.module('HistoricalGeographyController', [])
          "style": "full"
       };
 
-      // add the image tile overlay
-      addImageOverlay(map, $scope.mapOverlays[selectedId]["imageOverlayUrl"]);
-
-      // add the vector overlay, which will remove the old vector overlay
-      addVectorOverlay(map, $scope.mapOverlays[selectedId]["vectorOverlayUrl"]);
+      // add the image tile overlay and vector overlay
+      mapHelper.addImageOverlay(map, $scope.mapOverlays[selectedId]["imageOverlayUrl"]);
+      mapHelper.addVectorOverlay(map, $scope.mapOverlays[selectedId]["vectorOverlayUrl"]);
 
       // add an opacity slider with floot, ceiling, and initial value
       $scope.opacitySlider = {
@@ -287,52 +162,42 @@ angular.module('HistoricalGeographyController', [])
     };
 
     /***
-    * @params: none
-    * @returns: none
-    *  
-    * Function that builds the basemap on which layers will be added
+    *
+    * Identify a function that calls an update function
+    * if the user has scrolled to a new section
+    *
     ***/
 
-    var initializeMap = function() {
-
-      // specify the coordinates on which to center the map initially
-      var centerCoordinates = new L.LatLng(41.307, -72.928);
-
-      // create the map object itself
-      var map = new L.Map("map", {
-        center: centerCoordinates,
-        zoom: 17,
-        zoomControl: false
-      });
-
-      // position the zoom controls in the bottom right hand corner
-      L.control.zoom({
-        position: 'bottomright',
-        zoom: 16,
-        maxZoom: 20,
-        minZoom: 12,
-      }).addTo(map);
-
-      // use the cartodb basemap
-      map.addLayer(new L.tileLayer('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png', {
-        attribution: '<a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
-      }));
-
-      return map;
-
-    };
+    $scope.getSelectedSection = function(sectionId) {
+      if (sectionId !== $scope.selectedSectionId) {
+        $scope.selectedSectionId = sectionId;
+        selectSection();
+      }
+    }
 
     /***
-    * @params: none
-    * @returns: none
-    *  
-    * Initializes map overlay and selects the first overlay option
+    *
+    * Function that updates the background image(s),
+    * links, and other page assets as a function of
+    * user scroll
+    *
     ***/
 
-    var map = initializeMap();
-    $scope.buildOverlayOptions();
+    var selectSection = function() {
+      $timeout(function(){
+        var sectionId = String($scope.selectedSectionId);
+        $scope.selectOverlay(sectionId);
+      });
+    }
+
+    /***
+    *  
+    * Initialize the map overlay and select the first overlay option
+    *
+    ***/
+
+    var map = mapHelper.initializeMap();
+    mapHelper.buildMapOverlayOptions($scope);
     $scope.selectOverlay(0);
 
   }
