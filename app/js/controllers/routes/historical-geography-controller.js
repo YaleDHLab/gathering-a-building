@@ -12,7 +12,6 @@ angular.module('HistoricalGeographyController', [])
     * Text Column *
     **************/
 
-    // define the text column data
     $scope.textColumn = {
       "title": "historical-geography",
       "display": "1",
@@ -36,8 +35,13 @@ angular.module('HistoricalGeographyController', [])
       }
     };
 
-    // Add a function to change map overlay on scroll events. NB:
-    // only call the selection function if the background is changing
+    /***
+    *
+    * Add a function to change map overlay on scroll events. NB:
+    * only call the selection function if the background is changing
+    *
+    ***/
+
     $scope.getScrollPosition = function(arg) {
       if (arg < 2000) {
         if ($scope.selectedOverlay != 0) {

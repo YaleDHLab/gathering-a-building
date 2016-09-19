@@ -1,11 +1,11 @@
 var angular = require('angular');
+var controllerHelper = require('../helpers/controller-helper');
 
 angular.module('MaterialJourneysController', [])
   .controller("materialJourneysController", [
       "$scope", "$http", "$timeout",
   function($scope, $http, $timeout) {
 
-    // Set initial footer params, and update as page updates
     $scope.footer = {
       "left": {
         "display": "Material Journeys",
@@ -18,33 +18,12 @@ angular.module('MaterialJourneysController', [])
       "style": "partial"
     };
 
-    /***
-    * Mobile controls
-    ***/
-
-    // build the options for the footer dropdown
-    $scope.buildDropdownOptions = function() {
-      $scope.dropdownOptions = [];
-
-      for (var i=0; i<Object.keys($scope.textColumn.sections).length; i++) {
-        $scope.dropdownOptions.push({
-          label: $scope.textColumn.sections[i].title,
-          id: $scope.textColumn.sections[i].id
-        });
-      };
-    };
-
-    // define the configuration of the mobile mid page controls
     $scope.mobile = {
       "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
       "mobileControlsLeftClass": "full-width-mobile-dropdown",
       "mobileControlsRight": "",
       "mobileControlsRightClass": "hidden"
     };
-
-    /***
-    * Text columnn
-    ***/
 
     $scope.textColumn = {
       "title": "material-journeys",
@@ -148,50 +127,15 @@ angular.module('MaterialJourneysController', [])
 
     /***
     *
-    * Updates background image if necessary and adds associated animation
-    *
-    ***/
-
-    var updateBackground = function(imageUrl) {
-      if ($scope.backgroundImageUrl) {
-        if (imageUrl != $scope.backgroundImageUrl) {
-          $scope.backgroundImageUrl = imageUrl;
-        }
-      } else {
-        $scope.backgroundImageUrl = imageUrl;
-      }
-    }
-
-    /***
-    *
-    * Fades the table of contents into / out of view
-    *
-    ***/
-
-    var showTableOfContents = function(v) {
-      var target = document.querySelector('.table-of-contents-container');
-
-      // if the target exists, update its opacity
-      // else the target doesn't exist in the DOM; add it
-      if (target) {
-        target.style.opacity = v;
-      } else {
-        $scope.showTableOfContents = 1;
-      }
-    }
-
-    /***
-    *
     * Identify a function that calls an update function
     * if the user has scrolled to a new section
     *
     ***/
 
-
     $scope.getSelectedSection = function(sectionId) {
       if (sectionId !== $scope.selectedSectionId) {
         $scope.selectedSectionId = sectionId;
-        $scope.selectSection();
+        selectSection();
       }
     }
 
@@ -203,22 +147,22 @@ angular.module('MaterialJourneysController', [])
     *
     ***/
 
-    $scope.selectSection = function() {
+    var selectSection = function() {
       $timeout(function(){
         var sectionId = String($scope.selectedSectionId);
         var section = $scope.textColumn.sections[sectionId];
         var tableOfContents = parseInt(section["showTableOfContents"], 10);
         var background = section["background"]["1"]["url"];
-        updateBackground(background);
-        showTableOfContents(tableOfContents);
+        controllerHelper.updateBackground($scope, background);
+        controllerHelper.showTableOfContents($scope, tableOfContents);
       });
     }
 
     // initialize the application state
     $scope.selectedSectionId = 0;
-    showTableOfContents(1);
-    $scope.selectSection();
-    $scope.buildDropdownOptions();
+    selectSection($scope);
+    controllerHelper.showTableOfContents($scope, 1);
+    controllerHelper.buildDropdownOptions($scope);
 
   }
 ]);
