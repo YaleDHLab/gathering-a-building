@@ -24,7 +24,7 @@ angular.module('ScrollListener', [])
     ***/
 
     scope: {
-      setScrollPosition: '='
+      setSelectedSection: '='
     },
 
     /***
@@ -38,8 +38,23 @@ angular.module('ScrollListener', [])
     link: function (scope, element, attrs) {
       element.bind('scroll', function () {
 
-        // define callback that fades in/out artices beyond
-        // the first once the user starts scrolling
+        /***
+        *
+        * Remove the url hash (if any) to allow users
+        * to trigger href links for articles they
+        * just viewed
+        *
+        ***/
+
+        $location.hash(null);
+
+        /***
+        *
+        * Define callback that fades in/out artices beyond
+        * the first once the user starts scrolling
+        *
+        ***/
+
         var animateArticles = function(scrollPosition) {
           // if the scroll position > 0, fade in articles after the 1st
           // then permanently set their opacity to 1, else fade them out
@@ -54,18 +69,32 @@ angular.module('ScrollListener', [])
           }
         }
 
-        // pass the scroll position to the subscriber's setScrollPosition method
+        // fade articles after the first into/out of view
         var scrollPosition = element[0].scrollTop;
-
-        // fade articles beyond the first in/out
         animateArticles(scrollPosition);
 
-        // pass the scrollPosition to the controller
-        scope.setScrollPosition(scrollPosition);
+        /***
+        *
+        * Define a function that will check each section's distance
+        * from the top of the viewport and update the current
+        * section in the parent controler (if necessary)
+        *
+        ***/
 
-        // remove the hash from the url to facilitate linking back to a
-        // section the user just read
-        $location.hash(null);
+        var distanceToTop = function(elem, i) {
+          var viewportOffset = elem.getBoundingClientRect();
+          var top = viewportOffset.top;
+
+          if (top < 200 && top > -200) {
+            var selectedId = elem.getAttribute('data-section-id');
+            scope.setSelectedSection(selectedId);
+          }
+        }
+
+        // targets for the function that updates parent controller
+        var targets = document.querySelectorAll('.section');
+        targets.forEach(distanceToTop);
+
       });
     }
   };
