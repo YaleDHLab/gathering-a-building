@@ -79,11 +79,26 @@ angular.module('ScrollListener', [])
         * from the top of the viewport and update the current
         * section in the parent controler (if necessary)
         *
+        * NB: If the '.mobile-controls-container' exists, then
+        * the breakpoint's distance should be measured from that
+        * element, else the breakpoint's distance should be measured
+        * against the top of the page
+        *
         ***/
 
         var distanceToTop = function(elem, i) {
+
           var viewportOffset = elem.getBoundingClientRect();
           var top = viewportOffset.top;
+
+          // if the user is on a mobile, measure the distance from the breakpoint
+          // to the mid-page mobile controls
+          var mobileControls = document.querySelector('.mobile-controls-container');
+          if (mobileControls) {
+            var mobileOffset = mobileControls.getBoundingClientRect();
+            var mobileTop = mobileOffset.top;
+            var top = top - mobileTop;
+          } 
 
           if (top < 200 && top > -200) {
             var selectedId = elem.getAttribute('data-section-id');
