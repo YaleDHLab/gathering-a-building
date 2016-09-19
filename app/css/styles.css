@@ -376,11 +376,11 @@ html {
     rgba(255,255,255,1), 
     rgba(255,255,255,.9),
     rgba(255,255,255,0) );
-  position: absolute;
+  position: fixed;
   height: 50px;
   /* .text-overlay width - .text-overlay padding r&l */
   width: 300px;
-  left: 35px;
+  left: 185px;
   bottom: 56px;
 }
 
