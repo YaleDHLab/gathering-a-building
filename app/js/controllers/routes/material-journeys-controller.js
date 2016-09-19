@@ -153,7 +153,6 @@ angular.module('MaterialJourneysController', [])
     ***/
 
     var updateBackground = function(imageUrl) {
-      console.log('updating background', imageUrl);
       if ($scope.backgroundImageUrl) {
         if (imageUrl != $scope.backgroundImageUrl) {
           $scope.backgroundImageUrl = imageUrl;
@@ -191,9 +190,8 @@ angular.module('MaterialJourneysController', [])
 
     $scope.getSelectedSection = function(sectionId) {
       if (sectionId !== $scope.selectedSectionId) {
-        console.log("setting sectionId");
         $scope.selectedSectionId = sectionId;
-        $scope.selectSection(sectionId);
+        $scope.selectSection();
       }
     }
 
@@ -205,20 +203,21 @@ angular.module('MaterialJourneysController', [])
     *
     ***/
 
-    $scope.selectSection = function(sectionId) {
-      console.log("change to section", sectionId);
-      var sectionId = String(sectionId);
-      var section = $scope.textColumn.sections[sectionId];
-      var tableOfContents = parseInt(section["showTableOfContents"], 10);
-      var background = section["background"]["1"]["url"];
-      showTableOfContents(tableOfContents);
-      updateBackground(background);
-      console.log("selectSection end scope", $scope);
+    $scope.selectSection = function() {
+      $timeout(function(){
+        var sectionId = String($scope.selectedSectionId);
+        var section = $scope.textColumn.sections[sectionId];
+        var tableOfContents = parseInt(section["showTableOfContents"], 10);
+        var background = section["background"]["1"]["url"];
+        updateBackground(background);
+        showTableOfContents(tableOfContents);
+      });
     }
 
     // initialize the application state
-    $scope.selectedSectionId = "0";
-    $scope.selectSection("0");
+    $scope.selectedSectionId = 0;
+    showTableOfContents(1);
+    $scope.selectSection();
     $scope.buildDropdownOptions();
 
   }
