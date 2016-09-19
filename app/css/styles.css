@@ -363,12 +363,13 @@ html {
     rgba(255,255,255,0), 
     rgba(255,255,255,.9),
     rgba(255,255,255,1) );
-  position: absolute;
+  position: fixed;
   top: 55px;
   height: 50px;
   /* .text-overlay width - .text-overlay padding r&l */
   width: 300px;
-  left: 35px;
+  left: 185px;
+  z-index: 1;
 }
 
 .alpha-fade-bottom {
