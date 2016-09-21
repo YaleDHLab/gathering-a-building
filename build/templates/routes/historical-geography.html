@@ -1,12 +1,11 @@
 <!-- Map container -->
 <div id="map">
   <div class="map-overlay-selector">
-    <div class="map-overlay map-overlay-0"
-          data-ng-click="selectOverlay(0)">1824</div>
-    <div class="map-overlay map-overlay-1"
-          data-ng-click="selectOverlay(1)">1851</div>
-    <div class="map-overlay map-overlay-2"
-          data-ng-click="selectOverlay(2)">1868</div>
+    <div data-ng-repeat="(key, value) in mapOverlays"
+      data-ng-class="key == '0'?
+        'active map-overlay map-overlay-' + key :
+        'map-overlay map-overlay-' + key"
+      data-ng-click="selectOverlay(key)">{{mapOverlays[key].year}}</div>
   </div>
 
   <div class="opacity-slider-wrapper">
