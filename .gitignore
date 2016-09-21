@@ -1,4 +1,5 @@
 .DS_Store
+*.pem
 geotiffs/*
 build/bundle.js
 build/assets/fonts
