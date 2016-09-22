@@ -41,17 +41,5 @@
     "mobileControlsLeftClass": "full-width-mobile-dropdown",
     "mobileControlsRight": "",
     "mobileControlsRightClass": "hidden"
-  },
-
-  "footer": {
-    "left": {
-      "display": "Architecture & Urbanism",
-      "url": "/#/routes/architecture-and-urbanism#0"
-    },
-    "right": {
-      "display": "Next <i class='fa fa-angle-down'></i>",
-      "url": "/#/routes/architecture-and-urbanism#1"
-    },
-     "style": "partial"
   }
 }

@@ -4,8 +4,8 @@ var controllerHelper = require('../helpers/controller-helper');
 
 angular.module('PeopleAndPlaceController', [])
   .controller("peopleAndPlaceController", [
-      "$scope", "$http", "$timeout",
-  function($scope, $http, $timeout) {
+      "$scope", "$http", "$timeout", "$location",
+  function($scope, $http, $timeout, $location) {
 
     var endpoint = "http://localhost:8000/json/people-and-places.json";
     request
@@ -15,7 +15,6 @@ angular.module('PeopleAndPlaceController', [])
         if (err) {console.log(err)};
 
         var data = res.body;
-        $scope.footer     = data.footer;
         $scope.mobile     = data.mobile;
         $scope.textColumn = data.textColumn;
 
@@ -49,20 +48,26 @@ angular.module('PeopleAndPlaceController', [])
             var background = section["background"]["1"]["url"];
             controllerHelper.updateBackground($scope, background);
             controllerHelper.showTableOfContents($scope, tableOfContents);
+            controllerHelper.updateFooter($scope, $location);
           });
         }
 
         // initialize the application state
-        $scope.selectedSectionId = 0;
-        selectSection($scope);
-        controllerHelper.showTableOfContents($scope, 1);
-        controllerHelper.buildDropdownOptions($scope);
+        $timeout(function() {
+          $scope.selectedSectionId = 0;
+          selectSection($scope);
+          controllerHelper.showTableOfContents($scope, 1);
+          controllerHelper.buildDropdownOptions($scope);
+          controllerHelper.initializeFooter($scope, $location, 
+                "People & Places", "partial");
 
-        $scope.tableOfContents = {
-          "topRightHtml": $scope.textColumn["sections"]["0"]["topRightHtml"],
-          "bottomLeftHtml": $scope.textColumn["sections"]["0"]["bottomLeftHtml"],
-          "bottomRightHtml": $scope.textColumn["sections"]["0"]["bottomRightHtml"]
-        };
+          $scope.tableOfContents = {
+            "topRightHtml": $scope.textColumn["sections"]["0"]["topRightHtml"],
+            "bottomLeftHtml": $scope.textColumn["sections"]["0"]["bottomLeftHtml"],
+            "bottomRightHtml": $scope.textColumn["sections"]["0"]["bottomRightHtml"]
+          };
+        });
+
       });
   }
 ]);

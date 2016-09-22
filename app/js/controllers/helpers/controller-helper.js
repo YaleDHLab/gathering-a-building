@@ -49,5 +49,56 @@ module.exports = {
         id: $scope.textColumn.sections[i].id
       });
     };
+  },
+
+  /***
+  *
+  * Function to initialize the left portion of the footer
+  *
+  ***/
+
+  initializeFooter: function($scope, $location, title, style) {
+    $scope.footer = {
+      "style": style,
+      "left": {
+        "display": title,
+        "url": "/#" + $location.path() + "#0"
+      }
+    }
+  },
+
+  /***
+  *
+  * Function to update the footer link upon section change
+  *
+  ***/
+
+  updateFooter: function($scope, $location) {
+    // if there is a next section, make the right hand side
+    // of the footer link to it, else make the right hand
+    // side of the footer blank
+    var sections = Object.keys($scope.textColumn.sections).length;
+    var path = $location.path();
+    var hash = parseInt($scope.selectedSectionId, 10);
+    var nextHash = hash + 1;
+
+    // identify the html for the right footer
+    var footerRightHtml = "Next <i class='fa fa-angle-down'></i>";
+
+    console.log(nextHash, sections);
+
+    // subtract 1 from sections because length is 1-based indexed,
+    // and section ids count from 0
+    if (nextHash > (sections-1)) {
+      $scope.footer.right = {
+        "url": "/#" + path + "#0",
+        "display": ""
+      }
+    } else {
+      $scope.footer.right = {
+        "url": "/#" + path + "#" + nextHash,
+        "display": footerRightHtml
+      }
+    }
   }
 }

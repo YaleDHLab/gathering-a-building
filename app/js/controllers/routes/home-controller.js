@@ -12,7 +12,7 @@ angular.module('HomeController', [])
         "url": "/#/"
       },
       "right": {
-        "display": "Next <i class='fa fa-angle-down'></i>",
+        "display": "",
         "url": "/#/"
       },
       "style": "full"

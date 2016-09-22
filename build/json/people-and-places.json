@@ -1,16 +1,4 @@
 {
-  "footer": {
-    "left": {
-      "display": "People & Place",
-      "url": "/#/routes/people-and-place#0"
-    },
-    "right": {
-      "display": "Next <i class='fa fa-angle-down'></i>",
-      "url": "/#/routes/people-and-place#1"
-    },
-    "style": "partial"
-  },
-
   "mobile": {
     "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
     "mobileControlsLeftClass": "full-width-mobile-dropdown",

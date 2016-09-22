@@ -1,16 +1,4 @@
 {
-  "footer": {
-    "left": {
-      "display": "Material Journeys",
-      "url": "/#/routes/material-journeys#0"
-    },
-    "right": {
-      "display": "Next <i class='fa fa-angle-down'></i>",
-      "url": "/#/routes/material-journeys#1"
-    },
-    "style": "partial"
-  },
-
   "mobile": {
     "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
     "mobileControlsLeftClass": "full-width-mobile-dropdown",

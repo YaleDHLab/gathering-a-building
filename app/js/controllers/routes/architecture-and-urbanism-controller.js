@@ -4,8 +4,8 @@ var controllerHelper = require('../helpers/controller-helper');
 
 angular.module('ArchitectureAndUrbanismController', [])
   .controller("architectureAndUrbanismController", [
-    "$scope", "$http", "$timeout",
-  function($scope, $http, $timeout) {
+    "$scope", "$http", "$timeout", "$location",
+  function($scope, $http, $timeout, $location) {
 
     var endpoint = "http://localhost:8000/json/architecture-and-urbanism.json";
     request
@@ -16,10 +16,8 @@ angular.module('ArchitectureAndUrbanismController', [])
         
         var data = res.body;
 
-        $scope.footer     = data.footer;
         $scope.mobile     = data.mobile;
         $scope.textColumn = data.textColumn;
-      
 
         /***
         *
@@ -51,6 +49,7 @@ angular.module('ArchitectureAndUrbanismController', [])
             var background = section["background"]["1"]["url"];
             controllerHelper.updateBackground($scope, background);
             controllerHelper.showTableOfContents($scope, tableOfContents);
+            controllerHelper.updateFooter($scope, $location);
           });
         }
 
@@ -60,9 +59,9 @@ angular.module('ArchitectureAndUrbanismController', [])
           selectSection($scope);
           controllerHelper.showTableOfContents($scope, 1);
           controllerHelper.buildDropdownOptions($scope);
+          controllerHelper.initializeFooter($scope, $location,
+              "Architecture & Urbanism", "partial");
         });
-
       });
-
   }
 ]);
