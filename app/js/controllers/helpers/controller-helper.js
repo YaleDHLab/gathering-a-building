@@ -29,6 +29,9 @@ module.exports = {
     // else the target doesn't exist in the DOM; add it
     if (target) {
       target.style.opacity = v;
+      if (v == 1) {
+        $scope.showTableOfContents = 1;
+      }
     } else {
       $scope.showTableOfContents = 1;
     }
@@ -85,8 +88,6 @@ module.exports = {
     // identify the html for the right footer
     var footerRightHtml = "Next <i class='fa fa-angle-down'></i>";
 
-    console.log(nextHash, sections);
-
     // subtract 1 from sections because length is 1-based indexed,
     // and section ids count from 0
     if (nextHash > (sections-1)) {
@@ -100,5 +101,21 @@ module.exports = {
         "display": footerRightHtml
       }
     }
+  },
+
+  /***
+  *
+  * Function to initialize mobile controls
+  *
+  ***/
+
+  initializeMobile: function($scope) {
+    $scope.mobile = {
+      "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
+      "mobileControlsLeftClass": "full-width-mobile-dropdown",
+      "mobileControlsRight": "",
+      "mobileControlsRightClass": "hidden"
+    }
   }
+
 }

@@ -58,6 +58,7 @@ angular.module('MaterialJourneysController', [])
         selectSection($scope);
         controllerHelper.showTableOfContents($scope, 1);
         controllerHelper.buildDropdownOptions($scope);
+        controllerHelper.initializeMobile($scope);
         controllerHelper.initializeFooter($scope, $location,
               "Material Journeys", "partial");
 

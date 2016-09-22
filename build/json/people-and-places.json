@@ -1,13 +1,5 @@
 {
-  "mobile": {
-    "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
-    "mobileControlsLeftClass": "full-width-mobile-dropdown",
-    "mobileControlsRight": "",
-    "mobileControlsRightClass": "hidden"    
-  },
-
   "textColumn": {
-
     "title": "people-and-place",
       "display": "1",
       "hr": "1",

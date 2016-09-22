@@ -34,12 +34,5 @@
           }
         }
       }
-  },
-
-  "mobile": {
-    "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
-    "mobileControlsLeftClass": "full-width-mobile-dropdown",
-    "mobileControlsRight": "",
-    "mobileControlsRightClass": "hidden"
   }
 }
