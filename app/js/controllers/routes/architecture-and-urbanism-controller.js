@@ -15,8 +15,6 @@ angular.module('ArchitectureAndUrbanismController', [])
         if (err) {console.log(err)};
         
         var data = res.body;
-
-        $scope.mobile     = data.mobile;
         $scope.textColumn = data.textColumn;
 
         /***
