@@ -67,8 +67,8 @@ angular.module('HistoricalGeographyController', [])
 
         $scope.toggleTextColumn = function() {
           $scope.textColumn.display === "1"?
-            controllerHelper.hideTextColumn($scope) :
-            controllerHelper.showTextColumn($scope);
+            mapHelper.hideTextColumn($scope) :
+            mapHelper.showTextColumn($scope);
         }
 
         /***
@@ -176,6 +176,7 @@ angular.module('HistoricalGeographyController', [])
         *
         ***/
 
+        mapHelper.buildMapOverlayOptions($scope);
         var map = mapHelper.initializeMap();
         $scope.selectOverlay(0);
 
