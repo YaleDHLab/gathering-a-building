@@ -6,6 +6,31 @@ module.exports = {
 
   /***
   *
+  * Function to build the map overlay options
+  *
+  ***/
+
+  buildMapOverlayOptions: function($scope) {
+
+    // the dropdown options are articulated in $scope.mapOverlays
+    $scope.overlayOptions = [];
+    for (var i=0; i<Object.keys($scope.mapOverlays).length; i++) {
+
+      // the display option should contain the content of
+      // year - label keys.
+      var year = $scope.mapOverlays[i].year;
+      var label = $scope.mapOverlays[i].label;
+      var overlayLabel = year + " - " + label;
+
+      $scope.overlayOptions.push({
+        "label": overlayLabel,
+        "id": i
+      });
+    };
+  },
+
+  /***
+  *
   * Function to initialize a leaflet map
   *
   ***/
