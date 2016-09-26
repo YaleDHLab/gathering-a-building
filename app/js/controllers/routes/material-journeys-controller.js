@@ -4,8 +4,8 @@ var controllerHelper = require('../helpers/controller-helper');
 
 angular.module('MaterialJourneysController', [])
   .controller("materialJourneysController", [
-      "$scope", "$http", "$timeout", "$location",
-  function($scope, $http, $timeout, $location) {
+      "$scope", "$http", "$timeout", "$location", "$sce",
+  function($scope, $http, $timeout, $location, $sce) {
 
     var endpoint = "http://localhost:8000/json/material-journeys.json";
     request
@@ -34,6 +34,27 @@ angular.module('MaterialJourneysController', [])
 
         /***
         *
+        * Give clients the ability to show/hide the iframe map
+        *
+        ***/
+
+        $scope.showIframe = function(boolean, iframeSrc) {
+          console.log(boolean, iframeSrc);
+          controllerHelper.showIframe($scope, boolean, iframeSrc);
+        }
+
+        /***
+        *
+        * Function to trust a src attribute in declared iframes
+        *
+        ***/
+
+        $scope.trustSrc = function(src) {
+          return $sce.trustAsResourceUrl(src);
+        }
+
+        /***
+        *
         * Function that updates the background image(s),
         * links, and other page assets as a function of
         * user scroll
@@ -58,6 +79,7 @@ angular.module('MaterialJourneysController', [])
         controllerHelper.showTableOfContents($scope, 1);
         controllerHelper.buildDropdownOptions($scope);
         controllerHelper.initializeMobile($scope);
+        controllerHelper.initializeIframe($scope);
         controllerHelper.initializeFooter($scope, $location,
               "Material Journeys", "partial");
 

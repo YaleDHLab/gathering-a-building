@@ -27,11 +27,28 @@
             <div data-ng-bind-html="paragraph | allowHtml" class="section-paragraph"></div>
           </div>
         </div>
-        <div data-ng-if="section.linksHome === '1'" class="home-link">
+
+        <!-- Template for sending users back to landing page image -->
+        <div data-ng-if="section.linksHome === '1'" class="text-column-button-container home-link">
           <a href="/#/">
-            <div class="home-link-button">Go Back &rarr;</div>
+            <div class="text-column-button">Go Back &rarr;</div>
           </a>
         </div>
+
+        <!-- Template for toggling between background image and map iframe -->
+        <div data-ng-if="section.iframe && iframe.shown === '0'" 
+            data-ng-click="showIframe('1', section.iframe)"
+            class="text-column-button-container  map-link">
+          <div class="text-column-button show-map">Show Map</div>
+        </div>
+
+        <!-- Template for toggling between background image and map iframe -->
+        <div data-ng-if="section.iframe && iframe.shown === '1'" 
+          data-ng-click="showIframe('0', section.iframe)"
+          class="text-column-button-container image-link">
+          <div class="text-column-button show-image">Show Image</div>
+        </div>
+
       </div>
     </div>
     <div class="alpha-fade-bottom"></div>

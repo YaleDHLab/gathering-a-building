@@ -59,7 +59,8 @@
             "alt": "Image of scaffold",
             "annotation": "Scholarly annotation of scaffold image"
           }
-        }
+        },
+        "iframe": "https://duhaime.carto.com/viz/a4607a6c-841b-11e6-a856-0e233c30368f/embed_map"
       },
 
       "3": {
@@ -94,7 +95,8 @@
             "alt": "Image of sunset",
             "annotation": "Scholarly annotation of sunset image"
           }
-        }
+        },
+        "iframe": "https://duhaime.carto.com/viz/1e426468-842a-11e6-84e6-0e233c30368f/embed_map"
       }
     }
   }

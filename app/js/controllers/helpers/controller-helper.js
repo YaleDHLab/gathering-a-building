@@ -116,6 +116,30 @@ module.exports = {
       "mobileControlsRight": "",
       "mobileControlsRightClass": "hidden"
     }
+  },
+
+  /***
+  *
+  * Function to initialize the iframe controls
+  *
+  ***/
+
+  initializeIframe: function($scope) {
+    $scope.iframe = {
+      shown: "0",
+      src: ""
+    }
+  },
+
+  /***
+  *
+  * Function to show a full screen iframe
+  *
+  ***/
+
+  showIframe: function($scope, boolean, iframeSrc) {
+    $scope.iframe.shown = boolean;
+    $scope.iframe.src = iframeSrc;
   }
 
 }
