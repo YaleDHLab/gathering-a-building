@@ -7,7 +7,7 @@ angular.module('MaterialJourneysController', [])
       "$scope", "$http", "$timeout", "$location", "$sce",
   function($scope, $http, $timeout, $location, $sce) {
 
-    var endpoint = "http://localhost:8000/json/material-journeys.json";
+    var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/material-journeys.json";
     request
       .get(endpoint)
       .set('Accept', 'application/json')
@@ -82,6 +82,9 @@ angular.module('MaterialJourneysController', [])
         controllerHelper.initializeIframe($scope);
         controllerHelper.initializeFooter($scope, $location,
               "Material Journeys", "partial");
+
+        // finally, given the loaded data, scroll to the requested id (if any)
+        controllerHelper.scrollToHash($location, $timeout);
 
       });
   }

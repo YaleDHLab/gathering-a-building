@@ -140,6 +140,22 @@ module.exports = {
   showIframe: function($scope, boolean, iframeSrc) {
     $scope.iframe.shown = boolean;
     $scope.iframe.src = iframeSrc;
+  },
+
+  /***
+  *
+  * Function to scroll to the hash() element of the current $location()
+  *
+  ***/
+
+  scrollToHash($location, $timeout) {
+    var hash = $location.hash();
+    if (hash) {
+      $timeout(function(){
+        var destination = document.getElementById(hash);
+        destination.scrollIntoView();
+      });
+    }
   }
 
 }

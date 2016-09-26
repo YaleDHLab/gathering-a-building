@@ -7,7 +7,7 @@ angular.module('ArchitectureAndUrbanismController', [])
     "$scope", "$http", "$timeout", "$location",
   function($scope, $http, $timeout, $location) {
 
-    var endpoint = "http://localhost:8000/json/architecture-and-urbanism.json";
+    var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/architecture-and-urbanism.json";
     request
       .get(endpoint)
       .set('Accept', 'application/json')
@@ -60,6 +60,9 @@ angular.module('ArchitectureAndUrbanismController', [])
           controllerHelper.initializeMobile($scope);
           controllerHelper.initializeFooter($scope, $location,
               "Architecture & Urbanism", "partial");
+
+          // finally, given the loaded data, scroll to the requested id (if any)
+          controllerHelper.scrollToHash($location, $timeout);
         });
       });
   }

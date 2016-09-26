@@ -7,7 +7,7 @@ angular.module('PeopleAndPlaceController', [])
       "$scope", "$http", "$timeout", "$location",
   function($scope, $http, $timeout, $location) {
 
-    var endpoint = "http://localhost:8000/json/people-and-places.json";
+    var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/people-and-places.json";
     request
       .get(endpoint)
       .set('Accept', 'application/json')
@@ -60,6 +60,9 @@ angular.module('PeopleAndPlaceController', [])
           controllerHelper.initializeMobile($scope);
           controllerHelper.initializeFooter($scope, $location, 
                 "People & Places", "partial");
+
+          // finally, given the loaded data, scroll to the requested id (if any)
+          controllerHelper.scrollToHash($location, $timeout);
 
           $scope.tableOfContents = {
             "topRightHtml": $scope.textColumn["sections"]["0"]["topRightHtml"],

@@ -1,5 +1,6 @@
 <div data-ng-show="textColumn.display === '1'" 
       class="text-column-wrapper"
+      template-loaded="scrollToHash()"
       data-ng-cloak>
   <hr data-ng-show="textColumn.hr == '1'"
         class="text-column-hr text-column-hr-top">
@@ -36,14 +37,14 @@
         </div>
 
         <!-- Template for toggling between background image and map iframe -->
-        <div data-ng-if="section.iframe && iframe.shown === '0'" 
+        <div data-ng-if="section.iframe && iframe.shown === '0'"
             data-ng-click="showIframe('1', section.iframe)"
             class="text-column-button-container  map-link">
           <div class="text-column-button show-map">Show Map</div>
         </div>
 
         <!-- Template for toggling between background image and map iframe -->
-        <div data-ng-if="section.iframe && iframe.shown === '1'" 
+        <div data-ng-if="section.iframe && iframe.shown === '1'"
           data-ng-click="showIframe('0', section.iframe)"
           class="text-column-button-container image-link">
           <div class="text-column-button show-image">Show Image</div>
