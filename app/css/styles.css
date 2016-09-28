@@ -422,6 +422,11 @@ html {
 * Text overlay styles *
 **********************/
 
+.text-column-wrapper,
+.text-column-container {
+  overflow: hidden;
+}
+
 .navigation-overlay-column,
 .text-column-container {
   position: fixed;
@@ -435,6 +440,8 @@ html {
 .text-column {
   max-height: 100%;
   overflow: scroll;
+  /* Hide scrollbar across browsers */
+  margin-right: -16px;
 }
 
 .text-column-content {
@@ -443,6 +450,8 @@ html {
   padding-top: 0;
   font-family: Arial;
   line-height: 1.35em;
+  /* Counteract the negative margin on .text-column */
+  margin-right: 16px;
 }
 
 .section-paragraph {
@@ -728,7 +737,6 @@ html {
   font-size: .87em;
   line-height: 1.35em;
 }
-
 
 /*************************
 * Table of contents menu *

@@ -72,10 +72,13 @@ angular.module('HoverEvents', [])
             var defaultImageClass = chapterSectionImages[0].className;
 
             // make hovers on text influence images
-            chapterSectionTitles.forEach(textInfluencesImage);
+            for (var i=0; i<chapterSectionTitles.length; i++) {
+              textInfluencesImage(chapterSectionTitles[i], i);
+            };
 
-            // make hovers on images influence text
-            chapterSectionImages.forEach(imageInfluencesText);
+            for (var j=0; j<chapterSectionImages.length; j++) {
+              imageInfluencesText(chapterSectionImages[j], j);
+            };
           };
         });
       });

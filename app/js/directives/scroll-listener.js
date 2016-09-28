@@ -108,7 +108,9 @@ angular.module('ScrollListener', [])
 
         // targets for the function that updates parent controller
         var targets = document.querySelectorAll('.section');
-        targets.forEach(distanceToTop);
+        for (var i=0; i<targets.length; i++) {
+          distanceToTop(targets[i], i);
+        }
 
       });
     }
