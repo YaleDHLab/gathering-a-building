@@ -18,6 +18,18 @@ module.exports = {
 
   /***
   *
+  * Function to change the color of the navigation button
+  * and DHLab brand image
+  *
+  ***/
+
+  updateBackgroundStyle: function($scope, backgroundStyleService, section) {
+    var style = section["backgroundStyle"];
+    backgroundStyleService.updateBackgroundStyle({navigationButton: style.navigationButton, brandIcon: style.brandIcon});
+  },
+
+  /***
+  *
   * Fades the table of contents into / out of view
   *
   ***/

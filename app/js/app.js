@@ -34,6 +34,9 @@ require('./directives/template-loaded');
 // filters
 require('./filters/allow-html');
 
+// services
+require('./services/background-style');
+
 // main application with dependency modules declared
 var buildingApp = angular.module("BuildingApp",
   [
@@ -65,7 +68,10 @@ var buildingApp = angular.module("BuildingApp",
     "TemplateLoaded",
 
     // filters
-    "AllowHtml"
+    "AllowHtml",
+
+    // services
+    "BackgroundStyle"
   ]
 );
 

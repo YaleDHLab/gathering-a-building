@@ -35,7 +35,7 @@ module.exports = {
   *
   ***/
 
-  initializeMap: function() {
+  initializeMap: function($scope, callback) {
 
     // specify the coordinates on which to center the map initially
     var centerCoordinates = new L.LatLng(41.307, -72.928);
@@ -71,7 +71,7 @@ module.exports = {
   *
   ***/
 
-  addVectorOverlay: function(map, vectorJsonUrl) {
+  addVectorOverlay: function(map, vectorJsonUrl, $timeout) {
 
     // request json that describes building boundaries
     request
@@ -87,7 +87,7 @@ module.exports = {
         // from the DOM.
         var overlayBoundingBox = $(".overlay-bounding-box");
         overlayBoundingBox.addClass("fade-out");
-        setTimeout(function(){
+        $timeout(function(){
           overlayBoundingBox.remove(); },
         1000);
 
@@ -155,6 +155,24 @@ module.exports = {
   hideTextColumn: function($scope) {
     $scope.textColumn.display = "0";
     $scope.footer.right.display = "<i class='fa fa-chevron-circle-down'></i>";
+  },
+
+  /***
+  *
+  * Function to initialize the opacity slider
+  *
+  ***/
+
+  initializeOpacitySlider: function($scope, $timeout) { 
+
+    // add an opacity slider with floot, ceiling, and initial value
+    $scope.opacitySlider = {
+      value: 70,
+      options: {
+        floor: 0,
+        ceil: 100
+      }
+    };
   }
 
 }
