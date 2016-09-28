@@ -9,7 +9,10 @@
   </div>
 
   <div class="opacity-slider-wrapper">
-    <div data-ng-include='"/templates/partials/historical-geography/opacity-slider.html"'></div>
+    <div class="opacity-slider-container">
+      <rzslider rz-slider-model="opacitySlider.value"
+          rz-slider-options="opacitySlider.options"></rzslider>
+    </div>
   </div>
 
   <!-- Button to toggle vector overlay -->
