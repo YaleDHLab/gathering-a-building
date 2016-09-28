@@ -4,10 +4,12 @@ var controllerHelper = require('../helpers/controller-helper');
 
 angular.module('PeopleAndPlaceController', [])
   .controller("peopleAndPlaceController", [
-      "$scope", "$http", "$timeout", "$location",
-  function($scope, $http, $timeout, $location) {
+      "$scope", "$http", "$timeout", "$location", "backgroundStyle",
+  function($scope, $http, $timeout, $location, backgroundStyle) {
 
-    var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/people-and-places.json";
+    //var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/people-and-places.json";
+    var endpoint = "http://localhost:8000/json/people-and-places.json";
+
     request
       .get(endpoint)
       .set('Accept', 'application/json')
@@ -48,6 +50,7 @@ angular.module('PeopleAndPlaceController', [])
             controllerHelper.updateBackground($scope, background);
             controllerHelper.showTableOfContents($scope, tableOfContents);
             controllerHelper.updateFooter($scope, $location);
+            controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
           });
         }
 

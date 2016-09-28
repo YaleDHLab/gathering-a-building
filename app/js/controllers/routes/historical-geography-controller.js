@@ -6,8 +6,8 @@ var mapHelper        = require('../helpers/map-helper');
 
 angular.module('HistoricalGeographyController', [])
   .controller("historicalGeographyController", [
-      "$scope", "$http", "$timeout",
-  function($scope, $http, $timeout) {
+      "$scope", "$http", "$timeout", "backgroundStyle",
+  function($scope, $http, $timeout, backgroundStyle) {
 
     /***
     *
@@ -15,7 +15,9 @@ angular.module('HistoricalGeographyController', [])
     *
     ***/
 
-    var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/historical-geography.json";
+    //var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/historical-geography.json";
+    var endpoint = "http://localhost:8000/json/historical-geography.json";
+
     request
       .get(endpoint)
       .set('Accept', 'application/json')
@@ -121,16 +123,11 @@ angular.module('HistoricalGeographyController', [])
 
           // add the image tile overlay and vector overlay
           mapHelper.addImageOverlay(map, $scope.mapOverlays[selectedId]["imageOverlayUrl"]);
-          mapHelper.addVectorOverlay(map, $scope.mapOverlays[selectedId]["vectorOverlayUrl"]);
+          mapHelper.addVectorOverlay(map, $scope.mapOverlays[selectedId]["vectorOverlayUrl"], $timeout);
 
-          // add an opacity slider with floot, ceiling, and initial value
-          $scope.opacitySlider = {
-            value: 70,
-            options: {
-              floor: 0,
-              ceil: 100
-            }
-          };
+          // set the appropriate brand icon color and navbar button color
+          var section = $scope.textColumn.sections[selectedId];
+          controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
 
           // add an event listener for the slider
           $scope.$on("slideEnded", function() {
@@ -164,10 +161,8 @@ angular.module('HistoricalGeographyController', [])
         ***/
 
         var selectSection = function() {
-          $timeout(function(){
-            var sectionId = String($scope.selectedSectionId);
-            $scope.selectOverlay(sectionId);
-          });
+          var sectionId = String($scope.selectedSectionId);
+          $scope.selectOverlay(sectionId);
         }
 
         /***
@@ -177,8 +172,9 @@ angular.module('HistoricalGeographyController', [])
         ***/
 
         mapHelper.buildMapOverlayOptions($scope);
-        var map = mapHelper.initializeMap();
-        $scope.selectOverlay(0);
+        var map = mapHelper.initializeMap($scope);
+        $scope.selectOverlay(0)
+        mapHelper.initializeOpacitySlider($scope, $timeout);
 
     });
   }

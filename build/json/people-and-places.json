@@ -26,6 +26,10 @@
               "alt": "",
               "annotation": ""
             }
+          },
+          "backgroundStyle": {
+            "navigationButton": "dark",
+            "brandIcon": "dark"
           }
         },
 
@@ -42,6 +46,10 @@
               "alt": "Image of scaffolding",
               "annotation": "Scholarly annotation of scaffold image"
             }
+          },
+          "backgroundStyle": {
+            "navigationButton": "light",
+            "brandIcon": "light"
           }
         },
 
@@ -58,6 +66,10 @@
               "alt": "Image of skyline",
               "annotation": "Scholarly annotation of skyline image"
             }
+          },
+          "backgroundStyle": {
+            "navigationButton": "light",
+            "brandIcon": "light"
           }
         },
 
@@ -74,6 +86,10 @@
               "alt": "Image of skyline",
               "annotation": "Scholarly annotation of skyline image"
             }
+          },
+          "backgroundStyle": {
+            "navigationButton": "light",
+            "brandIcon": "light"
           }
         },
 
@@ -90,6 +106,10 @@
               "alt": "Image of sunset",
               "annotation": "Scholarly annotation of sunset image"
             }
+          },
+          "backgroundStyle": {
+            "navigationButton": "light",
+            "brandIcon": "light"
           }
         },
 
@@ -106,6 +126,10 @@
               "alt": "Image of scaffold",
               "annotation": "Scholarly annotation of scaffold image"
             }
+          },
+          "backgroundStyle": {
+            "navigationButton": "light",
+            "brandIcon": "light"
           }
         }
       }

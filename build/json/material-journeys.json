@@ -24,6 +24,10 @@
             "alt": "",
             "annotation": ""
           }
+        },
+        "backgroundStyle": {
+          "navigationButton": "light",
+          "brandIcon": "light"
         }
       },
 
@@ -42,6 +46,10 @@
             "alt": "Image of scaffolding",
             "annotation": "Scholarly annotation of scaffold image"
           }
+        },
+        "backgroundStyle": {
+          "navigationButton": "light",
+          "brandIcon": "light"
         }
       },
 
@@ -59,6 +67,10 @@
             "alt": "Image of scaffold",
             "annotation": "Scholarly annotation of scaffold image"
           }
+        },
+        "backgroundStyle": {
+          "navigationButton": "light",
+          "brandIcon": "light"
         },
         "iframe": "https://duhaime.carto.com/viz/a4607a6c-841b-11e6-a856-0e233c30368f/embed_map"
       },
@@ -78,6 +90,10 @@
             "alt": "Image of skyline",
             "annotation": "Scholarly annotation of skyline image"
           }
+        },
+        "backgroundStyle": {
+          "navigationButton": "light",
+          "brandIcon": "light"
         }
       },
 
@@ -95,6 +111,10 @@
             "alt": "Image of sunset",
             "annotation": "Scholarly annotation of sunset image"
           }
+        },
+        "backgroundStyle": {
+          "navigationButton": "light",
+          "brandIcon": "light"
         },
         "iframe": "https://duhaime.carto.com/viz/1e426468-842a-11e6-84e6-0e233c30368f/embed_map"
       }

@@ -4,10 +4,12 @@ var controllerHelper = require('../helpers/controller-helper');
 
 angular.module('MaterialJourneysController', [])
   .controller("materialJourneysController", [
-      "$scope", "$http", "$timeout", "$location", "$sce",
-  function($scope, $http, $timeout, $location, $sce) {
+      "$scope", "$http", "$timeout", "$location", "$sce", "backgroundStyle",
+  function($scope, $http, $timeout, $location, $sce, backgroundStyle) {
 
-    var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/material-journeys.json";
+    //var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/material-journeys.json";
+    var endpoint = "http://localhost:8000/json/material-journeys.json";
+
     request
       .get(endpoint)
       .set('Accept', 'application/json')
@@ -15,7 +17,6 @@ angular.module('MaterialJourneysController', [])
         if (err) {console.log(err)};
 
         var data = res.body;
-
         $scope.textColumn = data.textColumn;
 
         /***
@@ -70,6 +71,7 @@ angular.module('MaterialJourneysController', [])
             controllerHelper.updateBackground($scope, background);
             controllerHelper.showTableOfContents($scope, tableOfContents);
             controllerHelper.updateFooter($scope, $location);
+            controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
           });
         }
 

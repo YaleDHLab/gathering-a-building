@@ -119,6 +119,10 @@ html {
   top: 15px;
   width: 60px;
   z-index: 9;
+  -webkit-transition: fill 2s;
+  -moz-transition: fill 2s;
+  -o-transition: fill 2s;
+  transition: fill 2s;
 }
 
 /****************
@@ -143,6 +147,10 @@ html {
   width: 23px;
   margin-top: 2px;
   border-radius: 3px;
+  -webkit-transition: background 2s;
+  -moz-transition: background 2s;
+  -o-transition: background 2s;
+  transition: background 2s;
 }
 
 /****************************

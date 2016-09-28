@@ -3,8 +3,8 @@ var angular = require('angular');
 
 angular.module('HomeController', [])
   .controller("homeController", [
-      "$scope", "$http", "$location", "$timeout",
-  function($scope, $http, $location, $timeout) {
+      "$scope", "$http", "$location", "$timeout", "backgroundStyle",
+  function($scope, $http, $location, $timeout, backgroundStyle) {
 
     var footer = {
       "left": {
@@ -321,7 +321,6 @@ angular.module('HomeController', [])
   ***/
 
   $scope.deeplink = function(path, hash) {
-    console.log(path, hash);
     var body = document.querySelector('.body');
     body.style.opacity = 0;
     $timeout(function() {
@@ -339,5 +338,12 @@ angular.module('HomeController', [])
     $scope.positionOverlays();
   }
 
+  /***
+  *
+  * Initialize controller state
+  *
+  ***/
+
+  backgroundStyle.updateBackgroundStyle({navigationButton: "light", brandIcon: "light"});
 
 }]);

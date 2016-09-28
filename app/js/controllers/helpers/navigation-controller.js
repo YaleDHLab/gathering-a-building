@@ -8,8 +8,8 @@ angular.module('NavigationController', [])
 
     /***
     *
-    * Listen for changes to the asset color broadcast from 
-    * the asset-color service. When the background changes, 
+    * Listen for changes to the asset color broadcast from
+    * the asset-color service. When the background changes,
     * change the navigation icon color light or dark according
     * to the navigationButton's style {light, dark} (John 1:5)
     *
