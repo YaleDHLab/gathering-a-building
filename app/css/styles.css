@@ -137,11 +137,10 @@ html {
   cursor: pointer;
 }
 
+/* background color set by navigation-controller */
 .navigation div {
   height: 4px;
   width: 23px;
-  /* background should toggle between 85 and ff */
-  background: #e1dede;
   margin-top: 2px;
   border-radius: 3px;
 }
@@ -1022,12 +1021,24 @@ span.rz-pointer:focus {
   }
 
   /***
+  * Make navigation button and dh lab logo dark on mobile
+  ***/
+
+  .brand-logo {
+    fill: #797979 !important;
+  }
+
+  .navigation div {
+    background: #797979 !important;
+  }
+
+  /***
   * Full screen image
   ***/
 
   #page-content .full-screen-image {
     height: 50%;
-    background-attachment: initial !important;
+    background-attachment: initial;
   }
 
   /***
