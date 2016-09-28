@@ -46,7 +46,7 @@ angular.module('PeopleAndPlaceController', [])
             var sectionId = String($scope.selectedSectionId);
             var section = $scope.textColumn.sections[sectionId];
             var tableOfContents = parseInt(section["showTableOfContents"], 10);
-            var background = section["background"]["1"]["url"];
+            var background = section["background"]["url"];
             controllerHelper.updateBackground($scope, background);
             controllerHelper.showTableOfContents($scope, tableOfContents);
             controllerHelper.updateFooter($scope, $location);

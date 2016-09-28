@@ -302,7 +302,8 @@ angular.module('HomeController', [])
 
   /***
   *
-  * Click listener that can catch clicks to close modal
+  * Click listener that can catch clicks to close modal and restore
+  * opacity to all icons
   *
   ***/
 
