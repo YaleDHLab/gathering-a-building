@@ -42,13 +42,12 @@ angular.module('PeopleAndPlaceController', [])
         ***/
 
         var selectSection = function() {
-          $timeout(function(){
+          $timeout(function() {
             var sectionId = String($scope.selectedSectionId);
             var section = $scope.textColumn.sections[sectionId];
-            var tableOfContents = parseInt(section["showTableOfContents"], 10);
             var background = section["background"]["url"];
             controllerHelper.updateBackground($scope, background);
-            controllerHelper.showTableOfContents($scope, tableOfContents);
+            controllerHelper.updateTemplate($scope, $timeout, section);
             controllerHelper.updateFooter($scope, $location);
             controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
           });
@@ -57,12 +56,10 @@ angular.module('PeopleAndPlaceController', [])
         // initialize the application state
         $timeout(function() {
           $scope.selectedSectionId = 0;
-          selectSection($scope);
-          controllerHelper.showTableOfContents($scope, 1);
           controllerHelper.buildDropdownOptions($scope);
           controllerHelper.initializeMobile($scope);
-          controllerHelper.initializeFooter($scope, $location, 
-                "People & Places", "partial");
+          controllerHelper.initializeFooter($scope, $location, "People & Places", "partial");
+          selectSection();
 
           // finally, given the loaded data, scroll to the requested id (if any)
           controllerHelper.scrollToHash($location, $timeout);

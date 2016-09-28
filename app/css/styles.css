@@ -14,12 +14,6 @@ body {
 * Helper styles *
 ****************/
 
-.dynamic-opacity {
-  transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -webkit-transition: opacity 1s ease-in-out;
-}
-
 .hidden {
   display: none;
 }
@@ -60,6 +54,38 @@ a {
 a:hover,
 a.active {
   color: #8D8C8C;
+}
+
+/***
+* Animation Helpers
+***/
+
+.dynamic-opacity {
+  -o-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.one-div-container {
+  -o-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.three-div-container {
+  -o-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.four-div-container {
+  -o-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
 }
 
 .animated {
@@ -581,7 +607,6 @@ html {
   height: 100%;
   position: absolute;
   z-index: 1;
-  opacity: 1;
 }
 
 .table-of-contents-left {
@@ -1244,7 +1269,6 @@ span.rz-pointer:focus {
     font-weight: 800;
     cursor: pointer;
   }
-
 
   /***
   * Footer

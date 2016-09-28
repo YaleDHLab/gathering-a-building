@@ -18,6 +18,39 @@ module.exports = {
 
   /***
   *
+  * Update the template used as the background for the view
+  *
+  ***/
+
+  updateTemplate: function($scope, $timeout, section) {
+    // if we're swapping templates, fade the old one out
+    if ($scope.template) {
+      if ($scope.template != section["template"]) {
+
+        // apply animations to the three and four div containers
+        if ($scope.template == 'three-div-container' || $scope.template == 'four-div-container') {
+          document.querySelector('.' + $scope.template).style.opacity = 0;
+        };
+
+        // if the new template is a three or four div container, fade it in
+        if (section["template"] == 'three-div-container' || section["template"] == 'four-div-container') {
+          document.querySelector('.' + section["template"]).style.opacity = 1;
+        };
+
+        // update the new template
+        $timeout(function() {
+           $scope.template = section["template"];
+         }, 900);
+      }
+    } else {
+
+      // the template doesn't exist yet, so initialize it
+      $scope.template = section["template"];
+    }
+  },
+
+  /***
+  *
   * Function to change the color of the navigation button
   * and DHLab brand image
   *
@@ -26,27 +59,6 @@ module.exports = {
   updateBackgroundStyle: function($scope, backgroundStyleService, section) {
     var style = section["backgroundStyle"];
     backgroundStyleService.updateBackgroundStyle({navigationButton: style.navigationButton, brandIcon: style.brandIcon});
-  },
-
-  /***
-  *
-  * Fades the table of contents into / out of view
-  *
-  ***/
-
-  showTableOfContents: function($scope, v) {
-    var target = document.querySelector('.table-of-contents-container');
-
-    // if the target exists, update its opacity
-    // else the target doesn't exist in the DOM; add it
-    if (target) {
-      target.style.opacity = v;
-      if (v == 1) {
-        $scope.showTableOfContents = 1;
-      }
-    } else {
-      $scope.showTableOfContents = 1;
-    }
   },
 
   /***

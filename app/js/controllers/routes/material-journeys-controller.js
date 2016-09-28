@@ -40,7 +40,6 @@ angular.module('MaterialJourneysController', [])
         ***/
 
         $scope.showIframe = function(boolean, iframeSrc) {
-          console.log(boolean, iframeSrc);
           controllerHelper.showIframe($scope, boolean, iframeSrc);
         }
 
@@ -66,10 +65,9 @@ angular.module('MaterialJourneysController', [])
           $timeout(function(){
             var sectionId = String($scope.selectedSectionId);
             var section = $scope.textColumn.sections[sectionId];
-            var tableOfContents = parseInt(section["showTableOfContents"], 10);
             var background = section["background"]["url"];
+            controllerHelper.updateTemplate($scope, $timeout, section);
             controllerHelper.updateBackground($scope, background);
-            controllerHelper.showTableOfContents($scope, tableOfContents);
             controllerHelper.updateFooter($scope, $location);
             controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
           });
@@ -78,7 +76,6 @@ angular.module('MaterialJourneysController', [])
         // initialize the application state
         $scope.selectedSectionId = 0;
         selectSection($scope);
-        controllerHelper.showTableOfContents($scope, 1);
         controllerHelper.buildDropdownOptions($scope);
         controllerHelper.initializeMobile($scope);
         controllerHelper.initializeIframe($scope);

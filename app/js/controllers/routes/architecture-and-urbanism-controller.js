@@ -45,10 +45,9 @@ angular.module('ArchitectureAndUrbanismController', [])
           $timeout(function(){
             var sectionId = String($scope.selectedSectionId);
             var section = $scope.textColumn.sections[sectionId];
-            var tableOfContents = parseInt(section["showTableOfContents"], 10);
             var background = section["background"]["url"];
+            controllerHelper.updateTemplate($scope, $timeout, section);
             controllerHelper.updateBackground($scope, background);
-            controllerHelper.showTableOfContents($scope, tableOfContents);
             controllerHelper.updateFooter($scope, $location);
             controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
           });
@@ -58,7 +57,6 @@ angular.module('ArchitectureAndUrbanismController', [])
         $timeout(function() {
           $scope.selectedSectionId = 0;
           selectSection($scope);
-          controllerHelper.showTableOfContents($scope, 1);
           controllerHelper.buildDropdownOptions($scope);
           controllerHelper.initializeMobile($scope);
           controllerHelper.initializeFooter($scope, $location,
