@@ -17,7 +17,7 @@ angular.module('PeopleAndPlaceController', [])
         if (err) {console.log(err)};
 
         var data = res.body;
-        $scope.textColumn = data.textColumn;
+        $scope.textColumn = data;
 
         /***
         *

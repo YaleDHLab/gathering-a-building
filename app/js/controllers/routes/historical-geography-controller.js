@@ -25,8 +25,14 @@ angular.module('HistoricalGeographyController', [])
         if (err) {console.log(err)};
 
         var data = res.body;
-        $scope.mobile     = data.mobile;
-        $scope.textColumn = data.textColumn;
+        $scope.textColumn = data;
+
+        $scope.mobile = {
+          "mobileControlsLeft": "/templates/partials/historical-geography/overlay-select-dropdown.html",
+          "mobileControlsLeftClass": "",
+          "mobileControlsRight": "/templates/partials/historical-geography/opacity-slider.html",
+          "mobileControlsRightClass": ""
+        }
 
         $scope.mapOverlays = {
           "0": {
