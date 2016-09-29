@@ -149,6 +149,7 @@ html {
   -moz-transition: fill 2s;
   -o-transition: fill 2s;
   transition: fill 2s;
+  fill: #ffffff;
 }
 
 /****************
@@ -177,6 +178,7 @@ html {
   -moz-transition: background 2s;
   -o-transition: background 2s;
   transition: background 2s;
+  background: #ffffff;
 }
 
 /****************************
@@ -743,7 +745,7 @@ html {
 *************************/
 
 .section-subheading {
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: 100;
   line-height: 1em;
   text-transform: uppercase;

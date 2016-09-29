@@ -24,9 +24,33 @@
             'section-title first-section-title' : section.id == 0,
             'section-title' : section.id != 0
           }">{{ section.title }}</h2>
-          <div data-ng-repeat="paragraph in section.paragraphs">
-            <div data-ng-bind-html="paragraph | allowHtml" class="section-paragraph"></div>
+
+          <!-- Template partial for sections with section-type table-of-contents -->
+          <div data-ng-if="section.sectionType == 'table-of-contents'">
+            <div data-ng-repeat="paragraph in section.paragraphs track by $index" class="section-paragraph">
+
+              <!-- Template content for link text -->
+              <a data-ng-show="paragraph.type == 'link'"
+                data-ng-href="{{'/#/routes/' + textColumn.controller + '#' + ($index+1)}}">
+                <h2 class="section-subheading">{{paragraph.text}}</h2>
+              </a>
+
+              <!-- Template content for section-introduction-text -->
+              <div data-ng-if="paragraph.type == 'section-introduction-text'"
+                class="section-introduction-text">
+                {{paragraph.text}}
+              </div>
+
+            </div>
           </div>
+
+          <!-- Template for section with section-type == text-with-title or text-without-title -->
+          <div data-ng-if="section.sectionType == 'text'">
+            <div data-ng-repeat="paragraph in section.paragraphs">
+              <div data-ng-bind-html="paragraph | allowHtml" class="section-paragraph"></div>
+            </div>
+          </div>
+
         </div>
 
         <!-- Template for sending users back to landing page image -->
