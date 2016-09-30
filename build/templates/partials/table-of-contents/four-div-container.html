@@ -1,0 +1,19 @@
+<div data-ng-show="template == 'four-div-container'"
+    class="table-of-contents-container dynamic-opacity four-div-container">
+  <div class="table-of-contents-left">
+    <div class="table-of-contents-left-panel">
+    </div>
+  </div>
+  <div class="table-of-contents-right">
+    <div data-ng-repeat="section in textColumn.sections" 
+        data-ng-if="section.id != 0"
+        class="table-of-contents-right-panel">
+      <a data-ng-href="/#/routes/{{textColumn.controller}}#{{section.id}}">
+        <div data-background-image="{{section.introImage}}" class="intro-image">
+          <img class="image-onload-target hidden" data-ng-src="{{section.introImage}}" />
+          <div class="white-bar" data-ng-if="section.id > 1"></div>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>

@@ -14,12 +14,6 @@ body {
 * Helper styles *
 ****************/
 
-.dynamic-opacity {
-  transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -webkit-transition: opacity 1s ease-in-out;
-}
-
 .hidden {
   display: none;
 }
@@ -60,6 +54,38 @@ a {
 a:hover,
 a.active {
   color: #8D8C8C;
+}
+
+/***
+* Animation Helpers
+***/
+
+.dynamic-opacity {
+  -o-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.one-div-container {
+  -o-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.three-div-container {
+  -o-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+}
+
+.four-div-container {
+  -o-transition: opacity 1s;
+  -moz-transition: opacity 1s;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
 }
 
 .animated {
@@ -119,6 +145,11 @@ html {
   top: 15px;
   width: 60px;
   z-index: 9;
+  -webkit-transition: fill 2s;
+  -moz-transition: fill 2s;
+  -o-transition: fill 2s;
+  transition: fill 2s;
+  fill: #ffffff;
 }
 
 /****************
@@ -137,13 +168,17 @@ html {
   cursor: pointer;
 }
 
+/* background color set by navigation-controller */
 .navigation div {
   height: 4px;
   width: 23px;
-  /* background should toggle between 85 and ff */
-  background: #e1dede;
   margin-top: 2px;
   border-radius: 3px;
+  -webkit-transition: background 2s;
+  -moz-transition: background 2s;
+  -o-transition: background 2s;
+  transition: background 2s;
+  background: #ffffff;
 }
 
 /****************************
@@ -389,6 +424,11 @@ html {
 * Text overlay styles *
 **********************/
 
+.text-column-wrapper,
+.text-column-container {
+  overflow: hidden;
+}
+
 .navigation-overlay-column,
 .text-column-container {
   position: fixed;
@@ -396,12 +436,14 @@ html {
   width: 370px;
   left: 150px;
   background-color: #fff;
-  z-index: 1;
+  z-index: 2;
 }
 
 .text-column {
   max-height: 100%;
   overflow: scroll;
+  /* Hide scrollbar across browsers */
+  margin-right: -16px;
 }
 
 .text-column-content {
@@ -410,6 +452,8 @@ html {
   padding-top: 0;
   font-family: Arial;
   line-height: 1.35em;
+  /* Counteract the negative margin on .text-column */
+  margin-right: 16px;
 }
 
 .section-paragraph {
@@ -417,18 +461,20 @@ html {
   font-size: .96em;
 }
 
-.home-link {
-  background: url("/assets/images/yale_residential_colleges_arch_small.png") no-repeat center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+/***
+*
+* Buttons within the text column
+*
+***/
+
+.text-column-button-container {
   width: 300px;
   height: 110px;
   border-radius: 5px;
+  border: 1px solid darkgray;
 }
 
-.home-link-button {
+.text-column-button {
   display: inline-block;
   background: #3399CC;
   padding: 14px;
@@ -438,7 +484,66 @@ html {
   line-height: .8em;
   color: #fff;
   border-radius: 5px;
-  border: 1px solid #fff;
+  cursor: pointer;
+}
+
+.home-link {
+  background: url("/assets/images/yale_residential_colleges_arch_small.png") no-repeat center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.map-link {
+  background: url("/assets/images/ct_map.png") no-repeat center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  border: 1px solid darkgray;
+}
+
+.image-link {
+  background: url("/assets/images/construction_image.jpg") no-repeat center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/***
+*
+* Full page iframe
+*
+***/
+
+.iframe-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  z-index: 1;
+}
+
+/***
+* CartoDB overrides
+***/
+
+.iframe-container .cartodb-map-wrapper.leaflet-container.leaflet-fade-anim {
+  bottom: 0 !important;
+}
+
+.iframe-container .cartodb-share,
+.iframe-container .cartodb-searchbox {
+  display: none !important;
+}
+
+.iframe-container .cartodb-zoom {
+  float: none;
+  position: fixed;
+  right: 20px;
+  bottom: 60px;
 }
 
 /**********************
@@ -513,13 +618,13 @@ html {
   height: 100%;
   position: absolute;
   z-index: 1;
-  opacity: 1;
 }
 
 .table-of-contents-left {
   width: 520px;
   height: 100%;
   background: url(/assets/images/concrete.jpg) no-repeat center center fixed;
+  background-size: cover;
   float: left;
   display: block;
 }
@@ -630,19 +735,19 @@ html {
 }
 
 .caption {
-  padding-bottom: 18px;
+  padding: 25px;
+  padding-bottom: 0px;
   font-family: Arial;
   font-size: .87em;
   line-height: 1.35em;
 }
-
 
 /*************************
 * Table of contents menu *
 *************************/
 
 .section-subheading {
-  font-size: 1.1em;
+  font-size: 1em;
   font-weight: 100;
   line-height: 1em;
   text-transform: uppercase;
@@ -787,7 +892,7 @@ span.vector-overlay-toggle-button.active {
   position: absolute;
   bottom: 13px;
   width: 110px;
-  left: 780px;
+  left: 880px;
   z-index: 4;
 }
 
@@ -961,12 +1066,24 @@ span.rz-pointer:focus {
   }
 
   /***
+  * Make navigation button and dh lab logo dark on mobile
+  ***/
+
+  .brand-logo {
+    fill: #797979 !important;
+  }
+
+  .navigation div {
+    background: #797979 !important;
+  }
+
+  /***
   * Full screen image
   ***/
 
   #page-content .full-screen-image {
     height: 50%;
-    background-attachment: initial !important;
+    background-attachment: initial;
   }
 
   /***
@@ -1164,7 +1281,6 @@ span.rz-pointer:focus {
     font-weight: 800;
     cursor: pointer;
   }
-
 
   /***
   * Footer

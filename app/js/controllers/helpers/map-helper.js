@@ -1,6 +1,6 @@
-var L  = require('leaflet');
-var d3 = require('d3');
-var $  = require('jquery');
+var L       = require('leaflet');
+var request = require('superagent');
+var $       = require('jquery');
 
 module.exports = {
 
@@ -35,7 +35,7 @@ module.exports = {
   *
   ***/
 
-  initializeMap: function() {
+  initializeMap: function($scope, callback) {
 
     // specify the coordinates on which to center the map initially
     var centerCoordinates = new L.LatLng(41.307, -72.928);
@@ -71,36 +71,41 @@ module.exports = {
   *
   ***/
 
-  addVectorOverlay: function(map, vectorJsonUrl) {
+  addVectorOverlay: function(map, vectorJsonUrl, $timeout) {
 
     // request json that describes building boundaries
-    d3.json(vectorJsonUrl, function(rawJson) {
+    request
+      .get(vectorJsonUrl)
+      .set('Accept', 'application/json')
+      .end(function(err, res){
 
-      // Revove any extant building vector overlays from the map.
-      // To do so, get a reference to the vectors, then fade them out.
-      // One second after that function completes, remove the objects
-      // from the DOM.
-      var overlayBoundingBox = $(".overlay-bounding-box");
-      overlayBoundingBox.addClass("fade-out");
-      setTimeout(function(){
-        overlayBoundingBox.remove(); },
-      1000);
+        var rawJson = res.body;
 
-      // each member of this array describes a building
-      for (var i=0; i<rawJson.length; i++) {
-        var buildingJson = rawJson[i];
-        if (buildingJson) {
+        // Revove any extant building vector overlays from the map.
+        // To do so, get a reference to the vectors, then fade them out.
+        // One second after that function completes, remove the objects
+        // from the DOM.
+        var overlayBoundingBox = $(".overlay-bounding-box");
+        overlayBoundingBox.addClass("fade-out");
+        $timeout(function(){
+          overlayBoundingBox.remove(); },
+        1000);
 
-          // add the building to the map
-          var polyline = new L.GeoJSON(buildingJson, {
-              className: 'overlay-bounding-box animated fade-in',
-              weight: 2,
-              fillOpacity: .85
-            }
-          ).addTo(map);
+        // each member of this array describes a building
+        for (var i=0; i<rawJson.length; i++) {
+          var buildingJson = rawJson[i];
+          if (buildingJson) {
+
+            // add the building to the map
+            var polyline = new L.GeoJSON(buildingJson, {
+                className: 'overlay-bounding-box animated fade-in',
+                weight: 2,
+                fillOpacity: .85
+              }
+            ).addTo(map);
+          }
+
         }
-
-      }
     });
   },
 
@@ -150,6 +155,24 @@ module.exports = {
   hideTextColumn: function($scope) {
     $scope.textColumn.display = "0";
     $scope.footer.right.display = "<i class='fa fa-chevron-circle-down'></i>";
+  },
+
+  /***
+  *
+  * Function to initialize the opacity slider
+  *
+  ***/
+
+  initializeOpacitySlider: function($scope, $timeout) { 
+
+    // add an opacity slider with floot, ceiling, and initial value
+    $scope.opacitySlider = {
+      value: 70,
+      options: {
+        floor: 0,
+        ceil: 100
+      }
+    };
   }
 
 }

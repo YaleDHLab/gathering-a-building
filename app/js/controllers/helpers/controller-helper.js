@@ -18,20 +18,47 @@ module.exports = {
 
   /***
   *
-  * Fades the table of contents into / out of view
+  * Update the template used as the background for the view
   *
   ***/
 
-  showTableOfContents: function($scope, v) {
-    var target = document.querySelector('.table-of-contents-container');
+  updateTemplate: function($scope, $timeout, section) {
+    // if we're swapping templates, fade the old one out
+    if ($scope.template) {
+      if ($scope.template != section["template"]) {
 
-    // if the target exists, update its opacity
-    // else the target doesn't exist in the DOM; add it
-    if (target) {
-      target.style.opacity = v;
+        // apply animations to the three and four div containers
+        if ($scope.template == 'three-div-container' || $scope.template == 'four-div-container') {
+          document.querySelector('.' + $scope.template).style.opacity = 0;
+        };
+
+        // if the new template is a three or four div container, fade it in
+        if (section["template"] == 'three-div-container' || section["template"] == 'four-div-container') {
+          document.querySelector('.' + section["template"]).style.opacity = 1;
+        };
+
+        // update the new template
+        $timeout(function() {
+           $scope.template = section["template"];
+         }, 900);
+      }
     } else {
-      $scope.showTableOfContents = 1;
+
+      // the template doesn't exist yet, so initialize it
+      $scope.template = section["template"];
     }
+  },
+
+  /***
+  *
+  * Function to change the color of the navigation button
+  * and DHLab brand image
+  *
+  ***/
+
+  updateBackgroundStyle: function($scope, backgroundStyleService, section) {
+    var style = section["backgroundStyle"];
+    backgroundStyleService.updateBackgroundStyle({navigationButton: style.navigationButton, brandIcon: style.brandIcon});
   },
 
   /***
@@ -49,5 +76,110 @@ module.exports = {
         id: $scope.textColumn.sections[i].id
       });
     };
+  },
+
+  /***
+  *
+  * Function to initialize the left portion of the footer
+  *
+  ***/
+
+  initializeFooter: function($scope, $location, title, style) {
+    $scope.footer = {
+      "style": style,
+      "left": {
+        "display": title,
+        "url": "/#" + $location.path() + "#0"
+      }
+    }
+  },
+
+  /***
+  *
+  * Function to update the footer link upon section change
+  *
+  ***/
+
+  updateFooter: function($scope, $location) {
+    // if there is a next section, make the right hand side
+    // of the footer link to it, else make the right hand
+    // side of the footer blank
+    var sections = Object.keys($scope.textColumn.sections).length;
+    var path = $location.path();
+    var hash = parseInt($scope.selectedSectionId, 10);
+    var nextHash = hash + 1;
+
+    // identify the html for the right footer
+    var footerRightHtml = "Next <i class='fa fa-angle-down'></i>";
+
+    // subtract 1 from sections because length is 1-based indexed,
+    // and section ids count from 0
+    if (nextHash > (sections-1)) {
+      $scope.footer.right = {
+        "url": "/#" + path + "#0",
+        "display": ""
+      }
+    } else {
+      $scope.footer.right = {
+        "url": "/#" + path + "#" + nextHash,
+        "display": footerRightHtml
+      }
+    }
+  },
+
+  /***
+  *
+  * Function to initialize mobile controls
+  *
+  ***/
+
+  initializeMobile: function($scope) {
+    $scope.mobile = {
+      "mobileControlsLeft": "/templates/partials/layout/dropdown-selector.html",
+      "mobileControlsLeftClass": "full-width-mobile-dropdown",
+      "mobileControlsRight": "",
+      "mobileControlsRightClass": "hidden"
+    }
+  },
+
+  /***
+  *
+  * Function to initialize the iframe controls
+  *
+  ***/
+
+  initializeIframe: function($scope) {
+    $scope.iframe = {
+      shown: "0",
+      src: ""
+    }
+  },
+
+  /***
+  *
+  * Function to show a full screen iframe
+  *
+  ***/
+
+  showIframe: function($scope, boolean, iframeSrc) {
+    $scope.iframe.shown = boolean;
+    $scope.iframe.src = iframeSrc;
+  },
+
+  /***
+  *
+  * Function to scroll to the hash() element of the current $location()
+  *
+  ***/
+
+  scrollToHash($location, $timeout) {
+    var hash = $location.hash();
+    if (hash) {
+      $timeout(function(){
+        var destination = document.getElementById(hash);
+        destination.scrollIntoView();
+      });
+    }
   }
+
 }

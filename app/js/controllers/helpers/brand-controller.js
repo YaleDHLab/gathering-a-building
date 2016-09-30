@@ -7,20 +7,34 @@ angular.module('BrandController', [])
   function($scope, $http) {
 
     /***
-    * @object: keys are aspects of brand identity
-    *          values are details for the current brand
     *
-    * Establishes brand information to show in the view
+    * Listen for changes to the asset color broadcast
+    * from the asset-color service. When the background
+    * changes, change the brand logo accordingly
+    *
     ***/
+
+    $scope.$on('backgroundStyleUpdated', function (event, style) {
+      if (style.brandIcon == "light") {
+        $scope.style = {fill: "#ffffff"};
+      }
+      if (style.brandIcon == "dark") {
+        $scope.style = {fill: "#797979"} ;
+      }
+    });
 
     $scope.brand = {
       "title": "GATHERING A BUILDING",
-      "logo": "/assets/images/dh-lab-gray.png",
       "url": "http://web.library.yale.edu/dhlab"
     };
 
-    // add a function that hides the navigation overlay
-    // on click of site title
+    /***
+    *
+    * Function that hides the navigation overlay
+    * on click of site title
+    *
+    ***/
+
     $scope.hideOverlay = function() {
       $(".navigation-overlay").addClass("hidden");
       $(".navigation").removeClass("hidden");

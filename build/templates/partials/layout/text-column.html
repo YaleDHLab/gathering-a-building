@@ -1,5 +1,6 @@
 <div data-ng-show="textColumn.display === '1'" 
       class="text-column-wrapper"
+      template-loaded="scrollToHash()"
       data-ng-cloak>
   <hr data-ng-show="textColumn.hr == '1'"
         class="text-column-hr text-column-hr-top">
@@ -20,18 +21,60 @@
               }"
           </div>
           <h2 data-ng-class="{
-            'section-title first-section-title' : section.id == 0,
-            'section-title' : section.id != 0
-          }">{{ section.title }}</h2>
-          <div data-ng-repeat="paragraph in section.paragraphs">
-            <div data-ng-bind-html="paragraph | allowHtml" class="section-paragraph"></div>
+              'section-title first-section-title' : section.id == 0,
+              'section-title' : section.id != 0 }"
+            data-ng-bind-html="section.title | allowHtml"></h2>
+
+          <!-- Template partial for sections with section-type table-of-contents -->
+          <div data-ng-if="section.sectionType == 'table-of-contents'">
+            <div data-ng-repeat="paragraph in section.paragraphs track by $index" class="section-paragraph">
+
+              <!-- Template content for link text -->
+              <a data-ng-show="paragraph.type == 'link'"
+                data-ng-href="{{'/#/routes/' + textColumn.controller + '#' + ($index+1)}}">
+                <h2 data-ng-bind-html="paragraph.text | allowHtml"
+                  class="section-subheading"></h2>
+              </a>
+
+              <!-- Template content for section-introduction-text -->
+              <div data-ng-if="paragraph.type == 'section-introduction-text'"
+                data-ng-bind-html="paragraph.text | allowHtml"
+                class="section-introduction-text">
+              </div>
+
+            </div>
           </div>
+
+          <!-- Template for section with section-type == text-with-title or text-without-title -->
+          <div data-ng-if="section.sectionType == 'text'">
+            <div data-ng-repeat="paragraph in section.paragraphs">
+              <div data-ng-bind-html="paragraph | allowHtml" class="section-paragraph"></div>
+            </div>
+          </div>
+
         </div>
-        <div data-ng-if="section.linksHome === '1'" class="home-link">
+
+        <!-- Template for sending users back to landing page image -->
+        <div data-ng-if="section.linksHome === '1'" class="text-column-button-container home-link">
           <a href="/#/">
-            <div class="home-link-button">Go Back &rarr;</div>
+            <div class="text-column-button">Go Back &rarr;</div>
           </a>
         </div>
+
+        <!-- Template for toggling between background image and map iframe -->
+        <div data-ng-if="section.iframe && iframe.shown === '0'"
+            data-ng-click="showIframe('1', section.iframe)"
+            class="text-column-button-container  map-link">
+          <div class="text-column-button show-map">Show Map</div>
+        </div>
+
+        <!-- Template for toggling between background image and map iframe -->
+        <div data-ng-if="section.iframe && iframe.shown === '1'"
+          data-ng-click="showIframe('0', section.iframe)"
+          class="text-column-button-container image-link">
+          <div class="text-column-button show-image">Show Image</div>
+        </div>
+
       </div>
     </div>
     <div class="alpha-fade-bottom"></div>

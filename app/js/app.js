@@ -15,7 +15,7 @@ require('./controllers/routes/building-model-controller');
 require('./controllers/routes/historical-geography-controller');
 require('./controllers/routes/home-controller');
 require('./controllers/routes/material-journeys-controller');
-require('./controllers/routes/people-and-place-controller');
+require('./controllers/routes/people-and-places-controller');
 
 // helper controllers
 require('./controllers/helpers/navigation-controller');
@@ -34,6 +34,9 @@ require('./directives/template-loaded');
 // filters
 require('./filters/allow-html');
 
+// services
+require('./services/background-style');
+
 // main application with dependency modules declared
 var buildingApp = angular.module("BuildingApp",
   [
@@ -48,7 +51,7 @@ var buildingApp = angular.module("BuildingApp",
     "HistoricalGeographyController",
     "HomeController",
     "MaterialJourneysController",
-    "PeopleAndPlaceController",
+    "PeopleAndPlacesController",
 
     // helper controllers
     "NavigationController",
@@ -65,7 +68,10 @@ var buildingApp = angular.module("BuildingApp",
     "TemplateLoaded",
 
     // filters
-    "AllowHtml"
+    "AllowHtml",
+
+    // services
+    "BackgroundStyle"
   ]
 );
 
@@ -115,9 +121,9 @@ buildingApp.config([
   })
 
   // route for the about page
-  $routeProvider.when('/routes/people-and-place', {
-    templateUrl : '/templates/routes/people-and-place.html',
-    controller  : 'peopleAndPlaceController',
+  $routeProvider.when('/routes/people-and-places', {
+    templateUrl : '/templates/routes/people-and-places.html',
+    controller  : 'peopleAndPlacesController',
     reloadOnSearch : false
   })
 

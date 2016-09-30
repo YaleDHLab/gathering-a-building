@@ -1,0 +1,22 @@
+<div data-ng-show="template == 'three-div-container'"
+    class="table-of-contents-container dynamic-opacity three-div-container">
+  <div class="wide-table-of-contents-container">
+    <div class="wide-table-of-contents-left"></div>
+    <div class="wide-table-of-contents-right">
+      <div class="wide-table-of-contents-right-top"> 
+        <div class="fill-container" data-background-image="{{textColumn['sections'][selectedSectionId]['topImage']}}"></div>
+      </div>
+      <div class="wide-table-of-contents-bottom">
+        <div class="wide-table-of-contents-bottom-left">
+          <div class="fill-container" data-background-image="{{textColumn['sections'][selectedSectionId]['bottomImage']}}"></div>
+        </div>
+        <div class="wide-table-of-contents-bottom-right">
+          <div class='caption caption-top'>
+            <div data-ng-bind-html="textColumn['sections'][selectedSectionId]['topCaption'] | allowHtml"></div>
+          </div>
+          <div class='caption caption-left' data-ng-bind-html="textColumn['sections'][selectedSectionId]['bottomCaption'] | allowHtml"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
