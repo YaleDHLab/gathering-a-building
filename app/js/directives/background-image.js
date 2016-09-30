@@ -49,7 +49,7 @@ angular.module('BackgroundImage', [])
 
       var fadeIn = function(value) {
         element.css({
-          'background': 'url(' + value +') no-repeat center center fixed',
+          'background': 'url(' + value +') no-repeat center center',
           'background-size' : 'cover',
           'opacity': '1'
         });
