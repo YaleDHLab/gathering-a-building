@@ -31,9 +31,10 @@
           "type": "section-introduction-text"
         }
       ],
-      "topRightHtml": "<div class='fill-container' style='background: url(/assets/images/cardboard_colleges.jpg) no-repeat center center; background-size: cover;'></div>",
-      "bottomLeftHtml": "<div class='fill-container' style='background: url(/assets/images/mapbox_base.png) no-repeat center center; background-size: cover;'></div>",
-      "bottomRightHtml": "<div class='fill-container'><div class='caption-container'><div class='caption caption-top'>Top: Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his.</div><div class='caption caption-left'>Left: Lorem ipsum dolor sit amet, vix vide audire at, autem mentitum sententiae id eum. Adversarium signiferumque est eu, an eum sonet essent mediocritatem. Ea impedit gubergren torquatos quo, te inermis noluisse consequat his.</div></div></div>",
+      "topImage": "/assets/images/cardboard_colleges.jpg",
+      "bottomImage": "/assets/images/mapbox_base.png",
+      "topCaption": "Lorem ipsum dolor sit amet, oratio dissentiunt no mei. Eu has dicit graeci, te pro eirmod consectetuer. Eu clita ullamcorper has, duo ei similique efficiendi. Id sit nonumes omittam.",
+      "bottomCaption": "Lorem ipsum dolor sit amet, oratio dissentiunt no mei. Eu has dicit graeci, te pro eirmod consectetuer. Eu clita ullamcorper has, duo ei similique efficiendi. Id sit nonumes omittam.",
       "background": "",
       "backgroundStyle": {
         "navigationButton": "dark",
