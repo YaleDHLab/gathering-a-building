@@ -75,7 +75,7 @@ angular.module('MaterialJourneysController', [])
 
         // initialize the application state
         $scope.selectedSectionId = 0;
-        selectSection($scope);
+        selectSection();
         controllerHelper.buildDropdownOptions($scope);
         controllerHelper.initializeMobile($scope);
         controllerHelper.initializeIframe($scope);
