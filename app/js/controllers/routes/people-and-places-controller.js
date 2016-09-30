@@ -2,8 +2,8 @@ var angular = require('angular');
 var request = require('superagent');
 var controllerHelper = require('../helpers/controller-helper');
 
-angular.module('PeopleAndPlaceController', [])
-  .controller("peopleAndPlaceController", [
+angular.module('PeopleAndPlacesController', [])
+  .controller("peopleAndPlacesController", [
       "$scope", "$http", "$timeout", "$location", "backgroundStyle",
   function($scope, $http, $timeout, $location, backgroundStyle) {
 
@@ -65,10 +65,12 @@ angular.module('PeopleAndPlaceController', [])
           controllerHelper.scrollToHash($location, $timeout);
 
           $scope.tableOfContents = {
-            "topRightHtml": $scope.textColumn["sections"]["0"]["topRightHtml"],
+            "topImage": $scope.textColumn["sections"]["0"]["topImage"],
             "bottomLeftHtml": $scope.textColumn["sections"]["0"]["bottomLeftHtml"],
             "bottomRightHtml": $scope.textColumn["sections"]["0"]["bottomRightHtml"]
           };
+          console.log($scope.textColumn);
+
         });
 
       });
