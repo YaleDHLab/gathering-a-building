@@ -29,6 +29,9 @@ function slug_register_custom_field() {
     // iframe embedding for material-journeys
     'iframe',
 
+    // option to link objects to the landing page image
+    'linksHome',
+
     // three-div-container fields
     'topImage', 'bottomImage', 'topCaption', 'bottomCaption',
 

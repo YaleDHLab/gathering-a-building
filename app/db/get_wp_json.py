@@ -69,7 +69,8 @@ def get_flat_metadata_fields():
     "topImage",
     "bottomImage",
     "topCaption",
-    "bottomCaption"
+    "bottomCaption",
+    "linksHome"
   ]
 
 
