@@ -13,14 +13,38 @@ function slug_register_custom_field() {
 
   // specify the fields that need to be added to API responses
   foreach( array(
+
+    // routing
+    'controller',
+
+    // static site navigation assets
+    'brandIcon', 'navigationButton',
+
+    // text column
+    'order', 'sectionType', 'template',
+
+    // table of contents for material-journeys
+    'introImage',
+
+    // iframe embedding for material-journeys
+    'iframe',
+
+    // three-div-container fields
+    'topImage', 'bottomImage', 'topCaption', 'bottomCaption',
+
     // landing page modal fields
-    'x', 'y', 'modal-image', 'modal-text', 'modal-title', 'link-destination',
+    'x', 'y', 'modalImage', 'modalText', 'modalTitle', 'linkDestination',
+
     // main site section fields
     'subtitle', 'order',
+
     // background images
-    'background-image', 'background-image-top', 'background-image-bottom',
+    'backgroundImage', 'backgroundImageTop', 'backgroundImageBottom',
+
     // three picture template captions
-    'top-caption', 'bottom-caption') as $field) {
+    'topCaption', 'bottomCaption'
+
+  ) as $field) {
     register_rest_field( 'post',
         $field,
         array(
