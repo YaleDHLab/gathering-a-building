@@ -42,36 +42,25 @@ angular.module('PeopleAndPlacesController', [])
         ***/
 
         var selectSection = function() {
-          $timeout(function() {
-            var sectionId = String($scope.selectedSectionId);
-            var section = $scope.textColumn.sections[sectionId];
-            var background = section["background"]["url"];
-            controllerHelper.updateBackground($scope, background);
-            controllerHelper.updateTemplate($scope, $timeout, section);
-            controllerHelper.updateFooter($scope, $location);
-            controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
-          });
+          var sectionId = String($scope.selectedSectionId);
+          var section = $scope.textColumn.sections[sectionId];
+          var background = section["background"]["url"];
+          controllerHelper.updateTemplate($scope, $timeout, section);
+          controllerHelper.updateBackground($scope, background);
+          controllerHelper.updateFooter($scope, $location);
+          controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
         }
 
         // initialize the application state
-        $timeout(function() {
-          $scope.selectedSectionId = 0;
-          controllerHelper.buildDropdownOptions($scope);
-          controllerHelper.initializeMobile($scope);
-          controllerHelper.initializeFooter($scope, $location, "People & Places", "partial");
-          selectSection();
+        controllerHelper.initializeFooter($scope, $location,
+          "People & Places", "partial");
+        $scope.selectedSectionId = 0;
+        selectSection();
+        controllerHelper.buildDropdownOptions($scope);
+        controllerHelper.initializeMobile($scope);
 
-          // finally, given the loaded data, scroll to the requested id (if any)
-          controllerHelper.scrollToHash($location, $timeout);
-
-          $scope.tableOfContents = {
-            "topImage": $scope.textColumn["sections"]["0"]["topImage"],
-            "bottomLeftHtml": $scope.textColumn["sections"]["0"]["bottomLeftHtml"],
-            "bottomRightHtml": $scope.textColumn["sections"]["0"]["bottomRightHtml"]
-          };
-          console.log($scope.textColumn);
-
-        });
+        // finally, given the loaded data, scroll to the requested id (if any)
+        controllerHelper.scrollToHash($location, $timeout);
 
       });
   }
