@@ -28,9 +28,33 @@ def get_paragraphs(post):
 
   paragraph_block = post["content"]["rendered"]
   split_paragraphs = paragraph_block.split("<p>")
-  for p in split_paragraphs[1:]:
+  for c, p in enumerate(split_paragraphs[1:]):
     clean_paragraph = p.split("</p>")[0]
-    paragraphs.append(clean_paragraph)
+    
+    # the paragraph json structure for sectionType == table-of-contents and 
+    # text are different
+    if post["sectionType"] == "text":
+      paragraphs.append(clean_paragraph)
+    
+    # -2 in the conditional because of length in Python is 1-based, and because
+    # the content leading up to the first paragraph hasn't been removed yet when
+    # split paragraphs is generated
+    elif post["sectionType"] == "table-of-contents":
+      if c == len(split_paragraphs) - 2:
+        paragraphs.append({
+            "text": clean_paragraph,
+            "type": "section-introduction-text"
+          })
+      else:
+        paragraphs.append({
+            "text": clean_paragraph,
+            "type": "link"
+          })
+
+    else:
+      post_title = get_title(post)
+      raise Exception(post_title + " had an unrecognized sectionType, which is unallowed") 
+
   return paragraphs
 
 
@@ -39,7 +63,13 @@ def get_flat_metadata_fields():
   return [
     "order",
     "template",
-    "sectionType"
+    "sectionType",
+    "introImage",
+    "iframe",
+    "topImage",
+    "bottomImage",
+    "topCaption",
+    "bottomCaption"
   ]
 
 
@@ -58,7 +88,7 @@ def get_background_metadata(post):
     media_link = media_links[0]["href"]
     media_json = get_json(media_link)
     
-    # get required metadata fields
+    # get image metadata fields
     url = media_json["guid"]["rendered"]
     alt = media_json["alt_text"]
     annotation = media_json["caption"]
@@ -111,7 +141,6 @@ def sort_posts(controller_json):
   controller_sections_json = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict())))
 
   for controller in controller_json:
-    
     controller_posts = controller_json[controller]
     for i in xrange(len(controller_posts)):
 
@@ -155,14 +184,8 @@ def add_controller_fields(sorted_json):
   return sorted_json
 
 
-if __name__ == "__main__":
-
-  output_dir = "../../build/json/"
-  instance = 'http://ec2-54-71-20-87.us-west-2.compute.amazonaws.com'
-  url      = instance + '/wp-json/wp/v2/posts'
-  j        = get_json(url)
-  posts    = get_posts(j)
-  post_json = defaultdict(list)
+def get_application_json(posts):
+  post_json  = defaultdict(list)
 
   # add each post to the array of posts for its parent controller
   for post in posts:
@@ -175,5 +198,19 @@ if __name__ == "__main__":
 
   # write the json to disk
   for controller_key in application_json:
+    if logging == 1:
+      print "writting json for controller:", controller_key
     with open(output_dir + controller_key + ".json", "w") as json_out:
       json.dump(application_json[controller_key], json_out)
+
+
+if __name__ == "__main__":
+  logging    = 0
+  output_dir = "../../build/json/"
+  instance   = 'http://ec2-54-71-20-87.us-west-2.compute.amazonaws.com'
+  params     = '?filter[posts_per_page]=10000'
+  url        = instance + '/wp-json/wp/v2/posts' + params
+  j          = get_json(url)
+  posts      = get_posts(j)
+  get_application_json(posts)
+  
