@@ -6,19 +6,21 @@
 
 This repository contains the source code for a web application that details aspects of Yale University's architecture. The application is built on an Angular 1 frontend that presents cartographic data from CartoDB server and multimedia assets from and a Wordpress API backend.
 
-# Admin Users
+# Updating Content
 
-Admin users can update data displayed on the site by visiting the site's [admin interface](http://ec2-54-71-20-87.us-west-2.compute.amazonaws.com/wp-login.php). After logging in, users can establish the data to be displayed on the site by creating and editing posts using the following guide:
+Admin users can update data displayed on the site by visiting the site's [admin interface](http://ec2-54-71-20-87.us-west-2.compute.amazonaws.com/wp-login.php). After logging in, users can establish the data to be displayed on the site by creating and editing posts using the following metadata fields:
 
-The following elements of a post determine the title and paragraph content of a text block on the deployed site:
-
-## Required Metadata fields
+### Required Metadata fields
 
 #### title  
+
+<i>Default Field</i>
 
 The title of each post is defined by the traditional Wordpress post title field.   
 
 #### paragraphs 
+
+<i>Default Field</i>
   
 The text content for each post is defined by the traditional Wordpress text content field.  
 
@@ -81,7 +83,7 @@ Accepted values:
 The template field within a post indicates the type of content to be displayed behind the text column. There are three options:
 
 `one-div-container`  
-If a post's template value is set to one-div-container, its background will be a full page background image ([example display](./build/documentation_images/concrete.png)). The background image is determined by the Featured Image for the given post ([example display](./build/documentation_images/concrete-featured-image.png)).
+If a post's template value is set to one-div-container, its background will be a full page background image ([example display](./build/documentation_images/concrete.png)). The background image is determined by the Featured Image for the given post ([example admin content](./build/documentation_images/concrete-featured-image.png)).
 
 `three-div-container`  
 If a post's template value is set to three-div-container, its background will consist of three elements represented on the right hand side of the screen ([example display](./build/documentation_images/people-and-places.png)). The content within these elements is set by the following custom fields: `topImage`, `bottomImage`, `topCaption`, `bottomCaption`. Both the topImage and bottomImage fields are full paths to image files, while the topCaption and bottomCaption fields are plaintext caption fields. ([example admin content](./build/documentation_images/people-and-places-admin.png))
