@@ -608,6 +608,10 @@ html {
   color: #72ADC7;
 }
 
+.section-title-null {
+  margin: 0px;
+}
+
 /**************************************
 * Narrow table of Contents Background *
 **************************************/
