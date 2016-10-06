@@ -6,7 +6,7 @@
 
 This repository contains the source code for a web application that details aspects of Yale University's architecture. The application is built on an Angular 1 frontend that presents cartographic data from CartoDB server and multimedia assets from and a Wordpress API backend.
 
-# Updating Content
+# Updating Post Content
 
 Admin users can update data displayed on the site by visiting the site's [admin interface](http://ec2-54-71-20-87.us-west-2.compute.amazonaws.com/wp-login.php). After logging in, users can establish the data to be displayed on the site by creating and editing posts using the following metadata fields:
 
@@ -22,7 +22,7 @@ The title of each post is defined by the traditional Wordpress post title field 
 
 <i>Default Field</i>
   
-The text content for each post is defined by the traditional Wordpress text content field The title of each post is defined by the traditional Wordpress post title field ([example paragraphs field](./build/documentation_images/admin-paragraphs.png)).  
+The text content for each post is defined by the traditional Wordpress text content field ([example paragraphs field](./build/documentation_images/admin-paragraphs.png)).
 
 #### controller  
 
@@ -44,7 +44,7 @@ The controller field within a post controls where that post will be displayed in
 
 ```
 Accepted values:  
- * 0 through the number of posts for the given controller -1
+ * An integer value between 0 and the number of posts for the given controller -1
 ```
 
 The order field within a post controls where the post will be presented within a route, i.e. the order in which sections will appear within the text column as user's scroll through the content for a given route.
@@ -136,6 +136,83 @@ Accepted values:
 ```
 
 Posts with a controller value of material-journeys may use iframes to populate a full page representation of the iframed domain behind the text column ([example display](./build/documentation_images/iframe-display.png)). To do so, one need only set the value of iframe to the page you wish to display ([example iframe field](./build/documentation_images/admin-iframe.png)).
+
+
+# Updating Home Page Icons
+
+The site's home page consists of a series of icons that overlay a central image ([example home page icon](./build/documentation_images/home-icon-display.png)). The content within these icons and the position of these icons are determined by posts with the following metadata fields:
+
+### Required Metadata Fields
+
+#### title
+
+<i>Default Field</i>
+
+The title of each icon on the home page is defined by the traditional Wordpress post title field ([example title field](./build/documentation_images/home-icon-title.png)). Following the title with \&raquo; produces a nice visual display.
+
+#### text
+
+<i>Default Field</i>
+
+The text content for home page icon is defined by the traditional Wordpress text content field ([example text field](./build/documentation_images/home-icon-text.png)).
+
+#### controller
+
+<i>Custom Field</i>
+
+```
+Accepted values:
+ * home
+```
+
+Each icon on the home page must have its controller value set to home ([example controller field](./build/documentation_images/home-icon-controller.png)).
+
+#### destinationController
+
+<i>Custom Field</i>
+
+```
+Accepted values:
+ * historical-geography
+ * architecture-and-urbanism
+ * material-journeys
+ * people-and-places
+```
+
+Each destinationController value controls the route to which users should be directed when clicking the link within the given home icon. Setting a home icon's destinationController to material-journeys, for example, will ensure users are sent to the material-journeys route after clicking the home icon link ([example destinationController field](./build/documentation_images/home-icon-destinationController.png)).
+
+#### destinationId
+
+<i>Custom Field</i>
+
+```
+Accepted values:
+ * An value between 0 and the number of posts for the given destinationController -1
+```
+
+The destinationId indicates the post within the destinationController to which users should be routed after clicking the link within the given home icon. Setting a home icon's destinationController to material-journeys and destinationId to 3, for instance, will ensure users who click the home icon's link are sent to the post assigned a controller value of material-journeys and an order value of 3 ([example destinationId field](./build/documentation_images/home-icon-destinationId.png)).
+
+#### xOffset
+
+<i>Custom Field</i>
+
+```
+Accepted values:
+ * A decimal value between 0 and 1
+```
+
+A home icon's xOffset value indicates where the icon should be positioned over the home image on the x-axis. Setting this value to 0 will ensure the icon is positioned along the left-most edge of the image, setting the value to 1 will ensure the icon is posioned along the right-most edge of the image, and setting the value to a decimal between 0 and 1 will position the icon within the spectrum bounded by those two points ([example xOffset field](./build/documentation_images/home-icon-xOffset.png)).
+
+#### yOffset
+
+<i>Custom Field</i>
+
+```
+Accepted values:
+ * A decimal value between 0 and 1
+```
+
+A home icon's yOffset value indicates where the icon should be positioned over the home image on the y-axis. Setting this value to 0 will ensure the icon is positioned along the top-most edge of the image, setting the value to 1 will ensure the icon is posioned along the bottom-most edge of the image, and setting the value to a decimal between 0 and 1 will position the icon within the spectrum bounded by those two points ([example yOffset field](./build/documentation_images/home-icon-yOffset.png)).
 
 
 ## Development Instance
