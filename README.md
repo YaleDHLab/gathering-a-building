@@ -221,13 +221,39 @@ A development instance of this repository is deployed at the following address: 
 
 ## Developing
 
+This application is built on a Node.js runtime, so one needs to have that installed to use this source code. To check if you have Node.js installed on your machine, you can run:
+
+```which node```
+
+If you get a response that indicates node is not a recognized command, you'll need to [install Node](https://nodejs.org/en/).
+
+Once Node is installed, you can clone the source code, install dependencies and start a local web server with the following commands:
+
 ```
+git clone https://github.com/YaleDHLab/gathering-a-building
+cd gathering-a-building
 npm install
 npm start
 ```
 
-## Deploying
+If you then open a browser and navigate to localhost:8000, you should see the application. You can terminate this local server at any time by pressing CTRL+C in the terminal window in which the server is running.
+
+## Previewing Changes
+
+After making changes to your Wordpress database, you can preview the changes by pulling json from the Wordpress server to your local machine with the following command:
 
 ```
-npm run deploy
+npm run build-content
+```
+
+If the fields in the Wordpress database are set according to the guide above, you should see confirmation messages that the json for each controller was written. If you received a validation error message, please revise the affected metadata fields and run the npm run build-content command again.
+
+After writing the new json to your local machine, you can preview the changes by refreshing your browser. If you navigate to the routes/posts you changed in the Wordpress database, you should see the new values or content displayed.
+
+## Deploying Updated Content
+
+Once you are happy with the way the content looks, you can push your changes to the deployed server by running:
+
+```
+npm run deploy-content
 ```

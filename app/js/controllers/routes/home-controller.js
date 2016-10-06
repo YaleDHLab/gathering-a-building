@@ -30,6 +30,7 @@ angular.module('HomeController', [])
 
   $scope.selectedOverlay = '';
 
+  //var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/home.json";
   var endpoint = "http://localhost:8000/json/home.json";
 
   request
