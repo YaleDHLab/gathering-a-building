@@ -155,7 +155,6 @@ def get_order(post):
 
   else:
     try:
-      print post["order"]
       order = float(post["order"])
       return order
 
@@ -243,10 +242,11 @@ def get_application_json(posts):
 
   # write the json to disk
   for controller_key in application_json:
-    if logging == 1:
-      print "writting json for controller:", controller_key
-    with open(output_dir + controller_key + ".json", "w") as json_out:
-      json.dump(application_json[controller_key], json_out)
+    if controller_key != "home":
+      if logging == 1:
+        print "writting json for controller:", controller_key
+      with open(output_dir + controller_key + ".json", "w") as json_out:
+        json.dump(application_json[controller_key], json_out)
 
 
 def write_home_json(post_json):
