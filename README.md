@@ -250,10 +250,10 @@ If the fields in the Wordpress database are set according to the guide above, yo
 
 After writing the new json to your local machine, you can preview the changes by refreshing your browser. If you navigate to the routes/posts you changed in the Wordpress database, you should see the new values or content displayed.
 
-## Deploying Changes
+## Deploying Updated Content
 
 Once you are happy with the way the content looks, you can push your changes to the deployed server by running:
 
 ```
-npm run deploy
+npm run deploy-content
 ```
