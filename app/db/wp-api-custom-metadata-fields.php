@@ -36,7 +36,7 @@ function slug_register_custom_field() {
     'topImage', 'bottomImage', 'topCaption', 'bottomCaption',
 
     // landing page modal fields
-    'x', 'y', 'modalImage', 'modalText', 'modalTitle', 'linkDestination',
+    'xOffset', 'yOffset', 'destinationController', 'destinationId',
 
     // main site section fields
     'subtitle', 'order',

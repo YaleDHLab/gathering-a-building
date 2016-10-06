@@ -8,6 +8,7 @@
     "start": "webpack-dev-server",
     "build": "webpack",
     "deploy": "npm run build && npm run deploy-unzipped && npm run deploy-gzipped",
+    "build-content": "python app/db/get_wp_json.py",
     "upload-geotiffs": "aws s3 cp geotiffs s3://gathering-a-building --recursive --acl public-read --exclude .DS_Store",
     "deploy-unzipped": "aws s3 cp ../gathering-a-building/build s3://gathering-a-building-deploy --recursive --acl public-read --exclude bundle.js",
     "deploy-gzipped": "aws s3 cp ../gathering-a-building/build/bundle.js s3://gathering-a-building-deploy --content-encoding 'gzip' --acl public-read",

@@ -1,5 +1,5 @@
 from collections import defaultdict
-import json, urllib2
+import json, urllib2, sys
 
 def get_json(url):
   """Read in a url and return json from that url"""
@@ -51,6 +51,9 @@ def get_paragraphs(post):
             "type": "link"
           })
 
+    elif post["controller"] == "home":
+      paragraphs.append(clean_paragraph)
+
     else:
       post_title = get_title(post)
       raise Exception(post_title + " had an unrecognized sectionType, which is unallowed") 
@@ -61,16 +64,29 @@ def get_paragraphs(post):
 def get_flat_metadata_fields():
   """Return a list of objects, each of which represents one metadata field"""
   return [
+    # routed controller fields
     "order",
     "template",
     "sectionType",
+
+    # four-div-container template fields
     "introImage",
-    "iframe",
+
+    # three-div-container template fields
     "topImage",
     "bottomImage",
     "topCaption",
     "bottomCaption",
-    "linksHome"
+
+    # optional post fields
+    "linksHome",
+    "iframe",
+
+    # home controller fields
+    "destinationController",
+    "destinationId",
+    "xOffset",
+    "yOffset"
   ]
 
 
@@ -153,9 +169,11 @@ def sort_posts(controller_json):
         post_order = post["order"]
 
         # raise an exception if this post doesn't have an order field
+        # unless the post is for the home controller, where order isn't required
         if post_order == "":
-          post_title = post["title"]
-          raise Exception(post_title + " didn't have an order field, which is required")
+          if controller != "home":
+            post_title = post["title"]
+            raise Exception(post_title + " didn't have an order field, which is required")
 
         # use the order key as the post id
         if post_order == str(i):
@@ -186,6 +204,7 @@ def add_controller_fields(sorted_json):
 
 
 def get_application_json(posts):
+  """Calls subsidiary functions and writes application json to disk"""
   post_json  = defaultdict(list)
 
   # add each post to the array of posts for its parent controller
@@ -194,6 +213,7 @@ def get_application_json(posts):
     controller = get_controller(post)
     post_json[controller].append(metadata)
 
+  write_home_json(post_json)
   sorted_json = sort_posts(post_json)
   application_json = add_controller_fields(sorted_json)
 
@@ -205,9 +225,36 @@ def get_application_json(posts):
       json.dump(application_json[controller_key], json_out)
 
 
+def write_home_json(post_json):
+  """Read in json with controller keys, parse the home json into
+  the desired format, and write it to disk"""
+  outgoing_home_json = []
+  incoming_home_json = post_json["home"]
+
+  # each item in the incoming_home_json array describes one landing
+  # page overlay
+  for c, o in enumerate(incoming_home_json):
+    outgoing_home_json.append({
+      "id": int(c),
+      "xOffset": float(o["xOffset"]),
+      "yOffset": float(o["yOffset"]),
+      "url": "/#/routes/" + o["destinationController"] + "#" + o["destinationId"],
+      "path": "routes/" + o["destinationController"],
+      "hash": o["destinationId"],
+      "title": o["title"],
+      "text": o["paragraphs"][0],
+      "image": o["background"]["url"]
+    })
+
+  with open(output_dir + "home.json", "w") as home_json_out:
+    if logging == 1:
+      print "writting json for controller: home"
+    json.dump(outgoing_home_json, home_json_out)
+
+
 if __name__ == "__main__":
-  logging    = 0
-  output_dir = "../../build/json/"
+  logging    = 1
+  output_dir = "./build/json/"
   instance   = 'http://ec2-54-71-20-87.us-west-2.compute.amazonaws.com'
   params     = '?filter[posts_per_page]=10000'
   url        = instance + '/wp-json/wp/v2/posts' + params
