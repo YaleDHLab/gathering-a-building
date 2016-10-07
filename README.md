@@ -4,7 +4,7 @@
 
 # Gathering a Building
 
-This repository contains the source code for a web application that details aspects of Yale University's architecture. The application is built on an Angular 1 frontend that presents cartographic data from CartoDB server and multimedia assets from and a Wordpress API backend.
+This repository contains the source code for a web application that details aspects of Yale University's architecture. The application is built on an Angular 1 frontend that presents cartographic data from a CartoDB server and multimedia assets from a Wordpress API backend.
 
 # Updating Post Content
 
