@@ -7,8 +7,7 @@ angular.module('MaterialJourneysController', [])
       "$scope", "$http", "$timeout", "$location", "$sce", "backgroundStyle",
   function($scope, $http, $timeout, $location, $sce, backgroundStyle) {
 
-    //var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/material-journeys.json";
-    var endpoint = "http://localhost:8000/json/material-journeys.json";
+    var endpoint = "./json/material-journeys.json";
 
     request
       .get(endpoint)

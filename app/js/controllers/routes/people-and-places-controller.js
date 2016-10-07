@@ -7,8 +7,7 @@ angular.module('PeopleAndPlacesController', [])
       "$scope", "$http", "$timeout", "$location", "backgroundStyle",
   function($scope, $http, $timeout, $location, backgroundStyle) {
 
-    //var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/people-and-places.json";
-    var endpoint = "http://localhost:8000/json/people-and-places.json";
+    var endpoint = "./json/people-and-places.json";
 
     request
       .get(endpoint)

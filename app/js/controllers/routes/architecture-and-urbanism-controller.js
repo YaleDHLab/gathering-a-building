@@ -7,8 +7,7 @@ angular.module('ArchitectureAndUrbanismController', [])
     "$scope", "$http", "$timeout", "$location", "backgroundStyle",
   function($scope, $http, $timeout, $location, backgroundStyle) {
 
-    //var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/architecture-and-urbanism.json";
-    var endpoint = "http://localhost:8000/json/architecture-and-urbanism.json";
+    var endpoint = "./json/architecture-and-urbanism.json";
 
     request
       .get(endpoint)
