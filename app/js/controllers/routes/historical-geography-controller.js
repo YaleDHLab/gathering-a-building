@@ -15,8 +15,7 @@ angular.module('HistoricalGeographyController', [])
     *
     ***/
 
-    //var endpoint = "http://gathering-a-building-deploy.s3-website-us-east-1.amazonaws.com/json/historical-geography.json";
-    var endpoint = "http://localhost:8000/json/historical-geography.json";
+    var endpoint = "./json/historical-geography.json";
 
     request
       .get(endpoint)
