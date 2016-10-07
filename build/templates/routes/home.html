@@ -10,7 +10,8 @@
     <div data-ng-repeat="overlay in overlayIcons"
         data-ng-class="'building-overlay-marker dynamic-opacity building-overlay-marker-' + overlay.id" >
       <div data-ng-include='"/templates/partials/home/building-overlay-icon.html"'
-        data-ng-click="toggleModal(overlay.id)"></div>
+        data-ng-click="toggleModal(overlay.id)"
+        data-template-loaded="positionIcons()"></div>
     </div>
 
     <div data-ng-include='"/templates/partials/home/building-overlay-modal.html"'></div>

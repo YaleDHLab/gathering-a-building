@@ -335,5 +335,6 @@ angular.module('HomeController', [])
       ***/
 
       backgroundStyle.updateBackgroundStyle({navigationButton: "light", brandIcon: "light"});
+      $scope.positionIcons();
   });
 }]);
