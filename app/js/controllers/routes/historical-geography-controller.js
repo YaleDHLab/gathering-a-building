@@ -39,7 +39,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1753,
             "label": "Wadsworth Plan",
             "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1748_Wadsworth_Plan-NewHaven_1806-Kensett-engr_Beinecke_15675071-GEO1/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_1753.json",
+            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1753.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -49,7 +49,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1802,
             "label": "Plan of New Haven",
             "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1802_Plan-New-Haven_Biencke_105622451_GEO1/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_1835.json",
+            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1802.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -59,7 +59,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1824,
             "label": "Doolittle Plan",
             "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1824_Doolittle_Plan-of-New-Haven_Beinecke_156750741/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_1850.json",
+            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1835.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -69,7 +69,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1849,
             "label": "Buckingham Plan",
             "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1849_Buckingham_NH_156913731_Geo4/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_1894.json",
+            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1850.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -79,7 +79,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1874,
             "label": "Benham Plan",
             "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1874_Benham_15691396_Geo2/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/projected_buildings_1912.json",
+            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1870.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
