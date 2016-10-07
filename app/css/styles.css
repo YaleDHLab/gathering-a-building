@@ -874,18 +874,23 @@ span.vector-overlay-toggle-button {
   display: inline-block;
   color: #a2a2a2;
   background: #fff;
-  padding: 5px;
+  padding: 5px 5px 0px 5px;
   border-radius: 4px;
   box-shadow: 0 1px 5px rgba(0,0,0,.65);
   cursor: pointer;
 }
 
 .leaflet-touch span.vector-overlay-toggle-button {
-  padding: 7px;
+  padding: 7px 7px 2px 7px;
 }
 
-span.vector-overlay-toggle-button.active {
-  color: #7CBFDD;
+.vector-overlay-toggle-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.vector-overlay-toggle-button.active .yale-logo-fill {
+  fill: #6da8c2;
 }
 
 /*********************
