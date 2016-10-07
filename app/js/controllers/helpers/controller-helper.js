@@ -7,13 +7,8 @@ module.exports = {
   ***/
 
   updateBackground: function($scope, imageUrl) {
-    if ($scope.backgroundImageUrl) {
-      if (imageUrl != $scope.backgroundImageUrl) {
-        $scope.backgroundImageUrl = imageUrl;
-      }
-    } else {
-      $scope.backgroundImageUrl = imageUrl;
-    }
+    $scope.backgroundImageUrl = imageUrl;
+    $scope.$apply();
   },
 
   /***
