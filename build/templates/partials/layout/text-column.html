@@ -16,13 +16,15 @@
           class="section">
           <div data-ng-attr-id="{{ section.id }}"
               data-ng-class="{
-                'minor-section-spacer' : section.id == 0,
-                'major-section-spacer' : section.id != 0
+                'null-section-spacer' : section.title.length == 0,
+                'minor-section-spacer' : section.id == 0 && section.title.length > 0,
+                'major-section-spacer' : section.id != 0 && section.title.length > 0
               }"
           </div>
           <h2 data-ng-class="{
-              'section-title first-section-title' : section.id == 0,
-              'section-title' : section.id != 0 }"
+              'section-title-null' : section.title.length == 0,
+              'section-title first-section-title' : section.id == 0 && section.title.length > 0,
+              'section-title' : section.id != 0 && section.title.length > 0}"
             data-ng-bind-html="section.title | allowHtml"></h2>
 
           <!-- Template partial for sections with section-type table-of-contents -->

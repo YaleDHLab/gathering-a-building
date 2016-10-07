@@ -1,4 +1,5 @@
 from collections import defaultdict
+from operator import itemgetter
 import json, urllib2, sys
 
 def get_json(url):
@@ -65,7 +66,6 @@ def get_flat_metadata_fields():
   """Return a list of objects, each of which represents one metadata field"""
   return [
     # routed controller fields
-    "order",
     "template",
     "sectionType",
 
@@ -139,8 +139,28 @@ def get_metadata(post):
   metadata["paragraphs"]      = get_paragraphs(post)
   metadata["background"]      = get_background_metadata(post)
   metadata["backgroundStyle"] = get_background_style_metadata(post)
+  metadata["order"]           = get_order(post)
 
   return metadata
+
+
+def get_order(post):
+  """Helper function for the get_metadata function that converts the order field
+  of all posts that have an order field into a float value for proper post sorting
+  later in the pipeline"""
+
+  # icon overlays on the home route don't require order fields
+  if post["controller"] == "home":
+    return post["order"]
+
+  else:
+    try:
+      order = float(post["order"])
+      return order
+
+    except Exception as exc:
+      post_title = get_title(post)
+      raise Exception("couldn't convert order field of post with title:", post_title)
 
 
 def get_controller(post):
@@ -159,35 +179,38 @@ def sort_posts(controller_json):
 
   for controller in controller_json:
     controller_posts = controller_json[controller]
-    for i in xrange(len(controller_posts)):
 
-      # store a boolean to indicate whether we've found an item for this id
-      found_post_with_id = 0
+    # sort the controller's posts into an array of dicts according to
+    # the value of their order keys
+    sorted_controller_posts = sorted(controller_posts, key=itemgetter('order'))
 
-      # find the next post for the current controller
-      for post in controller_posts:
-        post_order = post["order"]
+    # now loop over the sorted posts for this controller, and if you see two
+    # with the same order value, raise an error
+    last_post_order = ""
 
-        # raise an exception if this post doesn't have an order field
-        # unless the post is for the home controller, where order isn't required
+    for sorted_post_index, post in enumerate(sorted_controller_posts):
+      post_order = post["order"]
+
+      # if this is a post with controller == home, don't store the last controller order
+      if controller != "home":
         if post_order == "":
-          if controller != "home":
-            post_title = post["title"]
-            raise Exception(post_title + " didn't have an order field, which is required")
+          post_title = post["title"]
+          raise Exception(post_title + " didn't have an order field, which is required")
 
-        # use the order key as the post id
-        if post_order == str(i):
-          
-          # if we've already found a post with this order, raise an exception
-          if found_post_with_id == 1:
-            post_title = post["title"]
-            raise Exception(post_title + " has the same order as another post in controller" + 
-              controller + "which isn't allowed")
+        if controller + str(post_order) == last_post_order:
+          raise Exception("two posts for the", controller, "controller had the same order value (", post_order, ") which isn't allowed")
 
-          # if this is the first post with this order, store the fact that we found one
-          found_post_with_id = 1
-          post["id"] = post_order
-          controller_sections_json[controller]["sections"][ post_order ] = post
+      # store the controller + post order combination to check for duplicates
+      last_post_order = controller + str(post_order)
+
+      # used integer based index positions for the ids
+      sorted_post_index_string = str(sorted_post_index)
+      post["id"] = sorted_post_index_string
+
+      # having found the index position of the current post within the current controller,
+      # convert the post's internal order field
+      post["order"] = sorted_post_index_string
+      controller_sections_json[controller]["sections"][ sorted_post_index_string ] = post
 
   return controller_sections_json
 
@@ -219,10 +242,11 @@ def get_application_json(posts):
 
   # write the json to disk
   for controller_key in application_json:
-    if logging == 1:
-      print "writting json for controller:", controller_key
-    with open(output_dir + controller_key + ".json", "w") as json_out:
-      json.dump(application_json[controller_key], json_out)
+    if controller_key != "home":
+      if logging == 1:
+        print "writting json for controller:", controller_key
+      with open(output_dir + controller_key + ".json", "w") as json_out:
+        json.dump(application_json[controller_key], json_out)
 
 
 def write_home_json(post_json):
