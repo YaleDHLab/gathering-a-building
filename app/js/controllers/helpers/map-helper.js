@@ -99,8 +99,9 @@ module.exports = {
             // add the building to the map
             var polyline = new L.GeoJSON(buildingJson, {
                 className: 'overlay-bounding-box animated fade-in',
-                weight: 2,
-                fillOpacity: .85
+                weight: 1,
+                fillOpacity: .85,
+                opacity: 1
               }
             ).addTo(map);
           }

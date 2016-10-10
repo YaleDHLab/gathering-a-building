@@ -8,7 +8,7 @@ This repository contains the source code for a web application that details aspe
 
 # Updating Post Content
 
-Admin users can update data displayed on the site by visiting the site's [admin interface](http://ec2-52-42-229-91.us-west-2.compute.amazonaws.com/wordpress/wp-login.php). After logging in, users can establish the data to be displayed on the site by creating and editing posts using the following metadata fields:
+Admin users can update data displayed on the site by visiting the site's [admin interface](http://ec2-54-190-9-54.us-west-2.compute.amazonaws.com/wordpress/wp-login.php/wordpress/wp-login.php). After logging in, users can establish the data to be displayed on the site by creating and editing posts using the following metadata fields:
 
 ### Required Metadata Fields
 
@@ -217,7 +217,7 @@ A home icon's yOffset value indicates where the icon should be positioned over t
 
 ## Development Instance
 
-A development instance of this repository may be found [here](http://ec2-52-42-229-91.us-west-2.compute.amazonaws.com).
+A development instance of this repository may be found [here](http://ec2-54-190-9-54.us-west-2.compute.amazonaws.com).
 
 ## Developing
 

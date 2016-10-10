@@ -58,7 +58,6 @@
     "html-loader": "^0.4.3",
     "less": "^2.7.1",
     "style-loader": "^0.13.1",
-    "superagent": "^2.2.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.1",
