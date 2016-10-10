@@ -279,7 +279,7 @@ def write_home_json(post_json):
 if __name__ == "__main__":
   logging    = 1
   output_dir = "./build/json/"
-  instance   = 'http://ec2-52-42-229-91.us-west-2.compute.amazonaws.com/'
+  instance   = 'http://ec2-54-190-9-54.us-west-2.compute.amazonaws.com/'
   params     = '?filter[posts_per_page]=10000'
   url        = instance + '/wp-json/wp/v2/posts' + params
   j          = get_json(url)
