@@ -257,5 +257,7 @@ After writing the new json to your local machine, you can preview the changes by
 Once you are happy with the way the content looks, you can push your changes to the deployed server by running:
 
 ```
-npm run deploy-content
+npm run deploy
 ```
+
+This will replace files on the remote server with your local copies of those files.
