@@ -2,8 +2,19 @@ from collections import defaultdict
 from operator import itemgetter
 import json, urllib2, sys
 
+"""Credentialed usage requires: npm run build-content {{username}} {{password}}"""
+
 def get_json(url):
   """Read in a url and return json from that url"""
+  username = sys.argv[1]
+  password = sys.argv[2]
+
+  # prepare a request with the username and password credentials
+  password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
+  password_manager.add_password(None, url, username, password)
+  urllib2.install_opener(urllib2.build_opener(urllib2.HTTPBasicAuthHandler(password_manager)))
+
+  # catch and parse the response
   response = urllib2.urlopen(url)
   return json.load(response)
 
