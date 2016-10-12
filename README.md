@@ -243,8 +243,10 @@ If you then open a browser and navigate to localhost:8000, you should see the ap
 After making changes to your Wordpress database, you can preview the changes by pulling json from the Wordpress server to your local machine with the following command:
 
 ```
-npm run build-content
+npm run build-content {{username}} {{password}}
 ```
+
+Here `{{username}}` and `{{password}}` refer to the username and password strings you would enter to access the password-proctected [site url](http://gatheringabuilding.yale.edu).
 
 If the fields in the Wordpress database are set according to the guide above, you should see confirmation messages that the json for each controller was written. If you received a validation error message, please revise the affected metadata fields and run the npm run build-content command again.
 
