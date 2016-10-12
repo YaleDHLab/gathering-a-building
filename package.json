@@ -6,17 +6,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "webpack-dev-server",
+    "build-content": "python app/db/get_wp_json.py",
+
+    "deploy": "npm run build && npm run copy-files",
     "build": "webpack",
 
-    "deploy": "npm run build && npm run deploy-unzipped && npm run deploy-gzipped",
-    "deploy-unzipped": "aws s3 cp ../gathering-a-building/build s3://gathering-a-building-deploy --recursive --acl public-read --exclude bundle.js",
-    "deploy-gzipped": "aws s3 cp ../gathering-a-building/build/bundle.js s3://gathering-a-building-deploy --content-encoding 'gzip' --acl public-read",
+    "copy-files": "npm run copy-json && npm run copy-templates && npm run copy-assets",
+    "copy-json": "rsync -r --progress -e 'ssh -i gathering-a-building-server.pem' build/json/ ec2-user@ec2-54-190-9-54.us-west-2.compute.amazonaws.com:/var/www/html/json",
+    "copy-templates": "rsync -r --progress -e 'ssh -i gathering-a-building-server.pem' build/templates/ ec2-user@ec2-54-190-9-54.us-west-2.compute.amazonaws.com:/var/www/html/templates",
+    "copy-assets": "rsync -r --progress -e 'ssh -i gathering-a-building-server.pem' build/assets/ ec2-user@ec2-54-190-9-54.us-west-2.compute.amazonaws.com:/var/www/html/assets",
 
     "authorize": "node app/js/lib/request-autodesk-token.js",
-    "upload-geotiffs": "aws s3 cp geotiffs s3://gathering-a-building --recursive --acl public-read --exclude .DS_Store",
-
-    "build-content": "python app/db/get_wp_json.py",
-    "deploy-content": "aws s3 cp ../gathering-a-building/build/json s3://gathering-a-building-deploy/json --recursive --acl public-read"
+    "upload-geotiffs": "aws s3 cp geotiffs s3://gathering-a-building --recursive --acl public-read --exclude .DS_Store"
   },
   "repository": {
     "type": "git",
