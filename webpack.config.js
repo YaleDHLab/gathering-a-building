@@ -144,6 +144,7 @@ if(TARGET === 'build' || !TARGET) {
 
       new ExtractTextPlugin("style.css", {allChunks: false}),
 
+      /*
       new CompressionPlugin({
         asset: "[path][query]",
         algorithm: "gzip",
@@ -151,6 +152,7 @@ if(TARGET === 'build' || !TARGET) {
         threshold: 10240,
         minRatio: 0.8
       })
+      */
 
     ]
   });
