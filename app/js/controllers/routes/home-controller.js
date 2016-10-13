@@ -80,7 +80,6 @@ angular.module('HomeController', [])
 
               overlay.style.left = String(xOffset) + "px";
               overlay.style.top = String(yOffset) + "px";
-              overlay.style.opacity = 1;
             };
           };
         };
@@ -329,12 +328,47 @@ angular.module('HomeController', [])
 
       /***
       *
+      * Add listener for end of video
+      *
+      ***/
+
+      $scope.addVideoEndListener = function() {
+        var video = document.querySelector("video");
+        video.addEventListener('ended', videoEnded, false);
+      }
+
+      /***
+      *
+      * Add a callback for the video ended event
+      *
+      ***/
+
+      var videoEnded = function(e) {
+        fadeInOverlays();
+      }
+
+      /***
+      *
+      * Function to fade in the icon overlays
+      *
+      ***/
+
+      var fadeInOverlays = function() {
+        var overlayIcons = document.querySelectorAll('.building-overlay-marker');
+        for (var i=0; i<overlayIcons.length; i++) {
+          overlayIcons[i].style.opacity = 1;
+        }
+      }
+
+      /***
+      *
       * Initialize controller state
       *
       ***/
 
       backgroundStyle.updateBackgroundStyle({navigationButton: "light", brandIcon: "light"});
-      $scope.positionIcons();
+      $scope.addVideoEndListener();
+      $scope.initializeOverlays();
       $scope.$apply();
   });
 }]);
