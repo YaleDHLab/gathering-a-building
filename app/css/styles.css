@@ -243,6 +243,19 @@ html {
 .home-image {
   height: 100%;
   filter: grayscale(100%);
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+}
+
+/******************
+* Home page video *
+******************/
+
+video {
+  height: 100%;
+  position: absolute;
+  z-index: 1;
 }
 
 /*******************
