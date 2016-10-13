@@ -248,6 +248,12 @@ html {
   opacity: 0;
 }
 
+@media (min-width: 800px) {
+  .home-image {
+    top: -60px;
+  }
+}
+
 /******************
 * Home page video *
 ******************/
@@ -256,6 +262,12 @@ video {
   height: 100%;
   position: absolute;
   z-index: 1;
+}
+
+@media (min-width: 800px) {
+  video {
+    top: -60px;
+  }
 }
 
 /*******************
@@ -328,6 +340,7 @@ video {
 
 .building-overlay-modal {
   opacity: 0;
+  z-index: 3;
   width: 468px;
   height: 200px;
   position: absolute;
