@@ -1,20 +1,36 @@
 <!-- Home container -->
-<div id="home" class="home" ng-style="resizeWithOffset(0)" resize notifier="windowResize(params)" >
+<div id="home" class="home" ng-style="resizeWithOffset(0)"
+    resize notifier="windowResize(params)">
   <div class="home-container">
+    <video autoplay>
+      <source src="./assets/video/intro-video.mp4"
+          type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+        There's a video here but your browser can't show it
+    </video>
+
     <img data-ng-click="hideModal()"
       src="/assets/images/Yale_Residential_Colleges_Arch-Animation_GAB_short-168-minified.png"
-      class="home-image"
-      data-template-loaded="initializeOverlays()">
+      class="home-image">
     
     <!-- Image overlays -->
     <div data-ng-repeat="overlay in overlayIcons"
-        data-ng-class="'building-overlay-marker dynamic-opacity building-overlay-marker-' + overlay.id" >
+        class="building-overlay-marker dynamic-opacity"
+        data-ng-class="'building-overlay-marker-' + overlay.id" >
       <div data-ng-include='"/templates/partials/home/building-overlay-icon.html"'
-        data-ng-click="toggleModal(overlay.id)"
-        data-template-loaded="positionIcons()"></div>
+        data-ng-click="toggleModal(overlay.id)"></div>
     </div>
 
-    <div data-ng-include='"/templates/partials/home/building-overlay-modal.html"'></div>
+    <div class="building-overlay-modal">
+      <div class="building-overlay-image-container">
+        <img data-ng-src="{{overlayData.image}}" />
+      </div>
+      <div class="building-modal-text">
+        <a data-ng-click="deeplink(overlayData.path, overlayData.hash)"
+           data-ng-bind-html="overlayData.title | allowHtml"></a>
+        <p>{{overlayData.text}}</p>
+      </div>
+      <div class="clear-both"/>
+    </div>
 
   </div>
 </div>
