@@ -338,7 +338,7 @@ video {
 }
 
 .building-overlay-marker:hover svg .cls-2 {
-  fill: #4eb3e4;
+  fill: #f69151;
 }
 
 .building-overlay-modal {
@@ -376,6 +376,7 @@ video {
   text-decoration: none;
   font-size: 1.2em;
   cursor: pointer;
+  font-family: Mallory;
 }
 
 .building-modal-text a:hover {
@@ -488,6 +489,13 @@ video {
 .section-paragraph {
   padding-bottom: 18px;
   font-size: .96em;
+}
+
+.section-paragraph img {
+  width: 100%;
+  height: auto;
+  border: 1px solid darkgray;
+  border-radius: 3px;
 }
 
 /***
@@ -780,13 +788,14 @@ video {
 *************************/
 
 .section-subheading {
-  font-size: 1em;
+  font-size: 1.2em;
   font-weight: 100;
   line-height: 1em;
   text-transform: uppercase;
   margin: 0;
   padding-bottom: 10px;
   display: inline-block;
+  font-family: Mallory;
 }
 
 .section-introduction-text {
