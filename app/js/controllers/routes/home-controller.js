@@ -345,6 +345,7 @@ angular.module('HomeController', [])
 
       var videoEnded = function(e) {
         fadeInOverlays();
+        fadeInHomeImage();
       }
 
       /***
@@ -362,6 +363,34 @@ angular.module('HomeController', [])
 
       /***
       *
+      * Function to fade in the home image
+      *
+      ***/
+
+      var fadeInHomeImage = function() {
+        var homeImage = document.querySelector(".home-image-2");
+        homeImage.style.opacity = 1;
+      }
+
+      /***
+      *
+      * Function to begin the page load sequence
+      *
+      ***/
+
+      $scope.beginPageSequence = function() {
+        $timeout(function() {
+          var video = document.querySelector("video");
+          video.play();
+        }, 4000);
+        $timeout(function() {
+          var initialImage = document.querySelector(".home-image-1");
+          initialImage.style.opacity = 0;
+        }, 1000);
+      }
+
+      /***
+      *
       * Initialize controller state
       *
       ***/
@@ -369,6 +398,7 @@ angular.module('HomeController', [])
       backgroundStyle.updateBackgroundStyle({navigationButton: "light", brandIcon: "light"});
       $scope.addVideoEndListener();
       $scope.initializeOverlays();
+      $scope.beginPageSequence();
       $scope.$apply();
   });
 }]);
