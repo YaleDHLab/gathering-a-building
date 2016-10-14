@@ -165,7 +165,7 @@ angular.module('HomeController', [])
           overlayPosition.y = iconTop - modalHeight - modalPadding;
         }
         if (overlayPosition.yRegion == 'mid') {
-          overlayPosition.y = iconTop - (modalHeight/2);
+          overlayPosition.y = iconTop + iconHeight + modalPadding - 5;
         }
         if (overlayPosition.yRegion == 'top') {
           overlayPosition.y = iconTop + iconHeight + modalPadding - 5;
