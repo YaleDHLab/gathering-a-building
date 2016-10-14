@@ -263,12 +263,6 @@ html {
   filter: grayscale(100%);
 }
 
-@media (min-width: 800px) {
-  .home-image {
-    top: -60px;
-  }
-}
-
 /******************
 * Home page video *
 ******************/
@@ -277,12 +271,6 @@ video {
   height: 100%;
   position: absolute;
   z-index: 1;
-}
-
-@media (min-width: 800px) {
-  video {
-    top: -60px;
-  }
 }
 
 /*******************
