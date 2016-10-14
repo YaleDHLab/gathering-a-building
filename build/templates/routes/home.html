@@ -2,19 +2,22 @@
 <div id="home" class="home" ng-style="resizeWithOffset(0)"
     resize notifier="windowResize(params)">
   <div class="home-container">
-    <video autoplay>
-      <source src="./assets/video/intro-video.mp4"
+    <img src="/assets/images/page-load.png"
+        class="home-image home-image-1 slow-dynamic-opacity">
+
+    <video>
+      <source src="./assets/video/intro-sequence.mp4"
           type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
         There's a video here but your browser can't show it
     </video>
 
     <img data-ng-click="hideModal()"
-      src="/assets/images/Yale_Residential_Colleges_Arch-Animation_GAB_short-168-minified.png"
-      class="home-image">
+      src="/assets/images/gab-red-138.png"
+      class="home-image home-image-2 slow-dynamic-opacity">
     
     <!-- Image overlays -->
     <div data-ng-repeat="overlay in overlayIcons"
-        class="building-overlay-marker dynamic-opacity"
+        class="building-overlay-marker slow-dynamic-opacity"
         data-ng-class="'building-overlay-marker-' + overlay.id" >
       <div data-ng-include='"/templates/partials/home/building-overlay-icon.html"'
         data-ng-click="toggleModal(overlay.id)"></div>
