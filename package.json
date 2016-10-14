@@ -11,10 +11,12 @@
     "deploy": "npm run build && npm run copy-files",
     "build": "webpack",
 
-    "copy-files": "npm run copy-json && npm run copy-templates && npm run copy-assets",
+    "copy-files": "npm run copy-json && npm run copy-templates && npm run copy-assets && npm run copy-js && npm run copy-node",
     "copy-json": "rsync -r --progress -e 'ssh -i gathering-a-building-server.pem' build/json/ ec2-user@ec2-54-190-9-54.us-west-2.compute.amazonaws.com:/var/www/html/json",
     "copy-templates": "rsync -r --progress -e 'ssh -i gathering-a-building-server.pem' build/templates/ ec2-user@ec2-54-190-9-54.us-west-2.compute.amazonaws.com:/var/www/html/templates",
     "copy-assets": "rsync -r --progress -e 'ssh -i gathering-a-building-server.pem' build/assets/ ec2-user@ec2-54-190-9-54.us-west-2.compute.amazonaws.com:/var/www/html/assets",
+    "copy-js": "rsync -r --progress -e 'ssh -i gathering-a-building-server.pem' build/bundle.js ec2-user@ec2-54-190-9-54.us-west-2.compute.amazonaws.com:/var/www/html/bundle.js",
+    "copy-node": "rsync -r --progress -e 'ssh -i gathering-a-building-server.pem' build/node_modules/ ec2-user@ec2-54-190-9-54.us-west-2.compute.amazonaws.com:/var/www/html/node_modules",
 
     "authorize": "node app/js/lib/request-autodesk-token.js",
     "upload-geotiffs": "aws s3 cp geotiffs s3://gathering-a-building --recursive --acl public-read --exclude .DS_Store"
