@@ -48,6 +48,7 @@ angular.module('PeopleAndPlacesController', [])
           controllerHelper.updateBackground($scope, background);
           controllerHelper.updateFooter($scope, $location);
           controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
+          controllerHelper.updateBodyOpacity($timeout, 1);
         }
 
         // initialize the application state

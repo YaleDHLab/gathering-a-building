@@ -49,6 +49,7 @@ angular.module('ArchitectureAndUrbanismController', [])
             controllerHelper.updateBackground($scope, background);
             controllerHelper.updateFooter($scope, $location);
             controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
+            controllerHelper.updateBodyOpacity($timeout, 1);
           });
         }
 

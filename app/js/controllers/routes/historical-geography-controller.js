@@ -188,6 +188,7 @@ angular.module('HistoricalGeographyController', [])
         var selectSection = function() {
           var sectionId = String($scope.selectedSectionId);
           $scope.selectOverlay(sectionId);
+          controllerHelper.updateBodyOpacity($timeout, 1);
         }
 
         /***
@@ -200,6 +201,7 @@ angular.module('HistoricalGeographyController', [])
         var map = mapHelper.initializeMap($scope);
         $scope.selectOverlay(0)
         mapHelper.initializeOpacitySlider($scope, $timeout);
+        controllerHelper.updateBodyOpacity($timeout, 1);
 
     });
   }
