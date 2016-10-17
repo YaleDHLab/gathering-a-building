@@ -250,7 +250,7 @@ html {
 .home-image {
   height: 100%;
   position: absolute;
-  z-index: 2;
+  z-index: 1;
 }
 
 .home-image-1 {
@@ -260,8 +260,10 @@ html {
 .home-image-2 {
   position: absolute;
   left: 0;
+  top: 0;
   opacity: 0;
   filter: grayscale(100%);
+  z-index: 2;
 }
 
 /******************
