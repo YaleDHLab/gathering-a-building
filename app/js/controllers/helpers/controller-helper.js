@@ -188,7 +188,7 @@ module.exports = {
     if (body.style.opacity != val) {
       $timeout(function() {
         body.style.opacity = val;
-      }, 375);
+      }, 500);
     }
   }
 
