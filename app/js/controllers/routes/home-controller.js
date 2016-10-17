@@ -60,7 +60,6 @@ angular.module('HomeController', [])
 
       $scope.positionIcons = function() {
         var overlays = document.querySelectorAll('.building-overlay-marker');
-        console.log(overlays);
         // obtain data needed for positioning.
         var image = document.querySelector('.home-image-2');
         if (image !== null) {
