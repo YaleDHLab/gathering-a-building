@@ -236,15 +236,14 @@ html {
   height: 100%;
   width: 100%;
   max-width: 100%;
+  position: absolute;
   overflow-x: scroll;
   overflow-y: hidden;
-  position: absolute;
 }
 
 .home-container {
   height: 100%;
   width: 100%;
-  background: linear-gradient(#8a8989,#b9b9b9);
 }
 
 .home-image {
@@ -262,11 +261,22 @@ html {
   left: 0;
   top: 0;
   opacity: 0;
-  filter: grayscale(100%);
   z-index: 2;
 }
 
+.background-gradient {
+  opacity: 0;
+  top: 0;
+  width: 100%;
+  background: linear-gradient( 0deg, white, #afcdf3 );
+  position: fixed;
+}
+
 @media(max-width: 800px) {
+  .home-image {
+    height: 52%;
+  }
+
   .home-image-1 {
     display: none;
   }
@@ -281,6 +291,29 @@ html {
 
   .building-overlay-marker {
     opacity: 1 !important;
+  }
+
+  .building-overlay-modal {
+    display: none !important;
+  }
+
+  .home-text-link {
+    cursor: pointer;
+    color: #72ADC7;
+  }
+
+  .background-gradient {
+    opacity: 1;
+  }
+}
+
+@media(min-width: 801px) {
+  .mobile-controls {
+    display: none;
+  }
+
+  .home-text-column {
+    display: none;
   }
 }
 
@@ -351,7 +384,7 @@ video {
   position: absolute;
   height: 40px;
   width: 40px;
-  z-index: 3;
+  z-index: 4;
   opacity: 0;
   cursor: pointer;
 }
@@ -361,8 +394,9 @@ video {
 }
 
 .building-overlay-modal {
+  display: none;
   opacity: 0;
-  z-index: 3;
+  z-index: 4;
   width: 468px;
   height: 200px;
   position: absolute;
@@ -420,6 +454,17 @@ video {
 
 .home-overlay-2 img {
   width: 100%;
+}
+
+@media(max-width: 800px) {
+  .building-overlay-modal .building-overlay-image-container {
+    display: none;
+  }
+
+  .building-overlay-modal .building-modal-text {
+    position: absolute;
+  }
+
 }
 
 /****************************
