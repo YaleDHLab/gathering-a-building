@@ -257,20 +257,12 @@ html {
   opacity: 1;
 }
 
-.home-image-2 {
-  z-index: 2;
-  opacity: 0;
-  filter: grayscale(100%);
-}
-
 /******************
 * Home page video *
 ******************/
 
 video {
   height: 100%;
-  position: absolute;
-  z-index: 1;
 }
 
 /*******************
