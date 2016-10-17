@@ -266,6 +266,24 @@ html {
   z-index: 2;
 }
 
+@media(max-width: 800px) {
+  .home-image-1 {
+    display: none;
+  }
+
+  .video {
+    display: none;
+  }
+
+  .home-image-2 {
+    opacity: 1;
+  }
+
+  .building-overlay-marker {
+    opacity: 1 !important;
+  }
+}
+
 /******************
 * Home page video *
 ******************/
