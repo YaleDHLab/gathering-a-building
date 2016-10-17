@@ -60,9 +60,9 @@ angular.module('HomeController', [])
 
       $scope.positionIcons = function() {
         var overlays = document.querySelectorAll('.building-overlay-marker');
-
-        // obtain data needed for positioning
-        var image = document.querySelector('.home-image');
+        console.log(overlays);
+        // obtain data needed for positioning.
+        var image = document.querySelector('.home-image-2');
         if (image !== null) {
           var imageHeight = image.clientHeight;
           var imageWidth = image.clientWidth;
@@ -380,14 +380,17 @@ angular.module('HomeController', [])
       ***/
 
       $scope.beginPageSequence = function() {
-        $timeout(function() {
-          var video = document.querySelector("video");
-          video.play();
-        }, 4000);
-        $timeout(function() {
-          var initialImage = document.querySelector(".home-image-1");
-          initialImage.style.opacity = 0;
-        }, 1000);
+        var windowWidth = window.innerWidth;
+        if (windowWidth > 800) {
+          $timeout(function() {
+            var video = document.querySelector("video");
+            video.play();
+          }, 4000);
+          $timeout(function() {
+            var initialImage = document.querySelector(".home-image-1");
+            initialImage.style.opacity = 0;
+          }, 1000);
+        }
       }
 
       /***
