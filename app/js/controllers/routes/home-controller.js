@@ -345,7 +345,6 @@ angular.module('HomeController', [])
 
       var videoEnded = function(e) {
         fadeInOverlays();
-        fadeInHomeImage();
       }
 
       /***
@@ -359,17 +358,6 @@ angular.module('HomeController', [])
         for (var i=0; i<overlayIcons.length; i++) {
           overlayIcons[i].style.opacity = 1;
         }
-      }
-
-      /***
-      *
-      * Function to fade in the home image
-      *
-      ***/
-
-      var fadeInHomeImage = function() {
-        var homeImage = document.querySelector(".home-image-2");
-        homeImage.style.opacity = 1;
       }
 
       /***
