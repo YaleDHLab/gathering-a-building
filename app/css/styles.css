@@ -847,6 +847,10 @@ video {
   line-height: 1.35em;
 }
 
+.caption a {
+  color: #72ADC7;
+}
+
 /*************************
 * Table of contents menu *
 *************************/
