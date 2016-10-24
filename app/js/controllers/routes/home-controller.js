@@ -397,18 +397,43 @@ angular.module('HomeController', [])
       ***/
 
       $scope.beginPageSequence = function() {
-        var windowWidth = window.innerWidth;
-        if (windowWidth > 800) {
+        // if the route has query param animation=false,
+        // skip the video sequence and show only the icons
+        var queryParams = $location.search();
+        if (queryParams.animation != "false") {
+
+          var windowWidth = window.innerWidth;
+          if (windowWidth > 800) {
+            $timeout(function() {
+              var video = document.querySelector("video");
+              if (video) {
+                video.play();
+              }
+            }, 4000);
+            $timeout(function() {
+              var initialImage = document.querySelector(".home-image-1");
+              initialImage.style.opacity = 0;
+            }, 1000);
+          }
+
+        // handler for cases where we won't play the animation, but will
+        // instead show the home-image-2 with overlays
+        } else {
+          var initialImage = document.querySelector(".home-image-1");
+          initialImage.style.display = "none";
+
+          var video = document.querySelector(".video");
+          video.style.display = "none";
+
+          var finalImage = document.querySelector(".home-image-2");
+          finalImage.style.opacity = 1;
+
+          var gradient = document.querySelector(".background-gradient");
+          gradient.style.opacity = 1;
+
           $timeout(function() {
-            var video = document.querySelector("video");
-            if (video) {
-              video.play();
-            }
-          }, 4000);
-          $timeout(function() {
-            var initialImage = document.querySelector(".home-image-1");
-            initialImage.style.opacity = 0;
-          }, 1000);
+            fadeInOverlays();
+          }, 500);
         }
       }
 
