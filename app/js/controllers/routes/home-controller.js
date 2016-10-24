@@ -80,7 +80,6 @@ angular.module('HomeController', [])
 
               overlay.style.left = String(xOffset) + "px";
               overlay.style.top = String(yOffset) + "px";
-              overlay.style.opacity = 1;
             };
           };
         };
@@ -166,7 +165,7 @@ angular.module('HomeController', [])
           overlayPosition.y = iconTop - modalHeight - modalPadding;
         }
         if (overlayPosition.yRegion == 'mid') {
-          overlayPosition.y = iconTop - (modalHeight/2);
+          overlayPosition.y = iconTop + iconHeight + modalPadding - 5;
         }
         if (overlayPosition.yRegion == 'top') {
           overlayPosition.y = iconTop + iconHeight + modalPadding - 5;
@@ -329,12 +328,77 @@ angular.module('HomeController', [])
 
       /***
       *
+      * Add listener for end of video
+      *
+      ***/
+
+      $scope.addVideoEndListener = function() {
+        var video = document.querySelector("video");
+        video.addEventListener('ended', videoEnded, false);
+      }
+
+      /***
+      *
+      * Add a callback for the video ended event
+      *
+      ***/
+
+      var videoEnded = function(e) {
+        fadeInOverlays();
+        fadeInHomeImage();
+      }
+
+      /***
+      *
+      * Function to fade in the icon overlays
+      *
+      ***/
+
+      var fadeInOverlays = function() {
+        var overlayIcons = document.querySelectorAll('.building-overlay-marker');
+        for (var i=0; i<overlayIcons.length; i++) {
+          overlayIcons[i].style.opacity = 1;
+        }
+      }
+
+      /***
+      *
+      * Function to fade in the home image
+      *
+      ***/
+
+      var fadeInHomeImage = function() {
+        var homeImage = document.querySelector(".home-image-2");
+        homeImage.style.opacity = 1;
+      }
+
+      /***
+      *
+      * Function to begin the page load sequence
+      *
+      ***/
+
+      $scope.beginPageSequence = function() {
+        $timeout(function() {
+          var video = document.querySelector("video");
+          video.play();
+        }, 4000);
+        $timeout(function() {
+          var initialImage = document.querySelector(".home-image-1");
+          initialImage.style.opacity = 0;
+        }, 1000);
+      }
+
+      /***
+      *
       * Initialize controller state
       *
       ***/
 
       backgroundStyle.updateBackgroundStyle({navigationButton: "light", brandIcon: "light"});
-      $scope.positionIcons();
+      $scope.addVideoEndListener();
+      $scope.initializeOverlays();
+      $scope.beginPageSequence();
       $scope.$apply();
   });
 }]);

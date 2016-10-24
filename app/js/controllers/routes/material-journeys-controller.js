@@ -69,6 +69,7 @@ angular.module('MaterialJourneysController', [])
             controllerHelper.updateBackground($scope, background);
             controllerHelper.updateFooter($scope, $location);
             controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
+            $scope.iframe.shown = "0";
           });
         }
 
