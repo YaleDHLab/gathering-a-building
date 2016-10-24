@@ -186,7 +186,7 @@ def get_controller(post):
 def sort_posts(controller_json):
   """Read in json with keys = controllers and values = array of post metadata,
   and return that json with the posts for each controller sorted by their order keys"""
-  controller_sections_json = defaultdict(lambda: defaultdict(lambda: defaultdict(lambda: defaultdict())))
+  controller_sections_json = defaultdict(lambda: defaultdict(list))
 
   for controller in controller_json:
     controller_posts = controller_json[controller]
@@ -214,14 +214,18 @@ def sort_posts(controller_json):
       # store the controller + post order combination to check for duplicates
       last_post_order = controller + str(post_order)
 
-      # used integer based index positions for the ids
-      sorted_post_index_string = str(sorted_post_index)
+      # used integer based index positions for the linked sections,
+      # and decimals for the subsections
+      sorted_post_index_string = str(post_order)
+      if sorted_post_index_string[-2:] == ".0":
+        sorted_post_index_string = str(int(post_order))
+
       post["id"] = sorted_post_index_string
 
       # having found the index position of the current post within the current controller,
       # convert the post's internal order field
       post["order"] = sorted_post_index_string
-      controller_sections_json[controller]["sections"][ sorted_post_index_string ] = post
+      controller_sections_json[controller]["sections"].append(post)
 
   return controller_sections_json
 

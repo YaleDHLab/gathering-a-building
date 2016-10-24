@@ -6,7 +6,7 @@
   </div>
   <div class="table-of-contents-right">
     <div data-ng-repeat="section in textColumn.sections" 
-        data-ng-if="section.id != 0"
+        data-ng-if="section.id != 0 && section.id.indexOf('.') == -1"
         class="table-of-contents-right-panel">
       <a data-ng-href="/#/routes/{{textColumn.controller}}#{{section.id}}">
         <div data-background-image="{{section.introImage}}" class="intro-image">

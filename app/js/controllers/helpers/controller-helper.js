@@ -65,12 +65,14 @@ module.exports = {
   buildDropdownOptions: function($scope) {
     $scope.dropdownOptions = [];
 
-    for (var i=0; i<Object.keys($scope.textColumn.sections).length; i++) {
+    // iterate over the floated ids, convert each to a string for the text column
+    // lookup, and proceed to build up the dropdown options
+    $scope.textColumn.sections.map(function(section) {
       $scope.dropdownOptions.push({
-        label: $scope.textColumn.sections[i].title,
-        id: $scope.textColumn.sections[i].id
+        label: section.title,
+        id: section.id
       });
-    };
+    });
   },
 
   /***
@@ -99,6 +101,15 @@ module.exports = {
     // if there is a next section, make the right hand side
     // of the footer link to it, else make the right hand
     // side of the footer blank
+
+    // compute the total number of links in this text column
+    var links = [];
+    $scope.textColumn.sections.map(function(section) {
+      if (section.id.indexOf(".") > -1) {} else {
+        links.push(section.id);
+      }
+    });
+
     var sections = Object.keys($scope.textColumn.sections).length;
     var path = $location.path();
     var hash = parseInt($scope.selectedSectionId, 10);
@@ -109,7 +120,7 @@ module.exports = {
 
     // subtract 1 from sections because length is 1-based indexed,
     // and section ids count from 0
-    if (nextHash > (sections-1)) {
+    if (nextHash > (links.length-1)) {
       $scope.footer.right = {
         "url": "/#" + path + "#0",
         "display": ""
