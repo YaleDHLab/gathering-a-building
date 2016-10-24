@@ -30,10 +30,14 @@ The text content for each post is defined by the traditional Wordpress text cont
 
 ```
 Accepted values:  
+ * home
  * historical-geography
  * architecture-and-urbanism
  * material-journeys
  * people-and-places
+ * about-the-author
+ * downloads
+ * links
 ```
 
 The controller field within a post controls where that post will be displayed in the site navigation: i.e. whether the post will appear under www.mydomain.com/routes/historical-geography or www.mydomain.com/routes/people-and-places, or some other route on the site ([example controller field](./build/documentation_images/admin-controller.png)).

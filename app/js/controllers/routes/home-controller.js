@@ -401,7 +401,9 @@ angular.module('HomeController', [])
         if (windowWidth > 800) {
           $timeout(function() {
             var video = document.querySelector("video");
-            video.play();
+            if (video) {
+              video.play();
+            }
           }, 4000);
           $timeout(function() {
             var initialImage = document.querySelector(".home-image-1");

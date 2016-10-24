@@ -16,6 +16,9 @@ require('./controllers/routes/historical-geography-controller');
 require('./controllers/routes/home-controller');
 require('./controllers/routes/material-journeys-controller');
 require('./controllers/routes/people-and-places-controller');
+require('./controllers/routes/about-the-author-controller');
+require('./controllers/routes/downloads-controller');
+require('./controllers/routes/links-controller');
 
 // helper controllers
 require('./controllers/helpers/navigation-controller');
@@ -52,6 +55,9 @@ var buildingApp = angular.module("BuildingApp",
     "HomeController",
     "MaterialJourneysController",
     "PeopleAndPlacesController",
+    "AboutTheAuthorController",
+    "DownloadsController",
+    "LinksController",
 
     // helper controllers
     "NavigationController",
@@ -120,10 +126,31 @@ buildingApp.config([
     reloadOnSearch : false
   })
 
-  // route for the about page
+  // route for the people and places page
   $routeProvider.when('/routes/people-and-places', {
     templateUrl : '/templates/routes/people-and-places.html',
     controller  : 'peopleAndPlacesController',
+    reloadOnSearch : false
+  })
+
+  // route for the about page
+  $routeProvider.when('/routes/about-the-author', {
+    templateUrl : '/templates/routes/about-the-author.html',
+    controller  : 'aboutTheAuthorController',
+    reloadOnSearch : false
+  })
+
+  // route for the downloads page
+  $routeProvider.when('/routes/downloads', {
+    templateUrl : '/templates/routes/downloads.html',
+    controller  : 'downloadsController',
+    reloadOnSearch : false
+  })
+
+  // route for the links page
+  $routeProvider.when('/routes/links', {
+    templateUrl : '/templates/routes/links.html',
+    controller  : 'linksController',
     reloadOnSearch : false
   })
 
