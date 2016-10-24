@@ -171,7 +171,7 @@ def get_order(post):
 
     except Exception as exc:
       post_title = get_title(post)
-      raise Exception("couldn't convert order field of post with title:", post_title)
+      raise Exception("couldn't convert order field of post with title:" + post_title)
 
 
 def get_controller(post):
@@ -209,7 +209,7 @@ def sort_posts(controller_json):
           raise Exception(post_title + " didn't have an order field, which is required")
 
         if controller + str(post_order) == last_post_order:
-          raise Exception("two posts for the", controller, "controller had the same order value (", post_order, ") which isn't allowed")
+          raise Exception("two posts for the" + controller + "controller had the same order value (" + post_order + ") which isn't allowed")
 
       # store the controller + post order combination to check for duplicates
       last_post_order = controller + str(post_order)
