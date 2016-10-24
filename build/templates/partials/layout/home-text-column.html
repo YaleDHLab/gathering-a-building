@@ -1,0 +1,19 @@
+<div class="text-column-wrapper" data-ng-cloak>
+  <hr class="text-column-hr text-column-hr-top">
+  <div class="text-column-container home-text-column">
+    <div class="text-column">
+      <div class="text-column-content">
+        <div class="section">
+          <h2 class="section-title first-section-title"
+            data-ng-bind-html="title | allowHtml"></h2>
+          <div data-ng-bind-html="text | allowHtml" class="section-paragraph"></div>
+          <div data-ng-show="overlayData.path">
+            <a data-ng-click="deeplink(overlayData.path, overlayData.hash)"
+              class="home-text-link">Read More »
+            </a>
+        </div>
+      </div>
+    </div>
+    <div class="alpha-fade-bottom"></div>
+  </div>
+</div>

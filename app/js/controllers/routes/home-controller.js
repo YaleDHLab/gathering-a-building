@@ -60,9 +60,8 @@ angular.module('HomeController', [])
 
       $scope.positionIcons = function() {
         var overlays = document.querySelectorAll('.building-overlay-marker');
-
-        // obtain data needed for positioning
-        var image = document.querySelector('.home-image');
+        // obtain data needed for positioning.
+        var image = document.querySelector('.home-image-2');
         if (image !== null) {
           var imageHeight = image.clientHeight;
           var imageWidth = image.clientWidth;
@@ -180,6 +179,7 @@ angular.module('HomeController', [])
         if (initializeModal == 1) {
           // display the modal by adding opacity
           var container = document.querySelector('.building-overlay-modal');
+          container.style.display = "block";
           container.style.opacity = 1;
         }
       }
@@ -283,8 +283,21 @@ angular.module('HomeController', [])
         $scope.overlayId = overlayId;
         var overlayJson = $scope.overlayIcons[overlayId];
         $scope.overlayData = overlayJson;
+        updateHomeMobileText(overlayJson);
         positionModal(1);
         scrollToModal();
+      }
+
+      /***
+      *
+      * Function to update the text column within the home route
+      * on mobile devices
+      *
+      ***/
+
+      var updateHomeMobileText = function(overlayJson) {
+        $scope.title = overlayJson.title;
+        $scope.text = overlayJson.text;
       }
 
       /***
@@ -296,6 +309,7 @@ angular.module('HomeController', [])
 
       $scope.hideModal = function() {
         var modal = document.querySelector(".building-overlay-modal");
+        modal.style.display = "none";
         modal.style.opacity = 0;
       }
 
@@ -361,6 +375,7 @@ angular.module('HomeController', [])
         }
       }
 
+
       /***
       *
       * Function to fade in the home image
@@ -370,6 +385,9 @@ angular.module('HomeController', [])
       var fadeInHomeImage = function() {
         var homeImage = document.querySelector(".home-image-2");
         homeImage.style.opacity = 1;
+
+        var homeImageGradient = document.querySelector(".background-gradient");
+        homeImageGradient.style.opacity = 1;
       }
 
       /***
@@ -379,15 +397,27 @@ angular.module('HomeController', [])
       ***/
 
       $scope.beginPageSequence = function() {
-        $timeout(function() {
-          var video = document.querySelector("video");
-          video.play();
-        }, 4000);
-        $timeout(function() {
-          var initialImage = document.querySelector(".home-image-1");
-          initialImage.style.opacity = 0;
-        }, 1000);
+        var windowWidth = window.innerWidth;
+        if (windowWidth > 800) {
+          $timeout(function() {
+            var video = document.querySelector("video");
+            video.play();
+          }, 4000);
+          $timeout(function() {
+            var initialImage = document.querySelector(".home-image-1");
+            initialImage.style.opacity = 0;
+          }, 1000);
+        }
       }
+
+      /***
+      *
+      * Initialize the welcome text for mobile devices
+      *
+      ***/
+
+      $scope.title = "Welcome";
+      $scope.text = "Explore the physical, historical, social, and artistic aspects of the construction of Frankly and Murray Colleges, the first new residential colleges to open at Yale University since 1962.";
 
       /***
       *

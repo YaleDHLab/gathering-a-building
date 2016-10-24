@@ -175,6 +175,21 @@ module.exports = {
         destination.scrollIntoView();
       });
     }
+  },
+
+  /***
+  *
+  * Function to set body opacity to a float value {0,1}
+  *
+  ***/
+
+  updateBodyOpacity($timeout, val) {
+    var body = document.querySelector("body");
+    if (body.style.opacity != val) {
+      $timeout(function() {
+        body.style.opacity = val;
+      }, 500);
+    }
   }
 
 }

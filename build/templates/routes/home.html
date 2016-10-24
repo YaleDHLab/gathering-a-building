@@ -1,20 +1,29 @@
 <!-- Home container -->
 <div id="home" class="home" ng-style="resizeWithOffset(0)"
     resize notifier="windowResize(params)">
+
+  <!-- Blue background gradient -->
+  <div class="background-gradient home-image slow-dynamic-opacity"></div>
+
   <div class="home-container">
+
+    <!-- Page load image for desktop -->
     <img src="/assets/images/page-load.png"
         class="home-image home-image-1 slow-dynamic-opacity">
 
-    <video>
+    <!-- Video to display animation sequence on desktop -->
+    <video class="video">
       <source src="./assets/video/intro-sequence.mp4"
           type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
         There's a video here but your browser can't show it
     </video>
 
+    <!-- Final resting image for desktop/mobile -->
     <img data-ng-click="hideModal()"
-      src="/assets/images/gab-red-138.png"
-      class="home-image home-image-2 slow-dynamic-opacity">
-    
+      src="/assets/images/yale-college-16-10-13.png"
+      class="home-image home-image-2 slow-dynamic-opacity"
+      data-template-loaded="positionIcons()">
+
     <!-- Image overlays -->
     <div data-ng-repeat="overlay in overlayIcons"
         class="building-overlay-marker slow-dynamic-opacity"
@@ -23,13 +32,14 @@
         data-ng-click="toggleModal(overlay.id)"></div>
     </div>
 
+    <!-- Home page modal -->
     <div class="building-overlay-modal">
       <div class="building-overlay-image-container">
         <img data-ng-src="{{overlayData.image}}" />
       </div>
       <div class="building-modal-text">
         <a data-ng-click="deeplink(overlayData.path, overlayData.hash)"
-           data-ng-bind-html="overlayData.title | allowHtml"></a>
+           data-ng-bind-html="overlayData.title + ' »' | allowHtml"></a>
         <p>{{overlayData.text}}</p>
       </div>
       <div class="clear-both"/>
@@ -37,3 +47,9 @@
 
   </div>
 </div>
+
+<!-- Mobile mid-page navigation controls -->
+<div class="mobile-controls" data-ng-include='"/templates/partials/layout/mobile-mid-page-controls.html"'></div>
+
+<!-- Text column overlay -->
+<div class="home-text-column" autoscroll="true" data-ng-include='"/templates/partials/layout/home-text-column.html"'></div>

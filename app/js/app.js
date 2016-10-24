@@ -146,7 +146,5 @@ buildingApp.run([
   function($rootScope, $anchorScroll) {
     $rootScope.$on('$routeChangeSuccess', function(newRoute, oldRoute) {
 
-    // restore opacity to the body
-    document.querySelector('.body').style.opacity = 1;
   });
 }])
