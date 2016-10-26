@@ -411,7 +411,7 @@ video {
 }
 
 .building-overlay-modal .building-overlay-image-container {
-  width: 185px;
+  width: 200px;
   height: 100%;
   float: left;
   overflow: hidden;
@@ -424,7 +424,7 @@ video {
 
 .building-modal-text {
   margin: 30px;
-  margin-left: 210px;
+  margin-left: 220px;
   font-family: Acumin Pro;
 }
 

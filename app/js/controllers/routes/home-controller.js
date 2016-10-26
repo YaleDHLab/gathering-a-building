@@ -47,10 +47,23 @@ angular.module('HomeController', [])
       *
       ***/
 
-      var findMousePosition = function(evt) {
-        var x = (evt.pageX - $('body').offset().left) + $(window).scrollLeft();
-        var y = (evt.pageY - $('body').offset().top) + $(window).scrollTop();
-      }
+      /*
+      (function() {
+        document.onmousemove = handleMouseMove;
+        function handleMouseMove(event) {
+          //console.log(event);
+          var dot, eventDoc, doc, body, pageX, pageY;
+
+          event = event || window.event; // IE-ism
+
+          // calculate image height and width
+          var image = document.querySelector(".home-image-2");
+          var imageHeight = image.clientHeight;
+          var imageWidth = image.clientWidth;
+          console.log(event.pageX/imageWidth, event.pageY/imageHeight);
+        }
+      })();
+      */
 
       /***
       *
