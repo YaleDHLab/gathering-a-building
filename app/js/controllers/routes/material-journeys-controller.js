@@ -63,7 +63,13 @@ angular.module('MaterialJourneysController', [])
         var selectSection = function() {
           $timeout(function(){
             var sectionId = String($scope.selectedSectionId);
-            var section = $scope.textColumn.sections[sectionId];
+
+            for (var i=0; i<$scope.textColumn.sections.length; i++) {
+              if ($scope.textColumn.sections[i].id == sectionId) {
+                var section = $scope.textColumn.sections[i];
+              }
+            }
+
             var background = section["background"]["url"];
             controllerHelper.updateTemplate($scope, $timeout, section);
             controllerHelper.updateBackground($scope, background);

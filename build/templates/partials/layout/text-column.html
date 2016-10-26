@@ -11,7 +11,6 @@
         data-hover-events class="text-column">
       <div class="text-column-content">
         <div data-ng-repeat="section in textColumn.sections"
-          data-ng-class="{{ 'section' + section.id }}"
           data-section-id="{{section.id}}"
           class="section">
           <div data-ng-attr-id="{{ section.id }}"
@@ -58,7 +57,7 @@
 
         <!-- Template for sending users back to landing page image -->
         <div data-ng-if="section.linksHome === '1'" class="text-column-button-container home-link">
-          <a href="/#/">
+          <a href="/#/?animation=false">
             <div class="text-column-button">Go Back &rarr;</div>
           </a>
         </div>
