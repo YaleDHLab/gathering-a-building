@@ -273,6 +273,8 @@ Then, to pull down the latest changes on the master branch on GitHub, you can ru
 git pull origin master
 ```
 
+This will open the vim command line text editor, prompting you to type a "commit message" into the screen. You can do so by pressing `i` (which moves the vim text editor into Insert mode), followed by the down arrow (which moves the cursor down one row in the text document), followed by a message to your fellow team members (e.g. "merging remote master into local master"), followed by `ESCAPE :wq ENTER`.
+
 To merge instead a branch on GitHub that hasn't been merged into the master branch on Github, you can run:
 
 ```
