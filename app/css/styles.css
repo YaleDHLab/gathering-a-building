@@ -413,6 +413,12 @@ video {
   box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.5);
 }
 
+.building-overlay-modal-content {
+  height: 100%;
+  width: 100%;
+  position: relative;
+}
+
 .building-overlay-modal .building-overlay-image-container {
   width: 200px;
   height: 100%;
@@ -425,13 +431,24 @@ video {
   min-width: 100%;
 }
 
-.building-modal-text {
-  margin: 30px;
-  margin-left: 220px;
+.building-modal-text-container {
+  position: absolute;
+  width: 228px;
+  top: 20px;
+  bottom: 20px;
+  left: 220px;
   font-family: Acumin Pro;
+  overflow: hidden;
 }
 
-.building-modal-text a {
+.building-modal-text {
+  height: 100%;
+  width: 100%;
+  padding-right: 17px;
+  overflow-y: scroll;
+}
+
+.building-modal-text-container a {
   color: #39c;
   text-decoration: none;
   font-size: 1.2em;
@@ -439,11 +456,11 @@ video {
   font-family: Mallory;
 }
 
-.building-modal-text a:hover {
+.building-modal-text-container a:hover {
   color: #4eb3e4;
 }
 
-.building-modal-text p {
+.building-modal-text-container p {
   line-height: 1.4em;
   font-size: .9em;
   margin-top: 17px;
@@ -468,7 +485,7 @@ video {
     display: none;
   }
 
-  .building-overlay-modal .building-modal-text {
+  .building-overlay-modal .building-modal-text-container {
     position: absolute;
   }
 
