@@ -256,6 +256,29 @@ If the fields in the Wordpress database are set according to the guide above, yo
 
 After writing the new json to your local machine, you can preview the changes by refreshing your browser. If you navigate to the routes/posts you changed in the Wordpress database, you should see the new values or content displayed.
 
+## Merging Development Branches
+
+If other team members have made changes to the application code and have uploaded those changes to GitHub, you can pull down and merge those changes with your own by using the following commands.
+
+First, you can add and commit any changes you might have made to your local repository with the following command:
+
+```
+git add .
+git commit -m "type a message indicating the changes you made here"
+```
+
+Then, to pull down the latest changes on the master branch on GitHub, you can run:
+
+```
+git pull origin master
+```
+
+To merge instead a branch on GitHub that hasn't been merged into the master branch on Github, you can run:
+
+```
+git pull origin {{branch-name}}
+```
+
 ## Deploying Updated Content
 
 Once you are happy with the way the content looks, you can push your changes to the deployed server by running:
