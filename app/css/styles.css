@@ -8,6 +8,7 @@ html, body, .background-image, .page-content {
 body {
   font-size: 1em;
   opacity: 1;
+  overflow: hidden;
 }
 
 /****************
@@ -240,6 +241,7 @@ html {
   position: absolute;
   overflow-x: scroll;
   overflow-y: hidden;
+  padding-bottom: 15px;
 }
 
 .home-container {
@@ -324,6 +326,7 @@ html {
 
 video {
   height: 100%;
+  position: absolute;
 }
 
 /*******************
