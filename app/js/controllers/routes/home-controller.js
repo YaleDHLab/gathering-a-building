@@ -161,8 +161,6 @@ angular.module('HomeController', [])
         *
         ***/
 
-        console.log(overlayPosition);
-
         // establish x axis position of modal
         if (overlayPosition.xRegion == 'right') {
           overlayPosition.x = iconLeft - modalLength - modalPadding;
