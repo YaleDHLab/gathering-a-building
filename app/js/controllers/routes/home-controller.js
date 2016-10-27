@@ -133,8 +133,8 @@ angular.module('HomeController', [])
         ***/
 
         // determine x axis position
-        if (overlayJson.xOffset > .25) {
-          if (overlayJson.xOffset > .75) {
+        if (overlayJson.xOffset > .444) {
+          if (overlayJson.xOffset > .555) {
             overlayPosition.xRegion = 'right';
           } else {
             overlayPosition.xRegion = 'mid';
@@ -144,8 +144,8 @@ angular.module('HomeController', [])
         };
 
         // determine y axis position
-        if (overlayJson.yOffset > .333) {
-          if (overlayJson.yOffset > .666) {
+        if (overlayJson.yOffset > .444) {
+          if (overlayJson.yOffset > .555) {
             overlayPosition.yRegion = 'bottom';
           } else {
             overlayPosition.yRegion = 'mid';
@@ -161,6 +161,8 @@ angular.module('HomeController', [])
         *
         ***/
 
+        console.log(overlayPosition);
+
         // establish x axis position of modal
         if (overlayPosition.xRegion == 'right') {
           overlayPosition.x = iconLeft - modalLength - modalPadding;
@@ -169,7 +171,7 @@ angular.module('HomeController', [])
           overlayPosition.x = iconLeft - (modalLength/2);
         }
         if (overlayPosition.xRegion == 'left') {
-          overlayPosition.x = iconLeft + modalPadding;
+          overlayPosition.x = iconLeft + 30 + modalPadding;
         }
 
         // establish y axis position of modal
@@ -177,7 +179,7 @@ angular.module('HomeController', [])
           overlayPosition.y = iconTop - modalHeight - modalPadding;
         }
         if (overlayPosition.yRegion == 'mid') {
-          overlayPosition.y = iconTop + iconHeight + modalPadding - 5;
+          overlayPosition.y = iconTop - (modalHeight/2) + (iconHeight/2) - 5;
         }
         if (overlayPosition.yRegion == 'top') {
           overlayPosition.y = iconTop + iconHeight + modalPadding - 5;
