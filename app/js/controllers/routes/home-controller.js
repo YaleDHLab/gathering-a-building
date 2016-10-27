@@ -289,16 +289,37 @@ angular.module('HomeController', [])
       ***/
 
       $scope.toggleModal = function(overlayId) {
-
         // store the selected overlay in the global scope,
         // pass the overlay data to the template, and initialize
         // the modal
+        highlightSelectedIcon(overlayId);
+
         $scope.overlayId = overlayId;
         var overlayJson = $scope.overlayIcons[overlayId];
         $scope.overlayData = overlayJson;
         updateHomeMobileText(overlayJson);
         positionModal(1);
         scrollToModal();
+      }
+
+      /***
+      *
+      * Function to fade out all icons except the one
+      * the user clicked on
+      *
+      ***/
+
+      var highlightSelectedIcon = function(overlayId) {
+        // fade all icons out
+        var icons = document.querySelectorAll(".building-overlay-marker");
+        for (var i=0; i<icons.length; i++) {
+          var icon = icons[i];
+          icon.style.opacity = ".3";
+        }
+        // fade in the selected icon
+        var iconIdentifier = ".building-overlay-marker-" + overlayId;
+        var selectedIcon = document.querySelector(iconIdentifier);
+        selectedIcon.style.opacity = "1";
       }
 
       /***
@@ -324,6 +345,21 @@ angular.module('HomeController', [])
         var modal = document.querySelector(".building-overlay-modal");
         modal.style.display = "none";
         modal.style.opacity = 0;
+        restoreIconOpacity();
+      }
+
+      /***
+      *
+      * Function to restore opacity of all icon overlays
+      *
+      ***/
+
+      var restoreIconOpacity = function() {
+        var icons = document.querySelectorAll(".building-overlay-marker");
+        for (var i=0; i<icons.length; i++) {
+          var icon = icons[i];
+          icon.style.opacity = "1";
+        }
       }
 
       /***
