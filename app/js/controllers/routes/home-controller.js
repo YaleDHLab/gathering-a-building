@@ -47,10 +47,23 @@ angular.module('HomeController', [])
       *
       ***/
 
-      var findMousePosition = function(evt) {
-        var x = (evt.pageX - $('body').offset().left) + $(window).scrollLeft();
-        var y = (evt.pageY - $('body').offset().top) + $(window).scrollTop();
-      }
+      /*
+      (function() {
+        document.onmousemove = handleMouseMove;
+        function handleMouseMove(event) {
+          //console.log(event);
+          var dot, eventDoc, doc, body, pageX, pageY;
+
+          event = event || window.event; // IE-ism
+
+          // calculate image height and width
+          var image = document.querySelector(".home-image-2");
+          var imageHeight = image.clientHeight;
+          var imageWidth = image.clientWidth;
+          console.log(event.pageX/imageWidth, event.pageY/imageHeight);
+        }
+      })();
+      */
 
       /***
       *
@@ -120,8 +133,8 @@ angular.module('HomeController', [])
         ***/
 
         // determine x axis position
-        if (overlayJson.xOffset > .25) {
-          if (overlayJson.xOffset > .75) {
+        if (overlayJson.xOffset > .444) {
+          if (overlayJson.xOffset > .555) {
             overlayPosition.xRegion = 'right';
           } else {
             overlayPosition.xRegion = 'mid';
@@ -131,8 +144,8 @@ angular.module('HomeController', [])
         };
 
         // determine y axis position
-        if (overlayJson.yOffset > .333) {
-          if (overlayJson.yOffset > .666) {
+        if (overlayJson.yOffset > .444) {
+          if (overlayJson.yOffset > .555) {
             overlayPosition.yRegion = 'bottom';
           } else {
             overlayPosition.yRegion = 'mid';
@@ -156,7 +169,7 @@ angular.module('HomeController', [])
           overlayPosition.x = iconLeft - (modalLength/2);
         }
         if (overlayPosition.xRegion == 'left') {
-          overlayPosition.x = iconLeft + modalPadding;
+          overlayPosition.x = iconLeft + 30 + modalPadding;
         }
 
         // establish y axis position of modal
@@ -164,7 +177,7 @@ angular.module('HomeController', [])
           overlayPosition.y = iconTop - modalHeight - modalPadding;
         }
         if (overlayPosition.yRegion == 'mid') {
-          overlayPosition.y = iconTop + iconHeight + modalPadding - 5;
+          overlayPosition.y = iconTop - (modalHeight/2) + (iconHeight/2) - 5;
         }
         if (overlayPosition.yRegion == 'top') {
           overlayPosition.y = iconTop + iconHeight + modalPadding - 5;
@@ -276,16 +289,37 @@ angular.module('HomeController', [])
       ***/
 
       $scope.toggleModal = function(overlayId) {
-
         // store the selected overlay in the global scope,
         // pass the overlay data to the template, and initialize
         // the modal
+        highlightSelectedIcon(overlayId);
+
         $scope.overlayId = overlayId;
         var overlayJson = $scope.overlayIcons[overlayId];
         $scope.overlayData = overlayJson;
         updateHomeMobileText(overlayJson);
         positionModal(1);
         scrollToModal();
+      }
+
+      /***
+      *
+      * Function to fade out all icons except the one
+      * the user clicked on
+      *
+      ***/
+
+      var highlightSelectedIcon = function(overlayId) {
+        // fade all icons out
+        var icons = document.querySelectorAll(".building-overlay-marker");
+        for (var i=0; i<icons.length; i++) {
+          var icon = icons[i];
+          icon.style.opacity = ".3";
+        }
+        // fade in the selected icon
+        var iconIdentifier = ".building-overlay-marker-" + overlayId;
+        var selectedIcon = document.querySelector(iconIdentifier);
+        selectedIcon.style.opacity = "1";
       }
 
       /***
@@ -311,6 +345,21 @@ angular.module('HomeController', [])
         var modal = document.querySelector(".building-overlay-modal");
         modal.style.display = "none";
         modal.style.opacity = 0;
+        restoreIconOpacity();
+      }
+
+      /***
+      *
+      * Function to restore opacity of all icon overlays
+      *
+      ***/
+
+      var restoreIconOpacity = function() {
+        var icons = document.querySelectorAll(".building-overlay-marker");
+        for (var i=0; i<icons.length; i++) {
+          var icon = icons[i];
+          icon.style.opacity = "1";
+        }
       }
 
       /***

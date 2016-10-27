@@ -8,7 +8,7 @@
   <div class="home-container">
 
     <!-- Page load image for desktop -->
-    <img src="/assets/images/starting-view.jpg"
+    <img src="/assets/images/starting-view-final.jpg"
         class="home-image home-image-1 slow-dynamic-opacity">
 
     <!-- Video to display animation sequence on desktop -->
@@ -34,13 +34,19 @@
 
     <!-- Home page modal -->
     <div class="building-overlay-modal">
-      <div class="building-overlay-image-container">
-        <img data-ng-src="{{overlayData.image}}" />
-      </div>
-      <div class="building-modal-text">
-        <a data-ng-click="deeplink(overlayData.path, overlayData.hash)"
-           data-ng-bind-html="overlayData.title + ' »' | allowHtml"></a>
-        <p>{{overlayData.text}}</p>
+      <div class="building-overlay-modal-content">
+        <div class="building-overlay-image-container">
+          <img data-ng-src="{{overlayData.image}}" />
+        </div>
+        <div class="building-modal-text-container">
+          <div class="building-modal-text">
+            <a data-ng-click="deeplink(overlayData.path, overlayData.hash)">
+              <div data-ng-bind-html="overlayData.title + ' »' | allowHtml"
+                class="building-modal-title"></div>
+            </a>
+            <p data-ng-bind-html="overlayData.text | allowHtml"></p>
+          </div>
+        </div>
       </div>
       <div class="clear-both"/>
     </div>
