@@ -36,6 +36,7 @@ require('./directives/template-loaded');
 
 // filters
 require('./filters/allow-html');
+require('./filters/allow-select-html');
 
 // services
 require('./services/background-style');
@@ -75,6 +76,7 @@ var buildingApp = angular.module("BuildingApp",
 
     // filters
     "AllowHtml",
+    "AllowSelectHtml",
 
     // services
     "BackgroundStyle"
