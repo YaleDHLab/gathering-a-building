@@ -6,8 +6,8 @@ var mapHelper        = require('../helpers/map-helper');
 
 angular.module('HistoricalGeographyController', [])
   .controller("historicalGeographyController", [
-      "$scope", "$http", "$timeout", "backgroundStyle",
-  function($scope, $http, $timeout, backgroundStyle) {
+      "$scope", "$http", "$timeout", "$location", "backgroundStyle",
+  function($scope, $http, $timeout, $location, backgroundStyle) {
 
     /***
     *
@@ -35,20 +35,20 @@ angular.module('HistoricalGeographyController', [])
 
         $scope.mapOverlays = {
           "0": {
-            "year": 1753,
+            "year": 1748,
             "label": "Wadsworth Plan",
-            "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1748_Wadsworth_Plan-NewHaven_1806-Kensett-engr_Beinecke_15675071-GEO1/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1753.json",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1748_Wadsworth_Plan-NewHaven_1806-Kensett-engr_Beinecke_15675071-GEO1/{z}/{x}/{y}.png",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1753.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
             }
           },
           "1": {
-            "year": 1802,
-            "label": "Plan of New Haven",
-            "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1802_Plan-New-Haven_Biencke_105622451_GEO1/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1802.json",
+            "year": 1748,
+            "label": "Wadsworth Plan",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1748_Wadsworth_Plan-NewHaven_1806-Kensett-engr_Beinecke_15675071-GEO1/{z}/{x}/{y}.png",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1753.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -57,8 +57,8 @@ angular.module('HistoricalGeographyController', [])
           "2": {
             "year": 1824,
             "label": "Doolittle Plan",
-            "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1824_Doolittle_Plan-of-New-Haven_Beinecke_156750741/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1835.json",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1824_Doolittle_Plan-of-New-Haven_Beinecke_156750741/{z}/{x}/{y}.png",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1835.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -66,8 +66,8 @@ angular.module('HistoricalGeographyController', [])
           },
           "3": {
             "year": 1849,
-            "label": "Buckingham Plan",
-            "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1849_Buckingham_NH_156913731_Geo4/{z}/{x}/{y}.png",
+            "label": "Buckingham Map",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1849_Buckingham_NH_156913731_Geo4/{z}/{x}/{y}.png",
             "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1850.json",
             "backgroundStyle": {
               "navigationButton": "dark",
@@ -76,9 +76,49 @@ angular.module('HistoricalGeographyController', [])
           },
           "4": {
             "year": 1874,
-            "label": "Benham Plan",
-            "imageOverlayUrl": "https://gathering-a-building.s3.amazonaws.com/1874_Benham_15691396_Geo2/{z}/{x}/{y}.png",
+            "label": "Lyman/Butler Map",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1874_Benham_15691396_v2_GEO/{z}/{x}/{y}.png",
             "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1870.json",
+            "backgroundStyle": {
+              "navigationButton": "dark",
+              "brandIcon": "dark"
+            }
+          },
+          "5": {
+            "year": 1893,
+            "label": "Hill Map",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1893_Hill_Beinecke_156914371-Geo2/{z}/{x}/{y}.png",
+            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1894.json",
+            "backgroundStyle": {
+              "navigationButton": "dark",
+              "brandIcon": "dark"
+            }
+          },
+          "6": {
+            "year": 1911,
+            "label": "Atlas of New Haven",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1910NHb/{z}/{x}/{y}.png",
+            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1912.json",
+            "backgroundStyle": {
+              "navigationButton": "dark",
+              "brandIcon": "dark"
+            }
+          },
+          "7": {
+            "year": 1937,
+            "label": "Home Owners Loan Corporation Map",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1937_HOLC_TIFF/{z}/{x}/{y}.png",
+            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1940.json",
+            "backgroundStyle": {
+              "navigationButton": "dark",
+              "brandIcon": "dark"
+            }
+          },
+          "8": {
+            "year": 1973,
+            "label": "Hill Map",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1973_New_Haven_Sanborn_Mosaic_2/{z}/{x}/{y}.png",
+            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1970.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -122,6 +162,18 @@ angular.module('HistoricalGeographyController', [])
 
         /***
         *
+        * Function that sets the currently selected section on
+        * click of map button; exposed in the ui
+        *
+        ***/
+
+        $scope.selectActiveSection = function(selectedId) {
+          $location.hash(selectedId);
+          $scope.selectOverlay(selectedId);
+        }
+
+        /***
+        *
         * Updates the map to display the user-selected map overlay
         *
         ***/
@@ -147,7 +199,7 @@ angular.module('HistoricalGeographyController', [])
           };
 
           // add the image tile overlay and vector overlay
-          mapHelper.addImageOverlay(map, $scope.mapOverlays[selectedId]["imageOverlayUrl"]);
+          mapHelper.addImageOverlay($scope, map, $scope.mapOverlays[selectedId]["imageOverlayUrl"]);
           mapHelper.addVectorOverlay(map, $scope.mapOverlays[selectedId]["vectorOverlayUrl"], $timeout);
 
           // set the appropriate brand icon color and navbar button color
@@ -197,10 +249,10 @@ angular.module('HistoricalGeographyController', [])
         *
         ***/
 
+        mapHelper.initializeOpacitySlider($scope, $timeout);
         mapHelper.buildMapOverlayOptions($scope);
         var map = mapHelper.initializeMap($scope);
         $scope.selectOverlay(0)
-        mapHelper.initializeOpacitySlider($scope, $timeout);
         controllerHelper.updateBodyOpacity($timeout, 1);
 
     });

@@ -6,8 +6,12 @@ import json, urllib2, sys
 
 def get_json(url):
   """Read in a url and return json from that url"""
-  username = sys.argv[1]
-  password = sys.argv[2]
+  if len(sys.argv) > 2:
+    username = sys.argv[1]
+    password = sys.argv[2]
+  else:
+    username = ""
+    password = ""
 
   # prepare a request with the username and password credentials
   password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()

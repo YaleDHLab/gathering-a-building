@@ -401,8 +401,8 @@ video {
   display: none;
   opacity: 0;
   z-index: 4;
-  width: 468px;
-  height: 200px;
+  width: 480px;
+  height: 180px;
   position: absolute;
   background: #fff;
   transition: opacity 0.5s ease-in-out;
@@ -420,7 +420,7 @@ video {
 }
 
 .building-overlay-modal .building-overlay-image-container {
-  width: 200px;
+  width: 180px;
   height: 100%;
   float: left;
   overflow: hidden;
@@ -931,6 +931,10 @@ video {
   position: absolute;
 }
 
+.fa-chevron-circle-up {
+  color: #3399CC;
+}
+
 .leaflet-container 
 .leaflet-control-attribution, 
 .leaflet-container 
@@ -996,10 +1000,6 @@ video {
   bottom: 166px;
 }
 
-.vector-overlay-toggle .fa {
-  font-size: 14px;
-}
-
 span.vector-overlay-toggle-button {
   display: inline-block;
   color: #a2a2a2;
@@ -1031,7 +1031,7 @@ span.vector-overlay-toggle-button {
   position: absolute;
   bottom: 13px;
   width: 110px;
-  left: 880px;
+  left: 1150px;
   z-index: 4;
 }
 
