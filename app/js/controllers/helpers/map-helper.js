@@ -43,7 +43,7 @@ module.exports = {
     // create the map object itself
     var map = new L.Map("map", {
       center: centerCoordinates,
-      zoom: 17,
+      zoom: 16,
       zoomControl: false
     });
 
@@ -116,14 +116,14 @@ module.exports = {
   *
   ***/
 
-  addImageOverlay: function(map, imageTileUrl) {
+  addImageOverlay: function($scope, map, imageTileUrl) {
 
     // remove the old imageOverlay layer
     $(".imageOverlay").remove();
 
     var imageOverlay = L.tileLayer(imageTileUrl, {
       attribution: '<a href="http://web.library.yale.edu/dhlab">DHLab@Yale</a>',
-      opacity: .6,
+      opacity: ($scope.opacitySlider.value/100),
       // set max zoom to prevent requests for tiles that don't exist
       maxZoom: 20,
       tms: true,
@@ -168,7 +168,7 @@ module.exports = {
 
     // add an opacity slider with floot, ceiling, and initial value
     $scope.opacitySlider = {
-      value: 70,
+      value: 100,
       options: {
         floor: 0,
         ceil: 100
