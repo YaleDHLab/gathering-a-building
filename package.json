@@ -16,7 +16,7 @@
     "copy-js": "rsync -r --progress -e 'ssh -i gathering-a-building-server.pem' build/bundle.js ec2-user@ec2-54-190-9-54.us-west-2.compute.amazonaws.com:/var/www/html/bundle.js",
     "copy-node": "rsync -r --progress -e 'ssh -i gathering-a-building-server.pem' build/node_modules/ ec2-user@ec2-54-190-9-54.us-west-2.compute.amazonaws.com:/var/www/html/node_modules",
     "authorize": "node app/js/lib/request-autodesk-token.js",
-    "upload-geotiffs": "aws s3 cp geotiffs s3://gathering-a-building --recursive --acl public-read --exclude .DS_Store"
+    "upload-geotiffs": "aws s3 cp geotiffs s3://lab-apps/gathering-a-building/map-tiles/ --recursive --acl public-read --exclude .DS_Store"
   },
   "repository": {
     "type": "git",
