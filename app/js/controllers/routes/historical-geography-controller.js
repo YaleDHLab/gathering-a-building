@@ -146,6 +146,7 @@ angular.module('HistoricalGeographyController', [])
         ***/
 
         $scope.setOverlayOption = function(overlayOption) {
+          $location.hash(overlayOption.id);
           $scope.selectOverlay(overlayOption.id);
         };
 
