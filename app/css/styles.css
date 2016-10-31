@@ -931,6 +931,10 @@ video {
   position: absolute;
 }
 
+.fa-chevron-circle-up {
+  color: #3399CC;
+}
+
 .leaflet-container 
 .leaflet-control-attribution, 
 .leaflet-container 
@@ -996,10 +1000,6 @@ video {
   bottom: 166px;
 }
 
-.vector-overlay-toggle .fa {
-  font-size: 14px;
-}
-
 span.vector-overlay-toggle-button {
   display: inline-block;
   color: #a2a2a2;
@@ -1031,7 +1031,7 @@ span.vector-overlay-toggle-button {
   position: absolute;
   bottom: 13px;
   width: 110px;
-  left: 880px;
+  left: 1150px;
   z-index: 4;
 }
 
