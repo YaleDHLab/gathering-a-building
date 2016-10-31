@@ -1176,10 +1176,15 @@ span.rz-pointer:focus {
     position: fixed;
     width: 40px;
     z-index: 10;
+    right: 15px;
   }
 
   .navigation-container {
     z-index: 11;
+  }
+
+  .navigation {
+    left: 20px;
   }
 
   .navigation-overlay-column {
