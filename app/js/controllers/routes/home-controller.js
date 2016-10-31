@@ -463,6 +463,10 @@ angular.module('HomeController', [])
               var initialImage = document.querySelector(".home-image-1");
               initialImage.style.opacity = 0;
             }, 1000);
+          } else {
+            $timeout(function() {
+              $scope.positionIcons();
+            }, 500);
           }
 
         // handler for cases where we won't play the animation, but will
@@ -506,5 +510,6 @@ angular.module('HomeController', [])
       $scope.initializeOverlays();
       $scope.beginPageSequence();
       $scope.$apply();
+
   });
 }]);
