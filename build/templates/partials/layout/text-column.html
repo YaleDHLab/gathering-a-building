@@ -11,7 +11,7 @@
         data-hover-events class="text-column">
       <div class="text-column-content">
         <div data-ng-repeat="section in textColumn.sections track by $index"
-          data-section-id="{{section.id}}"
+          data-section-index="{{$index}}"
           class="section">
           <div data-ng-attr-id="{{ section.id }}"
               data-ng-class="{
