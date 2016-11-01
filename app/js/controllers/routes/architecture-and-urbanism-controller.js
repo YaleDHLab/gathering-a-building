@@ -56,7 +56,7 @@ angular.module('ArchitectureAndUrbanismController', [])
         // initialize the application state
         $timeout(function() {
           $scope.selectedSectionId = 0;
-          selectSection($scope);
+          selectSection();
           controllerHelper.buildDropdownOptions($scope);
           controllerHelper.initializeMobile($scope);
           controllerHelper.initializeFooter($scope, $location,
