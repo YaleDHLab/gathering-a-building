@@ -101,8 +101,8 @@ angular.module('ScrollListener', [])
           } 
 
           if (top < 200 && top > -200) {
-            var selectedId = elem.getAttribute('data-section-id');
-            scope.setSelectedSection(selectedId);
+            var selectedIndex = elem.getAttribute('data-section-index');
+            scope.setSelectedSection(selectedIndex);
           }
         }
 
