@@ -16,16 +16,21 @@ module.exports = {
     $scope.overlayOptions = [];
     for (var i=0; i<Object.keys($scope.mapOverlays).length; i++) {
 
-      // the display option should contain the content of
-      // year - label keys.
-      var year = $scope.mapOverlays[i].year;
-      var label = $scope.mapOverlays[i].label;
-      var overlayLabel = year + " - " + label;
+      // skip the overlay option for the section introduction,
+      // which will always have id == 0
+      if (i != 0) {
+        // the display option should contain the content of
+        // year - label keys.
+        var year = $scope.mapOverlays[i].year;
+        var label = $scope.mapOverlays[i].label;
+        var overlayLabel = year + " - " + label;
 
-      $scope.overlayOptions.push({
-        "label": overlayLabel,
-        "id": i
-      });
+        $scope.overlayOptions.push({
+          "label": overlayLabel,
+          "id": i
+        });
+
+      }
     };
   },
 

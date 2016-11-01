@@ -10,7 +10,7 @@
         data-set-selected-section="getSelectedSection" 
         data-hover-events class="text-column">
       <div class="text-column-content">
-        <div data-ng-repeat="section in textColumn.sections"
+        <div data-ng-repeat="section in textColumn.sections track by $index"
           data-section-id="{{section.id}}"
           class="section">
           <div data-ng-attr-id="{{ section.id }}"
@@ -48,7 +48,7 @@
 
           <!-- Template for section with section-type == text-with-title or text-without-title -->
           <div data-ng-if="section.sectionType == 'text'">
-            <div data-ng-repeat="paragraph in section.paragraphs">
+            <div data-ng-repeat="paragraph in section.paragraphs track by $index">
               <div data-ng-bind-html="paragraph | allowHtml" class="section-paragraph"></div>
             </div>
           </div>

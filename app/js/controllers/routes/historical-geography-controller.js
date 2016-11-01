@@ -68,7 +68,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1849,
             "label": "Buckingham Map",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1849_Buckingham_NH_156913731_Geo4/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1850.json",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1850.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -78,7 +78,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1874,
             "label": "Lyman/Butler Map",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1874_Benham_15691396_v2_GEO/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1870.json",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1870.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -88,7 +88,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1893,
             "label": "Hill Map",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1893_Hill_Beinecke_156914371-Geo2/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1894.json",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1894.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -98,7 +98,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1911,
             "label": "Atlas of New Haven",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1910NHb/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1912.json",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1912.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -108,7 +108,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1937,
             "label": "Home Owners Loan Corporation Map",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1937_HOLC_TIFF/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1940.json",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1940.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -118,7 +118,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1973,
             "label": "Hill Map",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1973_New_Haven_Sanborn_Mosaic_2/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://s3-us-west-2.amazonaws.com/gathering-a-building/buildings_json/combined_buildings_1970.json",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1970.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -146,6 +146,7 @@ angular.module('HistoricalGeographyController', [])
         ***/
 
         $scope.setOverlayOption = function(overlayOption) {
+          $location.hash(overlayOption.id);
           $scope.selectOverlay(overlayOption.id);
         };
 

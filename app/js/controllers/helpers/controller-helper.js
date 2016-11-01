@@ -68,10 +68,12 @@ module.exports = {
     // iterate over the floated ids, convert each to a string for the text column
     // lookup, and proceed to build up the dropdown options
     $scope.textColumn.sections.map(function(section) {
-      $scope.dropdownOptions.push({
-        label: section.title,
-        id: section.id
-      });
+      if (Number.isInteger(parseFloat(section.id))) {
+        $scope.dropdownOptions.push({
+          label: section.title,
+          id: section.id
+        });
+      }
     });
   },
 

@@ -433,10 +433,10 @@ video {
 
 .building-modal-text-container {
   position: absolute;
-  width: 228px;
+  width: 260px;
   top: 20px;
   bottom: 20px;
-  left: 220px;
+  left: 200px;
   font-family: Acumin Pro;
   overflow: hidden;
 }
@@ -1031,7 +1031,7 @@ span.vector-overlay-toggle-button {
   position: absolute;
   bottom: 13px;
   width: 110px;
-  left: 1150px;
+  left: 1050px;
   z-index: 4;
 }
 
@@ -1176,10 +1176,15 @@ span.rz-pointer:focus {
     position: fixed;
     width: 40px;
     z-index: 10;
+    right: 15px;
   }
 
   .navigation-container {
     z-index: 11;
+  }
+
+  .navigation {
+    left: 20px;
   }
 
   .navigation-overlay-column {
