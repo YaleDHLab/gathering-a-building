@@ -118,17 +118,24 @@ def get_background_metadata(post):
       raise Exception(post_title + "had more than the maximum number of featured images (1)")
 
     media_link = media_links[0]["href"]
-    media_json = get_json(media_link)
     
-    # get image metadata fields
-    url = media_json["guid"]["rendered"]
-    alt = media_json["alt_text"]
-    annotation = media_json["caption"]
+    # handle the case of media assets that aren't published
+    try:
+      media_json = get_json(media_link)
 
-    image_metadata["url"] = url
-    image_metadata["alt"] = url
-    image_metadata["annotation"] = annotation
-    return image_metadata
+      # get image metadata fields
+      url = media_json["guid"]["rendered"]
+      alt = media_json["alt_text"]
+      annotation = media_json["caption"]
+
+      image_metadata["url"] = url
+      image_metadata["alt"] = url
+      image_metadata["annotation"] = annotation
+      return image_metadata
+
+    except:
+      print "Couldn't retrieve media asset", media_link, "\nIs this post private? If so, publish it to retrieve this asset."
+      return "NA"
 
   except KeyError:
     return "NA"
@@ -263,7 +270,7 @@ def get_application_json(posts):
   for controller_key in application_json:
     if controller_key != "home":
       if logging == 1:
-        print "writting json for controller:", controller_key
+        print "writing json for controller:", controller_key
       with open(output_dir + controller_key + ".json", "w") as json_out:
         json.dump(application_json[controller_key], json_out)
 
