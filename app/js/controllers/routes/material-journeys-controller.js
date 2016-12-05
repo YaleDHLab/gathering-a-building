@@ -18,6 +18,13 @@ angular.module('MaterialJourneysController', [])
         var data = res.body;
         $scope.textColumn = data;
 
+        // create an internal mapping from the 'id' field within a post
+        // to that post's content
+        $scope.idToSection = {};
+        $scope.textColumn.sections.map((s)=> {
+          $scope.idToSection[s.id] = s
+        });
+
         /***
         *
         * Identify a function that calls an update function
@@ -63,13 +70,7 @@ angular.module('MaterialJourneysController', [])
         var selectSection = function() {
           $timeout(function(){
             var sectionId = String($scope.selectedSectionId);
-
-            for (var i=0; i<$scope.textColumn.sections.length; i++) {
-              if ($scope.textColumn.sections[i].id == sectionId) {
-                var section = $scope.textColumn.sections[i];
-              }
-            }
-
+            var section = $scope.idToSection[sectionId];
             var background = section["background"]["url"];
             controllerHelper.updateTemplate($scope, $timeout, section);
             controllerHelper.updateBackground($scope, background);
@@ -86,12 +87,10 @@ angular.module('MaterialJourneysController', [])
         controllerHelper.buildDropdownOptions($scope);
         controllerHelper.initializeMobile($scope);
         controllerHelper.initializeIframe($scope);
-        controllerHelper.initializeFooter($scope, $location,
-              "Material Journeys", "partial");
+        controllerHelper.initializeFooter($scope, $location, "Material Journeys", "partial");
 
         // finally, given the loaded data, scroll to the requested id (if any)
         controllerHelper.scrollToHash($location, $timeout);
-
       });
   }
 ]);

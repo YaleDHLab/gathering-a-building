@@ -18,6 +18,13 @@ angular.module('ArchitectureAndUrbanismController', [])
         var data = res.body;
         $scope.textColumn = data;
 
+        // create an internal mapping from the 'id' field within a post
+        // to that post's content
+        $scope.idToSection = {};
+        $scope.textColumn.sections.map((s)=> {
+          $scope.idToSection[s.id] = s
+        });
+
         /***
         *
         * Identify a function that calls an update function
@@ -43,7 +50,7 @@ angular.module('ArchitectureAndUrbanismController', [])
         var selectSection = function() {
           $timeout(function(){
             var sectionId = String($scope.selectedSectionId);
-            var section = $scope.textColumn.sections[sectionId];
+            var section = $scope.idToSection[sectionId];
             var background = section["background"]["url"];
             controllerHelper.updateTemplate($scope, $timeout, section);
             controllerHelper.updateBackground($scope, background);
