@@ -18,6 +18,13 @@ angular.module('AboutTheAuthorController', [])
         var data = res.body;
         $scope.textColumn = data;
 
+        // create an internal mapping from the 'id' field within a post
+        // to that post's content
+        $scope.idToSection = {};
+        $scope.textColumn.sections.map((s)=> {
+          $scope.idToSection[s.id] = s
+        });
+
         /***
         *
         * Identify a function that calls an update function
@@ -41,27 +48,30 @@ angular.module('AboutTheAuthorController', [])
         ***/
 
         var selectSection = function() {
-          var sectionId = String($scope.selectedSectionId);
-          var section = $scope.textColumn.sections[sectionId];
-          var background = section["background"]["url"];
-          controllerHelper.updateTemplate($scope, $timeout, section);
-          controllerHelper.updateBackground($scope, background);
-          controllerHelper.updateFooter($scope, $location);
-          controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
-          controllerHelper.updateBodyOpacity($timeout, 1);
+          $timeout(function(){
+            var sectionId = String($scope.selectedSectionId);
+            var section = $scope.idToSection[sectionId];
+            var background = section["background"]["url"];
+            controllerHelper.updateTemplate($scope, $timeout, section);
+            controllerHelper.updateBackground($scope, background);
+            controllerHelper.updateFooter($scope, $location);
+            controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
+            controllerHelper.updateBodyOpacity($timeout, 1);
+          });
         }
 
         // initialize the application state
-        controllerHelper.initializeFooter($scope, $location,
-          "About the Author", "partial");
-        $scope.selectedSectionId = 0;
-        selectSection();
-        controllerHelper.buildDropdownOptions($scope);
-        controllerHelper.initializeMobile($scope);
+        $timeout(function() {
+          $scope.selectedSectionId = 0;
+          selectSection();
+          controllerHelper.buildDropdownOptions($scope);
+          controllerHelper.initializeMobile($scope);
+          controllerHelper.initializeFooter($scope, $location,
+              "Architecture & Urbanism", "partial");
 
-        // finally, given the loaded data, scroll to the requested id (if any)
-        controllerHelper.scrollToHash($location, $timeout);
-
+          // finally, given the loaded data, scroll to the requested id (if any)
+          controllerHelper.scrollToHash($location, $timeout);
+        });
       });
   }
 ]);
