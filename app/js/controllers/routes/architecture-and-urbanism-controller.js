@@ -14,7 +14,7 @@ angular.module('ArchitectureAndUrbanismController', [])
       .set('Accept', 'application/json')
       .end(function(err, res){
         if (err) {console.log(err)};
-        
+
         var data = res.body;
         $scope.textColumn = data;
 
