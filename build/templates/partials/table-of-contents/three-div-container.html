@@ -11,10 +11,10 @@
           <div class="fill-container" data-background-image="{{bottomImage}}"></div>
         </div>
         <div class="wide-table-of-contents-bottom-right">
-          <div class='caption caption-top'>
-            <div data-ng-bind-html="topCaption | allowHtml"></div>
+          <div class="captions">
+            <div class='caption caption-top' data-ng-bind-html="topCaption | allowHtml"></div>
+            <div class='caption caption-left' data-ng-bind-html="bottomCaption | allowHtml"></div>
           </div>
-          <div class='caption caption-left' data-ng-bind-html="bottomCaption | allowHtml"></div>
         </div>
       </div>
     </div>
