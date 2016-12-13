@@ -4,17 +4,17 @@
     <div class="wide-table-of-contents-left"></div>
     <div class="wide-table-of-contents-right">
       <div class="wide-table-of-contents-right-top"> 
-        <div class="fill-container" data-background-image="{{textColumn['sections'][selectedSectionId]['topImage']}}"></div>
+        <div class="fill-container" data-background-image="{{topImage}}"></div>
       </div>
       <div class="wide-table-of-contents-bottom">
         <div class="wide-table-of-contents-bottom-left">
-          <div class="fill-container" data-background-image="{{textColumn['sections'][selectedSectionId]['bottomImage']}}"></div>
+          <div class="fill-container" data-background-image="{{bottomImage}}"></div>
         </div>
         <div class="wide-table-of-contents-bottom-right">
           <div class='caption caption-top'>
-            <div data-ng-bind-html="textColumn['sections'][selectedSectionId]['topCaption'] | allowHtml"></div>
+            <div data-ng-bind-html="topCaption | allowHtml"></div>
           </div>
-          <div class='caption caption-left' data-ng-bind-html="textColumn['sections'][selectedSectionId]['bottomCaption'] | allowHtml"></div>
+          <div class='caption caption-left' data-ng-bind-html="bottomCaption | allowHtml"></div>
         </div>
       </div>
     </div>

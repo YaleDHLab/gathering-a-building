@@ -106,7 +106,7 @@ angular.module('HistoricalGeographyController', [])
           },
           "7": {
             "year": 1937,
-            "label": "Home Owners Loan Corporation Map",
+            "label": "HOLC Map",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1937_HOLC_TIFF/{z}/{x}/{y}.png",
             "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1940.json",
             "backgroundStyle": {
@@ -116,7 +116,7 @@ angular.module('HistoricalGeographyController', [])
           },
           "8": {
             "year": 1973,
-            "label": "Hill Map",
+            "label": "Sanborn Map",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1973_New_Haven_Sanborn_Mosaic_2/{z}/{x}/{y}.png",
             "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1970.json",
             "backgroundStyle": {

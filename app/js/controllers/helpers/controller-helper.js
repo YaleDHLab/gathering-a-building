@@ -19,6 +19,10 @@ module.exports = {
 
   updateTemplate: function($scope, $timeout, section) {
     // if we're swapping templates, fade the old one out
+    if (section.template == 'three-div-container') {
+      this.setThreeDivContent($scope);
+    }
+
     if ($scope.template) {
       if ($scope.template != section["template"]) {
 
@@ -34,14 +38,25 @@ module.exports = {
 
         // update the new template
         $timeout(function() {
-           $scope.template = section["template"];
-         }, 900);
+          $scope.template = section["template"];
+        }, 900);
       }
     } else {
-
-      // the template doesn't exist yet, so initialize it
       $scope.template = section["template"];
     }
+  },
+
+  /***
+  *
+  * Function that sets the background content for three-div-containers
+  *
+  ***/
+
+  setThreeDivContent: function($scope) {
+    $scope.topImage = $scope.idToSection[$scope.selectedSectionId].topImage;
+    $scope.bottomImage = $scope.idToSection[$scope.selectedSectionId].bottomImage;
+    $scope.topCaption = $scope.idToSection[$scope.selectedSectionId].topCaption;
+    $scope.bottomCaption = $scope.idToSection[$scope.selectedSectionId].bottomCaption;
   },
 
   /***
