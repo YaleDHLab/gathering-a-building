@@ -70,6 +70,35 @@ module.exports = {
     return map;
   },
 
+
+  /***
+  *
+  * Add a triangle representing the building site to the map
+  *
+  ***/
+
+  addBuildingSiteVector: function(map, $timeout) {
+    // add the building to the map
+    var siteLatLongs = [
+      L.latLng(41.316054, -72.924489), // top right
+      L.latLng(41.313991, -72.9251), // bottom right
+      L.latLng(41.315006, -72.926248), // bump along edge from bottom right to top left
+      L.latLng(41.316038, -72.92701), // top left
+      L.latLng(41.316118, -72.92509) // bump along top
+    ];
+
+    var buildingSite = new L.Polygon(siteLatLongs, {
+        className: 'building-site',
+        weight: 1,
+        fillOpacity: .75,
+        opacity: 1,
+        fillColor: "#ffffff",
+        color: "#000000"
+      }
+    ).addTo(map);
+
+  },
+
   /***
   *
   * Helper function to add a vector overlay to a Leaflet map
