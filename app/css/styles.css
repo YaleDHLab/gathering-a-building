@@ -842,7 +842,7 @@ video {
 }
 
 .wide-table-of-contents-bottom-right {
-  display: inline-block;
+  display: table;
   height: 100%;
   width: 50%;
   max-height: 100%;
@@ -853,18 +853,13 @@ video {
 * Wide table of contents right panel styles *
 ********************************************/
 
-/* TODO: give this container some love */
-.caption-container {
-  height: 100%;
-  width: 100%;
-  margin: 40px;
-  max-width: 76%;
-  max-height: 82%;
-  overflow: hidden;
+.captions {
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .caption {
-  padding: 25px;
+  margin: 20px 40px;
   padding-bottom: 0px;
   font-family: Arial;
   font-size: .87em;
