@@ -253,6 +253,10 @@ angular.module('HistoricalGeographyController', [])
         mapHelper.initializeOpacitySlider($scope, $timeout);
         mapHelper.buildMapOverlayOptions($scope);
         var map = mapHelper.initializeMap($scope);
+
+        // add a vector overlay that reprsents the work site
+        mapHelper.addBuildingSiteVector(map, $timeout);
+
         $scope.selectOverlay(0)
         controllerHelper.updateBodyOpacity($timeout, 1);
 
