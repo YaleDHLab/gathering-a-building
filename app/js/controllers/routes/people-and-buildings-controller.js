@@ -2,12 +2,12 @@ var angular = require('angular');
 var request = require('superagent');
 var controllerHelper = require('../helpers/controller-helper');
 
-angular.module('PeopleAndPlacesController', [])
-  .controller("peopleAndPlacesController", [
+angular.module('PeopleAndBuildingsController', [])
+  .controller("peopleAndBuildingsController", [
       "$scope", "$http", "$timeout", "$location", "backgroundStyle",
   function($scope, $http, $timeout, $location, backgroundStyle) {
 
-    var endpoint = "./json/people-and-places.json";
+    var endpoint = "./json/people-and-buildings.json";
 
     request
       .get(endpoint)
@@ -60,7 +60,7 @@ angular.module('PeopleAndPlacesController', [])
 
         // initialize the application state
         controllerHelper.initializeFooter($scope, $location,
-          "People & Places", "partial");
+          "People & Buildings", "partial");
         $scope.selectedSectionId = 0;
         selectSection();
         controllerHelper.buildDropdownOptions($scope);
