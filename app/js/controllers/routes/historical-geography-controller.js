@@ -97,7 +97,7 @@ angular.module('HistoricalGeographyController', [])
           "6": {
             "year": 1911,
             "label": "Atlas of New Haven",
-            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1910NHb/{z}/{x}/{y}.png",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1911_New-Haven-Atlas_Sanborn_cr/{z}/{x}/{y}.png",
             "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1912.json",
             "backgroundStyle": {
               "navigationButton": "dark",
@@ -119,6 +119,16 @@ angular.module('HistoricalGeographyController', [])
             "label": "Sanborn Map",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1973_New_Haven_Sanborn_Mosaic_2/{z}/{x}/{y}.png",
             "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1970.json",
+            "backgroundStyle": {
+              "navigationButton": "dark",
+              "brandIcon": "dark"
+            }
+          },
+          "9": {
+            "year": 2010,
+            "label": "Contemporary Map",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/2010_New-Haven-Plan_Neighborhoods_Mosaic3/{z}/{x}/{y}.png",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_2000.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"

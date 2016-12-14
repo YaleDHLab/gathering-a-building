@@ -16,10 +16,12 @@
   </div>
 
   <div class="opacity-slider-wrapper">
+    <img class="eye" src="/assets/images/eye.svg" />
     <div class="opacity-slider-container">
       <rzslider rz-slider-model="opacitySlider.value"
           rz-slider-options="opacitySlider.options"></rzslider>
     </div>
+    <div class="opacity-slider-integer">{{opacitySlider.value}}%</div>
   </div>
 
   <!-- Button to toggle vector overlay -->
