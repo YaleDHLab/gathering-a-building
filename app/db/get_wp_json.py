@@ -141,6 +141,15 @@ def get_background_metadata(post):
     return "NA"
 
 
+def get_youtube_video(post):
+  """Read in a post and return that post's youtubeVideo value (if any)"""
+  try:
+    youtube_video = post["youtubeVideo"]
+  except KeyError:
+    youtube_video = ""
+  return youtube_video
+
+
 def get_background_style_metadata(post):
   """Read in a post and return that post's backgroundStyle metadata"""
   background_style = {}
@@ -162,6 +171,7 @@ def get_metadata(post):
   metadata["background"]      = get_background_metadata(post)
   metadata["backgroundStyle"] = get_background_style_metadata(post)
   metadata["order"]           = get_order(post)
+  metadata["youtubeVideo"]    = get_youtube_video(post)
 
   return metadata
 
@@ -220,7 +230,7 @@ def sort_posts(controller_json):
           raise Exception(post_title + " didn't have an order field, which is required")
 
         if controller + str(post_order) == last_post_order:
-          raise Exception("two posts for the" + controller + "controller had the same order value (" + post_order + ") which isn't allowed")
+          raise Exception("two posts for the " + controller + " controller had the same order value (" + str(post_order) + ") which isn't allowed")
 
       # store the controller + post order combination to check for duplicates
       last_post_order = controller + str(post_order)
@@ -284,10 +294,20 @@ def write_home_json(post_json):
   # each item in the incoming_home_json array describes one landing
   # page overlay
   for c, o in enumerate(incoming_home_json):
+    try:
+      xOffset = float(o["xOffset"])
+    except ValueError:
+      raise Exception("the xOffset value from " + o["title"] + " could not be converted to a float")
+
+    try:
+      yOffset = float(o["yOffset"])
+    except ValueError:
+      raise Exception("the yOffset value from " + o["title"] + " could not be converted to a float")
+
     outgoing_home_json.append({
       "id": int(c),
-      "xOffset": float(o["xOffset"]),
-      "yOffset": float(o["yOffset"]),
+      "xOffset": xOffset,
+      "yOffset": yOffset,
       "url": "/#/routes/" + o["destinationController"] + "#" + o["destinationId"],
       "path": "routes/" + o["destinationController"],
       "hash": o["destinationId"],
