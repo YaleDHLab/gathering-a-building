@@ -6,8 +6,8 @@ var mapHelper        = require('../helpers/map-helper');
 
 angular.module('HistoricalGeographyController', [])
   .controller("historicalGeographyController", [
-      "$scope", "$http", "$timeout", "$location", "backgroundStyle",
-  function($scope, $http, $timeout, $location, backgroundStyle) {
+      "$scope", "$http", "$timeout", "$location", "$sce", "backgroundStyle",
+  function($scope, $http, $timeout, $location, $sce, backgroundStyle) {
 
     /***
     *

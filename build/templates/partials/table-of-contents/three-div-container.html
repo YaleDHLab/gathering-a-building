@@ -4,7 +4,13 @@
     <div class="wide-table-of-contents-left"></div>
     <div class="wide-table-of-contents-right">
       <div class="wide-table-of-contents-right-top"> 
-        <div class="fill-container" data-background-image="{{topImage}}"></div>
+        <div data-ng-if="!youtubeVideo"
+            class="fill-container" data-background-image="{{topImage}}"></div>
+        <iframe data-ng-if="youtubeVideo"
+            class="youtube"
+            width="100%" height="100%"
+            data-ng-src="{{youtubeVideo | allowUrl}}"
+            frameborder="0" allowfullscreen ></iframe>
       </div>
       <div class="wide-table-of-contents-bottom">
         <div class="wide-table-of-contents-bottom-left">

@@ -17,10 +17,10 @@ module.exports = {
   *
   ***/
 
-  updateTemplate: function($scope, $timeout, section) {
+  updateTemplate: function($scope, $timeout, $sce, section) {
     // if we're swapping templates, fade the old one out
     if (section.template == 'three-div-container') {
-      this.setThreeDivContent($scope);
+      this.setThreeDivContent($scope, $sce);
     }
 
     if ($scope.template) {
@@ -52,11 +52,20 @@ module.exports = {
   *
   ***/
 
-  setThreeDivContent: function($scope) {
-    $scope.topImage = $scope.idToSection[$scope.selectedSectionId].topImage;
+  setThreeDivContent: function($scope, $sce) {
     $scope.bottomImage = $scope.idToSection[$scope.selectedSectionId].bottomImage;
     $scope.topCaption = $scope.idToSection[$scope.selectedSectionId].topCaption;
     $scope.bottomCaption = $scope.idToSection[$scope.selectedSectionId].bottomCaption;
+
+    // make the video and topImage assets mutually exclusive
+    var youtubeVideo = $scope.idToSection[$scope.selectedSectionId].youtubeVideo;
+    if (youtubeVideo != "") {
+      var embed = "//www.youtube.com/embed/" + youtubeVideo.split("?v=")[1];
+      $scope.youtubeVideo = embed;
+    } else {
+      $scope.youtubeVideo = "";
+      $scope.topImage = $scope.idToSection[$scope.selectedSectionId].topImage;
+    }
   },
 
   /***

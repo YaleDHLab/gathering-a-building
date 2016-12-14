@@ -4,8 +4,8 @@ var controllerHelper = require('../helpers/controller-helper');
 
 angular.module('ArchitectureAndUrbanismController', [])
   .controller("architectureAndUrbanismController", [
-    "$scope", "$http", "$timeout", "$location", "backgroundStyle",
-  function($scope, $http, $timeout, $location, backgroundStyle) {
+    "$scope", "$http", "$timeout", "$location", "$sce", "backgroundStyle",
+  function($scope, $http, $timeout, $location, $sce, backgroundStyle) {
 
     var endpoint = "./json/architecture-and-urbanism.json";
 
@@ -52,7 +52,7 @@ angular.module('ArchitectureAndUrbanismController', [])
             var sectionId = String($scope.selectedSectionId);
             var section = $scope.idToSection[sectionId];
             var background = section["background"]["url"];
-            controllerHelper.updateTemplate($scope, $timeout, section);
+            controllerHelper.updateTemplate($scope, $timeout, $sce, section);
             controllerHelper.updateBackground($scope, background);
             controllerHelper.updateFooter($scope, $location);
             controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
