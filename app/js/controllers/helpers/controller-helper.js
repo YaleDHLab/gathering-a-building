@@ -53,19 +53,18 @@ module.exports = {
   ***/
 
   setThreeDivContent: function($scope, $sce) {
-    $scope.topImage = $scope.idToSection[$scope.selectedSectionId].topImage;
     $scope.bottomImage = $scope.idToSection[$scope.selectedSectionId].bottomImage;
     $scope.topCaption = $scope.idToSection[$scope.selectedSectionId].topCaption;
     $scope.bottomCaption = $scope.idToSection[$scope.selectedSectionId].bottomCaption;
-    try {
-      var youtubeVideo = $scope.idToSection[$scope.selectedSectionId].youtubeVideo;
-      if (youtubeVideo != "") {
-        var embed = "//www.youtube.com/embed/" + youtubeVideo.split("?v=")[1];
-        $scope.youtubeVideo = embed;
-        console.log($scope.youtubeVideo);
-      }
-    } catch (err) {
+
+    // make the video and topImage assets mutually exclusive
+    var youtubeVideo = $scope.idToSection[$scope.selectedSectionId].youtubeVideo;
+    if (youtubeVideo != "") {
+      var embed = "//www.youtube.com/embed/" + youtubeVideo.split("?v=")[1];
+      $scope.youtubeVideo = embed;
+    } else {
       $scope.youtubeVideo = "";
+      $scope.topImage = $scope.idToSection[$scope.selectedSectionId].topImage;
     }
   },
 
