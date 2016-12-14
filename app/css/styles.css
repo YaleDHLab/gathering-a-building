@@ -1036,8 +1036,8 @@ span.vector-overlay-toggle-button {
 .opacity-slider-wrapper {
   position: absolute;
   bottom: 13px;
-  width: 110px;
-  left: 1050px;
+  width: 185px;
+  left: 1120px;
   z-index: 4;
 }
 
@@ -1049,6 +1049,18 @@ span.vector-overlay-toggle-button {
 
 span.rz-pointer:focus {
   outline: none;
+}
+
+img.eye {
+  top: 17px;
+  position: relative;
+  margin-right: 5px;
+  opacity: 0.5;
+}
+
+.opacity-slider-container {
+  width: 110px;
+  display: inline-block;
 }
 
 .opacity-slider-container .rzslider .rz-pointer {
@@ -1072,6 +1084,17 @@ span.rz-pointer:focus {
 .opacity-slider-container .rzslider .rz-bar {
   height: 6px;
   border-radius: 5px;
+}
+
+.opacity-slider-integer {
+  color: #777777;
+  font-weight: 700;
+  font-size: 1.05em;
+  font-family: Arial;
+  display: inline-block;
+  position: relative;
+  top: 12px;
+  left: 3px;
 }
 
 /****************
