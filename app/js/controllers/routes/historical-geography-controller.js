@@ -125,7 +125,7 @@ angular.module('HistoricalGeographyController', [])
             }
           },
           "9": {
-            "year": 2010,
+            "year": 2006,
             "label": "Contemporary Map",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/2010_New-Haven-Plan_Neighborhoods_Mosaic3/{z}/{x}/{y}.png",
             "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_2000.json",
