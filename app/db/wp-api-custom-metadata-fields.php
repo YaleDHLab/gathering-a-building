@@ -4,7 +4,8 @@
 *
 * Gathering a Building:
 *
-* Add helper to expose metadata fields requested by client
+* Add helper to expose metadata fields requested by client.
+* Used in wp-content/plugins/rest-api/plugin.php
 *
 ***/
 
@@ -34,6 +35,9 @@ function slug_register_custom_field() {
 
     // three-div-container fields
     'topImage', 'bottomImage', 'topCaption', 'bottomCaption',
+
+    // youtube embed code for iframes
+    'youtubeVideo',
 
     // landing page modal fields
     'xOffset', 'yOffset', 'destinationController', 'destinationId',
