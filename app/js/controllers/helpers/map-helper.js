@@ -161,14 +161,10 @@ module.exports = {
       // set max zoom to prevent requests for tiles that don't exist
       maxZoom: 20,
       tms: true,
-      // also set bounds to prevent 404's from appearing when
-      // the client requests image tiles from relevant zoom levels
-      // if those tiles don't exist. Bounds retrieved from
-      // gdalinfo {{geotiff.tif}}
-      bounds: [
-        L.latLng(41.3183532,-72.9385611),
-        L.latLng(41.2950316, -72.8997637)
-      ]
+      // to prevent 404's from appearing when the client requests
+      // non-extant image tiles, one can create a bounds property
+      // below. To do so, one needs to know the full extent of all images.
+      // Bounds can be retrieved from gdalinfo {{geotiff.tif}}
     }).addTo(map);
 
     // add a class to the image tile layer for dynamic css styling
