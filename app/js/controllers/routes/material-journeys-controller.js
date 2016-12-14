@@ -72,7 +72,7 @@ angular.module('MaterialJourneysController', [])
             var sectionId = String($scope.selectedSectionId);
             var section = $scope.idToSection[sectionId];
             var background = section["background"]["url"];
-            controllerHelper.updateTemplate($scope, $timeout, section);
+            controllerHelper.updateTemplate($scope, $timeout, $sce, section);
             controllerHelper.updateBackground($scope, background);
             controllerHelper.updateFooter($scope, $location);
             controllerHelper.updateBackgroundStyle($scope, backgroundStyle, section);
