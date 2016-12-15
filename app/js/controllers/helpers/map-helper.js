@@ -128,11 +128,17 @@ module.exports = {
         // each member of this array describes a building
         for (var i=0; i<rawJson.length; i++) {
           var buildingJson = rawJson[i];
+          try {
+            var buildingId = rawJson[i].cartodb_id;
+          } catch (err) {
+            var buildingId = "";
+          }
+
           if (buildingJson) {
 
             // add the building to the map
             var polyline = new L.GeoJSON(buildingJson, {
-                className: 'overlay-bounding-box animated fade-in',
+                className: 'overlay-bounding-box animated fade-in building-id-' + buildingId,
                 weight: 1,
                 fillOpacity: .85,
                 opacity: 1

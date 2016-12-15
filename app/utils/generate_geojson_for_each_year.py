@@ -18,6 +18,7 @@ with open("../json/campus_maps_by_year_key.json") as maps_by_year:
       if item["cartodb_id"] in year_ids:
         item_geom = item["the_building_geom"]
         item_geom_json = json.loads(item_geom)
+        item_geom_json["cartodb_id"] = item["cartodb_id"]
 
         year_geojson.append(item_geom_json)
 
