@@ -43,10 +43,10 @@ def get_paragraphs(post):
   paragraphs = []
 
   paragraph_block = post["content"]["rendered"]
-  split_paragraphs = paragraph_block.split("<p>")
+  split_paragraphs = paragraph_block.split("<p")
   for c, p in enumerate(split_paragraphs[1:]):
-    clean_paragraph = p.split("</p>")[0]
-    
+    clean_paragraph = ">".join(p.split(">")[1:]).split("</p>")[0]
+
     # the paragraph json structure for sectionType == table-of-contents and 
     # text are different
     if post["sectionType"] == "text":
