@@ -2,27 +2,15 @@
 <div id="home" class="home" ng-style="resizeWithOffset(0)"
     resize notifier="windowResize(params)">
 
-  <!-- Blue background gradient -->
-  <div class="background-gradient home-image slow-dynamic-opacity"></div>
-
   <div class="home-container">
 
     <!-- Page load image for desktop -->
-    <img src="/assets/images/starting-view-final.jpg"
-        class="home-image home-image-1 slow-dynamic-opacity">
-
-    <!-- Video to display animation sequence on desktop -->
-    <video class="video">
-      <source src="./assets/video/intro-sequence.mp4"
-          type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
-        There's a video here but your browser can't show it
-    </video>
+    <div class="home-image home-image-1 slow-dynamic-opacity"></div>
 
     <!-- Final resting image for desktop/mobile -->
-    <img data-ng-click="hideModal()"
-      src="/assets/images/landing-view.png"
-      class="home-image home-image-2 slow-dynamic-opacity"
-      data-template-loaded="positionIcons()">
+    <div class="home-image home-image-2 slow-dynamic-opacity"
+        data-ng-click="hideModal()"
+        data-template-loaded="positionIcons()"></div>
 
     <!-- Image overlays -->
     <div data-ng-repeat="overlay in overlayIcons"

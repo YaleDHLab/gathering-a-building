@@ -252,33 +252,33 @@ html {
 
 .home-image {
   height: 100%;
+  width: 100%;
   position: absolute;
   z-index: 1;
 }
 
 .home-image-1 {
   opacity: 1;
+  background: url(/assets/images/Aerial_2012_OPAC.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .home-image-2 {
-  position: absolute;
-  left: 0;
-  top: 0;
   opacity: 0;
   z-index: 2;
-}
-
-.background-gradient {
-  opacity: 0;
-  top: 0;
-  width: 100%;
-  background: linear-gradient( 0deg, white, #afcdf3 );
-  position: fixed;
+  background: url(/assets/images/Aerial_2012_OPAC_with_model.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 @media(max-width: 800px) {
   .home-image {
-    height: 52%;
+    height: 50%;
   }
 
   .home-image-1 {
@@ -291,6 +291,8 @@ html {
 
   .home-image-2 {
     opacity: 1;
+    background: url(/assets/images/Aerial_2012_OPAC_with_model.png) no-repeat 34% 55%;
+    background-size: cover;
   }
 
   .building-overlay-marker {
@@ -304,10 +306,6 @@ html {
   .home-text-link {
     cursor: pointer;
     color: #3399CC;
-  }
-
-  .background-gradient {
-    opacity: 1;
   }
 }
 
@@ -1271,9 +1269,14 @@ img.eye {
     top: 50%;
     height: 40px;
     width: 100%;
-    z-index: 2;
+    z-index: 5;
     box-shadow: 0 1px 4px rgba(0,0,0,.35);
     background: #fff;
+  }
+
+  /* hide the mobile controls on the home route */
+  .home .mobile-controls-container {
+    display: none;
   }
 
   .mobile-controls-left-container {
@@ -1306,6 +1309,8 @@ img.eye {
     height: 50%;
     top: 50%;
     left: 0;
+    background: #fff;
+    z-index: 4;
   }
 
   .text-column {
@@ -1375,6 +1380,7 @@ img.eye {
   .mobile-controls .opacity-slider-container {
     margin-top: -17px;
     padding: 0 10px;
+    width: 90%;
   }
 
   /***

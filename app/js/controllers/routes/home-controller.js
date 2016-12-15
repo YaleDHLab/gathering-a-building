@@ -72,26 +72,55 @@ angular.module('HomeController', [])
       ***/
 
       $scope.positionIcons = function() {
+
+        // for positioning icon over full screen background image, see:
+        // http://jsfiddle.net/Tyriar/ypb5P/1/
         var overlays = document.querySelectorAll('.building-overlay-marker');
-        // obtain data needed for positioning.
         var image = document.querySelector('.home-image-2');
         if (image !== null) {
-          var imageHeight = image.clientHeight;
-          var imageWidth = image.clientWidth;
+
+          // specify the pixel width and height of the image,
+          // not the clientWidth and clientHeight
+          var imageHeight = 1590;
+          var imageWidth = 2400;
+
+          // get the size of the image as displayed in the window
+          var windowWidth = image.clientWidth;
+          var windowHeight = image.clientHeight;
+
+          // determine whether height or width are overflowing, and
+          // use that fact to determine offset scales
+          var xScale = windowWidth / imageWidth;
+          var yScale = windowHeight / imageHeight;
+          var scale;
+          var yOffset = 0;
+          var xOffset = 0;
+
+          if (xScale > yScale) {
+            // The image fits perfectly in x axis, so is stretched in y
+            scale = xScale;
+            yOffset = (windowHeight - (imageHeight * scale)) / 2;
+          } else {
+            // The image fits perfectly in y axis, so is stretched in x
+            scale = yScale;
+            xOffset = (windowWidth - (imageWidth * scale)) / 2;
+          }
 
           var overlayIcon = document.querySelector('.building-overlay-marker');
           if (overlayIcon !== null) {
-            var iconWidth = overlayIcon.clientWidth;
-
             for (var i=0; i<overlays.length; i++) {
               var overlay = overlays[i];
               var overlayOffsets = $scope.overlayIcons[i];
 
-              var xOffset = (overlayOffsets.xOffset * imageWidth) - (iconWidth/2);
-              var yOffset = (overlayOffsets.yOffset * imageHeight) - (iconWidth/2);
+              // xOffset is now a raw pixel offset between {0,max-height/width}
+              var pointXOffset = (overlayOffsets.xOffset * imageWidth);
+              var pointYOffset = (overlayOffsets.yOffset * imageHeight);
 
-              overlay.style.left = String(xOffset) + "px";
-              overlay.style.top = String(yOffset) + "px";
+              var scaledXOffset = (pointXOffset * scale) + xOffset;
+              var scaledYOffset = (pointYOffset * scale) + yOffset;
+
+              overlay.style.left = String(scaledXOffset) + "px";
+              overlay.style.top = String(scaledYOffset) + "px";
             };
           };
         };
@@ -372,11 +401,13 @@ angular.module('HomeController', [])
       ***/
 
       $scope.deeplink = function(path, hash) {
-        var body = document.querySelector('.body');
-        body.style.opacity = 0;
-        $timeout(function() {
-          $location.path(path).hash(hash);
-        }, 1000);
+        if (hash) {
+          var body = document.querySelector('.body');
+          body.style.opacity = 0;
+          $timeout(function() {
+            $location.path(path).hash(hash);
+          }, 1000);
+        }
       }
 
       /***
@@ -387,28 +418,6 @@ angular.module('HomeController', [])
 
       $scope.windowResize = function(params) {
         $scope.positionOverlays();
-      }
-
-      /***
-      *
-      * Add listener for end of video
-      *
-      ***/
-
-      $scope.addVideoEndListener = function() {
-        var video = document.querySelector("video");
-        video.addEventListener('ended', videoEnded, false);
-      }
-
-      /***
-      *
-      * Add a callback for the video ended event
-      *
-      ***/
-
-      var videoEnded = function(e) {
-        fadeInOverlays();
-        fadeInHomeImage();
       }
 
       /***
@@ -450,19 +459,18 @@ angular.module('HomeController', [])
         // skip the video sequence and show only the icons
         var queryParams = $location.search();
         if (queryParams.animation != "false") {
-
           var windowWidth = window.innerWidth;
+
+          // desktop page sequence
           if (windowWidth > 800) {
             $timeout(function() {
-              var video = document.querySelector("video");
-              if (video) {
-                video.play();
-              }
-            }, 4000);
-            $timeout(function() {
-              var initialImage = document.querySelector(".home-image-1");
-              initialImage.style.opacity = 0;
+              var buildingImage = document.querySelector(".home-image-2");
+              buildingImage.style.opacity = 1;
+              $scope.positionIcons();
+              fadeInOverlays();
             }, 1000);
+
+          // mobile page sequence
           } else {
             $timeout(function() {
               $scope.positionIcons();
@@ -475,14 +483,8 @@ angular.module('HomeController', [])
           var initialImage = document.querySelector(".home-image-1");
           initialImage.style.display = "none";
 
-          var video = document.querySelector(".video");
-          video.style.display = "none";
-
           var finalImage = document.querySelector(".home-image-2");
           finalImage.style.opacity = 1;
-
-          var gradient = document.querySelector(".background-gradient");
-          gradient.style.opacity = 1;
 
           $timeout(function() {
             fadeInOverlays();
@@ -506,7 +508,6 @@ angular.module('HomeController', [])
       ***/
 
       backgroundStyle.updateBackgroundStyle({navigationButton: "light", brandIcon: "light"});
-      $scope.addVideoEndListener();
       $scope.initializeOverlays();
       $scope.beginPageSequence();
       $scope.$apply();
