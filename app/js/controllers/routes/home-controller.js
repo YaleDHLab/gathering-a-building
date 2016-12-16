@@ -81,8 +81,8 @@ angular.module('HomeController', [])
 
           // specify the pixel width and height of the image,
           // not the clientWidth and clientHeight
-          var imageHeight = 1590;
-          var imageWidth = 2400;
+          var imageHeight = 1080;
+          var imageWidth = 1920;
 
           // get the size of the image as displayed in the window
           var windowWidth = image.clientWidth;
