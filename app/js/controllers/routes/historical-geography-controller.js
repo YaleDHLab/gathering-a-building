@@ -98,7 +98,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 1911,
             "label": "Atlas of New Haven",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1911_New-Haven-Atlas_Sanborn_cr/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1912.json",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1911.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
@@ -128,7 +128,7 @@ angular.module('HistoricalGeographyController', [])
             "year": 2006,
             "label": "Contemporary Map",
             "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/2010_New-Haven-Plan_Neighborhoods_Mosaic3/{z}/{x}/{y}.png",
-            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_2000.json",
+            "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_2010.json",
             "backgroundStyle": {
               "navigationButton": "dark",
               "brandIcon": "dark"
