@@ -77,7 +77,7 @@ angular.module('HistoricalGeographyController', [])
           "4": {
             "year": 1874,
             "label": "Lyman/Butler Map",
-            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1874_Benham_15691396_v2_GEO/{z}/{x}/{y}.png",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1874_Benham_156913961_GEO_161215/{z}/{x}/{y}.png",
             "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1870.json",
             "backgroundStyle": {
               "navigationButton": "dark",
