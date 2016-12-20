@@ -107,6 +107,10 @@ module.exports = {
 
   addVectorOverlay: function(map, vectorJsonUrl, $timeout) {
 
+    // initialize the custom buildings counter so we can store
+    // the index position of custom buildings for each map
+    var customBuildingIndex = 0;
+
     // request json that describes building boundaries
     request
       .get(vectorJsonUrl)
@@ -129,10 +133,14 @@ module.exports = {
         for (var i=0; i<rawJson.length; i++) {
           var buildingJson = rawJson[i];
           try {
-            var buildingId = rawJson[i].cartodb_id;
-          } catch (err) {
-            var buildingId = "";
-          }
+            var cartodbId = rawJson[i].cartodb_id;
+            if (cartodbId) {
+              var buildingId = cartodbId;
+            } else {
+              var buildingId = 'custom-' + customBuildingIndex;
+              customBuildingIndex += 1;
+            }
+          } catch (err) {}
 
           if (buildingJson) {
 

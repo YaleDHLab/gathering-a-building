@@ -26,11 +26,12 @@ x3, y3 denote the x,y coordinates of the bottom-right hand corner position
 Likewise, the u and v values denote the pixel coordinates
 of the coordinate space into which the above-mentioned points
 should be projected. In the example below, these coordinates describe a 
-geographic region bound by lat, long coordinates. (The bounding
-box coordinates of a geotiff may be extracted through GDAL with
-the command `gdalinfo {{filename.geotiff}}`.
+geographic region bound by lat, long coordinates. For the present
+project, all vector traces were performed on a single geo-rectified
+image, from which the bounding box coordinates were extracted through
+GDAL with the command `gdalinfo {{filename.geotiff}}`.
 
-If the output of gdalinfo contains
+In the future, if the output of gdalinfo contains
 
   Coordinate System is:
     PROJCS
@@ -44,11 +45,9 @@ and ../svg/svg-polygons were created within one single viewBox:
   viewBox="0 0 2399 2631"
 
 This viewbox information was not retained in the actual SVG's due
-to the way the design team exported the SVG's, but these are the
+to the way the SVG's were exported from Illustrator, but these are the
 SVG coordinates that must be used to properly project the svg
-file in ../svg/svg-polygons (the viewbox identified above was properly
-exported when the development team exported the artboard svg file
-from Illustrator).
+file in ../svg/svg-polygons.
 
 Those coordinates are used in the file below, in which:
 
@@ -245,4 +244,4 @@ for path_to_polygon_svg in polygon_svgs_to_process:
     json.dump(projected_polygon_arrays, json_out)
 
   # upload the produced file to S3
-  os.popen("aws s3 cp ../json/" + output_name + " s3://gathering-a-building --acl public-read")
+  os.popen("aws s3 cp ../json/" + output_name + " s3://lab-apps/gathering-a-building/map-buildings/ --acl public-read")
