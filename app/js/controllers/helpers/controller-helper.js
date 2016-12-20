@@ -210,7 +210,7 @@ module.exports = {
       $timeout(function(){
         var destination = document.getElementById(hash);
         destination.scrollIntoView();
-      });
+      }, 500);
     }
   },
 
