@@ -284,6 +284,7 @@ git pull origin {{branch-name}}
 Once you are happy with the way the content looks, you can push your changes to the deployed server by running:
 
 ```
+chmod 600 PEM_FILE_NAME.pem
 npm run deploy
 ```
 
