@@ -37,7 +37,7 @@ angular.module('HistoricalGeographyController', [])
           "0": {
             "year": 1748,
             "label": "Wadsworth Plan",
-            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1748_Wadsworth_Plan-NewHaven_1806-Kensett-engr_Beinecke_15675071-GEO1/{z}/{x}/{y}.png",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1748_Wadsworth-Plan_New-Haven_1806-Beinecke_v3/{z}/{x}/{y}.png",
             "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1753.json",
             "backgroundStyle": {
               "navigationButton": "dark",
@@ -47,7 +47,7 @@ angular.module('HistoricalGeographyController', [])
           "1": {
             "year": 1748,
             "label": "Wadsworth Plan",
-            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1748_Wadsworth_Plan-NewHaven_1806-Kensett-engr_Beinecke_15675071-GEO1/{z}/{x}/{y}.png",
+            "imageOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-tiles/1748_Wadsworth-Plan_New-Haven_1806-Beinecke_v3/{z}/{x}/{y}.png",
             "vectorOverlayUrl": "https://lab-apps.s3.amazonaws.com/gathering-a-building/map-buildings/combined_buildings_1753.json",
             "backgroundStyle": {
               "navigationButton": "dark",
