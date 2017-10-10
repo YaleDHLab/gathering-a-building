@@ -47,8 +47,8 @@ angular.module('HomeController', [])
       *
       ***/
 
-      /*
       (function() {
+        if (!window.location.href.includes('mouse')) return;
         document.onmousemove = handleMouseMove;
         function handleMouseMove(event) {
           //console.log(event);
@@ -63,7 +63,6 @@ angular.module('HomeController', [])
           console.log(event.pageX/imageWidth, event.pageY/imageHeight);
         }
       })();
-      */
 
       /***
       *
