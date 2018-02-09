@@ -234,7 +234,7 @@ Once Node is installed, you can clone the source code, install dependencies and 
 ```
 git clone https://github.com/YaleDHLab/gathering-a-building
 cd gathering-a-building
-npm install
+npm install --no-optional
 npm start
 ```
 
