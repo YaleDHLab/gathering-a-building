@@ -1,22 +1,30 @@
 from collections import defaultdict
 from operator import itemgetter
-import json, urllib2, sys
+import sys
+import json
+try:
+  import urllib2
+except ModuleNotFoundError:
+  print('This utility requires Python 2.7')
+  sys.exit()
 
-"""Credentialed usage requires: npm run build-content {{username}} {{password}}"""
+'''Credentialed usage requires: npm run build-content {{username}} {{password}}'''
 
 def get_json(url):
-  """Read in a url and return json from that url"""
+  '''Read in a url and return json from that url'''
   if len(sys.argv) > 2:
     username = sys.argv[1]
     password = sys.argv[2]
   else:
-    username = ""
-    password = ""
+    username = ''
+    password = ''
 
   # prepare a request with the username and password credentials
   password_manager = urllib2.HTTPPasswordMgrWithDefaultRealm()
   password_manager.add_password(None, url, username, password)
-  urllib2.install_opener(urllib2.build_opener(urllib2.HTTPBasicAuthHandler(password_manager)))
+  auth = urllib2.HTTPBasicAuthHandler(password_manager)
+  destination = urllib2.build_opener(auth)
+  urllib2.install_opener(destination)
 
   # catch and parse the response
   response = urllib2.urlopen(url)
@@ -24,189 +32,195 @@ def get_json(url):
 
 
 def get_posts(j):
-  """Read in a json response and return an array of all posts"""
+  '''Read in a json response and return an array of all posts'''
   posts = []
 
   for i in j:
-    if i["type"] == "post":
+    if i['type'] == 'post':
       posts.append(i)
   return posts
 
 
 def get_title(post):
-  """Read in the json from one post and return its title"""
-  return post["title"]["rendered"]
+  '''Read in the json from one post and return its title'''
+  return post['title']['rendered']
 
 
 def get_paragraphs(post):
-  """Read in the json from one post and return an array of its paragraphs"""
+  '''Read in the json from one post and return an array of its paragraphs'''
   paragraphs = []
 
-  paragraph_block = post["content"]["rendered"]
-  split_paragraphs = paragraph_block.split("<p")
+  paragraph_block = post['content']['rendered']
+  split_paragraphs = paragraph_block.split('<p')
   for c, p in enumerate(split_paragraphs[1:]):
-    clean_paragraph = ">".join(p.split(">")[1:]).split("</p>")[0]
+    clean_paragraph = '>'.join(p.split('>')[1:]).split('</p>')[0]
 
     # the paragraph json structure for sectionType == table-of-contents and 
     # text are different
-    if post["sectionType"] == "text":
+    if post['sectionType'] == 'text':
       paragraphs.append(clean_paragraph)
     
     # -2 in the conditional because of length in Python is 1-based, and because
     # the content leading up to the first paragraph hasn't been removed yet when
     # split paragraphs is generated
-    elif post["sectionType"] == "table-of-contents":
+    elif post['sectionType'] == 'table-of-contents':
       if c == len(split_paragraphs) - 2:
         paragraphs.append({
-            "text": clean_paragraph,
-            "type": "section-introduction-text"
-          })
+          'text': clean_paragraph,
+          'type': 'section-introduction-text'
+        })
       else:
         paragraphs.append({
-            "text": clean_paragraph,
-            "type": "link"
-          })
+          'text': clean_paragraph,
+          'type': 'link'
+        })
 
-    elif post["controller"] == "home":
+    elif post['controller'] == 'home':
       paragraphs.append(clean_paragraph)
 
     else:
       post_title = get_title(post)
-      raise Exception(post_title + " had an unrecognized sectionType, which is unallowed") 
+      raise Exception(post_title + ' had an unrecognized sectionType,' +
+        ' which is unallowed')
 
   return paragraphs
 
 
 def get_flat_metadata_fields():
-  """Return a list of objects, each of which represents one metadata field"""
+  '''Return a list of objects, each of which represents one metadata field'''
   return [
     # routed controller fields
-    "template",
-    "sectionType",
+    'template',
+    'sectionType',
 
     # four-div-container template fields
-    "introImage",
+    'introImage',
 
     # three-div-container template fields
-    "topImage",
-    "bottomImage",
-    "topCaption",
-    "bottomCaption",
+    'topImage',
+    'bottomImage',
+    'topCaption',
+    'bottomCaption',
 
     # optional post fields
-    "linksHome",
-    "iframe",
+    'linksHome',
+    'iframe',
 
     # home controller fields
-    "destinationController",
-    "destinationId",
-    "xOffset",
-    "yOffset"
+    'destinationController',
+    'destinationId',
+    'xOffset',
+    'yOffset'
   ]
 
 
 def get_background_metadata(post):
-  """Read in a post and return its background metadata"""
+  '''Read in a post and return its background metadata'''
   image_metadata = {}
 
   # if the post doesn't have a featured image, set the background
   # field to NA
   try:
-    media_links = post["_links"]["wp:featuredmedia"]
+    media_links = post['_links']['wp:featuredmedia']
     if len(media_links) > 1:
       post_title = get_title(post)
-      raise Exception(post_title + "had more than the maximum number of featured images (1)")
+      raise Exception(post_title + 'had more than the maximum number ' +
+        'of featured images (1)')
 
-    media_link = media_links[0]["href"]
+    media_link = media_links[0]['href']
     
     # handle the case of media assets that aren't published
     try:
       media_json = get_json(media_link)
 
       # get image metadata fields
-      url = media_json["guid"]["rendered"]
-      alt = media_json["alt_text"]
-      annotation = media_json["caption"]
+      url = media_json['guid']['rendered']
+      alt = media_json['alt_text']
+      annotation = media_json['caption']
 
-      image_metadata["url"] = url
-      image_metadata["alt"] = url
-      image_metadata["annotation"] = annotation
+      image_metadata['url'] = url
+      image_metadata['alt'] = url
+      image_metadata['annotation'] = annotation
       return image_metadata
 
     except:
-      print "Couldn't retrieve media asset", media_link, "\nIs this post private? If so, publish it to retrieve this asset."
-      return "NA"
+      print('Could not retrieve media asset', media_link, '\n' +
+        'Is this post private? If so, publish it to retrieve this asset.')
+      return 'NA'
 
   except KeyError:
-    return "NA"
+    return 'NA'
 
 
 def get_youtube_video(post):
-  """Read in a post and return that post's youtubeVideo value (if any)"""
+  '''Read in a post and return that post's youtubeVideo value (if any)'''
   try:
-    youtube_video = post["youtubeVideo"]
+    youtube_video = post['youtubeVideo']
   except KeyError:
-    youtube_video = ""
+    youtube_video = ''
   return youtube_video
 
 
 def get_background_style_metadata(post):
-  """Read in a post and return that post's backgroundStyle metadata"""
+  '''Read in a post and return that post's backgroundStyle metadata'''
   background_style = {}
-  background_style["navigationButton"] = post["navigationButton"]
-  background_style["brandIcon"] = post["brandIcon"]
+  background_style['navigationButton'] = post['navigationButton']
+  background_style['brandIcon'] = post['brandIcon']
   return background_style
 
 
 def get_metadata(post):
-  """Read in a post and return an object with its metadata"""
+  '''Read in a post and return an object with its metadata'''
   metadata = {}
 
   # process flat metadata fields
   for field in get_flat_metadata_fields():
     metadata[field] = post[field]
  
-  metadata["title"]           = get_title(post)
-  metadata["paragraphs"]      = get_paragraphs(post)
-  metadata["background"]      = get_background_metadata(post)
-  metadata["backgroundStyle"] = get_background_style_metadata(post)
-  metadata["order"]           = get_order(post)
-  metadata["youtubeVideo"]    = get_youtube_video(post)
+  metadata['title']           = get_title(post)
+  metadata['paragraphs']      = get_paragraphs(post)
+  metadata['background']      = get_background_metadata(post)
+  metadata['backgroundStyle'] = get_background_style_metadata(post)
+  metadata['order']           = get_order(post)
+  metadata['youtubeVideo']    = get_youtube_video(post)
 
   return metadata
 
 
 def get_order(post):
-  """Helper function for the get_metadata function that converts the order field
-  of all posts that have an order field into a float value for proper post sorting
-  later in the pipeline"""
+  '''Helper function for the get_metadata function that converts the order
+  field of all posts that have an order field into a float value for proper
+  post sorting later in the pipeline'''
 
   # icon overlays on the home route don't require order fields
-  if post["controller"] == "home":
-    return post["order"]
+  if post['controller'] == 'home':
+    return post['order']
 
   else:
     try:
-      order = float(post["order"])
+      order = float(post['order'])
       return order
 
     except Exception as exc:
       post_title = get_title(post)
-      raise Exception("couldn't convert order field of post with title:" + post_title)
+      raise Exception('could not convert order field of post ' +
+        'with title:' + post_title)
 
 
 def get_controller(post):
-  """Read in a post and return that post's controller"""
-  controller = post["controller"]
-  if controller == "":
+  '''Read in a post and return that post's controller'''
+  controller = post['controller']
+  if controller == '':
     post_title = get_title(post)
-    raise Exception(post_title + " doesn't have a controller field, which is required")
+    raise Exception(post_title + ' does not have a controller field,' +
+      ' which is required')
   return controller
 
 
 def sort_posts(controller_json):
-  """Read in json with keys = controllers and values = array of post metadata,
-  and return that json with the posts for each controller sorted by their order keys"""
+  '''Read in json with keys = controllers and values = array of post metadata,
+  and return that json with the posts for each controller sorted by their
+  order keys'''
   controller_sections_json = defaultdict(lambda: defaultdict(list))
 
   for controller in controller_json:
@@ -218,19 +232,23 @@ def sort_posts(controller_json):
 
     # now loop over the sorted posts for this controller, and if you see two
     # with the same order value, raise an error
-    last_post_order = ""
+    last_post_order = ''
 
     for sorted_post_index, post in enumerate(sorted_controller_posts):
-      post_order = post["order"]
+      post_order = post['order']
 
-      # if this is a post with controller == home, don't store the last controller order
-      if controller != "home":
-        if post_order == "":
-          post_title = post["title"]
-          raise Exception(post_title + " didn't have an order field, which is required")
+      # if this is a post with controller == home, don't store the last
+      # controller order
+      if controller != 'home':
+        if post_order == '':
+          post_title = post['title']
+          raise Exception(post_title + ' did not have an order field,' +
+            ' which is required')
 
         if controller + str(post_order) == last_post_order:
-          raise Exception("two posts for the " + controller + " controller had the same order value (" + str(post_order) + ") which isn't allowed")
+          raise Exception('two posts for the ' + controller + ' controller ' +
+            'had the same order value (' + str(post_order) +
+            ') which is not allowed')
 
       # store the controller + post order combination to check for duplicates
       last_post_order = controller + str(post_order)
@@ -238,32 +256,32 @@ def sort_posts(controller_json):
       # used integer based index positions for the linked sections,
       # and decimals for the subsections
       sorted_post_index_string = str(post_order)
-      if sorted_post_index_string[-2:] == ".0":
+      if sorted_post_index_string[-2:] == '.0':
         sorted_post_index_string = str(int(post_order))
 
-      post["id"] = sorted_post_index_string
+      post['id'] = sorted_post_index_string
 
-      # having found the index position of the current post within the current controller,
-      # convert the post's internal order field
-      post["order"] = sorted_post_index_string
-      controller_sections_json[controller]["sections"].append(post)
+      # having found the index position of the current post within the
+      # current controller, convert the post's internal order field
+      post['order'] = sorted_post_index_string
+      controller_sections_json[controller]['sections'].append(post)
 
   return controller_sections_json
 
 
 def add_controller_fields(sorted_json):
-  """Read in json with structure: d[controller]["sections"] {sections_object} 
-  add controller-specific metadata fields, and return the updated json"""
+  '''Read in json with structure: d[controller]['sections'] {sections_object}
+  add controller-specific metadata fields, and return the updated json'''
   for controller in sorted_json:
-    sorted_json[controller]["title"] = controller
-    sorted_json[controller]["controller"] = controller
-    sorted_json[controller]["display"] = "1"
-    sorted_json[controller]["hr"] = "1"
+    sorted_json[controller]['title'] = controller
+    sorted_json[controller]['controller'] = controller
+    sorted_json[controller]['display'] = '1'
+    sorted_json[controller]['hr'] = '1'
   return sorted_json
 
 
 def get_application_json(posts):
-  """Calls subsidiary functions and writes application json to disk"""
+  '''Calls subsidiary functions and writes application json to disk'''
   post_json  = defaultdict(list)
 
   # add each post to the array of posts for its parent controller
@@ -278,53 +296,56 @@ def get_application_json(posts):
 
   # write the json to disk
   for controller_key in application_json:
-    if controller_key != "home":
+    if controller_key != 'home':
       if logging == 1:
-        print "writing json for controller:", controller_key
-      with open(output_dir + controller_key + ".json", "w") as json_out:
+        print('writing json for controller:', controller_key)
+      with open(output_dir + controller_key + '.json', 'w') as json_out:
         json.dump(application_json[controller_key], json_out)
 
 
 def write_home_json(post_json):
-  """Read in json with controller keys, parse the home json into
-  the desired format, and write it to disk"""
+  '''Read in json with controller keys, parse the home json into
+  the desired format, and write it to disk'''
   outgoing_home_json = []
-  incoming_home_json = post_json["home"]
+  incoming_home_json = post_json['home']
 
   # each item in the incoming_home_json array describes one landing
   # page overlay
   for c, o in enumerate(incoming_home_json):
     try:
-      xOffset = float(o["xOffset"])
+      xOffset = float(o['xOffset'])
     except ValueError:
-      raise Exception("the xOffset value from " + o["title"] + " could not be converted to a float")
+      raise Exception('the xOffset value from ' + o['title'] +
+        ' could not be converted to a float')
 
     try:
-      yOffset = float(o["yOffset"])
+      yOffset = float(o['yOffset'])
     except ValueError:
-      raise Exception("the yOffset value from " + o["title"] + " could not be converted to a float")
+      raise Exception('the yOffset value from ' + o['title'] +
+        ' could not be converted to a float')
 
     outgoing_home_json.append({
-      "id": int(c),
-      "xOffset": xOffset,
-      "yOffset": yOffset,
-      "url": "/#/routes/" + o["destinationController"] + "#" + o["destinationId"],
-      "path": "routes/" + o["destinationController"],
-      "hash": o["destinationId"],
-      "title": o["title"],
-      "text": o["paragraphs"][0],
-      "image": o["background"]["url"]
+      'id': int(c),
+      'xOffset': xOffset,
+      'yOffset': yOffset,
+      'url': '/#/routes/' + o['destinationController'] + '#' +
+        o['destinationId'],
+      'path': 'routes/' + o['destinationController'],
+      'hash': o['destinationId'],
+      'title': o['title'],
+      'text': o['paragraphs'][0],
+      'image': o['background']['url']
     })
 
-  with open(output_dir + "home.json", "w") as home_json_out:
+  with open(output_dir + 'home.json', 'w') as home_json_out:
     if logging == 1:
-      print "writting json for controller: home"
+      print('writting json for controller: home')
     json.dump(outgoing_home_json, home_json_out)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
   logging    = 1
-  output_dir = "./build/json/"
+  output_dir = './build/json/'
   instance   = 'http://gatheringabuilding.yale.edu/'
   params     = '?filter[posts_per_page]=10000'
   url        = instance + '/wp-json/wp/v2/posts' + params
