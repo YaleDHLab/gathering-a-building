@@ -43,7 +43,7 @@ var common = {
       {
         // css parser
         test: /\.css$/, 
-        loader: 'style-loader!css-loader!autoprefixer-loader'
+        loader: 'style-loader!css-loader'
       },
       {
         // javascript parser
@@ -143,17 +143,6 @@ if(TARGET === 'build' || !TARGET) {
       new webpack.optimize.OccurrenceOrderPlugin(),
 
       new ExtractTextPlugin("style.css", {allChunks: false}),
-
-      /*
-      new CompressionPlugin({
-        asset: "[path][query]",
-        algorithm: "gzip",
-        test: /\.js$/,
-        threshold: 10240,
-        minRatio: 0.8
-      })
-      */
-
     ]
   });
 }
