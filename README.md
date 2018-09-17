@@ -234,7 +234,7 @@ Once Node is installed, you can clone the source code, install dependencies and 
 ```
 git clone https://github.com/YaleDHLab/gathering-a-building
 cd gathering-a-building
-npm install
+npm install --no-optional
 npm start
 ```
 
@@ -284,6 +284,7 @@ git pull origin {{branch-name}}
 Once you are happy with the way the content looks, you can push your changes to the deployed server by running:
 
 ```
+chmod 600 PEM_FILE_NAME.pem
 npm run deploy
 ```
 
