@@ -28,10 +28,8 @@
         </div>
         <div class="building-modal-text-container">
           <div class="building-modal-text">
-            <a data-ng-click="deeplink(overlayData.path, overlayData.hash)">
-              <div data-ng-bind-html="overlayData.title + ' »' | allowHtml"
+            <div data-ng-bind-html="overlayData.title | allowHtml"
                 class="building-modal-title"></div>
-            </a>
             <p data-ng-bind-html="overlayData.text | allowHtml"></p>
           </div>
         </div>
