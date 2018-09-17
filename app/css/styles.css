@@ -453,7 +453,7 @@ video {
   overflow-y: scroll;
 }
 
-.building-modal-text-container a {
+.building-modal-text div {
   color: #39c;
   text-decoration: none;
   font-size: 1.2em;
@@ -461,11 +461,7 @@ video {
   font-family: Mallory;
 }
 
-.building-modal-text-container a:hover {
-  color: #4eb3e4;
-}
-
-.building-modal-text-container p {
+.building-modal-text p {
   line-height: 1.4em;
   font-size: .9em;
   margin-top: 17px;
@@ -517,8 +513,8 @@ video {
 }
 
 .alpha-fade-top {
-  background: linear-gradient(0deg, 
-    rgba(255,255,255,0), 
+  background: linear-gradient(0deg,
+    rgba(255,255,255,0),
     rgba(255,255,255,.9),
     rgba(255,255,255,1) );
   position: fixed;
@@ -531,8 +527,8 @@ video {
 }
 
 .alpha-fade-bottom {
-  background: linear-gradient(0deg, 
-    rgba(255,255,255,1), 
+  background: linear-gradient(0deg,
+    rgba(255,255,255,1),
     rgba(255,255,255,.9),
     rgba(255,255,255,0) );
   position: fixed;
@@ -938,9 +934,9 @@ video {
   color: #3399CC;
 }
 
-.leaflet-container 
-.leaflet-control-attribution, 
-.leaflet-container 
+.leaflet-container
+.leaflet-control-attribution,
+.leaflet-container
 .leaflet-control-scale {
   margin-bottom: 70px;
 }
