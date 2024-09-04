@@ -1,3 +1,7 @@
+# Note: This repository has been archived
+This project was developed under a previous phase of the Yale Digital Humanities Lab. Now a part of Yale Library’s Computational Methods and Data department, the Lab no longer includes this project in its scope of work. As such, it will receive no further updates. There is a [live website that uses this code](http://gatheringabuilding.yale.edu/). When this website breaks, it will be removed from the web.
+
+
 [![Stories in Ready](https://badge.waffle.io/YaleDHLab/gathering-a-building.png?label=ready&title=Ready)](https://waffle.io/YaleDHLab/gathering-a-building)
 
 # Gathering a Building
